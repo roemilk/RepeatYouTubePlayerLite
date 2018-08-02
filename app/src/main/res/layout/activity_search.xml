@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <RelativeLayout
+        android:id="@+id/search_top_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:layout_alignParentTop="true">
+
+        <com.github.florent37.materialtextfield.MaterialTextField
+            android:id="@+id/search_top_materialTextField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#2196F3"
+            app:mtf_image="@drawable/ic_search_gray_24dp"
+            app:mtf_labelColor="#FFFFFF">
+
+            <EditText
+                android:id="@+id/search_top_searchWord_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="1"
+                android:hint="@string/search_word_edittext_hint"
+                android:imeOptions="actionSearch"
+                android:textColor="#212121"
+                android:textSize="15sp" />
+        </com.github.florent37.materialtextfield.MaterialTextField>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/search_top_lay"
+        android:background="#FFFFFF">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/search_recyclerview"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+
+        <!--<LinearLayout-->
+            <!--android:id="@+id/player_banner_lay"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="#4CAF50"-->
+            <!--android:visibility="gone"-->
+            <!--android:layout_alignParentBottom="true">-->
+
+            <!--<com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"-->
+                <!--android:id="@+id/adView"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="3dp"-->
+                <!--ads:adSize="SMART_BANNER"-->
+                <!--ads:adUnitId="ca-app-pub-3940256099942544/1033173712"></com.google.android.gms.ads.AdView>-->
+        <!--</LinearLayout>-->
+    </RelativeLayout>
+</RelativeLayout>

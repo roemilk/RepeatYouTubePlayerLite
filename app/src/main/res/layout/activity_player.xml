@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/player_topSetting_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#000000"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp">
+
+        <Button
+            android:id="@+id/player_back_button"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/ic_back_white_24dp" />
+
+        <TextView
+            android:id="@+id/player_top_count_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/player_top_lock_button"
+            android:text="0"
+            android:textColor="#ffffff"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/player_top_playlist_button"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/player_top_lock_button"
+            android:background="@drawable/ic_playlist_play_white_24dp" />
+
+        <Button
+            android:id="@+id/player_top_lock_button"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/player_screen_orientation_button"
+            android:background="@drawable/ic_lock_open_white_24dp" />
+
+        <Button
+            android:id="@+id/player_screen_orientation_button"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/player_search_button"
+            android:background="@drawable/ic_screen_rotation_white_24dp" />
+
+        <Button
+            android:id="@+id/player_search_button"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/player_help_button"
+            android:background="@drawable/ic_search_white_24dp" />
+
+        <Button
+            android:id="@+id/player_help_button"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/ic_help_outline_white_24dp" />
+    </RelativeLayout>
+
+    <com.google.android.youtube.player.YouTubePlayerView
+        android:id="@+id/player_youtube_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/player_setting_lay"
+        android:layout_below="@+id/player_topSetting_lay"></com.google.android.youtube.player.YouTubePlayerView>
+
+    <LinearLayout
+        android:id="@+id/player_setting_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <!--<TextView-->
+        <!--android:id="@+id/expand_button_1"-->
+        <!--style="@style/TextAppearance.AppCompat.Small"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:background="#2196F3"-->
+        <!--android:elevation="6dp"-->
+        <!--android:foreground="?selectableItemBackground"-->
+        <!--android:gravity="center"-->
+        <!--android:padding="16dp"-->
+        <!--android:text="프리미엄 업그레이드"-->
+        <!--android:textColor="#ffffff" />-->
+
+        <!--<net.cachapa.expandablelayout.ExpandableLayout-->
+        <!--android:id="@+id/expandable_layout_1"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical"-->
+        <!--app:el_duration="500"-->
+        <!--app:el_expanded="false"-->
+        <!--app:el_parallax="0.5">-->
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical"-->
+        <!--android:paddingBottom="20dp"-->
+        <!--android:paddingTop="20dp">-->
+
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center"-->
+        <!--android:text="프리미엄 버전으로 업그레이드 하세요!\n커피 한잔 가격도 되지 않습니다!"-->
+        <!--android:textSize="18dp"-->
+        <!--android:textStyle="bold" />-->
+
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginTop="15dp"-->
+        <!--android:text="프리미엄 버전만의 특별한 혜택"-->
+        <!--android:textSize="16dp"-->
+        <!--android:textStyle="bold" />-->
+
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--android:layout_marginLeft="15dp"-->
+        <!--android:text="1.모든 광고 깔끔히 제거\n2.프리미엄 사용자를 위한 편의 기능 계속계속 업데이트!\n3. 혜택은 계속 추가됩니다."-->
+        <!--android:textSize="14dp" />-->
+
+        <!--<Button-->
+        <!--android:id="@+id/player_premium_button"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:padding="10dp"-->
+        <!--android:background="@drawable/round_button"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_marginTop="15dp"-->
+        <!--android:text="프리미엄 업그레이드 하기"-->
+        <!--android:textStyle="bold"-->
+        <!--android:textColor="#FFFFFF"-->
+        <!--android:textSize="16dp" />-->
+        <!--</LinearLayout>-->
+        <!--</net.cachapa.expandablelayout.ExpandableLayout>-->
+
+        <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:background="#ffffff"></View>-->
+
+        <!-- 구간 반복 -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#2196F3"
+            android:elevation="6dp">
+
+            <TextView
+                android:id="@+id/expand_button_0"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:foreground="?selectableItemBackground"
+                android:gravity="center"
+                android:padding="16dp"
+                android:text="@string/player_repeat_title"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:id="@+id/expand_count_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:text="0"
+                android:textColor="#ffffff"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:visibility="visible" />
+        </RelativeLayout>
+
+        <net.cachapa.expandablelayout.ExpandableLayout
+            android:id="@+id/expandable_layout_0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:el_duration="500"
+            app:el_expanded="false"
+            app:el_parallax="0.5">
+
+            <LinearLayout
+                android:id="@+id/expandable_content_lay_0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
+
+                    <TextView
+                        android:id="@+id/player_setting_startTime_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center_vertical"
+                        android:text="@string/player_repeat_starttime" />
+
+                    <EditText
+                        android:id="@+id/player_setting_startTime_editText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15dp"
+                        android:layout_toRightOf="@id/player_setting_startTime_textView"
+                        android:focusable="false"
+                        android:gravity="center_vertical"
+                        android:text="00:00:00"
+                        android:textSize="13dp" />
+
+                    <TextView
+                        android:id="@+id/player_setting_endTime_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/player_setting_startTime_editText"
+                        android:gravity="center_vertical"
+                        android:text="@string/player_repeat_endtime" />
+
+                    <EditText
+                        android:id="@+id/player_setting_endTime_editText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/player_setting_endTime_textView"
+                        android:focusable="false"
+                        android:gravity="center_vertical"
+                        android:text="00:00:00"
+                        android:textSize="13dp" />
+
+                    <Button
+                        android:id="@+id/player_setting_playlist_button"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="7dp"
+                        android:layout_toLeftOf="@+id/player_setting_repeat_button"
+                        android:background="@drawable/ic_playlist_add_black_24dp" />
+
+                    <Button
+                        android:id="@+id/player_setting_repeat_button"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="7dp"
+                        android:background="@drawable/ic_repeat_black_24dp" />
+
+                    <!--<EditText-->
+                    <!--android:id="@+id/player_setting_repeatCount_editText"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:focusable="false"-->
+                    <!--android:gravity="center"-->
+                    <!--android:hint="@string/player_repeat_count"-->
+                    <!--android:textSize="16dp" />-->
+
+                </RelativeLayout>
+            </LinearLayout>
+        </net.cachapa.expandablelayout.ExpandableLayout>
+    </LinearLayout>
+</RelativeLayout>

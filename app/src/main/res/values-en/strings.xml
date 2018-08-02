@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Repeat YouTube</string>
+
+    <!-- 사용 설명 가이드 -->
+    <string name="intro">You can play your favorite movies in two ways.</string>
+    <string name="search">You can find the video you want in the search.</string>
+    <string name="guide1">Do you have videos that you would like to repeat in the YouTube app?</string>
+    <string name="guide2">Click Share. The YouTube repeat app will appear in the list.</string>
+    <string name="guide3">Repeat play Loads a video that your app shared on YouTube.</string>
+    <string name="guide4">Set the area you want to repeat.</string>
+    <string name="guide5">How many times will you repeat?</string>
+    <string name="guide6">Now click Play and enjoy it!</string>
+    <string name="guidelast">Click the Start button.</string>
+    <string name="guidelast_content">Are there any scenes you would like to keep seeing over and over again?\nDo you have any part of the song you want to keep listening to?\n\nExperience the most convenient and easy YouTube iterations app!</string>
+    <string name="guidelast_start">Getting Start</string>
+
+    <!-- 검색하기 -->
+    <string name="search_word_edittext_hint">Please click here and search.</string>
+
+    <!-- 도움말 -->
+    <string name="dialog_help_title">Help</string>
+    <string name="dialog_help_manual">User Guide</string>
+    <string name="dialog_help_opensource">OpenSource License</string>
+    <string name="dialog_help_opensource_another">Other License</string>
+    <string name="dialog_help_version">Version</string>
+    <string name="dialog_help_version_no_item">You are using the free version.</string>
+    <string name="dialog_help_version_yes_item">You are using the premium version.</string>
+
+    <!-- 플레이어 -->
+    <string name="player_numberpick">How many count will you repeat?</string>
+    <string name="player_repeat_title">Setting repeat play</string>
+    <string name="player_repeat_starttime">StartTime :</string>
+    <string name="player_repeat_endtime">EndTime : </string>
+    <string name="player_repeat_count">Count</string>
+
+    <!-- 1.3 버전 추가 내용 -->
+    <string name="player_repeat_starttime_picker">Please select a start time.</string>
+    <string name="player_repeat_startendtime_picker">Please select a time to finish.</string>
+
+    <!-- 공통 다이얼로그 -->
+    <string name="dialog_default_yes">Confirm</string>
+    <string name="dialog_default_no">Cancel</string>
+
+    <!-- 플레이리스트 -->
+    <string name="playlist_add">Added to playlist.</string>
+    <string name="playlist_empty">The playlist is empty.\nAdd a playlist.</string>
+
+    <!-- Error -->
+    <string name="error_videos_emptyInfo">Information does not exist.</string>
+</resources>

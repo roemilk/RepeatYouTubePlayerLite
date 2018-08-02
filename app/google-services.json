@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "475814829835",
+    "firebase_url": "https://repeatplayer-ee730.firebaseio.com",
+    "project_id": "repeatplayer-ee730",
+    "storage_bucket": "repeatplayer-ee730.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:475814829835:android:03069725e83a5e74",
+        "android_client_info": {
+          "package_name": "com.venuskimblessing.youtuberepeatlite"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "475814829835-rfs75fjih2kt0hdqkq14c9iq8nr61m3a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.venuskimblessing.youtuberepeatlite",
+            "certificate_hash": "5bf7876723037fac550cfa5aa985f1962cba34f4"
+          }
+        },
+        {
+          "client_id": "475814829835-0kvm9k4irp2n1qdbmbfv1jfoid0bqq0e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVQJUohhGPAp0gE4ZZYJcaUhofIVyy7Ug"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "475814829835-0kvm9k4irp2n1qdbmbfv1jfoid0bqq0e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

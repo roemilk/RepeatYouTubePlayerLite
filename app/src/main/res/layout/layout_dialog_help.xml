@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/help_menu_parent_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical"
+        android:paddingBottom="40dp"
+        android:paddingTop="40dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#009688"
+            android:gravity="center"
+            android:text="@string/dialog_help_title"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/help_guide_button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="@string/dialog_help_manual"
+            android:textColor="#757575" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#BDBDBD"></View>
+
+        <Button
+            android:id="@+id/help_license_button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="@string/dialog_help_opensource"
+            android:textColor="#757575" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#BDBDBD"></View>
+
+        <TextView
+            android:id="@+id/dialog_help_version_button"
+            style="@style/TextAppearance.AppCompat.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:elevation="6dp"
+            android:foreground="?selectableItemBackground"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="@string/dialog_help_version"
+            android:textColor="#757575" />
+
+        <net.cachapa.expandablelayout.ExpandableLayout
+            android:id="@+id/dialog_help_version_expandable_lay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:el_duration="500"
+            app:el_expanded="false"
+            app:el_parallax="0.5">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:orientation="vertical"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp">
+
+                <TextView
+                    android:id="@+id/help_version_item_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:textColor="#757575"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/help_version_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:textColor="#757575"
+                    android:textSize="14dp" />
+            </LinearLayout>
+        </net.cachapa.expandablelayout.ExpandableLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/help_license_parent_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical"
+        android:paddingBottom="40dp"
+        android:paddingTop="40dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#009688"
+            android:gravity="center"
+            android:text="@string/dialog_help_opensource"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dialog_license_expand_button_0"
+            style="@style/TextAppearance.AppCompat.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:elevation="6dp"
+            android:foreground="?selectableItemBackground"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="Youtube Data API V3"
+            android:textColor="#757575" />
+
+        <net.cachapa.expandablelayout.ExpandableLayout
+            android:id="@+id/dialog_license_expandable_layout_0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:el_duration="500"
+            app:el_expanded="false"
+            app:el_parallax="0.5">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:padding="10dp"
+                android:text="Google Youtube Data API V3."
+                android:textColor="#757575"
+                android:textSize="12dp" />
+        </net.cachapa.expandablelayout.ExpandableLayout>
+
+
+        <TextView
+            android:id="@+id/dialog_license_expand_button_1"
+            style="@style/TextAppearance.AppCompat.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:elevation="6dp"
+            android:foreground="?selectableItemBackground"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="Youtube Android Player API"
+            android:textColor="#757575" />
+
+        <net.cachapa.expandablelayout.ExpandableLayout
+            android:id="@+id/dialog_license_expandable_layout_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:el_duration="500"
+            app:el_expanded="false"
+            app:el_parallax="0.5">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:padding="10dp"
+                android:text="Google Youtube Android Player API."
+                android:textColor="#757575"
+                android:textSize="12dp" />
+        </net.cachapa.expandablelayout.ExpandableLayout>
+
+        <TextView
+            android:id="@+id/dialog_license_expand_button_2"
+            style="@style/TextAppearance.AppCompat.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:elevation="6dp"
+            android:foreground="?selectableItemBackground"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="@string/dialog_help_opensource_another"
+            android:textColor="#757575" />
+
+        <net.cachapa.expandablelayout.ExpandableLayout
+            android:id="@+id/dialog_license_expandable_layout_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:el_duration="500"
+            app:el_expanded="false"
+            app:el_parallax="0.5">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="300dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:padding="10dp"
+                    android:text="       LicenseexpandelLayout\n
+        Copyright 2016 Daniel Cachapa.\n
+        http://www.apache.org/licenses/LICENSE-2.0\n\n
+
+        NumberPicker\n
+        The source code is licensed under the MIT license.\n\n
+
+        rangeseekbar\n
+        The images are licensed under Creative Commons ( http://creativecommons.org/licenses/by/3.0/ ).\n
+        The originals are provided in the original project ( https://code.google.com/p/range-seek-bar/ ) and seek_thumb_disabled.png is added by us.\n
+        The source code is licensed under the Apache License.\n
+        A copy of this can be found at http://www.apache.org/licenses/LICENSE-2.0 and has been included in the repository as well.\n\n
+
+        MaterialTextField\n
+        Copyright 2015 florent37, Inc.\n
+        Licensed under the Apache License, Version 2.0 \n
+        http://www.apache.org/licenses/LICENSE-2.0 \n\n
+
+        HTextView\n
+        Copyright (C) 2015 [Hanks](https://github.com/hanks-zyh)\n
+        Licensed under the Apache License, Version 2.0 \n\n
+
+        RecyclerView Animators\n
+        Copyright 2018 Wasabeef\n
+        Licensed under the Apache License, Version 2.0 \n\n
+
+        PageIndicatorView\n
+        Copyright 2017 Roman Danylyk\n
+        Licensed under the Apache License, Version 2.0 \n\n
+
+        Retrofit\n
+        Glide\n
+        Licensed under the Apache License, Version 2.0 \n\n
+
+        Glide Transformations\n
+        Copyright 2018 Wasabeef\n
+        Licensed under the Apache License, Version 2.0"
+                    android:textColor="#757575"
+                    android:textSize="12dp" />
+            </ScrollView>
+        </net.cachapa.expandablelayout.ExpandableLayout>
+    </LinearLayout>
+</RelativeLayout>

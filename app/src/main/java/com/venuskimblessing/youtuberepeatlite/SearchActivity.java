@@ -1,0 +1,335 @@
+package com.venuskimblessing.youtuberepeatlite;
+
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+//import com.android.billingclient.api.BillingClient;
+//import com.android.billingclient.api.BillingClientStateListener;
+//import com.android.billingclient.api.ConsumeResponseListener;
+//import com.android.billingclient.api.Purchase;
+//import com.android.billingclient.api.PurchaseHistoryResponseListener;
+//import com.android.billingclient.api.PurchasesUpdatedListener;
+//import com.android.vending.billing.IInAppBillingService;
+import com.github.florent37.materialtextfield.MaterialTextField;
+//import com.google.android.gms.ads.AdListener;
+//import com.google.android.gms.ads.AdRequest;
+//import com.google.android.gms.ads.AdView;
+//import com.google.android.gms.ads.InterstitialAd;
+//import com.google.android.gms.ads.MobileAds;
+//import com.google.android.gms.common.internal.service.Common;
+import com.google.gson.Gson;
+import com.venuskimblessing.youtuberepeatlite.Adapter.SearchDecoration;
+import com.venuskimblessing.youtuberepeatlite.Adapter.SearchRecyclerViewAdapter;
+import com.venuskimblessing.youtuberepeatlite.Common.CommonApiKey;
+import com.venuskimblessing.youtuberepeatlite.Common.CommonSharedPreferencesKey;
+import com.venuskimblessing.youtuberepeatlite.Common.CommonUserData;
+import com.venuskimblessing.youtuberepeatlite.Dialog.DialogInfo;
+import com.venuskimblessing.youtuberepeatlite.Json.PlayingData;
+import com.venuskimblessing.youtuberepeatlite.Json.SearchList;
+import com.venuskimblessing.youtuberepeatlite.Json.Videos;
+import com.venuskimblessing.youtuberepeatlite.Player.PlayerActivity;
+import com.venuskimblessing.youtuberepeatlite.Retrofit.RetrofitCommons;
+import com.venuskimblessing.youtuberepeatlite.Retrofit.RetrofitManager;
+import com.venuskimblessing.youtuberepeatlite.Retrofit.RetrofitService;
+import com.venuskimblessing.youtuberepeatlite.Utils.SharedPreferencesUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
+
+public class SearchActivity extends AppCompatActivity implements SearchRecyclerViewAdapter.OnClickRecyclerViewItemListener {
+    public static final String TAG = "SearchActivity";
+
+    public static final String DEFAULT_WORD = "cinematic trailer";
+
+    //Search Order
+    public static final String ORDER_DATE = "date";
+    public static final String ORDER_RATING = "rating";
+    public static final String ORDER_RELEVANCE = "relevance";
+    public static final String ORDER_TITLE = "title";
+    public static final String ORDER_VIDEOCOUNT = "videoCount";
+    public static final String ORDER_VIEWCOUNT = "viewCount";
+
+    private MaterialTextField mMaterialTextField = null;
+    private EditText mEditTextSearchWord = null;
+    private RecyclerView mRecyclerView = null;
+    private SearchRecyclerViewAdapter mSearchRecyclerViewAdapter = null;
+    private boolean mLoading = false;
+
+    private Retrofit mRetrofit = null;
+    private RetrofitService mService = null;
+    private Call<String> mCallYoutubeSearch = null;
+    private Call<String> mCallVideos = null;
+    private Gson mGson = new Gson();
+
+    private SearchList mSearchList = new SearchList();
+    public ArrayList<SearchList.ItemsItem> mItems = null;
+    private String mNextPageToken = "";
+    private SearchList.ItemsItem mSelectedItem = null;
+
+//    //전면광고
+//    private InterstitialAd mInterstitialAd = null;
+//
+//    //배너광고
+//    private LinearLayout mBannerLay;
+//    private AdView mAdView;
+//
+//    //인앱결제
+//    private BillingClient mBillingClient = null;
+
+    private String mPlayId = null;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_search);
+
+        mMaterialTextField = (MaterialTextField)findViewById(R.id.search_top_materialTextField);
+        mMaterialTextField.getEditText().setBackgroundColor(Color.WHITE);
+        mMaterialTextField.getCard().setBackgroundColor(Color.WHITE);
+
+        mEditTextSearchWord = (EditText)findViewById(R.id.search_top_searchWord_editText);
+        mEditTextSearchWord.setOnEditorActionListener(onEditorActionListener);
+
+        mRecyclerView = (RecyclerView)findViewById(R.id.search_recyclerview);
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                int lastVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+                int itemTotalCount = recyclerView.getAdapter().getItemCount() - 6;
+                if (lastVisibleItemPosition == itemTotalCount) {
+                    Log.d(TAG, "last Position...");
+                    if(mLoading){
+                        Log.d(TAG, "loading... return");
+                        return;
+                    }else{
+                        Log.d(TAG, "not loading loadcontentslist...");
+                        mLoading = true;
+                        loadContentsList();
+                    }
+                }
+            }
+        });
+        initRetrofit();
+        loadContentsList();
+    }
+
+    private void initRetrofit() {
+        mService = RetrofitManager.getRetrofitService(RetrofitCommons.BASE_URL);
+    }
+
+    private void loadContentsList(){
+        String searchWord = mEditTextSearchWord.getText().toString().trim();
+        if(searchWord.equals("")){
+            searchWord = DEFAULT_WORD;
+        }
+
+        mCallYoutubeSearch = mService.getYoutubeSearch("snippet",searchWord, "50", ORDER_RELEVANCE, mNextPageToken, CommonApiKey.KEY_API_YOUTUBE);
+        mCallYoutubeSearch.enqueue(callback);
+    }
+
+    /**
+     * 비디오의 상세 정보를 가져온다.
+     */
+    private void loadVideos(String id) {
+        mCallVideos = mService.getYoutubeVideos("snippet,contentDetails,statistics", id, CommonApiKey.KEY_API_YOUTUBE);
+        mCallVideos.enqueue(callback);
+    }
+
+    private void setAdapter(){
+        mSearchRecyclerViewAdapter = new SearchRecyclerViewAdapter(this);
+        mSearchRecyclerViewAdapter.setOnClickRecyclerViewItemListener(this);
+        mSearchRecyclerViewAdapter.setData(mSearchList);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.addItemDecoration(new SearchDecoration(this));
+        mRecyclerView.setAdapter(mSearchRecyclerViewAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    private void refreshAdapter(){
+        mSearchRecyclerViewAdapter.setData(mSearchList);
+        mSearchRecyclerViewAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 유튜브 플레이어 호출
+     */
+    private void startPlayer(String videoId){
+        Intent intent = new Intent(this, PlayerActivity.class);
+        intent.putExtra("videoId", videoId);
+        startActivity(intent);
+    }
+
+    private void parseJsonStringData(String json){
+        Log.d(TAG, "result data : " + json);
+
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            mNextPageToken = jsonObject.getString("nextPageToken");
+
+            JSONArray jsonArray = jsonObject.getJSONArray("items");
+            for(int i=0; i<jsonArray.length(); i++){
+                SearchList.ItemsItem itemsItem = new SearchList().new ItemsItem();
+
+                JSONObject itemsObject = jsonArray.getJSONObject(i);
+
+                JSONObject idObject = itemsObject.getJSONObject("id");
+                String kind = idObject.optString("kind", "null");
+                String videoId = idObject.optString("videoId", "null");
+
+                itemsItem.setKind(kind);
+                itemsItem.setVideoId(videoId);
+
+                JSONObject snippetObject = itemsObject.getJSONObject("snippet");
+                String title = snippetObject.optString("title", "null");
+                String description = snippetObject.optString("description", "null");
+                    itemsItem.setTitle(title);
+                    itemsItem.setDescription(description);
+
+                        JSONObject thumbnailsObject = snippetObject.getJSONObject("thumbnails");
+                            JSONObject defaultObject = thumbnailsObject.getJSONObject("default");
+                            JSONObject mediumObject = thumbnailsObject.getJSONObject("medium");
+                            JSONObject highObject = thumbnailsObject.getJSONObject("high");
+
+                            String url = highObject.optString("url", "null");
+
+//                            String width = highObject.getString("width");
+//                            String height = highObject.getString("height");
+                            itemsItem.setThumbnails_url(url);
+//                            itemsItem.setThumbnails_width(width);
+//                            itemsItem.setThumbnails_height(height);
+
+                mItems = mSearchList.getItems();
+                mItems.add(itemsItem);
+            }
+        } catch (JSONException e) {
+            Log.d(TAG, "e : " + e.toString());
+            e.printStackTrace();
+        }
+
+        if(mSearchRecyclerViewAdapter != null){
+            refreshAdapter();
+        }else{
+            setAdapter();
+        }
+
+        mLoading = false;
+    }
+
+    private void showSearchListData(){
+        Log.d(TAG, "showSearchListData...");
+
+        ArrayList<SearchList.ItemsItem> items = mSearchList.getItems();
+        for(SearchList.ItemsItem itemsItem : items){
+            String title = itemsItem.getTitle();
+            String videoId = itemsItem.getVideoId();
+            String thumbnail = itemsItem.getThumbnails_url();
+            Log.d(TAG, "title : " + title);
+            Log.d(TAG, "videoId : " + videoId);
+            Log.d(TAG, "thumbnail : " + thumbnail);
+        }
+    }
+
+    private void hideKeyboard(){
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(mEditTextSearchWord.getWindowToken(), 0);
+    }
+
+    /**
+     * 이전에 재생중이었던 영상이 있는지 체크한다.
+     */
+    private void checkPlaying(){
+        String json = SharedPreferencesUtils.getString(this, CommonSharedPreferencesKey.KEY_PLAYING);
+        PlayingData playingData = (PlayingData)mGson.fromJson(json, PlayingData.class);
+
+    }
+
+    @Override
+    public void onClickItem(SearchList.ItemsItem itemsItem) {
+        this.mSelectedItem = itemsItem;
+        loadVideos(itemsItem.getVideoId());
+    }
+
+    //키보드 이벤트
+    private TextView.OnEditorActionListener onEditorActionListener = new TextView.OnEditorActionListener() {
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            switch (actionId) {
+                case EditorInfo.IME_ACTION_SEARCH:
+                    if(mItems != null){
+                        mItems.clear();
+                    }
+                    loadContentsList();
+                    hideKeyboard();
+                    break;
+                default:
+                    // 기본 엔터키 동작
+                    return false;
+            }
+            return true;
+        }
+    };
+
+    //통신처리
+   private Callback<String> callback = new Callback<String>() {
+       @Override
+       public void onResponse(Call<String> call, Response<String> response) {
+           String result = response.body().toString();
+           Log.d(TAG, "onResponse...");
+
+           if (call == mCallYoutubeSearch) {
+               parseJsonStringData(result);
+           } else if (call == mCallVideos) {
+               Videos videos = (Videos) mGson.fromJson(result, Videos.class);
+                Videos.PageInfo pageInfo = videos.pageInfo;
+                String totalResults = pageInfo.totalResults;
+                if(totalResults.equals("0")){
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(SearchActivity.this, getResources().getString(R.string.error_videos_emptyInfo), Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }else{
+                    DialogInfo dialogInfo = new DialogInfo(SearchActivity.this, R.style.custom_dialog_fullScreen);
+                    dialogInfo.setData(videos, mSelectedItem.getThumbnails_url());
+                    dialogInfo.show();
+                }
+           }
+       }
+
+       @Override
+       public void onFailure(Call<String> call, Throwable t) {
+           Log.d(TAG, "t " + t.toString());
+       }
+   };
+}

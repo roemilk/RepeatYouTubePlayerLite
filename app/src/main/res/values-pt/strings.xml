@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+        <string name="app_name">Repeat YouTube</string>
+
+        <string name = "intro"> Você pode reproduzir seus filmes favoritos de duas formas. </string>
+        <string name = "search"> Você pode encontrar o vídeo que deseja na pesquisa. </string>
+        <string name = "guide1"> Você tem vídeos que gostaria de repetir no aplicativo do YouTube? </string>
+        <string name = "guide2"> Clique em Compartilhar. O aplicativo de repetição do YouTube aparecerá na lista. </string>
+        <string name = "guide3"> Reprodução repetida Carrega um vídeo que seu aplicativo compartilhou no YouTube. </string>
+        <string name = "guide4"> Defina a área que você deseja repetir. </string>
+        <string name = "guide5"> Quantas vezes você vai repetir? </string>
+        <string name = "guide6"> Agora clique em Play e aproveite! </string>
+        <string name = "guidelast"> Clique no botão Iniciar. </string>
+        <string name = "guidelast_content"> Há alguma cena que você gostaria de continuar vendo repetidamente? \ nVocê tem alguma parte da música que deseja ouvir? \n\nExperimente as iterações mais convenientes e fáceis do YouTube app! </string>
+        <string name = "guidelast_start"> Como começar </string>
+
+        <string name = "search_word_edittext_hint"> Por favor clique aqui e pesquise. </string>
+
+        <string name = "dialog_help_title"> Ajuda </string>
+        <string name = "dialog_help_manual"> Guia do Usuário </string>
+        <string name = "dialog_help_opensource"> Licença do OpenSource </string>
+        <string name = "dialog_help_opensource_another"> Outra licença </string>
+        <string name = "dialog_help_version"> Versão </string>
+        <string name = "dialog_help_version_no_item"> Você está usando a versão gratuita. </string>
+        <string name = "dialog_help_version_yes_item"> Você está usando a versão premium. </string>
+
+        <string name = "player_numberpick"> Quantos você irá repetir? </string>
+        <string name = "player_repeat_title"> Configurando reprodução repetida </string>
+        <string name = "player_repeat_starttime"> StartTime: </string>
+        <string name = "player_repeat_endtime"> EndTime: </string>
+        <string name = "player_repeat_count"> Contagem </string>
+
+        <string name = "player_repeat_starttime_picker"> Por favor, selecione um horário de início. </string>
+        <string name = "player_repeat_startendtime_picker"> Por favor, selecione um horário para terminar. </string>
+
+        <string name = "dialog_default_yes"> Confirme </string>
+        <string name = "dialog_default_no"> Cancelar </string>
+
+        <string name = "playlist_add"> Adicionado à lista de reprodução. </string>
+        <string name = "playlist_empty"> A lista de reprodução está vazia. \n Adicione uma lista de reprodução. </string>
+
+        <string name = "error_videos_emptyInfo"> A informação não existe. </string>
+
+</resources>

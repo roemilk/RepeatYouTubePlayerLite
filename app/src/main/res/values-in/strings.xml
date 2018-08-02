@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <string name="app_name">Repeat YouTube</string>
+
+        <string name = "intro"> Anda dapat memutar film favorit Anda dalam dua cara. </string>
+        <string name = "search"> Anda dapat menemukan video yang Anda inginkan dalam pencarian. </string>
+        <string name = "guide1"> Apakah Anda memiliki video yang ingin Anda ulangi di aplikasi YouTube? </string>
+        <string name = "guide2"> Klik Bagikan. Aplikasi pengulangan YouTube akan muncul dalam daftar. </string>
+        <string name = "guide3"> Ulangi pemutaran Memuatkan video yang dibagikan aplikasi Anda di YouTube. </string>
+        <string name = "guide4"> Setel area yang ingin Anda ulangi. </string>
+        <string name = "guide5"> Berapa kali Anda akan mengulang? </string>
+        <string name = "guide6"> Sekarang klik Mainkan dan nikmatilah! </string>
+        <string name = "guidelast"> Klik tombol Mulai. </string>
+        <string name = "guidelast_content"> Adakah adegan yang ingin terus Anda tonton berulang-ulang? \ nApakah Anda memiliki bagian dari lagu yang ingin terus didengarkan? \n\nPermasalahan iterasi YouTube yang paling mudah dan mudah aplikasi! </string>
+        <string name = "guidelast_start"> Mulai Memulai </string>
+
+        <string name = "search_word_edittext_hint"> Silakan klik di sini dan cari. </string>
+
+        <string name = "dialog_help_title"> Bantuan </string>
+        <string name = "dialog_help_manual"> Panduan Pengguna </string>
+        <string name = "dialog_help_opensource"> Lisensi OpenSource </string>
+        <string name = "dialog_help_opensource_another"> Lisensi Lain </string>
+        <string name = "dialog_help_version"> Versi </string>
+        <string name = "dialog_help_version_no_item"> Anda menggunakan versi gratis. </string>
+        <string name = "dialog_help_version_yes_item"> Anda menggunakan versi premium. </string>
+
+        <string name = "player_numberpick"> Berapa hitungan yang akan Anda ulangi? </string>
+        <string name = "player_repeat_title"> Pengaturan pemutaran ulang </string>
+        <string name = "player_repeat_starttime"> StartTime: </string>
+        <string name = "player_repeat_endtime"> EndTime: </string>
+        <string name = "player_repeat_count"> Hitung </string>
+
+        <string name = "player_repeat_starttime_picker"> Silakan pilih waktu mulai. </string>
+        <string name = "player_repeat_startendtime_picker"> Silakan pilih waktu untuk menyelesaikan. </string>
+
+        <string name = "dialog_default_yes"> Konfirmasi </string>
+        <string name = "dialog_default_no"> Batalkan </string>
+
+        <string name = "playlist_add"> Ditambahkan ke daftar putar. </string>
+        <string name = "playlist_empty"> Daftar putar kosong. \nTambahkan daftar putar. </string>
+
+        <string name = "error_videos_emptyInfo"> Informasi tidak ada. </string>
+</resources>
