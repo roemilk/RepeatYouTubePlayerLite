@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name = "app_name">YouTube 繰り返し</string>
+    <string name = "app_name">YouTube 繰り返し Lite</string>
 
     <string name = "intro">お気に入りの映画は2通りの方法で再生できます。</string>
     <string name = "search">検索に必要なビデオを見つけることができます。</string>
@@ -41,4 +41,6 @@
     <string name = "playlist_empty">プレイリストは空です。\nプレイリストを追加してください。</string>
 
     <string name = "error_videos_emptyInfo">情報が存在しません。</string>
+
+    <string name="loading_pacman_text">Please wait ...</string>
 </resources>

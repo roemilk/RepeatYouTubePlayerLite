@@ -1,8 +1,14 @@
 package com.venuskimblessing.youtuberepeatlite.Common;
 
 public class CommonUserData {
-    public static final String ITEM_FREE = "0"; //무료사용자
-    public static final String ITEM_PREMIUM = "1"; //프리미엄사용자
 
-    public static String sUserItemState = ITEM_FREE;
+    //재생 횟수
+    public static final int COUNT_DEFAULT = 3;
+    public static final int COUNT_MAX = 99;
+    public static final int REWORD_ADD_COUNT = 10; //보상 카운드 증가수
+    public static int sMaxRepeatCount = COUNT_DEFAULT; //무료사용자의 경우 기본이 12
+
+    //보상광고 카운트
+    public static final int REWARD_SCREENLOCK_COUNT = 2;
+    public static int sRewardCount = 0;
 }

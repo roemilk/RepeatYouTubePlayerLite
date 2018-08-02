@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-        <string name="app_name">Repeat YouTube</string>
+        <string name="app_name">Repeat YouTube Lite</string>
 
         <string name = "intro"> Você pode reproduzir seus filmes favoritos de duas formas. </string>
         <string name = "search"> Você pode encontrar o vídeo que deseja na pesquisa. </string>
@@ -41,5 +41,7 @@
         <string name = "playlist_empty"> A lista de reprodução está vazia. \n Adicione uma lista de reprodução. </string>
 
         <string name = "error_videos_emptyInfo"> A informação não existe. </string>
+
+    <string name="loading_pacman_text">Please wait ...</string>
 
 </resources>

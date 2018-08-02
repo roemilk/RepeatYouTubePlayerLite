@@ -94,6 +94,9 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     private String mNextPageToken = "";
     private SearchList.ItemsItem mSelectedItem = null;
 
+    //TYPE
+    private final String TYPE_MIME = "text/plain";
+
 //    //전면광고
 //    private InterstitialAd mInterstitialAd = null;
 //
@@ -104,12 +107,11 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 //    //인앱결제
 //    private BillingClient mBillingClient = null;
 
-    private String mPlayId = null;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        getShareIntentData();
 
         mMaterialTextField = (MaterialTextField)findViewById(R.id.search_top_materialTextField);
         mMaterialTextField.getEditText().setBackgroundColor(Color.WHITE);
@@ -184,9 +186,11 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
      * 유튜브 플레이어 호출
      */
     private void startPlayer(String videoId){
-        Intent intent = new Intent(this, PlayerActivity.class);
-        intent.putExtra("videoId", videoId);
-        startActivity(intent);
+        Intent intent = new Intent(this, LoadingActivity.class);
+        if(videoId != null){
+            intent.putExtra("videoId", videoId);
+            startActivity(intent);
+        }
     }
 
     private void parseJsonStringData(String json){
@@ -245,32 +249,32 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         mLoading = false;
     }
 
-    private void showSearchListData(){
-        Log.d(TAG, "showSearchListData...");
-
-        ArrayList<SearchList.ItemsItem> items = mSearchList.getItems();
-        for(SearchList.ItemsItem itemsItem : items){
-            String title = itemsItem.getTitle();
-            String videoId = itemsItem.getVideoId();
-            String thumbnail = itemsItem.getThumbnails_url();
-            Log.d(TAG, "title : " + title);
-            Log.d(TAG, "videoId : " + videoId);
-            Log.d(TAG, "thumbnail : " + thumbnail);
-        }
-    }
-
     private void hideKeyboard(){
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(mEditTextSearchWord.getWindowToken(), 0);
     }
 
-    /**
-     * 이전에 재생중이었던 영상이 있는지 체크한다.
+        /**
+     * 유튜브로 부터 공유 메타데이터 수신
      */
-    private void checkPlaying(){
-        String json = SharedPreferencesUtils.getString(this, CommonSharedPreferencesKey.KEY_PLAYING);
-        PlayingData playingData = (PlayingData)mGson.fromJson(json, PlayingData.class);
+    private void getShareIntentData() {
+        Log.d(TAG, "유튜브 공유로부터 비디오 메타 데이터를 넘겨받습니다.");
 
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        String type = intent.getType();
+
+        if (Intent.ACTION_SEND.equals(action) && type != null) {
+            if (TYPE_MIME.equals(type)) {
+                String shareText = intent.getStringExtra(Intent.EXTRA_TEXT);
+                Log.d(TAG, "ShareText : " + shareText);
+
+                String videoId = shareText.substring(17);
+                Log.d(TAG, "videoId : " + videoId);
+
+                startPlayer(videoId);
+            }
+        }
     }
 
     @Override

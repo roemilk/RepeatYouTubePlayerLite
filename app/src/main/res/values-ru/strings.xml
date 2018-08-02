@@ -1,44 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Repeat YouTube</string>
+    <string name="app_name">Repeat YouTube Lite</string>
 
-        <string name = "intro"> Вы можете воспроизводить любимые фильмы двумя способами. </string>
-        <string name = "search"> Вы можете найти нужное видео в поиске. </string>
-        <string name = "guide1"> Есть ли у вас видеоролики, которые вы хотели бы повторить в приложении YouTube? </string>
-        <string name = "guide2"> Нажмите «Поделиться». В списке появится повторное приложение YouTube. </string>
-        <string name = "guide3"> Повторить воспроизведение Загружает видео, которое ваше приложение размещает на YouTube. </string>
-        <string name = "guide4"> Задайте область, которую вы хотите повторить. </string>
-        <string name = "guide5"> Сколько раз вы будете повторять? </string>
-        <string name = "guide6"> Теперь нажмите Play и наслаждайтесь! </string>
-        <string name = "guidelast"> Нажмите кнопку «Пуск». </string>
-        <string name = "guidelast_content"> Есть ли какие-нибудь сцены, которые вы хотели бы видеть снова и снова? \nВы имеете какую-то часть песни, которую хотите продолжать слушать? \n\nИспользуйте самые удобные и легкие итерации YouTube приложение! </string>
-        <string name = "guidelast_start"> Начало работы </string>
+        
+    <string name="intro"> Вы можете воспроизводить любимые фильмы двумя способами. </string>
+        
+    <string name="search"> Вы можете найти нужное видео в поиске. </string>
+        
+    <string name="guide1"> Есть ли у вас видеоролики, которые вы хотели бы повторить в приложении YouTube? </string>
+        
+    <string name="guide2"> Нажмите «Поделиться». В списке появится повторное приложение YouTube. </string>
+        
+    <string name="guide3"> Повторить воспроизведение Загружает видео, которое ваше приложение размещает на YouTube. </string>
+        
+    <string name="guide4"> Задайте область, которую вы хотите повторить. </string>
+        
+    <string name="guide5"> Сколько раз вы будете повторять? </string>
+        
+    <string name="guide6"> Теперь нажмите Play и наслаждайтесь! </string>
+        
+    <string name="guidelast"> Нажмите кнопку «Пуск». </string>
+        
+    <string name="guidelast_content"> Есть ли какие-нибудь сцены, которые вы хотели бы видеть снова и снова? \nВы имеете какую-то часть песни, которую хотите продолжать слушать? \n\nИспользуйте самые удобные и легкие итерации YouTube приложение! </string>
+        
+    <string name="guidelast_start"> Начало работы </string>
 
-        <string name = "search_word_edittext_hint"> Нажмите здесь и выполните поиск. </string>
+        
+    <string name="search_word_edittext_hint"> Нажмите здесь и выполните поиск. </string>
 
-        <string name = "dialog_help_title"> Справка </string>
-        <string name = "dialog_help_manual"> Руководство пользователя </string>
-        <string name = "dialog_help_opensource"> OpenSource License </string>
-        <string name = "dialog_help_opensource_another"> Другая лицензия </string>
-        <string name = "dialog_help_version"> Версия </string>
-        <string name = "dialog_help_version_no_item"> Вы используете бесплатную версию. </string>
-        <string name = "dialog_help_version_yes_item"> Вы используете премиум-версию. </string>
+        
+    <string name="dialog_help_title"> Справка </string>
+        
+    <string name="dialog_help_manual"> Руководство пользователя </string>
+        
+    <string name="dialog_help_opensource"> OpenSource License </string>
+        
+    <string name="dialog_help_opensource_another"> Другая лицензия </string>
+        
+    <string name="dialog_help_version"> Версия </string>
+        
+    <string name="dialog_help_version_no_item"> Вы используете бесплатную версию. </string>
+        
+    <string name="dialog_help_version_yes_item"> Вы используете премиум-версию. </string>
 
-        <string name = "player_numberpick"> Сколько будет число повторений? </string>
-        <string name = "player_repeat_title"> Установка повторного воспроизведения </string>
-        <string name = "player_repeat_starttime"> StartTime: </string>
-        <string name = "player_repeat_endtime"> EndTime: </string>
-        <string name = "player_repeat_count"> Count </string>
+        
+    <string name="player_numberpick"> Сколько будет число повторений? </string>
+        
+    <string name="player_repeat_title"> Установка повторного воспроизведения </string>
+        
+    <string name="player_repeat_starttime"> StartTime: </string>
+        
+    <string name="player_repeat_endtime"> EndTime: </string>
+        
+    <string name="player_repeat_count"> Count </string>
 
-        <string name = "player_repeat_starttime_picker"> Выберите время начала. </string>
-        <string name = "player_repeat_startendtime_picker"> Выберите время для завершения. </string>
+        
+    <string name="player_repeat_starttime_picker"> Выберите время начала. </string>
+        
+    <string name="player_repeat_startendtime_picker"> Выберите время для завершения. </string>
 
-        <string name = "dialog_default_yes"> Подтвердить </string>
-        <string name = "dialog_default_no"> Отменить </string>
+        
+    <string name="dialog_default_yes"> Подтвердить </string>
+        
+    <string name="dialog_default_no"> Отменить </string>
 
-        <string name = "playlist_add"> Добавлен в список воспроизведения. </string>
-        <string name = "playlist_empty"> Плейлист пуст. \nДобавить список воспроизведения. </string>
+        
+    <string name="playlist_add"> Добавлен в список воспроизведения. </string>
+        
+    <string name="playlist_empty"> Плейлист пуст. \nДобавить список воспроизведения. </string>
 
-        <string name = "error_videos_emptyInfo"> Информация не существует. </string>
+        
+    <string name="error_videos_emptyInfo"> Информация не существует. </string>
+
+    <string name="loading_pacman_text">Please wait ...</string>
 </resources>

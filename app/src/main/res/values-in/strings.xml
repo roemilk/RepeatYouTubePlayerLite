@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-        <string name="app_name">Repeat YouTube</string>
+        <string name="app_name">Repeat YouTube Lite</string>
 
         <string name = "intro"> Anda dapat memutar film favorit Anda dalam dua cara. </string>
         <string name = "search"> Anda dapat menemukan video yang Anda inginkan dalam pencarian. </string>
@@ -40,4 +40,6 @@
         <string name = "playlist_empty"> Daftar putar kosong. \nTambahkan daftar putar. </string>
 
         <string name = "error_videos_emptyInfo"> Informasi tidak ada. </string>
+
+    <string name="loading_pacman_text">Please wait ...</string>
 </resources>

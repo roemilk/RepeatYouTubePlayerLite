@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.venuskimblessing.youtuberepeatlite.Json.Videos;
+import com.venuskimblessing.youtuberepeatlite.LoadingActivity;
 import com.venuskimblessing.youtuberepeatlite.Player.PlayerActivity;
 import com.venuskimblessing.youtuberepeatlite.R;
 import com.venuskimblessing.youtuberepeatlite.Utils.FormatUtils;
@@ -123,7 +124,7 @@ public class DialogInfo extends Dialog implements View.OnClickListener {
      * 유튜브 플레이어 호출
      */
     private void startPlayer(String videoId) {
-        Intent intent = new Intent(getContext(), PlayerActivity.class);
+        Intent intent = new Intent(getContext(), LoadingActivity.class);
         intent.putExtra("videoId", videoId);
         mContext.startActivity(intent);
     }

@@ -571,8 +571,6 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
         String json = mGson.toJson(data);
         Log.d(TAG, "PlayingData Json : " + json);
-
-        SharedPreferencesUtils.setString(this, CommonSharedPreferencesKey.KEY_PLAYING, json);
     }
 
     /**
@@ -723,14 +721,6 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
                 break;
         }
-    }
-
-    private void checkPiracyChecker(){
-        new PiracyChecker(this)
-                .enableGooglePlayLicensing(CommonApiKey.KEY_BASE64_LICENSING)
-                .enableInstallerId(InstallerID.GOOGLE_PLAY, InstallerID.AMAZON_APP_STORE)
-                .enableUnauthorizedAppsCheck(true)
-                .start();
     }
 
     private void initRetrofit() {

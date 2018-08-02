@@ -1,44 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Repeat YouTube</string>
+    <string name="app_name">Repeat YouTube Lite</string>
 
-        <string name ="intro">您可以通過兩種方式播放自己喜歡的電影。</string>
-        <string name ="search">您可以在搜索中找到所需的視頻。</string>
-        <string name ="guide1">您是否有想在YouTube應用中重複的視頻？</string>
-        <string name ="guide2">單擊“共享”。 YouTube重複應用將顯示在列表中。</string>
-        <string name ="guide3">重複播放加載您的應用在YouTube上分享的視頻。</string>
-        <string name ="guide4">設置要重複的區域。</string>
-        <string name ="guide5">你會重複多少次？</string>
-        <string name ="guide6">現在點擊播放並欣賞它！</string>
-        <string name ="guidelast">單擊“開始”按鈕。</string>
-        <string name ="guidelast_content">您是否希望一遍又一遍地看到任何場景？\n您是否有想要繼續收聽的歌曲的任何部分？\n\n體驗最方便，最輕鬆的YouTube迭代應用程序！</string>
-        <string name ="guidelast_start">開始</string>
+        
+    <string name="intro">您可以通過兩種方式播放自己喜歡的電影。</string>
+        
+    <string name="search">您可以在搜索中找到所需的視頻。</string>
+        
+    <string name="guide1">您是否有想在YouTube應用中重複的視頻？</string>
+        
+    <string name="guide2">單擊“共享”。 YouTube重複應用將顯示在列表中。</string>
+        
+    <string name="guide3">重複播放加載您的應用在YouTube上分享的視頻。</string>
+        
+    <string name="guide4">設置要重複的區域。</string>
+        
+    <string name="guide5">你會重複多少次？</string>
+        
+    <string name="guide6">現在點擊播放並欣賞它！</string>
+        
+    <string name="guidelast">單擊“開始”按鈕。</string>
+        
+    <string name="guidelast_content">您是否希望一遍又一遍地看到任何場景？\n您是否有想要繼續收聽的歌曲的任何部分？\n\n體驗最方便，最輕鬆的YouTube迭代應用程序！</string>
+        
+    <string name="guidelast_start">開始</string>
 
-        <string name ="search_word_edittext_hint">請點擊此處並蒐索。</string>
+        
+    <string name="search_word_edittext_hint">請點擊此處並蒐索。</string>
 
-        <string name ="dialog_help_title">幫助</string>
-        <string name ="dialog_help_manual">用戶指南</string>
-        <string name ="dialog_help_opensource"> OpenSource License </string>
-        <string name ="dialog_help_opensource_another">其他許可證</string>
-        <string name ="dialog_help_version">版本</string>
-        <string name ="dialog_help_version_no_item">您使用的是免費版本。</string>
-        <string name ="dialog_help_version_yes_item">您正在使用高級版本。</string>
+        
+    <string name="dialog_help_title">幫助</string>
+        
+    <string name="dialog_help_manual">用戶指南</string>
+        
+    <string name="dialog_help_opensource"> OpenSource License </string>
+        
+    <string name="dialog_help_opensource_another">其他許可證</string>
+        
+    <string name="dialog_help_version">版本</string>
+        
+    <string name="dialog_help_version_no_item">您使用的是免費版本。</string>
+        
+    <string name="dialog_help_version_yes_item">您正在使用高級版本。</string>
 
-        <string name ="player_numberpick">你會重複幾次計數？</string>
-        <string name ="player_repeat_title">設置重複播放</string>
-        <string name ="player_repeat_starttime"> StartTime：</string>
-        <string name ="player_repeat_endtime"> EndTime：</string>
-        <string name ="player_repeat_count">計數</string>
+        
+    <string name="player_numberpick">你會重複幾次計數？</string>
+        
+    <string name="player_repeat_title">設置重複播放</string>
+        
+    <string name="player_repeat_starttime"> StartTime：</string>
+        
+    <string name="player_repeat_endtime"> EndTime：</string>
+        
+    <string name="player_repeat_count">計數</string>
 
-        <string name ="player_repeat_starttime_picker">請選擇開始時間。</string>
-        <string name ="player_repeat_startendtime_picker">請選擇完成時間。</string>
+        
+    <string name="player_repeat_starttime_picker">請選擇開始時間。</string>
+        
+    <string name="player_repeat_startendtime_picker">請選擇完成時間。</string>
 
-        <string name ="dialog_default_yes">確認</string>
-        <string name ="dialog_default_no">取消</string>
+        
+    <string name="dialog_default_yes">確認</string>
+        
+    <string name="dialog_default_no">取消</string>
 
-        <string name ="playlist_add">已添加到播放列表。</string>
-        <string name ="playlist_empty">播放列表為空。\n添加播放列表。</string>
+        
+    <string name="playlist_add">已添加到播放列表。</string>
+        
+    <string name="playlist_empty">播放列表為空。\n添加播放列表。</string>
 
-        <string name ="error_videos_emptyInfo">信息不存在。</string>
+        
+    <string name="error_videos_emptyInfo">信息不存在。</string>
+
+    <string name="loading_pacman_text">Please wait ...</string>
 </resources>

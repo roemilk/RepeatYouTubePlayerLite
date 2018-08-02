@@ -25,9 +25,6 @@ import com.venuskimblessing.youtuberepeatlite.Utils.SharedPreferencesUtils;
 public class IntroActivity extends AppCompatActivity {
     public static final String TAG = "IntroActivity";
 
-//    //TYPE
-//    private final String TYPE_MIME = "text/plain";
-
     private FadeTextView mLineTextView = null;
     private String mPlayId = null;
 
@@ -68,27 +65,6 @@ public class IntroActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
     }
-
-//    /**
-//     * 유튜브로 부터 공유 메타데이터 수신
-//     */
-//    private void getShareIntentData() {
-//        Log.d(TAG, "유튜브 공유로부터 비디오 메타 데이터를 넘겨받습니다.");
-//
-//        Intent intent = getIntent();
-//        String action = intent.getAction();
-//        String type = intent.getType();
-//
-//        if (Intent.ACTION_SEND.equals(action) && type != null) {
-//            if (TYPE_MIME.equals(type)) {
-//                String shareText = intent.getStringExtra(Intent.EXTRA_TEXT);
-//                Log.d(TAG, "ShareText : " + shareText);
-//
-//                mPlayId = shareText.substring(17);
-//                Log.d(TAG, "mPlayId : " + mPlayId);
-//            }
-//        }
-//    }
 
     /**
      * 앱 최초 실행인지 여부를 판단하여 알맞는 화면으로 이동합니다.
