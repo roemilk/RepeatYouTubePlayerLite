@@ -41,7 +41,7 @@ public class LoadingActivity extends AppCompatActivity {
 
         mLoadingLay = (LinearLayout)findViewById(R.id.loading_lay);
         mLoadingIndicator = (AVLoadingIndicatorView)findViewById(R.id.loading_pacman_indicator);
-//        mLoadingIndicator.show();
+        mLoadingIndicator.show();
     }
 
     @Override
