@@ -26,6 +26,20 @@
             android:textStyle="bold" />
 
         <Button
+            android:id="@+id/help_pro_button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="@string/dialog_help_pro"
+            android:textColor="#757575" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#BDBDBD"></View>
+
+        <Button
             android:id="@+id/help_guide_button"
             android:layout_width="match_parent"
             android:layout_height="50dp"

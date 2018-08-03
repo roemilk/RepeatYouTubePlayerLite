@@ -18,6 +18,7 @@
         <string name = "search_word_edittext_hint"> Por favor clique aqui e pesquise. </string>
 
         <string name = "dialog_help_title"> Ajuda </string>
+    <string name="dialog_help_pro">Compre agora PRO</string>
         <string name = "dialog_help_manual"> Guia do Usuário </string>
         <string name = "dialog_help_opensource"> Licença do OpenSource </string>
         <string name = "dialog_help_opensource_another"> Outra licença </string>
@@ -25,7 +26,7 @@
         <string name = "dialog_help_version_no_item"> Você está usando a versão gratuita. </string>
         <string name = "dialog_help_version_yes_item"> Você está usando a versão premium. </string>
 
-        <string name = "player_numberpick"> Quantos você irá repetir? </string>
+        <string name = "player_numberpick"> Quantos você irá repetir?\nA versão Lite está limitada a um máximo de 6 repetições.</string>
         <string name = "player_repeat_title"> Configurando reprodução repetida </string>
         <string name = "player_repeat_starttime"> StartTime: </string>
         <string name = "player_repeat_endtime"> EndTime: </string>
@@ -43,5 +44,17 @@
         <string name = "error_videos_emptyInfo"> A informação não existe. </string>
 
     <string name="loading_pacman_text">Please wait ...</string>
+
+    <!-- buy dialog -->
+    <string name="dialog_buy_title">Repeat YouTube Player PRO</string>
+    <string name="dialog_buy_description">O preço do PRO atual é o preço mínimo.\n
+Mais tarde, à medida que seus aplicativos se tornam mais ricos em recursos e mais completos, eles podem ter preços mais altos do que são agora.\n
+Compre o PRO ao menor preço agora mesmo!\n
+É sua escolha muito inteligente.\n\nBenefícios PRO \n
+- Remover propagandas. \n
+- Desbloquear todos os recursos. \n
+- Atualização de recurso mais rápida. \n</string>
+    <string name="dialog_buy_cancel">Cancelar</string>
+    <string name="dialog_buy_pro">Ver detalhes PRO</string>
 
 </resources>

@@ -32,6 +32,8 @@
         
     <string name="dialog_help_title"> Справка </string>
         
+    <string name="dialog_help_pro">Купить сейчас PRO</string>
+
     <string name="dialog_help_manual"> Руководство пользователя </string>
         
     <string name="dialog_help_opensource"> OpenSource License </string>
@@ -45,7 +47,7 @@
     <string name="dialog_help_version_yes_item"> Вы используете премиум-версию. </string>
 
         
-    <string name="player_numberpick"> Сколько будет число повторений? </string>
+    <string name="player_numberpick"> Сколько будет число повторений?\nВерсия Lite ограничена максимум 6 повторами. </string>
         
     <string name="player_repeat_title"> Установка повторного воспроизведения </string>
         
@@ -74,4 +76,16 @@
     <string name="error_videos_emptyInfo"> Информация не существует. </string>
 
     <string name="loading_pacman_text">Please wait ...</string>
+
+    <!-- buy dialog -->
+    <string name="dialog_buy_title">Repeat YouTube Player PRO</string>
+    <string name="dialog_buy_description">Цена текущей PRO - минимальная цена. \n
+Позже, когда ваши приложения станут более многофункциональными и более полными, они могут быть оценены выше, чем сейчас.\n
+Покупайте PRO по самой низкой цене прямо сейчас! \n
+Это ваш очень умный выбор.\n\n Преимущества PRO \n
+- Убрать рекламу. \n
+- Разблокировать все функции. \n
+- Быстрое обновление функций. \n</string>
+    <string name="dialog_buy_cancel">Отмена</string>
+    <string name="dialog_buy_pro">Подробнее PRO</string>
 </resources>

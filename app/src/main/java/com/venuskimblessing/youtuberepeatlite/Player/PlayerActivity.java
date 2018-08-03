@@ -20,6 +20,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -31,19 +32,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.javiersantos.piracychecker.PiracyChecker;
-import com.github.javiersantos.piracychecker.enums.InstallerID;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
 import com.venuskimblessing.youtuberepeatlite.Common.CommonApiKey;
-import com.venuskimblessing.youtuberepeatlite.Common.CommonSharedPreferencesKey;
+import com.venuskimblessing.youtuberepeatlite.Common.CommonUserData;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogHelp;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogPickerCount;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogPickerTime;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogPlayList;
+import com.venuskimblessing.youtuberepeatlite.Dialog.DialogPro;
 import com.venuskimblessing.youtuberepeatlite.Json.PlayingData;
 import com.venuskimblessing.youtuberepeatlite.Json.Videos;
 import com.venuskimblessing.youtuberepeatlite.PlayList.PlayListData;
@@ -54,7 +54,6 @@ import com.venuskimblessing.youtuberepeatlite.Retrofit.RetrofitManager;
 import com.venuskimblessing.youtuberepeatlite.Retrofit.RetrofitService;
 import com.venuskimblessing.youtuberepeatlite.SearchActivity;
 import com.venuskimblessing.youtuberepeatlite.Utils.MediaUtils;
-import com.venuskimblessing.youtuberepeatlite.Utils.SharedPreferencesUtils;
 import com.venuskimblessing.youtuberepeatlite.Utils.UIConvertUtils;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
@@ -507,7 +506,10 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     private DialogPickerCount.OnSelectedNumberPickerListener onSelectedNumberPickerListener = new DialogPickerCount.OnSelectedNumberPickerListener() {
         @Override
         public void onSelectedValue(int value) {
-//            mRepeatCountEditText.setText(String.valueOf(value));
+            if(CommonUserData.sMaxRepeatCount < value){
+                showProDialog();
+                return;
+            }
             mRepeatCount = value;
 
             mExpandableCountTextView.setText(String.valueOf(mRepeatCount));
@@ -772,4 +774,35 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
             Log.d(TAG, "t " + t.toString());
         }
     };
+
+    //Dialog
+    public void showProDialog(){
+        if(mYouTubePlayer.isPlaying()){
+            mYouTubePlayer.pause();
+        }
+
+        final DialogPro dialogPro = new DialogPro(this, R.style.custom_dialog_fullScreen);
+        dialogPro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = null;
+                switch (v.getId()) {
+                    case R.id.dialog_pro_button:
+                        intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse("market://details?id=com.venuskimblessing.youtuberepeat"));
+                        startActivity(intent);
+                        break;
+                    case R.id.dialog_cancel_button:
+                        dialogPro.dismiss();
+                        break;
+                }
+
+                if(intent != null){
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
+        dialogPro.show();
+    }
 }

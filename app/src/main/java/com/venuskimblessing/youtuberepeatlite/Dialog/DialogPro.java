@@ -1,0 +1,52 @@
+package com.venuskimblessing.youtuberepeatlite.Dialog;
+
+import android.app.Dialog;
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.venuskimblessing.youtuberepeatlite.R;
+
+public class DialogPro extends Dialog {
+
+    private TextView mTitleTextView, mContentTextView;
+    private Button mProButton, mCancelButton;
+    private View.OnClickListener listener = null;
+
+    public DialogPro(@NonNull Context context) {
+        super(context);
+        init();
+    }
+
+    public DialogPro(@NonNull Context context, int themeResId) {
+        super(context, themeResId);
+        init();
+    }
+
+    public DialogPro(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
+        super(context, cancelable, cancelListener);
+        init();
+    }
+
+    private void init(){
+        setContentView(R.layout.layout_dialog_pro);
+        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        mTitleTextView = (TextView)findViewById(R.id.dialog_pro_title_textView);
+        mContentTextView = (TextView)findViewById(R.id.dialog_pro_description_textView);
+
+        mCancelButton = (Button)findViewById(R.id.dialog_cancel_button);
+        mProButton = (Button)findViewById(R.id.dialog_pro_button);
+    }
+
+    public void setOnClickListener(View.OnClickListener onClickListener){
+        this.listener = onClickListener;
+        if(listener != null){
+            mCancelButton.setOnClickListener(listener);
+            mProButton.setOnClickListener(listener);
+        }
+    }
+}

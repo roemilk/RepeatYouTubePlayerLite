@@ -15,7 +15,9 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.common.internal.service.Common;
 import com.venuskimblessing.youtuberepeatlite.Common.CommonApiKey;
+import com.venuskimblessing.youtuberepeatlite.Common.CommonUserData;
 import com.venuskimblessing.youtuberepeatlite.Player.PlayerActivity;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -36,12 +38,21 @@ public class LoadingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_loading);
         getExtraData();
 
-        MobileAds.initialize(this, CommonApiKey.KEY_ADMOB_TEST_APP_ID);
-        showFullAd();
+        int isCheckAdShow = CommonUserData.sAdCount %  CommonUserData.AD_DEALY_COUNT;
+        Log.d(TAG, "isCheckAdShow : " + isCheckAdShow);
 
-        mLoadingLay = (LinearLayout)findViewById(R.id.loading_lay);
-        mLoadingIndicator = (AVLoadingIndicatorView)findViewById(R.id.loading_pacman_indicator);
-        mLoadingIndicator.show();
+        if(isCheckAdShow == 0){
+            MobileAds.initialize(this, CommonApiKey.KEY_ADMOB_APP_ID);
+            showFullAd();
+
+            mLoadingLay = (LinearLayout)findViewById(R.id.loading_lay);
+            mLoadingIndicator = (AVLoadingIndicatorView)findViewById(R.id.loading_pacman_indicator);
+            mLoadingIndicator.show();
+        }else{
+            startActivity();
+        }
+
+        CommonUserData.sAdCount++;
     }
 
     @Override
@@ -66,7 +77,7 @@ public class LoadingActivity extends AppCompatActivity {
      */
     private void showFullAd(){
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(CommonApiKey.KEY_ADMOB_TEST_UNIT_ID);
+        mInterstitialAd.setAdUnitId(CommonApiKey.KEY_ADMOB_FULL_UNIT);
         mInterstitialAd.setAdListener(adListener);
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
     }
@@ -76,18 +87,14 @@ public class LoadingActivity extends AppCompatActivity {
         public void onAdClosed() {
             super.onAdClosed();
             Log.d(TAG, "onAdClosed");
-
-            mLoadingIndicator.hide();
-            mLoadingLay.setVisibility(View.GONE);
-//            startActivity();
+            startActivity();
         }
 
         @Override
         public void onAdFailedToLoad(int i) {
             super.onAdFailedToLoad(i);
             Log.d(TAG, "onAdFailedToLoad");
-
-//            startActivity();
+            startActivity();
         }
 
         @Override

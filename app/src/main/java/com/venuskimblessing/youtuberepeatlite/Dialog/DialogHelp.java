@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -25,7 +26,7 @@ public class DialogHelp extends Dialog implements View.OnClickListener {
 
     private Context mContext = null;
     private LinearLayout mHelpMenuLay, mLicenseLay;
-    private Button mGuideButton, mLisenceButton;
+    private Button mProButton, mGuideButton, mLisenceButton;
     private TextView mVersionTextView, mVersionItemTextView;
     private TextView mExpandableButton0, mExpandableButton1, mExpandableButton2, mExpandableVersionButton;
     private ExpandableLayout mExpandableLay0, mExpandableLay1, mExpandableLay2, mExpandableVersionLay;
@@ -54,6 +55,7 @@ public class DialogHelp extends Dialog implements View.OnClickListener {
 
         mHelpMenuLay = (LinearLayout)findViewById(R.id.help_menu_parent_lay);
         mLicenseLay = (LinearLayout)findViewById(R.id.help_license_parent_lay);
+        mProButton = (Button)findViewById(R.id.help_pro_button);
         mGuideButton = (Button)findViewById(R.id.help_guide_button);
         mLisenceButton = (Button)findViewById(R.id.help_license_button);
         mVersionTextView = (TextView)findViewById(R.id.help_version_textView);
@@ -75,31 +77,38 @@ public class DialogHelp extends Dialog implements View.OnClickListener {
         mExpandableVersionLay = (ExpandableLayout)findViewById(R.id.dialog_help_version_expandable_lay);
         mExpandableVersionButton.setOnClickListener(onClickListenerExpandableLayout);
 
+        mProButton.setOnClickListener(this);
         mGuideButton.setOnClickListener(this);
         mLisenceButton.setOnClickListener(this);
 
         PackageInfo packageInfo = OSUtils.getPackageInfo(mContext);
 
-        String itemString = null;
+//        String itemString = null;
 //        if(CommonUserData.sUserItemState.equals(CommonUserData.ITEM_FREE)){
 //            itemString = mContext.getString(R.string.dialog_help_version_no_item);
 //        }else{
-            itemString = mContext.getString(R.string.dialog_help_version_yes_item);
+//            itemString = mContext.getString(R.string.dialog_help_version_yes_item);
 //        }
-        mVersionItemTextView.setText(itemString);
+//        mVersionItemTextView.setText(itemString);
         mVersionTextView.setText("Ver " + packageInfo.versionName + "-" + packageInfo.versionCode);
     }
 
     @Override
     public void onClick(View v) {
+        Intent intent = null;
         switch (v.getId()){
             case R.id.help_guide_button:
-                Intent intent = new Intent(mContext, GuideActivity.class);
+                intent = new Intent(mContext, GuideActivity.class);
                 mContext.startActivity(intent);
                 break;
             case R.id.help_license_button:
                 mHelpMenuLay.setVisibility(View.GONE);
                 mLicenseLay.setVisibility(View.VISIBLE);
+                break;
+            case R.id.help_pro_button:
+                intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("market://details?id=com.venuskimblessing.youtuberepeat"));
+                mContext.startActivity(intent);
                 break;
         }
     }

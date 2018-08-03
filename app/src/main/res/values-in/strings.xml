@@ -17,6 +17,7 @@
         <string name = "search_word_edittext_hint"> Silakan klik di sini dan cari. </string>
 
         <string name = "dialog_help_title"> Bantuan </string>
+        <string name="dialog_help_pro">Beli sekarang PRO</string>
         <string name = "dialog_help_manual"> Panduan Pengguna </string>
         <string name = "dialog_help_opensource"> Lisensi OpenSource </string>
         <string name = "dialog_help_opensource_another"> Lisensi Lain </string>
@@ -24,7 +25,7 @@
         <string name = "dialog_help_version_no_item"> Anda menggunakan versi gratis. </string>
         <string name = "dialog_help_version_yes_item"> Anda menggunakan versi premium. </string>
 
-        <string name = "player_numberpick"> Berapa hitungan yang akan Anda ulangi? </string>
+        <string name = "player_numberpick"> Berapa hitungan yang akan Anda ulangi?\nVersi Lite terbatas hingga maksimal 6 pengulangan.</string>
         <string name = "player_repeat_title"> Pengaturan pemutaran ulang </string>
         <string name = "player_repeat_starttime"> StartTime: </string>
         <string name = "player_repeat_endtime"> EndTime: </string>
@@ -42,4 +43,16 @@
         <string name = "error_videos_emptyInfo"> Informasi tidak ada. </string>
 
     <string name="loading_pacman_text">Please wait ...</string>
+
+    <!-- buy dialog -->
+    <string name="dialog_buy_title">Repeat YouTube Player PRO</string>
+    <string name="dialog_buy_description">Harga PRO saat ini adalah harga minimum. \n
+Kemudian, seiring aplikasi Anda menjadi lebih kaya fitur dan lebih lengkap, harganya bisa lebih tinggi dari sekarang. \n
+Beli PRO dengan harga terendah sekarang juga! \n
+Ini adalah pilihan Anda yang sangat cerdas. \n\n Solusi PRO \n
+- Hilangkan iklan. \n
+- Buka kunci semua fitur. \n
+- Pembaruan fitur tercepat. \n</string>
+    <string name="dialog_buy_cancel">Membatalkan</string>
+    <string name="dialog_buy_pro">Lihat detail PRO</string>
 </resources>

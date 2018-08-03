@@ -22,6 +22,7 @@
     <!-- 도움말 -->
     <string name="dialog_help_title">Help</string>
     <string name="dialog_help_manual">User Guide</string>
+    <string name="dialog_help_pro">Buy now PRO</string>
     <string name="dialog_help_opensource">OpenSource License</string>
     <string name="dialog_help_opensource_another">Other License</string>
     <string name="dialog_help_version">Version</string>
@@ -29,7 +30,7 @@
     <string name="dialog_help_version_yes_item">You are using the premium version.</string>
 
     <!-- 플레이어 -->
-    <string name="player_numberpick">How many count will you repeat?</string>
+    <string name="player_numberpick">How many count will you repeat?\nThe Lite version is limited to a maximum of 6 repeat.</string>
     <string name="player_repeat_title">Setting repeat play</string>
     <string name="player_repeat_starttime">StartTime :</string>
     <string name="player_repeat_endtime">EndTime : </string>
@@ -51,4 +52,16 @@
     <string name="error_videos_emptyInfo">Information does not exist.</string>
 
     <string name="loading_pacman_text">Please wait ...</string>
+
+    <!-- buy dialog -->
+    <string name="dialog_buy_title">Repeat YouTube Player PRO</string>
+    <string name="dialog_buy_description">The price of the current PRO is the minimum price.\n
+Later, as your apps become more feature-rich and more complete, they can be priced higher than they are now.\n
+Buy PRO at the lowest price right now!\n
+It is your very smart choice.\n\nPRO benefits \n
+- Remove ads. \n
+- Unlock all features. \n
+- Fastest feature update. \n</string>
+    <string name="dialog_buy_cancel">Cancel</string>
+    <string name="dialog_buy_pro">View details PRO</string>
 </resources>

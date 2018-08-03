@@ -31,6 +31,8 @@
 
         
     <string name="dialog_help_title">幫助</string>
+
+    <string name="dialog_help_pro">立即購買PRO</string>
         
     <string name="dialog_help_manual">用戶指南</string>
         
@@ -45,7 +47,7 @@
     <string name="dialog_help_version_yes_item">您正在使用高級版本。</string>
 
         
-    <string name="player_numberpick">你會重複幾次計數？</string>
+    <string name="player_numberpick">你會重複幾次計數？\nLite版本限制為最多6次重複。</string>
         
     <string name="player_repeat_title">設置重複播放</string>
         
@@ -74,4 +76,16 @@
     <string name="error_videos_emptyInfo">信息不存在。</string>
 
     <string name="loading_pacman_text">Please wait ...</string>
+
+    <!-- buy dialog -->
+    <string name="dialog_buy_title">Repeat YouTube Player PRO</string>
+    <string name="dialog_buy_description">當前PRO的價格是最低價格。\n
+之後，隨著您的應用程序功能越來越豐富，越來越完整，它們的價格可能會高於現在的價格。\n
+現在以最低的價格購買PRO！\n
+這是你非常明智的選擇。\n\n專業福利 \n
+- 移除廣告。\n
+- 解鎖所有功能。\n
+- 最快的功能更新。\n</string>
+    <string name="dialog_buy_cancel">取消</string>
+    <string name="dialog_buy_pro">查看詳情PRO</string>
 </resources>
