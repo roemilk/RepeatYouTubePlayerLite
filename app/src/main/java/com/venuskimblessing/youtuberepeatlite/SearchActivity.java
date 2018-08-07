@@ -3,6 +3,7 @@ package com.venuskimblessing.youtuberepeatlite;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,6 +35,7 @@ import com.github.florent37.materialtextfield.MaterialTextField;
 //import com.google.android.gms.ads.InterstitialAd;
 //import com.google.android.gms.ads.MobileAds;
 //import com.google.android.gms.common.internal.service.Common;
+import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.gson.Gson;
 import com.venuskimblessing.youtuberepeatlite.Adapter.SearchDecoration;
 import com.venuskimblessing.youtuberepeatlite.Adapter.SearchRecyclerViewAdapter;
@@ -40,6 +43,7 @@ import com.venuskimblessing.youtuberepeatlite.Common.CommonApiKey;
 import com.venuskimblessing.youtuberepeatlite.Common.CommonSharedPreferencesKey;
 import com.venuskimblessing.youtuberepeatlite.Common.CommonUserData;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogInfo;
+import com.venuskimblessing.youtuberepeatlite.Dialog.DialogInvitation;
 import com.venuskimblessing.youtuberepeatlite.Json.PlayingData;
 import com.venuskimblessing.youtuberepeatlite.Json.SearchList;
 import com.venuskimblessing.youtuberepeatlite.Json.Videos;
@@ -64,10 +68,14 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class SearchActivity extends AppCompatActivity implements SearchRecyclerViewAdapter.OnClickRecyclerViewItemListener {
+public class SearchActivity extends AppCompatActivity implements SearchRecyclerViewAdapter.OnClickRecyclerViewItemListener, View.OnClickListener {
     public static final String TAG = "SearchActivity";
 
     public static final String DEFAULT_WORD = "cinematic trailer";
+
+    //Request Code
+    public static final int REQUEST_INVITE = 1;
+    public static final int REQUEST_PLAYER_INVITE = 2;
 
     //Search Order
     public static final String ORDER_DATE = "date";
@@ -77,6 +85,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     public static final String ORDER_VIDEOCOUNT = "videoCount";
     public static final String ORDER_VIEWCOUNT = "viewCount";
 
+    private Button mInviteButton = null;
     private MaterialTextField mMaterialTextField = null;
     private EditText mEditTextSearchWord = null;
     private RecyclerView mRecyclerView = null;
@@ -112,6 +121,9 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         getShareIntentData();
+
+        mInviteButton = (Button) findViewById(R.id.search_invite_button);
+        mInviteButton.setOnClickListener(this);
 
         mMaterialTextField = (MaterialTextField)findViewById(R.id.search_top_materialTextField);
         mMaterialTextField.getEditText().setBackgroundColor(Color.WHITE);
@@ -277,6 +289,45 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         }
     }
 
+    /**
+     * 초대를 보냅니다.
+     */
+    private void onInviteClicked() {
+        Intent intent = new AppInviteInvitation.IntentBuilder(getString(R.string.invitation_title))
+                .setMessage(getString(R.string.invitation_message))
+                .setDeepLink(Uri.parse(getString(R.string.invitation_deep_link)))
+                .setCallToActionText(getString(R.string.invitation_cta))
+                .build();
+
+        startActivityForResult(intent, REQUEST_INVITE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult: requestCode=" + requestCode + ", resultCode=" + resultCode);
+
+        if (requestCode == REQUEST_INVITE) {
+            if (resultCode == RESULT_OK) {
+                SharedPreferencesUtils.setBoolean(this, CommonSharedPreferencesKey.KEY_INVITATION, true); //친구초대 성공으로 반복횟수99개증가
+                CommonUserData.sMaxRepeatCount = CommonUserData.COUNT_MAX;
+
+                // Get the invitation IDs of all sent messages
+                String[] ids = AppInviteInvitation.getInvitationIds(resultCode, data);
+                for (String id : ids) {
+                    Log.d(TAG, "onActivityResult: sent invitation " + id);
+                }
+            } else {
+                // Sending failed or it was canceled, show failure message to the user
+                // ...
+            }
+        }else if(requestCode == REQUEST_PLAYER_INVITE){
+            if(resultCode == RESULT_OK){
+                mInviteButton.performClick();
+            }
+        }
+    }
+
     @Override
     public void onClickItem(SearchList.ItemsItem itemsItem) {
         this.mSelectedItem = itemsItem;
@@ -336,4 +387,18 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
            Log.d(TAG, "t " + t.toString());
        }
    };
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.search_invite_button:
+                DialogInvitation dialogInvitation = new DialogInvitation(this, R.style.custom_dialog_fullScreen);
+                dialogInvitation.setOnClickListener(this);
+                dialogInvitation.show();
+                break;
+            case R.id.dialog_invitation_button:
+                onInviteClicked();
+                break;
+        }
+    }
 }

@@ -1,43 +1,27 @@
 {
   "project_info": {
-    "project_number": "540625772581",
-    "firebase_url": "https://repeatplayerlite.firebaseio.com",
-    "project_id": "repeatplayerlite",
-    "storage_bucket": "repeatplayerlite.appspot.com"
+    "project_number": "515582152483",
+    "firebase_url": "https://repeatplayerlite-8511b.firebaseio.com",
+    "project_id": "repeatplayerlite-8511b",
+    "storage_bucket": "repeatplayerlite-8511b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:540625772581:android:5e9e53a072302ee3",
+        "mobilesdk_app_id": "1:515582152483:android:5e9e53a072302ee3",
         "android_client_info": {
           "package_name": "com.venuskimblessing.youtuberepeatlite"
         }
       },
       "oauth_client": [
         {
-          "client_id": "540625772581-0u9kr1c4ncc1osa14uuu8k1bopv3oda2.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.venuskimblessing.youtuberepeatlite",
-            "certificate_hash": "b47d810565d25525db90cf4bf3be2826bb740910"
-          }
-        },
-        {
-          "client_id": "540625772581-c00snmd5gbd8mcm3vpq7ujng3var2h54.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.venuskimblessing.youtuberepeatlite",
-            "certificate_hash": "6f0e0bff0602d72536486a26b6eafd4821ed110c"
-          }
-        },
-        {
-          "client_id": "540625772581-5ebm67jvdoqv8akpbrtn4i7s2i30a34t.apps.googleusercontent.com",
+          "client_id": "515582152483-5blkadvm5p24p5pg9ur59unsln3lqnm1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDErkTIhmJ6dbDiy2vrlkQIs3fUvdNcLkE"
+          "current_key": "AIzaSyCYtU8b59DLy22PwrLU427c24akHp7iu6c"
         }
       ],
       "services": {
@@ -45,19 +29,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "540625772581-5ebm67jvdoqv8akpbrtn4i7s2i30a34t.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2
         }
-      },
-      "admob_app_id": "ca-app-pub-8974353837020608~2088476441"
+      }
     }
   ],
   "configuration_version": "1"
