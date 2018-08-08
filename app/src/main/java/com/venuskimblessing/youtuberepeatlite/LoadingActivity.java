@@ -150,7 +150,12 @@ public class LoadingActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d("TAG", "onActivityResult" + requestCode);
         if(requestCode == SearchActivity.REQUEST_PLAYER_INVITE){
-            finish();
+            if(resultCode == RESULT_OK){
+                setResult(RESULT_OK);
+                finish();
+            }else{
+                finish();
+            }
         }
     }
 }

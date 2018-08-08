@@ -322,7 +322,9 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 // ...
             }
         }else if(requestCode == REQUEST_PLAYER_INVITE){
+            if(resultCode == RESULT_OK){
                 mInviteButton.performClick();
+            }
         }
     }
 
