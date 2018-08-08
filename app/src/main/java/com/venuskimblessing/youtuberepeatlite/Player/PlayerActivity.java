@@ -32,12 +32,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.internal.service.Common;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
 import com.venuskimblessing.youtuberepeatlite.Common.CommonApiKey;
+import com.venuskimblessing.youtuberepeatlite.Common.CommonSharedPreferencesKey;
 import com.venuskimblessing.youtuberepeatlite.Common.CommonUserData;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogHelp;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogPickerCount;
@@ -54,6 +56,7 @@ import com.venuskimblessing.youtuberepeatlite.Retrofit.RetrofitManager;
 import com.venuskimblessing.youtuberepeatlite.Retrofit.RetrofitService;
 import com.venuskimblessing.youtuberepeatlite.SearchActivity;
 import com.venuskimblessing.youtuberepeatlite.Utils.MediaUtils;
+import com.venuskimblessing.youtuberepeatlite.Utils.SharedPreferencesUtils;
 import com.venuskimblessing.youtuberepeatlite.Utils.UIConvertUtils;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
@@ -138,6 +141,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
 //        checkPiracyChecker();
+        initInviteItem();
         getExtraData();
         initPlayList();
         initRetrofit();
@@ -737,6 +741,18 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         mCallVideos.enqueue(callback);
     }
 
+    /**
+     * 친구초대 유무를 확인하고 그에 맞는 최대 반복 횟수를 세팅한다.
+     */
+    private void initInviteItem(){
+        boolean state = SharedPreferencesUtils.getBoolean(this, CommonSharedPreferencesKey.KEY_INVITATION);
+        if(state){
+            CommonUserData.sMaxRepeatCount = CommonUserData.COUNT_MAX;
+        }else {
+            CommonUserData.sMaxRepeatCount = CommonUserData.COUNT_DEFAULT;
+        }
+    }
+
     //통신처리
     private Callback<String> callback = new Callback<String>() {
         @Override
@@ -792,6 +808,11 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                         intent.setData(Uri.parse("market://details?id=com.venuskimblessing.youtuberepeat"));
                         startActivity(intent);
                         break;
+
+                    case R.id.dialog_invite_button:
+                        finish();
+                        break;
+
                     case R.id.dialog_cancel_button:
                         dialogPro.dismiss();
                         break;

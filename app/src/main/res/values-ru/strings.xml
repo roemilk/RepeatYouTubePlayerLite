@@ -48,6 +48,7 @@
 
         
     <string name="player_numberpick"> Сколько будет число повторений?\nВерсия Lite ограничена максимум 6 повторами. </string>
+    <string name="player_numberpick_invite">Сколько будет число повторений? \nПосле того как вы пригласили друзей, вы можете использовать 99 повторов.</string>
         
     <string name="player_repeat_title"> Установка повторного воспроизведения </string>
         
@@ -88,4 +89,14 @@
 - Быстрое обновление функций. \n</string>
     <string name="dialog_buy_cancel">Отмена</string>
     <string name="dialog_buy_pro">Подробнее PRO</string>
+    <string name="dialog_free_unlock">Разблокировать бесплатно</string>
+
+    <!-- 초대장 -->
+    <string name="invitation_title">приглашение</string>
+    <string name="invitation_message">Это популярный плеер, который поддерживает циклическое воспроизведение видео на YouTube.</string>
+    <string name="invitation_deep_link">https://play.google.com/store/apps/details?id=com.venuskimblessing.youtuberepeatlite</string>
+    <string name="invitation_cta">устанавливать</string>
+    <string name="invitation_tip_title">Пригласить друзей!</string>
+    <string name="invitation_tip_content">Пригласите своих друзей и получите премиальные льготы. \n Вы можете увеличить максимальное количество повторений до 99.</string>
+    <string name="invitation_button">Пригласить друзей!</string>
 </resources>

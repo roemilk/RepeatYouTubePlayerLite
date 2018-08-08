@@ -14,7 +14,7 @@ import com.venuskimblessing.youtuberepeatlite.R;
 public class DialogPro extends Dialog {
 
     private TextView mTitleTextView, mContentTextView;
-    private Button mProButton, mCancelButton;
+    private Button mProButton, mInvitationButton, mCancelButton;
     private View.OnClickListener listener = null;
 
     public DialogPro(@NonNull Context context) {
@@ -40,6 +40,7 @@ public class DialogPro extends Dialog {
 
         mCancelButton = (Button)findViewById(R.id.dialog_cancel_button);
         mProButton = (Button)findViewById(R.id.dialog_pro_button);
+        mInvitationButton = (Button)findViewById(R.id.dialog_invite_button);
     }
 
     public void setOnClickListener(View.OnClickListener onClickListener){
@@ -47,6 +48,7 @@ public class DialogPro extends Dialog {
         if(listener != null){
             mCancelButton.setOnClickListener(listener);
             mProButton.setOnClickListener(listener);
+            mInvitationButton.setOnClickListener(listener);
         }
     }
 }

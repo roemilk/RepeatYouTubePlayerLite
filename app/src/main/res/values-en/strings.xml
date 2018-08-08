@@ -31,6 +31,7 @@
 
     <!-- 플레이어 -->
     <string name="player_numberpick">How many count will you repeat?\nThe Lite version is limited to a maximum of 6 repeat.</string>
+    <string name="player_numberpick_invite">How many count will you repeat?\nSince you have invited friends, you can use 99 repeat count.</string>
     <string name="player_repeat_title">Setting repeat play</string>
     <string name="player_repeat_starttime">StartTime :</string>
     <string name="player_repeat_endtime">EndTime : </string>
@@ -64,13 +65,14 @@ It is your very smart choice.\n\nPRO benefits \n
 - Fastest feature update. \n</string>
     <string name="dialog_buy_cancel">Cancel</string>
     <string name="dialog_buy_pro">View details PRO</string>
+    <string name="dialog_free_unlock">Unlock for free</string>
 
     <!-- 초대장 -->
     <string name="invitation_title">invitation</string>
-    <string name="invitation_message">It is a popular YouTube player nowadays!</string>
+    <string name="invitation_message">It is a popular player that supports looped playback of YouTube videos.</string>
     <string name="invitation_deep_link">https://play.google.com/store/apps/details?id=com.venuskimblessing.youtuberepeatlite</string>
     <string name="invitation_cta">Install</string>
     <string name="invitation_tip_title">Invite your friends!</string>
-    <string name="invitation_tip_content">Invite your friends and get premium benefits!\nYou get unlimited repeat count.</string>
+    <string name="invitation_tip_content">Invite your friends and get premium benefits.\nYou can increase the maximum repeat up to 99 count.</string>
     <string name="invitation_button">Invite your friends!</string>
 </resources>

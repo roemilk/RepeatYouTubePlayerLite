@@ -48,6 +48,7 @@
 
         
     <string name="player_numberpick">你會重複幾次計數？\nLite版本限制為最多6次重複。</string>
+    <string name="player_numberpick_invite">你會重複多少次？\n既然你邀請了朋友，你可以使用99次重複計數。</string>
         
     <string name="player_repeat_title">設置重複播放</string>
         
@@ -88,4 +89,14 @@
 - 最快的功能更新。\n</string>
     <string name="dialog_buy_cancel">取消</string>
     <string name="dialog_buy_pro">查看詳情PRO</string>
+    <string name="dialog_free_unlock">解鎖免費</string>
+
+    <!-- 초대장 -->
+    <string name="invitation_title">請帖</string>
+    <string name="invitation_message">它是一個流行的播放器，支持循環播放YouTube視頻。</string>
+    <string name="invitation_deep_link">https://play.google.com/store/apps/details?id=com.venuskimblessing.youtuberepeatlite</string>
+    <string name="invitation_cta">安裝</string>
+    <string name="invitation_tip_title">邀請你的朋友！</string>
+    <string name="invitation_tip_content">邀請您的朋友並獲得高級優惠。\n您可以將最大重複次數增加到99次。</string>
+    <string name="invitation_button">邀請你的朋友！</string>
 </resources>

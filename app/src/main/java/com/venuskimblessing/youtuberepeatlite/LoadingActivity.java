@@ -42,7 +42,7 @@ public class LoadingActivity extends AppCompatActivity {
         Log.d(TAG, "isCheckAdShow : " + isCheckAdShow);
 
         if(isCheckAdShow == 0){
-            MobileAds.initialize(this, CommonApiKey.KEY_ADMOB_APP_ID);
+            MobileAds.initialize(this, CommonApiKey.KEY_ADMOB_TEST_APP_ID);
             showFullAd();
 
             mLoadingLay = (LinearLayout)findViewById(R.id.loading_lay);
@@ -77,7 +77,7 @@ public class LoadingActivity extends AppCompatActivity {
      */
     private void showFullAd(){
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(CommonApiKey.KEY_ADMOB_FULL_UNIT);
+        mInterstitialAd.setAdUnitId(CommonApiKey.KEY_ADMOB_TEST_UNIT_ID);
         mInterstitialAd.setAdListener(adListener);
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
     }
@@ -140,9 +140,17 @@ public class LoadingActivity extends AppCompatActivity {
                     intent.putExtra("videoId", mPlayId);
                 }
 
-                startActivity(intent);
-                finish();
+                startActivityForResult(intent, SearchActivity.REQUEST_PLAYER_INVITE);
             }
         }, 300);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("TAG", "onActivityResult" + requestCode);
+        if(requestCode == SearchActivity.REQUEST_PLAYER_INVITE){
+            finish();
+        }
     }
 }

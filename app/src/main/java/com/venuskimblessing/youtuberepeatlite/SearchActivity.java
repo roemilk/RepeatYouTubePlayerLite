@@ -201,7 +201,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         Intent intent = new Intent(this, LoadingActivity.class);
         if(videoId != null){
             intent.putExtra("videoId", videoId);
-            startActivity(intent);
+            startActivityForResult(intent, REQUEST_PLAYER_INVITE);
         }
     }
 
@@ -322,9 +322,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 // ...
             }
         }else if(requestCode == REQUEST_PLAYER_INVITE){
-            if(resultCode == RESULT_OK){
                 mInviteButton.performClick();
-            }
         }
     }
 
@@ -377,6 +375,13 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 }else{
                     DialogInfo dialogInfo = new DialogInfo(SearchActivity.this, R.style.custom_dialog_fullScreen);
                     dialogInfo.setData(videos, mSelectedItem.getThumbnails_url());
+                    dialogInfo.setListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String videoId = (String)v.getTag();
+                            startPlayer(videoId);
+                        }
+                    });
                     dialogInfo.show();
                 }
            }

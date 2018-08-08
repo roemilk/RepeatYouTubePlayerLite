@@ -27,6 +27,7 @@
         <string name = "dialog_help_version_yes_item"> Você está usando a versão premium. </string>
 
         <string name = "player_numberpick"> Quantos você irá repetir?\nA versão Lite está limitada a um máximo de 6 repetições.</string>
+    <string name="player_numberpick_invite">Quantos você irá repetir?\nPorque você convidou amigos, você pode usar 99 repetições.</string>
         <string name = "player_repeat_title"> Configurando reprodução repetida </string>
         <string name = "player_repeat_starttime"> StartTime: </string>
         <string name = "player_repeat_endtime"> EndTime: </string>
@@ -56,5 +57,14 @@ Compre o PRO ao menor preço agora mesmo!\n
 - Atualização de recurso mais rápida. \n</string>
     <string name="dialog_buy_cancel">Cancelar</string>
     <string name="dialog_buy_pro">Ver detalhes PRO</string>
+    <string name="dialog_free_unlock">Desbloquear gratuitamente</string>
+
+    <string name="invitation_title">convite</string>
+    <string name="invitation_message">É um player popular que suporta a reprodução em loop de vídeos do YouTube.</string>
+    <string name="invitation_deep_link">https://play.google.com/store/apps/details?id=com.venuskimblessing.youtuberepeatlite</string>
+    <string name="invitation_cta">Instalar</string>
+    <string name="invitation_tip_title">Convide seus amigos!</string>
+    <string name="invitation_tip_content">Convide seus amigos e obtenha benefícios premium.\nVocê pode aumentar a repetição máxima até 99 contagens.</string>
+    <string name="invitation_button">Convide seus amigos!</string>
 
 </resources>

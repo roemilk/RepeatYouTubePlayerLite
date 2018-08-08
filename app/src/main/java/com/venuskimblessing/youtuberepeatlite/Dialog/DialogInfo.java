@@ -31,6 +31,8 @@ public class DialogInfo extends Dialog implements View.OnClickListener {
     private Context mContext;
     private String id;
 
+    private View.OnClickListener listener;
+
     public DialogInfo(@NonNull Context context) {
         super(context);
         this.mContext = context;
@@ -107,6 +109,10 @@ public class DialogInfo extends Dialog implements View.OnClickListener {
         }
     }
 
+    public void setListener(View.OnClickListener onClickListener){
+        this.listener = onClickListener;
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -115,17 +121,9 @@ public class DialogInfo extends Dialog implements View.OnClickListener {
                 break;
             case R.id.dialog_info_thumb_imageView:
             case R.id.dialog_info_play_button:
-                startPlayer(id);
+                v.setTag(id);
+                listener.onClick(v);
                 break;
         }
-    }
-
-    /**
-     * 유튜브 플레이어 호출
-     */
-    private void startPlayer(String videoId) {
-        Intent intent = new Intent(getContext(), LoadingActivity.class);
-        intent.putExtra("videoId", videoId);
-        mContext.startActivity(intent);
     }
 }

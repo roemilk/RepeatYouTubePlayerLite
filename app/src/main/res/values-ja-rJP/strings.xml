@@ -1,47 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name = "app_name">YouTube 繰り返し Lite</string>
+    <string name="app_name">YouTube 繰り返し Lite</string>
 
-    <string name = "intro">お気に入りの映画は2通りの方法で再生できます。</string>
-    <string name = "search">検索に必要なビデオを見つけることができます。</string>
-    <string name = "guide1"> YouTubeアプリで繰り返したい動画はありますか？</string>
-    <string name = "guide2"> [共有]をクリックします。 YouTubeリピートアプリがリストに表示されます。</string>
-    <string name = "guide3">リピート再生アプリがYouTube上で共有している動画を読み込みます。</string>
-    <string name = "guide4">繰り返したい領域を設定します。</string>
-    <string name = "guide5">何度繰り返しますか？</string>
-    <string name = "guide6"> Playをクリックして楽しんでください！</string>
-    <string name = "guidelast">スタートボタンをクリックします。</string>
-    <string name = "guidelast_content">何度も繰り返し見たいシーンがありますか？\ n聞き続けたい曲の部分はありますか？\n\nExperienceは最も簡単で簡単なYouTubeの繰り返しですapp！</string>
-    <string name = "guidelast_start">開始方法</string>
+    <string name="intro">お気に入りの映画は2通りの方法で再生できます。</string>
+    <string name="search">検索に必要なビデオを見つけることができます。</string>
+    <string name="guide1"> YouTubeアプリで繰り返したい動画はありますか？</string>
+    <string name="guide2"> [共有]をクリックします。 YouTubeリピートアプリがリストに表示されます。</string>
+    <string name="guide3">リピート再生アプリがYouTube上で共有している動画を読み込みます。</string>
+    <string name="guide4">繰り返したい領域を設定します。</string>
+    <string name="guide5">何度繰り返しますか？</string>
+    <string name="guide6"> Playをクリックして楽しんでください！</string>
+    <string name="guidelast">スタートボタンをクリックします。</string>
+    <string name="guidelast_content">何度も繰り返し見たいシーンがありますか？\ n聞き続けたい曲の部分はありますか？\n\nExperienceは最も簡単で簡単なYouTubeの繰り返しですapp！</string>
+    <string name="guidelast_start">開始方法</string>
 
-    <string name = "search_word_edittext_hint">ここをクリックして検索してください。</string>
+    <string name="search_word_edittext_hint">ここをクリックして検索してください。</string>
 
-    <string name = "dialog_help_title">ヘルプ</string>
+    <string name="dialog_help_title">ヘルプ</string>
     <string name="dialog_help_pro">今すぐ購入</string>
-    <string name = "dialog_help_manual">ユーザーガイド</string>
-    <string name = "dialog_help_opensource">オープンソースライセンス</string>
-    <string name = "dialog_help_opensource_another">その他のライセンス</string>
-    <string name = "dialog_help_version">バージョン</string>
-    <string name = "dialog_help_version_no_item">無料版を使用しています。</string>
-    <string name = "dialog_help_version_yes_item">プレミアムバージョンを使用しています。</string>
+    <string name="dialog_help_manual">ユーザーガイド</string>
+    <string name="dialog_help_opensource">オープンソースライセンス</string>
+    <string name="dialog_help_opensource_another">その他のライセンス</string>
+    <string name="dialog_help_version">バージョン</string>
+    <string name="dialog_help_version_no_item">無料版を使用しています。</string>
+    <string name="dialog_help_version_yes_item">プレミアムバージョンを使用しています。</string>
 
-    <string name = "player_numberpick">何回繰り返しますか？\nLiteバージョンは最大6回のリピートに制限されています。</string>
-    <string name = "player_repeat_title">リピート再生を設定する</string>
-    <string name = "player_repeat_starttime"> StartTime：</string>
-    <string name = "player_repeat_endtime"> EndTime：</string>
-    <string name = "player_repeat_count">カウント</string>
+    <string name="player_numberpick">何回繰り返しますか？\nLiteバージョンは最大6回のリピートに制限されています。</string>
+    <string name="player_numberpick_invite">何回繰り返しますか？\n友だちを招待したので、99の繰り返し回数を使用できます。</string>
+    <string name="player_repeat_title">リピート再生を設定する</string>
+    <string name="player_repeat_starttime"> StartTime：</string>
+    <string name="player_repeat_endtime"> EndTime：</string>
+    <string name="player_repeat_count">カウント</string>
 
-    <string name = "player_repeat_starttime_picker">開始時刻を選択してください。</string>
-    <string name = "player_repeat_startendtime_picker">終了する時間を選択してください。</string>
+    <string name="player_repeat_starttime_picker">開始時刻を選択してください。</string>
+    <string name="player_repeat_startendtime_picker">終了する時間を選択してください。</string>
 
-    <string name = "dialog_default_yes">確認</string>
-    <string name = "dialog_default_no">キャンセル</string>
+    <string name="dialog_default_yes">確認</string>
+    <string name="dialog_default_no">キャンセル</string>
 
-    <string name = "playlist_add">プレイリストに追加されました。</string>
-    <string name = "playlist_empty">プレイリストは空です。\nプレイリストを追加してください。</string>
+    <string name="playlist_add">プレイリストに追加されました。</string>
+    <string name="playlist_empty">プレイリストは空です。\nプレイリストを追加してください。</string>
 
-    <string name = "error_videos_emptyInfo">情報が存在しません。</string>
+    <string name="error_videos_emptyInfo">情報が存在しません。</string>
 
     <string name="loading_pacman_text">Please wait ...</string>
 
@@ -56,4 +57,13 @@
 - 最速の機能アップデート。 \n</string>
     <string name="dialog_buy_cancel">取り消す</string>
     <string name="dialog_buy_pro">詳細情報</string>
+    <string name="dialog_free_unlock">無料でロック解除</string>
+
+    <string name="invitation_title">招待</string>
+    <string name="invitation_message">YouTube動画のループ再生をサポートする人気のあるプレーヤーです。</string>
+    <string name="invitation_deep_link">https://play.google.com/store/apps/details?id=com.venuskimblessing.youtuberepeatlite</string>
+    <string name="invitation_cta">Install</string>
+    <string name="invitation_tip_title">あなたの友人を招待してください！</string>
+    <string name="invitation_tip_content">あなたの友人を招待し、優遇を得ることができます。\n最大反復回数を99カウントまで増やすことができます。</string>
+    <string name="invitation_button">あなたの友人を招待してください！</string>
 </resources>
