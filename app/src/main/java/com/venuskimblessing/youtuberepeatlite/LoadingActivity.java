@@ -42,7 +42,7 @@ public class LoadingActivity extends AppCompatActivity {
         Log.d(TAG, "isCheckAdShow : " + isCheckAdShow);
 
         if(isCheckAdShow == 0){
-            MobileAds.initialize(this, CommonApiKey.KEY_ADMOB_TEST_APP_ID);
+            MobileAds.initialize(this, CommonApiKey.KEY_ADMOB_APP_ID);
             showFullAd();
 
             mLoadingLay = (LinearLayout)findViewById(R.id.loading_lay);
@@ -77,7 +77,7 @@ public class LoadingActivity extends AppCompatActivity {
      */
     private void showFullAd(){
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(CommonApiKey.KEY_ADMOB_TEST_UNIT_ID);
+        mInterstitialAd.setAdUnitId(CommonApiKey.KEY_ADMOB_FULL_UNIT);
         mInterstitialAd.setAdListener(adListener);
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
     }
