@@ -810,6 +810,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                         break;
 
                     case R.id.dialog_invite_button:
+                        setResult(RESULT_OK);
                         finish();
                         break;
 
