@@ -79,6 +79,7 @@ public class PlayListDataManager {
      * @param videoId
      */
     public void insert(String imgUrl, String title, String duration, String videoId, String startTime, String endTime){
+        title = title.replace("\'", "\''").replace("\"", "\\\"");
         SQLiteDatabase db = mPlayListDbHelper.getWritableDatabase();
         String sqlInsert = PlayListDBCtrct.SQL_INSERT +
                 "(" +
