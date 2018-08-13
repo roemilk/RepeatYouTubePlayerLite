@@ -125,16 +125,23 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     //화면전환
     private OrientationEventListener mOrientationEventListener = null;
 
-    //Gson
-    private Gson mGson = new Gson();
-
-    //PlayList
-    private PlayListDataManager mPlayListDataManager = null;
-    private Videos.Snippet mSnippet = null;
-
+    //Network
     private Retrofit mRetrofit = null;
     private RetrofitService mService = null;
     private Call<String> mCallVideos = null;
+    private Gson mGson = new Gson();
+
+    //PlayList
+    public final int TYPE_NORMAL = 0; //일반 재생 영상
+    public final int TYPE_PLAYLIST = 1; //플레이리스트 재생 영상
+
+    private PlayListDataManager mPlayListDataManager = null;
+    private Videos.Snippet mSnippet = null;
+    private DialogPlayList mDialogPlayList = null;
+    private ArrayList<PlayListData> mPlayListArray = null;
+    private PlayListData mCurrentPlayListData = null;
+    private int mPlayType = TYPE_NORMAL;
+    private int mPlayIndex = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -417,6 +424,20 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         }
     }
 
+    private void startAutoPlay(String videoId){
+        if(mYouTubePlayer != null){
+            stopTimer();
+            mYouTubePlayer.loadVideo(videoId);
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mYouTubePlayer.play();
+                }
+            }, 1000);
+        }
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -474,18 +495,31 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 break;
 
             case R.id.player_top_playlist_button:
-                final DialogPlayList dialogPlayList = new DialogPlayList(this, R.style.custom_dialog_fullScreen);
-                dialogPlayList.setOnClickListener(new DialogPlayList.OnClickDialogPlayListListener() {
+                mDialogPlayList = new DialogPlayList(this, R.style.custom_dialog_fullScreen);
+                mDialogPlayList.setOnClickListener(new DialogPlayList.OnClickDialogPlayListListener() {
                     @Override
                     public void onPlay(PlayListData data) {
-                        dialogPlayList.dismiss();
-                        String videoId = data.getVideoId();
+                        mDialogPlayList.dismiss();
+                        mPlayId = data.getVideoId();
                         mStartTime = Integer.parseInt(data.getStartTime());
                         mEndTime = Integer.parseInt(data.getEndTime());
-                        startPlay(videoId);
+                        startPlay(mPlayId);
                     }
                 });
-                dialogPlayList.show();
+                mDialogPlayList.setOnClickControllerListener(new DialogPlayList.OnClickDialogControllerListener() {
+                    @Override
+                    public void play(View v) {
+                        if(mYouTubePlayer.isPlaying()){
+                            mYouTubePlayer.pause();
+                            v.setBackgroundResource(R.drawable.ic_play_arrow_gray_24dp);
+                        }else{
+                            mYouTubePlayer.play();
+                            v.setBackgroundResource(R.drawable.ic_pause_gray_24dp);
+                        }
+                    }
+                });
+                mDialogPlayList.show();
+                refreshPlayListController();
                 break;
 
             case R.id.player_setting_playlist_button:
@@ -493,7 +527,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                     String img_url = mSnippet.getThumbnails().getMedium().getUrl();
                     String title = mSnippet.title;
                     long duration = mYouTubePlayer.getDurationMillis();
-                    mPlayListDataManager.insert(img_url, title, String.valueOf(duration), mPlayId, String.valueOf(mStartTime), String.valueOf(mEndTime));
+                    mPlayListDataManager.insert(img_url, title, String.valueOf(duration), mPlayId, String.valueOf(mStartTime), String.valueOf(mEndTime), String.valueOf(mRepeatCount));
                     mPlayListButton.performClick();
                     Toast.makeText(this, getResources().getString(R.string.playlist_add), Toast.LENGTH_SHORT).show();
                 }
@@ -613,6 +647,19 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                         mExpandableCountTextView.setText(String.valueOf(mRepeatCount));
 //                        mRepeatCountEditText.setText(String.valueOf(mRepeatCount));
                         mTopCountTextView.setText(String.valueOf(mRepeatCount));
+
+                        boolean autuplayState = SharedPreferencesUtils.getBoolean(PlayerActivity.this, CommonSharedPreferencesKey.KEY_AUTOPLAY);
+                        if(autuplayState){
+                            getPlayType();
+                            if(isNext()){
+                                Log.d(TAG, "다음 영상이 존재합니다.");
+                                nextPlay();
+                            }else{
+                                Log.d(TAG, "다음 영상이 존재하지 않습니다.");
+                                Toast.makeText(PlayerActivity.this, "영상이 모두 끝났습니다.", Toast.LENGTH_SHORT).show();
+                                refreshPlayListController();
+                            }
+                        }
                     }
                 });
             }
@@ -750,6 +797,109 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
             CommonUserData.sMaxRepeatCount = CommonUserData.COUNT_MAX;
         }else {
             CommonUserData.sMaxRepeatCount = CommonUserData.COUNT_DEFAULT;
+        }
+    }
+
+    //PlayList Play
+    private int getPlayType(){
+        mPlayListArray = mPlayListDataManager.loadPlayList();
+        int index = getPlayIndex(mPlayId);
+
+        if (index == -1) {
+            return TYPE_NORMAL;
+        }else{
+            return TYPE_PLAYLIST;
+        }
+    }
+
+    private boolean isNext(){
+        mPlayListArray = mPlayListDataManager.loadPlayList();
+        mPlayIndex = getPlayIndex(mPlayId);
+        if(mPlayType == TYPE_NORMAL){
+            if(mPlayListArray.size() != 0){
+                return true;
+            }else{
+                return false;
+            }
+        }else if(mPlayType == TYPE_PLAYLIST){
+            if(mPlayListArray.size() > mPlayIndex + 1){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        Log.d(TAG, "isNext : 그 어떤 조건도 찾지 못했습니다.");
+        return false;
+    }
+
+    /**
+     * 다음 영상을 재생합니다.
+     */
+    private void nextPlay(){
+        Log.d(TAG, "다음 영상을 재생합니다.");
+
+        if(mPlayType == TYPE_NORMAL){
+            mPlayType = TYPE_PLAYLIST;
+            mCurrentPlayListData = mPlayListArray.get(0);
+            mPlayId = mCurrentPlayListData.getVideoId();
+            mStartTime = Integer.parseInt(mCurrentPlayListData.getStartTime());
+            mEndTime = Integer.parseInt(mCurrentPlayListData.getEndTime());
+            startAutoPlay(mPlayId);
+            refreshPlayListController();
+        }else if(mPlayType == TYPE_PLAYLIST){
+            Log.d(TAG, "PlayIndex : " + mPlayIndex);
+            mCurrentPlayListData = mPlayListArray.get(mPlayIndex + 1);
+            mPlayId = mCurrentPlayListData.getVideoId();
+            mStartTime = Integer.parseInt(mCurrentPlayListData.getStartTime());
+            mEndTime = Integer.parseInt(mCurrentPlayListData.getEndTime());
+            startAutoPlay(mPlayId);
+            refreshPlayListController();
+        }
+    }
+
+    /**
+     * 이전 영상을 재생합니다.
+     */
+    private void prevPlay(){
+
+    }
+
+    /**
+     * 현재 재생되고 있는 영상의 인덱스 위치를 탐색한다.
+     */
+    private int getPlayIndex(String videoId){
+        int index = -1;
+
+        for(int i=0; i<mPlayListArray.size(); i++){
+            if(mPlayListArray.get(i).getVideoId().equals(videoId)){
+                index = i;
+                break;
+            }
+        }
+        Log.d(TAG, "Index Search Detected : " + index);
+        return index;
+    }
+
+    //PlayList Controller
+    /**
+     * PlayList의 컨트롤러를 업데이트 한다.
+     */
+    private void refreshPlayListController(){
+        if(mDialogPlayList != null){
+            if(mDialogPlayList.isShowing()){
+                if(mPlayType == TYPE_NORMAL){
+                    if(mSnippet != null){
+                        String thumbUrl = mSnippet.getThumbnails().getMedium().getUrl();
+                        String title = mSnippet.title;
+                        mDialogPlayList.refreshController(thumbUrl, title, mYouTubePlayer.isPlaying());
+                    }
+                }else if(mPlayType == TYPE_PLAYLIST){
+                    String thumbUrl = mCurrentPlayListData.getImg_url();
+                    String title = mCurrentPlayListData.getTitle();
+                    mDialogPlayList.refreshController(thumbUrl, title, mYouTubePlayer.isPlaying());
+                }
+            }
         }
     }
 

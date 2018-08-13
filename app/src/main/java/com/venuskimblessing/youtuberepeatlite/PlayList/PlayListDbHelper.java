@@ -9,7 +9,7 @@ public class PlayListDbHelper extends SQLiteOpenHelper {
     private final String TAG = "PlayListDbHelper";
 
     public static final int DB_VERSION = 1;
-    public static final String DBFILE_PLAYLIST = "playlist.db";
+    public static final String DBFILE_PLAYLIST = "playlist01.db";
 
     public PlayListDbHelper(Context context){
         super(context, DBFILE_PLAYLIST, null, DB_VERSION);

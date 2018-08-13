@@ -13,6 +13,7 @@ public class PlayListDBCtrct {
     public static final String COL_VIDEOID = "VIDEOID";
     public static final String COL_STARTTIME = "STARTTIME";
     public static final String COL_ENDTIME = "ENDTIME";
+    public static final String COL_REPEAT = "REPEAT";
 
     public static final String SQL_CREATE_TBL = "CREATE TABLE IF NOT EXISTS " + TBL_CONTACT + " " + "(" +
             COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT" + ", " +
@@ -21,14 +22,15 @@ public class PlayListDBCtrct {
             COL_DURATION + " TEXT" + ", " +
             COL_VIDEOID + " TEXT" + ", " +
             COL_STARTTIME + " TEXT" + ", " +
-            COL_ENDTIME + " TEXT" +
+            COL_ENDTIME + " TEXT" + ", " +
+            COL_REPEAT + " TEXT" +
             ")";
     public static final String SQL_DROP_TBL = "drop table PLAYLIST_T";
 
     public static final String SQL_SELECT = "SELECT * FROM " + TBL_CONTACT;
 
     public static final String SQL_INSERT = "INSERT OR REPLACE INTO " + TBL_CONTACT + " " +
-            "(" + COL_IMAGEURL + ", " + COL_TITLE + ", " + COL_DURATION + ", " +  COL_VIDEOID + ", " +  COL_STARTTIME + ", " + COL_ENDTIME + ") VALUES ";
+            "(" + COL_IMAGEURL + ", " + COL_TITLE + ", " + COL_DURATION + ", " +  COL_VIDEOID + ", " +  COL_STARTTIME + ", " + COL_ENDTIME + ", " + COL_REPEAT + ") VALUES ";
 
     public static final String SQL_DELETE = "DELETE FROM " + TBL_CONTACT;
 

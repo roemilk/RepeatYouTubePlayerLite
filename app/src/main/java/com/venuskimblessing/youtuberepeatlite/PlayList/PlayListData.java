@@ -8,6 +8,15 @@ public class PlayListData {
     private String videoId;
     private String startTime;
     private String endTime;
+    private String repeat;
+
+    public String getRepeat() {
+        return repeat;
+    }
+
+    public void setRepeat(String repeat) {
+        this.repeat = repeat;
+    }
 
     public String getStartTime() {
         return startTime;

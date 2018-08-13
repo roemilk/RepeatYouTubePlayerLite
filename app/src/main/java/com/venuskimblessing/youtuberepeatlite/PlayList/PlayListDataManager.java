@@ -42,8 +42,9 @@ public class PlayListDataManager {
             String videoid = cursor.getString(4);
             String startTime = cursor.getString(5);
             String endTime = cursor.getString(6);
+            String repeat = cursor.getString(7);
 
-            Log.d(TAG, "id : " + id + "  img_url : " + img_url + "  title : " + title + "  duration : " + duration + " videoId : " + videoid + " startTime : " + startTime + " endTime : " + endTime);
+            Log.d(TAG, "id : " + id + "  img_url : " + img_url + "  title : " + title + "  duration : " + duration + " videoId : " + videoid + " startTime : " + startTime + " endTime : " + endTime + " repeat : " + repeat);
 
             //Data Mapping
             PlayListData data = new PlayListData();
@@ -54,23 +55,23 @@ public class PlayListDataManager {
             data.setVideoId(videoid);
             data.setStartTime(startTime);
             data.setEndTime(endTime);
+            data.setRepeat(repeat);
             list.add(data);
         }
         return list;
     }
 
-    /**
-     * 리스트의 모든 데이터를 insert한다.
-     * @param list
-     */
-    public void insertAllList(ArrayList<PlayListData> list){
-        deleteAll();
-        initAutoIncrement();
-        for(PlayListData data : list){
-            insert(data.getImg_url(), data.getTitle(), data.getDuration(), data.getVideoId(), data.getStartTime(), data.getEndTime());
-        }
-    }
-
+//    /**
+//     * 리스트의 모든 데이터를 insert한다.
+//     * @param list
+//     */
+//    public void insertAllList(ArrayList<PlayListData> list){
+//        deleteAll();
+//        initAutoIncrement();
+//        for(PlayListData data : list){
+//            insert(data.getImg_url(), data.getTitle(), data.getDuration(), data.getVideoId(), data.getStartTime(), data.getEndTime());
+//        }
+//    }
     /**
      * 테이블에 데이터를 삽입한다.
      * @param imgUrl
@@ -78,7 +79,7 @@ public class PlayListDataManager {
      * @param duration
      * @param videoId
      */
-    public void insert(String imgUrl, String title, String duration, String videoId, String startTime, String endTime){
+    public void insert(String imgUrl, String title, String duration, String videoId, String startTime, String endTime, String repeat){
         title = title.replace("\'", "\''").replace("\"", "\\\"");
         SQLiteDatabase db = mPlayListDbHelper.getWritableDatabase();
         String sqlInsert = PlayListDBCtrct.SQL_INSERT +
@@ -88,19 +89,21 @@ public class PlayListDataManager {
                 "'" + duration + "', "+
                 "'" + videoId + "', "+
                 "'" + startTime + "', "+
-                "'" + endTime + "')";
+                "'" + endTime + "', "+
+                "'" + repeat + "')";
 
         db.execSQL(sqlInsert);
     }
 
-    public void updateWhere(int id, String imageUrl, String title, String duration, String videoId, String startTime, String endTime){
+    public void updateWhere(int id, String imageUrl, String title, String duration, String videoId, String startTime, String endTime, String repeat){
         SQLiteDatabase db = mPlayListDbHelper.getWritableDatabase();
         String sqlUpdateWhere = PlayListDBCtrct.SQL_UPDATE_WHERE + " " + PlayListDBCtrct.COL_IMAGEURL + "=" +"'" + imageUrl + "'," +
                 " " + PlayListDBCtrct.COL_TITLE + "=" + "'" + title + "'," +
                 " " + PlayListDBCtrct.COL_DURATION + "=" + "'" + duration + "'," +
                 " " + PlayListDBCtrct.COL_VIDEOID + "=" + "'" + videoId + "'," +
                 " " + PlayListDBCtrct.COL_STARTTIME + "=" + "'" + startTime + "'," +
-                " " + PlayListDBCtrct.COL_ENDTIME + "=" + "'" + endTime + "'" +
+                " " + PlayListDBCtrct.COL_ENDTIME + "=" + "'" + endTime + "'," +
+                " " + PlayListDBCtrct.COL_REPEAT + "=" + "'" + repeat + "'" +
                 " WHERE " + PlayListDBCtrct.COL_ID  + "=" + id;
 
         Log.d(TAG, "sqlUpdateWhere : " + sqlUpdateWhere);

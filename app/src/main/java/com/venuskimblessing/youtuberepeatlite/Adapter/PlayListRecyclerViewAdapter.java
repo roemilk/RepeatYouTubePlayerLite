@@ -109,8 +109,8 @@ public class PlayListRecyclerViewAdapter extends RecyclerView.Adapter<PlayListRe
         int toId = toData.getId();
         Log.d(TAG, "fromId : " + fromId + "  toId : " + toId);
 
-        mPlayListDataManager.updateWhere(toId, fromData.getImg_url(), fromData.getTitle(), fromData.getDuration(), fromData.getVideoId(), fromData.getStartTime(), fromData.getEndTime());
-        mPlayListDataManager.updateWhere(fromId, toData.getImg_url(), toData.getTitle(), toData.getDuration(), toData.getVideoId(), toData.getStartTime(), toData.getEndTime());
+        mPlayListDataManager.updateWhere(toId, fromData.getImg_url(), fromData.getTitle(), fromData.getDuration(), fromData.getVideoId(), fromData.getStartTime(), fromData.getEndTime(), fromData.getRepeat());
+        mPlayListDataManager.updateWhere(fromId, toData.getImg_url(), toData.getTitle(), toData.getDuration(), toData.getVideoId(), toData.getStartTime(), toData.getEndTime(), toData.getRepeat());
 
         mList.clear();
         mList.addAll(mPlayListDataManager.loadPlayList());
