@@ -90,7 +90,7 @@ public class DialogHelp extends Dialog implements View.OnClickListener {
 //            itemString = mContext.getString(R.string.dialog_help_version_yes_item);
 //        }
 //        mVersionItemTextView.setText(itemString);
-        mVersionTextView.setText("Ver " + packageInfo.versionName + "-" + packageInfo.versionCode);
+        mVersionTextView.setText("YouTubeRepeat Player Lite Version " + packageInfo.versionName + "-" + packageInfo.versionCode);
     }
 
     @Override
