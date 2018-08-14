@@ -21,6 +21,7 @@
 
     <!-- 도움말 -->
     <string name="dialog_help_title">Help</string>
+    <string name="dialog_help_feedback">Send Feedback</string>
     <string name="dialog_help_manual">User Guide</string>
     <string name="dialog_help_pro">Buy now PRO</string>
     <string name="dialog_help_opensource">OpenSource License</string>

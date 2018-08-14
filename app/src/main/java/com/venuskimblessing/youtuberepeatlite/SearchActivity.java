@@ -44,6 +44,7 @@ import com.venuskimblessing.youtuberepeatlite.Common.CommonSharedPreferencesKey;
 import com.venuskimblessing.youtuberepeatlite.Common.CommonUserData;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogInfo;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogInvitation;
+import com.venuskimblessing.youtuberepeatlite.Dialog.DialogSort;
 import com.venuskimblessing.youtuberepeatlite.Json.PlayingData;
 import com.venuskimblessing.youtuberepeatlite.Json.SearchList;
 import com.venuskimblessing.youtuberepeatlite.Json.Videos;
@@ -84,8 +85,10 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     public static final String ORDER_TITLE = "title";
     public static final String ORDER_VIDEOCOUNT = "videoCount";
     public static final String ORDER_VIEWCOUNT = "viewCount";
+    public String mOrder = ORDER_RELEVANCE;
 
     private Button mInviteButton = null;
+    private Button mSortButton = null;
     private MaterialTextField mMaterialTextField = null;
     private EditText mEditTextSearchWord = null;
     private RecyclerView mRecyclerView = null;
@@ -132,6 +135,9 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         mEditTextSearchWord = (EditText)findViewById(R.id.search_top_searchWord_editText);
         mEditTextSearchWord.setOnEditorActionListener(onEditorActionListener);
 
+        mSortButton = (Button)findViewById(R.id.search_sort_button);
+        mSortButton.setOnClickListener(this);
+
         mRecyclerView = (RecyclerView)findViewById(R.id.search_recyclerview);
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -167,7 +173,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
             searchWord = DEFAULT_WORD;
         }
 
-        mCallYoutubeSearch = mService.getYoutubeSearch("snippet",searchWord, "50", ORDER_RELEVANCE, mNextPageToken, CommonApiKey.KEY_API_YOUTUBE);
+        mCallYoutubeSearch = mService.getYoutubeSearch("snippet",searchWord, "50", mOrder, mNextPageToken, CommonApiKey.KEY_API_YOUTUBE);
         mCallYoutubeSearch.enqueue(callback);
     }
 
@@ -405,6 +411,38 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 break;
             case R.id.dialog_invitation_button:
                 onInviteClicked();
+                break;
+
+            case R.id.search_sort_button:
+                final DialogSort dialogSort = new DialogSort(this, R.style.custom_dialog_fullScreen);
+                dialogSort.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        switch (view.getId()){
+                            case R.id.sort_date_button:
+                                mOrder = ORDER_DATE;
+                                mSortButton.setBackgroundResource(R.drawable.ic_sort_date_wite_24dp);
+                                break;
+                            case R.id.sort_rating_button:
+                                mOrder = ORDER_RATING;
+                                mSortButton.setBackgroundResource(R.drawable.ic_sort_rating_white_24dp);
+                                break;
+                            case R.id.sort_relevance_button:
+                                mOrder = ORDER_RELEVANCE;
+                                mSortButton.setBackgroundResource(R.drawable.ic_sort_compare_arrows_white_24dp);
+                                break;
+                            case R.id.sort_count_button:
+                                mOrder = ORDER_VIEWCOUNT;
+                                mSortButton.setBackgroundResource(R.drawable.ic_sort_streetview_white_24dp);
+                                break;
+                        }
+                        dialogSort.dismiss();
+                        mNextPageToken = "";
+                        mItems.clear();
+                        loadContentsList();
+                    }
+                });
+                dialogSort.show();
                 break;
         }
     }

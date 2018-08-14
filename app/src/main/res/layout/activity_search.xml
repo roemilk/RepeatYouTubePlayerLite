@@ -33,6 +33,16 @@
         </com.github.florent37.materialtextfield.MaterialTextField>
 
         <Button
+            android:id="@+id/search_sort_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_toLeftOf="@+id/search_invite_button"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:visibility="visible"
+            android:background="@drawable/ic_sort_white_24dp" />
+
+        <Button
             android:id="@+id/search_invite_button"
             android:layout_width="30dp"
             android:layout_height="30dp"

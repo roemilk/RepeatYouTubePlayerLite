@@ -21,6 +21,7 @@
 
     <!-- 도움말 -->
     <string name="dialog_help_title">Help</string>
+    <string name="dialog_help_feedback">Send Feedback</string>
     <string name="dialog_help_pro">Buy now PRO</string>
     <string name="dialog_help_manual">User Guide</string>
     <string name="dialog_help_opensource">OpenSource License</string>
@@ -76,4 +77,11 @@ It is your very smart choice.\n\nPRO benefits\n
     <string name="invitation_tip_title">Invite your friends!</string>
     <string name="invitation_tip_content">Invite your friends and get premium benefits.\nYou can increase the maximum repeat up to 99 count.</string>
     <string name="invitation_button">Invite your friends!</string>
+
+    <!-- 정렬 -->
+    <string name="sort_title">YouTube video sort type</string>
+    <string name="sort_date">Date</string>
+    <string name="sort_relevance">Relevance</string>
+    <string name="sort_rating">Rating</string>
+    <string name="sort_viewCount">ViewCount</string>
 </resources>

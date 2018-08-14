@@ -26,7 +26,7 @@ public class DialogHelp extends Dialog implements View.OnClickListener {
 
     private Context mContext = null;
     private LinearLayout mHelpMenuLay, mLicenseLay;
-    private Button mProButton, mGuideButton, mLisenceButton;
+    private Button mProButton, mGuideButton, mLisenceButton, mFeedbackButton;
     private TextView mVersionTextView, mVersionItemTextView;
     private TextView mExpandableButton0, mExpandableButton1, mExpandableButton2, mExpandableVersionButton;
     private ExpandableLayout mExpandableLay0, mExpandableLay1, mExpandableLay2, mExpandableVersionLay;
@@ -77,6 +77,9 @@ public class DialogHelp extends Dialog implements View.OnClickListener {
         mExpandableVersionLay = (ExpandableLayout)findViewById(R.id.dialog_help_version_expandable_lay);
         mExpandableVersionButton.setOnClickListener(onClickListenerExpandableLayout);
 
+        mFeedbackButton = (Button)findViewById(R.id.help_feedback_button);
+        mFeedbackButton.setOnClickListener(this);
+
         mProButton.setOnClickListener(this);
         mGuideButton.setOnClickListener(this);
         mLisenceButton.setOnClickListener(this);
@@ -109,6 +112,10 @@ public class DialogHelp extends Dialog implements View.OnClickListener {
                 intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("market://details?id=com.venuskimblessing.youtuberepeat"));
                 mContext.startActivity(intent);
+                break;
+
+            case R.id.help_feedback_button:
+                sendFeedback();
                 break;
         }
     }
@@ -151,4 +158,29 @@ public class DialogHelp extends Dialog implements View.OnClickListener {
             }
         }
     };
+
+    /**
+     * Gmail로 이메일을 보냅니다.
+     */
+    private void sendFeedback(){
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
+        try {
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"venuskimblessing@gmail.com"});
+
+            emailIntent.setType("text/html");
+            emailIntent.setPackage("com.google.android.gm");
+            if(emailIntent.resolveActivity(mContext.getPackageManager())!=null)
+                mContext.startActivity(emailIntent);
+
+            mContext.startActivity(emailIntent);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            emailIntent.setType("text/html");
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"email@gmail.com"});
+
+            mContext.startActivity(Intent.createChooser(emailIntent, "Send Email"));
+        }
+    }
 }
