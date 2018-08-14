@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="#00000000">
 
     <LinearLayout
@@ -32,6 +34,22 @@
                 android:textColor="#FFFFFF"
                 android:textSize="18dp"
                 android:textStyle="bold" />
+
+            <com.github.zagum.switchicon.SwitchIconView
+                android:id="@+id/playlist_repeat_switchIconView"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/playlist_autoplay_textView"
+                app:si_animation_duration="500"
+                android:layout_marginRight="15dp"
+                app:si_disabled_alpha=".3"
+                app:si_disabled_color="#FFFFFF"
+                app:si_tint_color="#FFE05C"
+                app:si_enabled="false"
+                app:si_no_dash="false"
+                app:srcCompat="@drawable/ic_repeat_white_24dp"
+                tools:ignore="VectorDrawableCompat" />
 
             <TextView
                 android:id="@+id/playlist_autoplay_textView"

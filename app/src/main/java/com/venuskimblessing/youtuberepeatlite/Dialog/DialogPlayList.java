@@ -2,6 +2,7 @@ package com.venuskimblessing.youtuberepeatlite.Dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.github.zagum.switchicon.SwitchIconView;
 import com.suke.widget.SwitchButton;
 import com.venuskimblessing.youtuberepeatlite.Adapter.PlayListRecyclerViewAdapter;
 import com.venuskimblessing.youtuberepeatlite.Adapter.SearchDecoration;
@@ -55,6 +57,7 @@ public class DialogPlayList extends Dialog implements View.OnClickListener, Play
     private TextView mControllerTitleTextView;
     private Button mControllerPlayButton, mControllerCloseButton;
     private SwitchButton mAutoplayButton;
+    private SwitchIconView mRepeatSwitchIconView;
     private OnClickDialogControllerListener mControllerListener = null;
 
     public DialogPlayList(@NonNull Context context) {
@@ -90,9 +93,11 @@ public class DialogPlayList extends Dialog implements View.OnClickListener, Play
         mControllerPlayButton = (Button) findViewById(R.id.playlist_controller_play_button);
         mControllerCloseButton = (Button) findViewById(R.id.playlist_controller_close_button);
         mAutoplayButton = (SwitchButton)findViewById(R.id.playlist_switch_button);
+        mRepeatSwitchIconView = (SwitchIconView)findViewById(R.id.playlist_repeat_switchIconView);
 
         mControllerPlayButton.setOnClickListener(onClickPlayControllerListener);
         mControllerCloseButton.setOnClickListener(onClickPlayControllerListener);
+        mRepeatSwitchIconView.setOnClickListener(this);
 
         boolean autoPlayState = SharedPreferencesUtils.getBoolean(mContext, CommonSharedPreferencesKey.KEY_AUTOPLAY);
         mAutoplayButton.setChecked(autoPlayState);
@@ -102,6 +107,9 @@ public class DialogPlayList extends Dialog implements View.OnClickListener, Play
                 SharedPreferencesUtils.setBoolean(mContext, CommonSharedPreferencesKey.KEY_AUTOPLAY, isChecked);
             }
         });
+
+        boolean allRepeatState = SharedPreferencesUtils.getBoolean(mContext, CommonSharedPreferencesKey.KEY_ALLREPEAT);
+        mRepeatSwitchIconView.setIconEnabled(allRepeatState, true);
 
         loadPlayListData();
         setAdapter();
@@ -177,6 +185,20 @@ public class DialogPlayList extends Dialog implements View.OnClickListener, Play
         switch (v.getId()){
             case R.id.playlist_close_button:
                 dismiss();
+                break;
+
+            case R.id.playlist_repeat_switchIconView:
+                boolean allRepeatState = !mRepeatSwitchIconView.isIconEnabled();
+
+                Resources resources = mContext.getResources();
+                if(allRepeatState){
+                    Toast.makeText(mContext, resources.getString(R.string.playlist_all_repeat_enable), Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(mContext, resources.getString(R.string.playlist_all_repeat_disable), Toast.LENGTH_SHORT).show();
+                }
+
+                mRepeatSwitchIconView.setIconEnabled(allRepeatState, true);
+                SharedPreferencesUtils.setBoolean(mContext, CommonSharedPreferencesKey.KEY_ALLREPEAT, allRepeatState);
                 break;
         }
     }

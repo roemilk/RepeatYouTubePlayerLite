@@ -48,6 +48,8 @@
     <!-- 플레이리스트 -->
     <string name="playlist_add">플레이리스트에 추가되었습니다.</string>
     <string name="playlist_empty">플레이리스트가 비어있습니다.\n플레이리스트를 추가하세요.</string>
+    <string name="playlist_all_repeat_enable">전체 반복이 설정 되었습니다.</string>
+    <string name="playlist_all_repeat_disable">전체 반복이 해제 되었습니다.</string>
 
     <!-- Error -->
     <string name="error_videos_emptyInfo">정보가 존재하지 않습니다.</string>
