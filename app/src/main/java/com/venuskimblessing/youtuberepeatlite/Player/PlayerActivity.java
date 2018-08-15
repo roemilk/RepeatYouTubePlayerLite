@@ -655,21 +655,28 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
                         boolean autuplayState = SharedPreferencesUtils.getBoolean(PlayerActivity.this, CommonSharedPreferencesKey.KEY_AUTOPLAY);
                         if(autuplayState){
+                            Log.d(TAG, "자동 플레이가 설정되어 있습니다.");
+
                             mPlayType = getPlayType();
                             if(isNext()){
                                 Log.d(TAG, "다음 영상이 존재합니다.");
                                 nextPlay();
                             }else{
+                                Log.d(TAG, "다음 영상이 존재하지 않습니다. 다시 처음부터 재생합니다.");
                                 //전체 반복 설정시 처음부터 다시 반복
-                                boolean allRepeatState = SharedPreferencesUtils.getBoolean(PlayerActivity.this, CommonSharedPreferencesKey.KEY_ALLREPEAT);
-                                if(allRepeatState){
+//                                boolean allRepeatState = SharedPreferencesUtils.getBoolean(PlayerActivity.this, CommonSharedPreferencesKey.KEY_ALLREPEAT);
+//                                if(allRepeatState){
+
+                                if(mPlayListArray.size() != 0){
                                     mPlayType = TYPE_NORMAL;
                                     nextPlay();
-                                }else{
-                                    Log.d(TAG, "다음 영상이 존재하지 않습니다.");
-                                    refreshPlayListController();
                                 }
+//                                }else{
+//                                    refreshPlayListController();
+//                                }
                             }
+                        }else{
+                            Log.d(TAG, "자동 플레이가 지정되어 있지 않습니다.");
                         }
                     }
                 });
@@ -717,6 +724,9 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
     @Override
     protected void onDestroy() {
+        if (mYouTubePlayer != null) {
+            mYouTubePlayer.release();
+        }
         super.onDestroy();
     }
 
@@ -752,7 +762,13 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                mYouTubePlayer.play();
+                if(mYouTubePlayer != null){
+                    try{
+                        mYouTubePlayer.play();
+                    }catch(IllegalStateException e){
+                        finish();
+                    }
+                }
             }
         }, 500);
     }

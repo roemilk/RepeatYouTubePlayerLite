@@ -46,6 +46,7 @@
                 app:si_disabled_alpha=".3"
                 app:si_disabled_color="#FFFFFF"
                 app:si_tint_color="#FFE05C"
+                android:visibility="gone"
                 app:si_enabled="false"
                 app:si_no_dash="false"
                 app:srcCompat="@drawable/ic_repeat_white_24dp"

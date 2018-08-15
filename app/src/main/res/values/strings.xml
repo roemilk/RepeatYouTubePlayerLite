@@ -75,7 +75,7 @@ It is your very smart choice.\n\nPRO benefits\n
     <string name="invitation_deep_link">https://play.google.com/store/apps/details?id=com.venuskimblessing.youtuberepeatlite</string>
     <string name="invitation_cta">Install</string>
     <string name="invitation_tip_title">Invite your friends!</string>
-    <string name="invitation_tip_content">Invite your friends and get premium benefits.\nYou can increase the maximum repeat up to 99 count.</string>
+    <string name="invitation_tip_content">Invite your friends and get premium benefits.\n\nIf you invite five of your friends, you will be able to unlock all locked premium features.</string>
     <string name="invitation_button">Invite your friends!</string>
 
     <!-- 정렬 -->
