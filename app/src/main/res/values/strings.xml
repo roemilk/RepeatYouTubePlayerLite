@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Repeat YouTube Lite</string>
+    <string name="app_name">YouTube Repeat Lite</string>
 
     <!-- 사용 설명 가이드 -->
     <string name="intro">You can play your favorite movies in two ways.</string>

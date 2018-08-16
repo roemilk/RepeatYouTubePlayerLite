@@ -30,8 +30,7 @@
                 android:id="@+id/view_playlist_thumb_imageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/test" />
+                android:scaleType="centerCrop" />
 
             <TextView
                 android:id="@+id/view_playlist_duration_textView"

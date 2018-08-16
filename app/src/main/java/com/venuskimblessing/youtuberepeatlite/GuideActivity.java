@@ -82,7 +82,7 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
         guideData06.setDescription(getResources().getString(R.string.guide6));
 
         GuideData guideLast = new GuideData();
-        guideLast.setResourceImage(R.drawable.guidelast);
+        guideLast.setResourceImage(R.drawable.bg_loading);
         guideLast.setDescription(getResources().getString(R.string.guidelast));
 
         mResourceList.add(guideIntro);

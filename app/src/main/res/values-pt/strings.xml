@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-        <string name="app_name">Repeat YouTube Lite</string>
+        <string name="app_name">YouTube Repeat Lite</string>
 
         <string name = "intro"> Você pode reproduzir seus filmes favoritos de duas formas. </string>
         <string name = "search"> Você pode encontrar o vídeo que deseja na pesquisa. </string>
