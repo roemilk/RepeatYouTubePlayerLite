@@ -9,7 +9,7 @@ public class CommonApiKey {
     public static final String KEY_ADMOB_TEST_UNIT_REWARD_ID = "ca-app-pub-3940256099942544/5224354917"; //테스트 단위ID (보상형)
 
     public static final String KEY_ADMOB_APP_ID = "ca-app-pub-8974353837020608~2088476441"; //앱ID
-    public static final String KEY_ADMOB_BANNER_UNIT = "ca-app-pub-8974353837020608/1835548784"; //배너광고 단위ID
+    public static final String KEY_ADMOB_BANNER_UNIT = "ca-app-pub-8974353837020608/7983620742"; //배너광고 단위ID
     public static final String KEY_ADMOB_FULL_UNIT = "ca-app-pub-8974353837020608/5341433544"; //전면광고 단위ID
     public static final String KEY_ADMOB_REWARD_UNIT = "ca-app-pub-8974353837020608/2246612326"; //리워드 광고 단위ID
 }

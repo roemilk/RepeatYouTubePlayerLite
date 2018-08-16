@@ -42,6 +42,7 @@ import com.venuskimblessing.youtuberepeatlite.Adapter.SearchRecyclerViewAdapter;
 import com.venuskimblessing.youtuberepeatlite.Common.CommonApiKey;
 import com.venuskimblessing.youtuberepeatlite.Common.CommonSharedPreferencesKey;
 import com.venuskimblessing.youtuberepeatlite.Common.CommonUserData;
+import com.venuskimblessing.youtuberepeatlite.Dialog.DialogEnding;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogInfo;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogInvitation;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogSort;
@@ -87,6 +88,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     public static final String ORDER_VIEWCOUNT = "viewCount";
     public String mOrder = ORDER_RELEVANCE;
 
+    private TextView mEmptyTextView = null;
     private Button mInviteButton = null;
     private Button mSortButton = null;
     private MaterialTextField mMaterialTextField = null;
@@ -124,6 +126,8 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         getShareIntentData();
+
+        mEmptyTextView = (TextView)findViewById(R.id.search_empty_textView);
 
         mInviteButton = (Button) findViewById(R.id.search_invite_button);
         mInviteButton.setOnClickListener(this);
@@ -216,9 +220,23 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 
         try {
             JSONObject jsonObject = new JSONObject(json);
+            JSONArray jsonArray = jsonObject.getJSONArray("items");
+            if(jsonArray.length() == 0){
+                Log.d(TAG, "jsonArray is Size 0!");
+
+                if(mItems.size() != 0){
+                    return;
+                }else{
+                    mEmptyTextView.setVisibility(View.VISIBLE);
+                    mRecyclerView.setVisibility(View.INVISIBLE);
+                }
+            }else{
+                mEmptyTextView.setVisibility(View.GONE);
+                mRecyclerView.setVisibility(View.VISIBLE);
+            }
+
             mNextPageToken = jsonObject.getString("nextPageToken");
 
-            JSONArray jsonArray = jsonObject.getJSONArray("items");
             for(int i=0; i<jsonArray.length(); i++){
                 SearchList.ItemsItem itemsItem = new SearchList().new ItemsItem();
 
@@ -251,6 +269,8 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 //                            itemsItem.setThumbnails_height(height);
 
                 mItems = mSearchList.getItems();
+
+                Log.d(TAG, "mItems size : " + mItems.size());
                 mItems.add(itemsItem);
             }
         } catch (JSONException e) {
@@ -315,14 +335,22 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 
         if (requestCode == REQUEST_INVITE) {
             if (resultCode == RESULT_OK) {
-                SharedPreferencesUtils.setBoolean(this, CommonSharedPreferencesKey.KEY_INVITATION, true); //친구초대 성공으로 반복횟수99개증가
+                SharedPreferencesUtils.setBoolean(this, CommonSharedPreferencesKey.KEY_INVITATION, true);
                 CommonUserData.sMaxRepeatCount = CommonUserData.COUNT_MAX;
 
+                int invitationCount = SharedPreferencesUtils.getInt(SearchActivity.this, CommonSharedPreferencesKey.KEY_INVITATION_COUTN);
                 // Get the invitation IDs of all sent messages
                 String[] ids = AppInviteInvitation.getInvitationIds(resultCode, data);
                 for (String id : ids) {
                     Log.d(TAG, "onActivityResult: sent invitation " + id);
+                    invitationCount++;
                 }
+                SharedPreferencesUtils.setInt(SearchActivity.this, CommonSharedPreferencesKey.KEY_INVITATION_COUTN, invitationCount);
+
+                if(invitationCount >= CommonUserData.INVITE_COUNT_COMPLETE){
+                    SharedPreferencesUtils.setBoolean(SearchActivity.this, CommonSharedPreferencesKey.KEY_INVITATION, true);
+                }
+
             } else {
                 // Sending failed or it was canceled, show failure message to the user
                 // ...
@@ -347,6 +375,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
             switch (actionId) {
                 case EditorInfo.IME_ACTION_SEARCH:
                     if(mItems != null){
+                        mNextPageToken = "";
                         mItems.clear();
                     }
                     loadContentsList();
@@ -445,5 +474,11 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 dialogSort.show();
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        DialogEnding dialogEnding = new DialogEnding(SearchActivity.this, R.style.custom_dialog_fullScreen);
+        dialogEnding.show();
     }
 }

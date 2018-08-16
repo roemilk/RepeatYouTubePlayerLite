@@ -33,6 +33,7 @@
     <string name="dialog_help_title">幫助</string>
 
     <string name="dialog_help_pro">立即購買PRO</string>
+    <string name="dialog_help_feedback">Send Feedback</string>
         
     <string name="dialog_help_manual">用戶指南</string>
         
@@ -80,8 +81,7 @@
 
     <!-- buy dialog -->
     <string name="dialog_buy_title">Repeat YouTube Player PRO</string>
-    <string name="dialog_buy_description">當前PRO的價格是最低價格。\n
-之後，隨著您的應用程序功能越來越豐富，越來越完整，它們的價格可能會高於現在的價格。\n
+    <string name="dialog_buy_description">以比一杯咖啡更低的成本獲得PRO優惠。\n
 現在以最低的價格購買PRO！\n
 這是你非常明智的選擇。\n\n專業福利 \n
 - 移除廣告。\n
@@ -93,10 +93,24 @@
 
     <!-- 초대장 -->
     <string name="invitation_title">請帖</string>
-    <string name="invitation_message">它是一個流行的播放器，支持循環播放YouTube視頻。</string>
+    <string name="invitation_message">此應用是支持YouTube視頻重複的最受歡迎的免費播放器</string>
     <string name="invitation_deep_link">https://play.google.com/store/apps/details?id=com.venuskimblessing.youtuberepeatlite</string>
     <string name="invitation_cta">安裝</string>
     <string name="invitation_tip_title">邀請你的朋友！</string>
-    <string name="invitation_tip_content">邀請您的朋友並獲得高級優惠。\n您可以將最大重複次數增加到99次。</string>
+    <string name="invitation_tip_content">邀請您的朋友並獲得高級優惠。\n\n如果您邀請五位朋友，則可以解鎖所有鎖定的高級功能。</string>
     <string name="invitation_button">邀請你的朋友！</string>
+    <string name="invitation_count">特邀朋友</string>
+    <string name="invitation_complete">恭喜！ \n 所有高級功能均已解鎖。</string>
+
+    <!-- 정렬 -->
+    <string name="sort_title">您想以什麼順序對視頻進行排序？</string>
+    <string name="sort_date">Date</string>
+    <string name="sort_relevance">Relevance</string>
+    <string name="sort_rating">Rating</string>
+    <string name="sort_viewCount">ViewCount</string>
+
+    <!-- 종료 팝업 -->
+    <string name="ending_dialog_title">您確定要退出該應用嗎？</string>
+    <string name="ending_dialog_confirm">Yes</string>
+    <string name="ending_dialog_cancel">No</string>
 </resources>

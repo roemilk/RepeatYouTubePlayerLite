@@ -33,6 +33,7 @@
     <string name="dialog_help_title"> Справка </string>
         
     <string name="dialog_help_pro">Купить сейчас PRO</string>
+    <string name="dialog_help_feedback">Send Feedback</string>
 
     <string name="dialog_help_manual"> Руководство пользователя </string>
         
@@ -80,9 +81,7 @@
 
     <!-- buy dialog -->
     <string name="dialog_buy_title">Repeat YouTube Player PRO</string>
-    <string name="dialog_buy_description">Цена текущей PRO - минимальная цена. \n
-Позже, когда ваши приложения станут более многофункциональными и более полными, они могут быть оценены выше, чем сейчас.\n
-Покупайте PRO по самой низкой цене прямо сейчас! \n
+    <string name="dialog_buy_description">Получите преимущества PRO по более низкой цене, чем чашка кофе.\n
 Это ваш очень умный выбор.\n\n Преимущества PRO \n
 - Убрать рекламу. \n
 - Разблокировать все функции. \n
@@ -93,10 +92,24 @@
 
     <!-- 초대장 -->
     <string name="invitation_title">приглашение</string>
-    <string name="invitation_message">Это популярный плеер, который поддерживает циклическое воспроизведение видео на YouTube.</string>
+    <string name="invitation_message">Это приложение является самым популярным бесплатным проигрывателем, который поддерживает повторение видео YouTube</string>
     <string name="invitation_deep_link">https://play.google.com/store/apps/details?id=com.venuskimblessing.youtuberepeatlite</string>
     <string name="invitation_cta">устанавливать</string>
     <string name="invitation_tip_title">Пригласить друзей!</string>
-    <string name="invitation_tip_content">Пригласите своих друзей и получите премиальные льготы. \n Вы можете увеличить максимальное количество повторений до 99.</string>
+    <string name="invitation_tip_content">Пригласите своих друзей и получите премиальные льготы. \n\n Если вы пригласите пятерых из ваших друзей, вы сможете разблокировать все заблокированные функции премиум-класса.</string>
     <string name="invitation_button">Пригласить друзей!</string>
+    <string name="invitation_count">Приглашенные друзья</string>
+    <string name="invitation_complete">Поздравляем! \ N Все функции премиум-класса разблокированы.</string>
+
+    <!-- 정렬 -->
+    <string name="sort_title">В каком порядке вы хотите сортировать свои видео?</string>
+    <string name="sort_date">Date</string>
+    <string name="sort_relevance">Relevance</string>
+    <string name="sort_rating">Rating</string>
+    <string name="sort_viewCount">ViewCount</string>
+
+    <!-- 종료 팝업 -->
+    <string name="ending_dialog_title">Вы действительно хотите выйти из приложения?</string>
+    <string name="ending_dialog_confirm">Yes</string>
+    <string name="ending_dialog_cancel">No</string>
 </resources>

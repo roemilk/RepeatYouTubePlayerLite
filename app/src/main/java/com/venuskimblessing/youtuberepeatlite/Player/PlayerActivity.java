@@ -143,6 +143,9 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     private int mPlayType = TYPE_NORMAL;
     private int mPlayIndex = 0;
 
+    //Invitation
+    private boolean mInvitationState = false;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -454,11 +457,13 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 //                dialogPickerCount.show();
 //                break;
             case R.id.player_setting_startTime_editText:
+                mYouTubePlayer.pause();
                 mDialogPickerTime.setType(DialogPickerTime.TYPE_START_TIME);
                 mDialogPickerTime.setData(mYouTubePlayer.getDurationMillis(), mStartTime);
                 mDialogPickerTime.show();
                 break;
             case R.id.player_setting_endTime_editText:
+                mYouTubePlayer.pause();
                 mDialogPickerTime.setType(DialogPickerTime.TYPE_END_TIME);
                 mDialogPickerTime.setData(mYouTubePlayer.getDurationMillis(), mEndTime);
                 mDialogPickerTime.show();
@@ -477,6 +482,11 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 finish();
                 break;
             case R.id.player_screen_orientation_button:
+                if(!mInvitationState){
+                    showProDialog();
+                    return;
+                }
+
                 if (getScreenOrientation() == Configuration.ORIENTATION_PORTRAIT) {
                     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                     mTopCountTextView.setVisibility(View.VISIBLE);
@@ -528,6 +538,11 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 break;
 
             case R.id.player_setting_playlist_button:
+                if(!mInvitationState){
+                    showProDialog();
+                    return;
+                }
+
                 if(mSnippet != null){
                     String img_url = mSnippet.getThumbnails().getMedium().getUrl();
                     String title = mSnippet.title;
@@ -825,8 +840,8 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
      * 친구초대 유무를 확인하고 그에 맞는 최대 반복 횟수를 세팅한다.
      */
     private void initInviteItem(){
-        boolean state = SharedPreferencesUtils.getBoolean(this, CommonSharedPreferencesKey.KEY_INVITATION);
-        if(state){
+        mInvitationState = SharedPreferencesUtils.getBoolean(this, CommonSharedPreferencesKey.KEY_INVITATION);
+        if(mInvitationState){
             CommonUserData.sMaxRepeatCount = CommonUserData.COUNT_MAX;
         }else {
             CommonUserData.sMaxRepeatCount = CommonUserData.COUNT_DEFAULT;

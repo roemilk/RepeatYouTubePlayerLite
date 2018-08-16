@@ -19,6 +19,7 @@
 
         <string name = "dialog_help_title"> Ajuda </string>
     <string name="dialog_help_pro">Compre agora PRO</string>
+    <string name="dialog_help_feedback">Send Feedback</string>
         <string name = "dialog_help_manual"> Guia do Usuário </string>
         <string name = "dialog_help_opensource"> Licença do OpenSource </string>
         <string name = "dialog_help_opensource_another"> Outra licença </string>
@@ -48,9 +49,7 @@
 
     <!-- buy dialog -->
     <string name="dialog_buy_title">Repeat YouTube Player PRO</string>
-    <string name="dialog_buy_description">O preço do PRO atual é o preço mínimo.\n
-Mais tarde, à medida que seus aplicativos se tornam mais ricos em recursos e mais completos, eles podem ter preços mais altos do que são agora.\n
-Compre o PRO ao menor preço agora mesmo!\n
+    <string name="dialog_buy_description">Obtenha benefícios PRO a um custo menor do que uma xícara de café.\n
 É sua escolha muito inteligente.\n\nBenefícios PRO \n
 - Remover propagandas. \n
 - Desbloquear todos os recursos. \n
@@ -60,11 +59,24 @@ Compre o PRO ao menor preço agora mesmo!\n
     <string name="dialog_free_unlock">Desbloquear gratuitamente</string>
 
     <string name="invitation_title">convite</string>
-    <string name="invitation_message">É um player popular que suporta a reprodução em loop de vídeos do YouTube.</string>
+    <string name="invitation_message">Este aplicativo é o player gratuito mais popular que suporta repetição de vídeos do YouTube</string>
     <string name="invitation_deep_link">https://play.google.com/store/apps/details?id=com.venuskimblessing.youtuberepeatlite</string>
     <string name="invitation_cta">Instalar</string>
     <string name="invitation_tip_title">Convide seus amigos!</string>
-    <string name="invitation_tip_content">Convide seus amigos e obtenha benefícios premium.\nVocê pode aumentar a repetição máxima até 99 contagens.</string>
+    <string name="invitation_tip_content">Convide seus amigos e obtenha benefícios premium.\n\nSe você convidar cinco amigos, poderá desbloquear todos os recursos premium bloqueados.</string>
     <string name="invitation_button">Convide seus amigos!</string>
+    <string name="invitation_count">Amigos Convidados</string>
+    <string name="invitation_complete">Parabéns! \n Todos os recursos premium estão desbloqueados.</string>
 
+    <!-- 정렬 -->
+    <string name="sort_title">Em que ordem você deseja classificar seus vídeos?</string>
+    <string name="sort_date">Date</string>
+    <string name="sort_relevance">Relevance</string>
+    <string name="sort_rating">Rating</string>
+    <string name="sort_viewCount">ViewCount</string>
+
+    <!-- 종료 팝업 -->
+    <string name="ending_dialog_title">Tem certeza de que deseja sair do aplicativo?</string>
+    <string name="ending_dialog_confirm">Yes</string>
+    <string name="ending_dialog_cancel">No</string>
 </resources>

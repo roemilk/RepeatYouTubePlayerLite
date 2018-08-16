@@ -22,6 +22,7 @@
     <!-- 도움말 -->
     <string name="dialog_help_title">도움말</string>
     <string name="dialog_help_pro">PRO 구매하러 가기</string>
+    <string name="dialog_help_feedback">Send Feedback</string>
     <string name="dialog_help_manual">사용 설명서</string>
     <string name="dialog_help_opensource">오픈소스 라이선스</string>
     <string name="dialog_help_opensource_another">그 외 라이선스</string>
@@ -58,9 +59,7 @@
 
     <!-- buy dialog -->
     <string name="dialog_buy_title">Repeat YouTube Player PRO</string>
-    <string name="dialog_buy_description">현재 PRO의 가격이 최저 가격입니다.\n
-나중에 앱의 기능이 풍부 해지고 완벽 해짐에 따라 가격이 지금보다 높을수 있습니다..\n
-지금 최저 가격으로 PRO를 구입하십시오!\n
+    <string name="dialog_buy_description">커피한잔의 가격으로 PRO의 혜택을 누리세요.\n
 그것은 당신의 현명한 선택입니다.\n\nPRO 혜택\n
 - 완벽한 광고 제거\n
 - 모든 기능의 잠금 해제!\n
@@ -71,10 +70,24 @@
 
     <!-- 초대장 -->
     <string name="invitation_title">초대장</string>
-    <string name="invitation_message">YouTube 동영상의 반복 재생을 지원하는 인기있는 플레이어입니다.</string>
+    <string name="invitation_message">유튜브 반복 재생을 지원하는 인기있는 최고의 무료 플레이어입니다!</string>
     <string name="invitation_deep_link">https://play.google.com/store/apps/details?id=com.venuskimblessing.youtuberepeatlite</string>
     <string name="invitation_cta">설치</string>
     <string name="invitation_tip_title">친구를 초대하세요!</string>
     <string name="invitation_tip_content">친구를 초대하고 프리미엄 혜택을 받으십시오.\n\n친구 5명을 초대하면 모든 프리미엄 기능을 잠금 해제할 수 있습니다!</string>
     <string name="invitation_button">친구 초대하기</string>
+    <string name="invitation_count">초대 횟수</string>
+    <string name="invitation_complete">축하합니다! \n 모든 프리미엄 기능이 잠금 해제 되었어요.</string>
+
+    <!-- 정렬 -->
+    <string name="sort_title">동영상을 어떤 순서로 정렬 하시겠습니까?</string>
+    <string name="sort_date">최신</string>
+    <string name="sort_relevance">정확도</string>
+    <string name="sort_rating">인기</string>
+    <string name="sort_viewCount">조회수</string>
+
+    <!-- 종료 팝업 -->
+    <string name="ending_dialog_title">앱을 정말 종료하시겠습니까?</string>
+    <string name="ending_dialog_confirm">종료</string>
+    <string name="ending_dialog_cancel">취소</string>
 </resources>
