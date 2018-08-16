@@ -57,11 +57,9 @@
 
     <!-- buy dialog -->
     <string name="dialog_buy_title">Repeat YouTube Player PRO</string>
-    <string name="dialog_buy_description">The price of the current PRO is the minimum price.\n
-Later, as your apps become more feature-rich and more complete, they can be priced higher than they are now.\n
-Buy PRO at the lowest price right now!\n
+    <string name="dialog_buy_description">Get PRO benefits at a lower cost than a cup of coffee.\n
 It is your very smart choice.\n\nPRO benefits \n
-- Remove ads. \n
+- Remove all ads. \n
 - Unlock all features. \n
 - Fastest feature update. \n</string>
     <string name="dialog_buy_cancel">Cancel</string>
@@ -70,10 +68,23 @@ It is your very smart choice.\n\nPRO benefits \n
 
     <!-- 초대장 -->
     <string name="invitation_title">invitation</string>
-    <string name="invitation_message">It is a popular player that supports looped playback of YouTube videos.</string>
+    <string name="invitation_message">This app is the most popular free player to fully support the repeat playback of YouTube videos</string>
     <string name="invitation_deep_link">https://play.google.com/store/apps/details?id=com.venuskimblessing.youtuberepeatlite</string>
     <string name="invitation_cta">Install</string>
     <string name="invitation_tip_title">Invite your friends!</string>
-    <string name="invitation_tip_content">Invite your friends and get premium benefits.\nYou can increase the maximum repeat up to 99 count.</string>
+    <string name="invitation_tip_content">Invite your friends and get premium benefits.\n\nIf you invite five of your friends, you will be able to unlock all locked premium features.</string>
     <string name="invitation_button">Invite your friends!</string>
+    <string name="invitation_count">Invited Friends</string>
+    <string name="invitation_complete">Congratulations! \n All premium features are unlocked.</string>
+
+    <string name="sort_title">In what order do you want to sort your videos?</string>
+    <string name="sort_date">Date</string>
+    <string name="sort_relevance">Relevance</string>
+    <string name="sort_rating">Rating</string>
+    <string name="sort_viewCount">ViewCount</string>
+
+    <!-- 종료 팝업 -->
+    <string name="ending_dialog_title">Are you sure you want to quit the app?</string>
+    <string name="ending_dialog_confirm">Yes</string>
+    <string name="ending_dialog_cancel">No</string>
 </resources>

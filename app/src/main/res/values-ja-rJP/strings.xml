@@ -19,6 +19,7 @@
 
     <string name="dialog_help_title">ヘルプ</string>
     <string name="dialog_help_pro">今すぐ購入</string>
+    <string name="dialog_help_feedback">Send Feedback</string>
     <string name="dialog_help_manual">ユーザーガイド</string>
     <string name="dialog_help_opensource">オープンソースライセンス</string>
     <string name="dialog_help_opensource_another">その他のライセンス</string>
@@ -48,9 +49,7 @@
 
     <!-- buy dialog -->
     <string name="dialog_buy_title">Repeat YouTube Player PRO</string>
-    <string name="dialog_buy_description">現在のPROの価格は最低価格です。\n
-後で、アプリの機能が豊富になり、より完全になると、現在よりも高い価格でアプリを購入できます。\n
-今すぐ最低価格でPROを購入してください！\n
+    <string name="dialog_buy_description">コーヒーカップの価格でPROの特典をお楽しみください。\n
 それはあなたの非常に賢い選択です。\n\nPROの利点 \n
 - 広告を削除。 \n
 - すべての機能をアンロックします。 \n
@@ -60,10 +59,24 @@
     <string name="dialog_free_unlock">無料でロック解除</string>
 
     <string name="invitation_title">招待</string>
-    <string name="invitation_message">YouTube動画のループ再生をサポートする人気のあるプレーヤーです。</string>
+    <string name="invitation_message">このアプリは、YouTube動画のリピートをサポートする最も一般的な無料のプレーヤーです</string>
     <string name="invitation_deep_link">https://play.google.com/store/apps/details?id=com.venuskimblessing.youtuberepeatlite</string>
     <string name="invitation_cta">Install</string>
     <string name="invitation_tip_title">あなたの友人を招待してください！</string>
-    <string name="invitation_tip_content">あなたの友人を招待し、優遇を得ることができます。\n最大反復回数を99カウントまで増やすことができます。</string>
+    <string name="invitation_tip_content">あなたの友人を招待し、優遇を得ることができます。\n\n5人の友だちを招待すると、すべてのロックされたプレミアム機能のロックを解除することができます。</string>
     <string name="invitation_button">あなたの友人を招待してください！</string>
+    <string name="invitation_count">招待された友達</string>
+    <string name="invitation_complete">おめでとう！\nすべてのプレミアム機能がロック解除されました。</string>
+
+    <!-- 정렬 -->
+    <string name="sort_title">あなたのビデオをどのような順番で並べ替えたいですか？</string>
+    <string name="sort_date">Date</string>
+    <string name="sort_relevance">Relevance</string>
+    <string name="sort_rating">Rating</string>
+    <string name="sort_viewCount">ViewCount</string>
+
+    <!-- 종료 팝업 -->
+    <string name="ending_dialog_title">アプリを本当に終了するか？</string>
+    <string name="ending_dialog_confirm">Yes</string>
+    <string name="ending_dialog_cancel">No</string>
 </resources>

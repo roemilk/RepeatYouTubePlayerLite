@@ -31,7 +31,7 @@
         
     <string name="dialog_help_title"> Bantuan </string>
     <string name="dialog_help_pro">Beli sekarang PRO</string>
-        
+            <string name="dialog_help_feedback">Send Feedback</string>
     <string name="dialog_help_manual"> Panduan Pengguna </string>
         
     <string name="dialog_help_opensource"> Lisensi OpenSource </string>
@@ -78,9 +78,7 @@
 
     <!-- buy dialog -->
     <string name="dialog_buy_title">Repeat YouTube Player PRO</string>
-    <string name="dialog_buy_description">Harga PRO saat ini adalah harga minimum. \n
-Kemudian, seiring aplikasi Anda menjadi lebih kaya fitur dan lebih lengkap, harganya bisa lebih tinggi dari sekarang. \n
-Beli PRO dengan harga terendah sekarang juga! \n
+    <string name="dialog_buy_description">Dapatkan manfaat PRO dengan biaya lebih rendah daripada secangkir kopi.\n
 Ini adalah pilihan Anda yang sangat cerdas. \n\n Solusi PRO \n
 - Hilangkan iklan. \n
 - Buka kunci semua fitur. \n
@@ -90,10 +88,23 @@ Ini adalah pilihan Anda yang sangat cerdas. \n\n Solusi PRO \n
     <string name="dialog_free_unlock">Buka kunci secara gratis</string>
 
     <string name="invitation_title">undangan</string>
-    <string name="invitation_message">Ini adalah pemain populer yang mendukung pemutaran memutar video YouTube.</string>
+    <string name="invitation_message">Aplikasi ini adalah pemutar gratis paling populer yang mendukung pengulangan video YouTube</string>
     <string name="invitation_deep_link">https://play.google.com/store/apps/details?id=com.venuskimblessing.youtuberepeatlite</string>
     <string name="invitation_cta">Memasang</string>
     <string name="invitation_tip_title">Undang temanmu!</string>
-    <string name="invitation_tip_content">Undang teman Anda dan dapatkan manfaat premium.\n Anda dapat meningkatkan pengulangan maksimum hingga 99 hitungan.</string>
+    <string name="invitation_tip_content">Undang teman Anda dan dapatkan manfaat premium.\n\nJika Anda mengundang lima teman Anda, Anda akan dapat membuka semua fitur premium yang terkunci.</string>
     <string name="invitation_button">Undang temanmu!</string>
+    <string name="invitation_count">Teman yang Diundang</string>
+    <string name="invitation_complete">Selamat! \n Semua fitur premium tidak terkunci.</string>
+
+    <string name="sort_title">Dalam urutan apa Anda ingin mengurutkan video Anda?</string>
+    <string name="sort_date">Date</string>
+    <string name="sort_relevance">Relevance</string>
+    <string name="sort_rating">Rating</string>
+    <string name="sort_viewCount">ViewCount</string>
+
+    <!-- 종료 팝업 -->
+    <string name="ending_dialog_title">Anda yakin ingin keluar dari aplikasi?</string>
+    <string name="ending_dialog_confirm">Yes</string>
+    <string name="ending_dialog_cancel">No</string>
 </resources>
