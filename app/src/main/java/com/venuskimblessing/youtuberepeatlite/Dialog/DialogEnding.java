@@ -3,6 +3,7 @@ package com.venuskimblessing.youtuberepeatlite.Dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Process;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,6 +24,7 @@ import com.venuskimblessing.youtuberepeatlite.Common.CommonSharedPreferencesKey;
 import com.venuskimblessing.youtuberepeatlite.Common.CommonUserData;
 import com.venuskimblessing.youtuberepeatlite.R;
 import com.venuskimblessing.youtuberepeatlite.Utils.SharedPreferencesUtils;
+import com.wang.avi.AVLoadingIndicatorView;
 
 public class DialogEnding extends Dialog implements View.OnClickListener {
     private static final String TAG = "DialogEnding";
@@ -30,6 +32,7 @@ public class DialogEnding extends Dialog implements View.OnClickListener {
     private Context mContext;
     private AdView mAdView;
     private Button mYesButton, mNoButton;
+    private AVLoadingIndicatorView mLoadingIndicator;
 
     public DialogEnding(@NonNull Context context) {
         super(context);
@@ -53,6 +56,10 @@ public class DialogEnding extends Dialog implements View.OnClickListener {
         setContentView(R.layout.layout_dialog_ending);
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
+        mLoadingIndicator = (AVLoadingIndicatorView)findViewById(R.id.ending_dialog_pacman_indicator);
+        mLoadingIndicator.setIndicatorColor(Color.DKGRAY);
+        mLoadingIndicator.show();
+
         MobileAds.initialize(mContext,
                 CommonApiKey.KEY_ADMOB_APP_ID);
 
@@ -66,6 +73,11 @@ public class DialogEnding extends Dialog implements View.OnClickListener {
 
         mYesButton.setOnClickListener(this);
         mNoButton.setOnClickListener(this);
+    }
+
+    private void showBanner(){
+        mLoadingIndicator.hide();
+        mAdView.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -90,8 +102,8 @@ public class DialogEnding extends Dialog implements View.OnClickListener {
         @Override
         public void onAdFailedToLoad(int i) {
             super.onAdFailedToLoad(i);
+            showBanner();
             Log.d(TAG, "onAdFailedToLoad..");
-
         }
 
         @Override
@@ -109,7 +121,8 @@ public class DialogEnding extends Dialog implements View.OnClickListener {
         @Override
         public void onAdLoaded() {
             super.onAdLoaded();
-            Log.d(TAG, "onAdClosed..");
+            showBanner();
+            Log.d(TAG, "onAdLoaded..");
         }
 
         @Override
