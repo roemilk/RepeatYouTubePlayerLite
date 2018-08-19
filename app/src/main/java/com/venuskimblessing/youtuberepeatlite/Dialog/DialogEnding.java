@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -32,6 +33,8 @@ public class DialogEnding extends Dialog implements View.OnClickListener {
     private Context mContext;
     private AdView mAdView;
     private Button mYesButton, mNoButton;
+    private TextView mEndingDialogTextView;
+    private LinearLayout mEndingDialogLoadingLay;
     private AVLoadingIndicatorView mLoadingIndicator;
 
     public DialogEnding(@NonNull Context context) {
@@ -56,6 +59,8 @@ public class DialogEnding extends Dialog implements View.OnClickListener {
         setContentView(R.layout.layout_dialog_ending);
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
+        mEndingDialogLoadingLay = (LinearLayout)findViewById(R.id.ending_dialog_loading_lay);
+        mEndingDialogTextView = (TextView)findViewById(R.id.dialog_ending_title_textView);
         mLoadingIndicator = (AVLoadingIndicatorView)findViewById(R.id.ending_dialog_pacman_indicator);
         mLoadingIndicator.setIndicatorColor(Color.DKGRAY);
         mLoadingIndicator.show();
@@ -77,7 +82,11 @@ public class DialogEnding extends Dialog implements View.OnClickListener {
 
     private void showBanner(){
         mLoadingIndicator.hide();
+        mEndingDialogLoadingLay.setVisibility(View.GONE);
         mAdView.setVisibility(View.VISIBLE);
+        mEndingDialogTextView.setVisibility(View.VISIBLE);
+        mYesButton.setVisibility(View.VISIBLE);
+        mNoButton.setVisibility(View.VISIBLE);
     }
 
     @Override

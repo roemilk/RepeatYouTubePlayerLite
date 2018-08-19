@@ -23,18 +23,35 @@
             ads:adSize="MEDIUM_RECTANGLE"
             ads:adUnitId="ca-app-pub-8974353837020608/7983620742"></com.google.android.gms.ads.AdView>
 
-        <com.wang.avi.AVLoadingIndicatorView
-            android:id="@+id/ending_dialog_pacman_indicator"
+        <LinearLayout
+            android:id="@+id/ending_dialog_loading_lay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="visible"
-            android:padding="10dp"
-            app:indicatorName="PacmanIndicator" />
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
+            android:gravity="center">
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/ending_dialog_pacman_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:visibility="visible"
+                app:indicatorName="PacmanIndicator" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:textSize="14dp"
+                android:text="Please Wait..." />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/dialog_ending_title_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
             android:layout_below="@+id/adView"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
@@ -48,10 +65,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="10"
             android:layout_below="@+id/dialog_ending_title_textView"
             android:layout_marginTop="5dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="10">
 
             <Button
                 android:id="@+id/ending_dialog_yes_button"
@@ -59,6 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
                 android:padding="10dp"
+                android:visibility="invisible"
                 android:text="@string/ending_dialog_confirm"
                 android:textSize="16dp" />
 
@@ -66,6 +84,7 @@
                 android:id="@+id/ending_dialog_no_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:visibility="invisible"
                 android:layout_weight="5"
                 android:padding="10dp"
                 android:text="@string/ending_dialog_cancel"
