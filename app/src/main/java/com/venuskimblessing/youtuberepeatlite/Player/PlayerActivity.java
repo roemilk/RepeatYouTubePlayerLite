@@ -585,7 +585,13 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
             mStartTime = minValue;
             startTime = MediaUtils.getMillSecToHMS((int) minValue);
             mStartTimeEditText.setText(startTime);
-            mYouTubePlayer.seekToMillis(mStartTime);
+
+            if(mYouTubePlayer != null){
+                mYouTubePlayer.seekToMillis(mStartTime);
+            }else{
+                Toast.makeText(PlayerActivity.this, "sorry.. network error please restart player", Toast.LENGTH_SHORT).show();
+                return;
+            }
         }
         mEndTime = maxValue;
         String endTime = MediaUtils.getMillSecToHMS((int) maxValue);

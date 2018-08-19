@@ -467,7 +467,9 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                         }
                         dialogSort.dismiss();
                         mNextPageToken = "";
-                        mItems.clear();
+                        if(mItems != null){
+                            mItems.clear();
+                        }
                         loadContentsList();
                     }
                 });
