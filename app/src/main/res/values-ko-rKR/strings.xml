@@ -72,6 +72,7 @@
     <string name="invitation_title">초대장</string>
     <string name="invitation_message">유튜브 반복 재생을 지원하는 인기있는 최고의 무료 플레이어입니다!</string>
     <string name="invitation_deep_link">https://play.google.com/store/apps/details?id=com.venuskimblessing.youtuberepeatlite</string>
+    <string name="invitation_deep_link_test">https://play.google.com/store/apps/details?id=com.venuskimblessing.youtuberepeatlite</string>
     <string name="invitation_cta">설치</string>
     <string name="invitation_tip_title">친구를 초대하세요!</string>
     <string name="invitation_tip_content">친구를 초대하고 프리미엄 혜택을 받으십시오.\n\n친구 5명을 초대하면 모든 프리미엄 기능을 잠금 해제할 수 있습니다!</string>

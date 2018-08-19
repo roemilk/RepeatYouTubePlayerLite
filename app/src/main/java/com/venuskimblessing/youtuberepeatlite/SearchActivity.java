@@ -36,6 +36,7 @@ import com.github.florent37.materialtextfield.MaterialTextField;
 //import com.google.android.gms.ads.MobileAds;
 //import com.google.android.gms.common.internal.service.Common;
 import com.google.android.gms.appinvite.AppInviteInvitation;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
 import com.venuskimblessing.youtuberepeatlite.Adapter.SearchDecoration;
 import com.venuskimblessing.youtuberepeatlite.Adapter.SearchRecyclerViewAdapter;
@@ -78,6 +79,12 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     //Request Code
     public static final int REQUEST_INVITE = 1;
     public static final int REQUEST_PLAYER_INVITE = 2;
+
+    //Firebase
+    public static final String EVENT_INVITATION = "Invitation Dialog";
+    public static final String EVENT_INVITATION_COMPLETE = "Invitation Complete";
+    public static final String EVENT_SORT = "sort";
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     //Search Order
     public static final String ORDER_DATE = "date";
@@ -328,6 +335,17 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         startActivityForResult(intent, REQUEST_INVITE);
     }
 
+    /**
+     * 구글 애널리틱스에 로그를 남깁니다.
+     * @param eventName
+     */
+    private void setEventLog(String eventName){
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.CONTENT, eventName);
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -348,6 +366,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 SharedPreferencesUtils.setInt(SearchActivity.this, CommonSharedPreferencesKey.KEY_INVITATION_COUTN, invitationCount);
 
                 if(invitationCount >= CommonUserData.INVITE_COUNT_COMPLETE){
+                    setEventLog(EVENT_INVITATION_COMPLETE);
                     SharedPreferencesUtils.setBoolean(SearchActivity.this, CommonSharedPreferencesKey.KEY_INVITATION, true);
                 }
 
@@ -434,6 +453,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.search_invite_button:
+                setEventLog(EVENT_INVITATION);
                 DialogInvitation dialogInvitation = new DialogInvitation(this, R.style.custom_dialog_fullScreen);
                 dialogInvitation.setOnClickListener(this);
                 dialogInvitation.show();
@@ -443,6 +463,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 break;
 
             case R.id.search_sort_button:
+                setEventLog(EVENT_SORT);
                 final DialogSort dialogSort = new DialogSort(this, R.style.custom_dialog_fullScreen);
                 dialogSort.setOnClickListener(new View.OnClickListener() {
                     @Override

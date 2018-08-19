@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.appinvite.FirebaseAppInvite;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
@@ -32,6 +33,10 @@ import com.venuskimblessing.youtuberepeatlite.Utils.SharedPreferencesUtils;
 public class IntroActivity extends AppCompatActivity {
     public static final String TAG = "IntroActivity";
 
+    //Firebase
+    private FirebaseAnalytics mFirebaseAnalytics;
+    private final String EVENT_INVITATION_INSTALL = "Invitation Install";
+
     private FadeTextView mLineTextView = null;
     private String mPlayId = null;
 
@@ -39,6 +44,7 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
+        getDynamicLink();
 //        getShareIntentData();
 
         mLineTextView = (FadeTextView) findViewById(R.id.intro_textView);
@@ -112,6 +118,8 @@ public class IntroActivity extends AppCompatActivity {
                         FirebaseAppInvite invite = FirebaseAppInvite.getInvitation(data);
                         if (invite != null) {
                             String invitationId = invite.getInvitationId();
+                            Log.d(TAG, "InvitationId : " + invitationId);
+                            setEventLog(EVENT_INVITATION_INSTALL);
                         }
 
                         // Handle the deep link
@@ -124,6 +132,16 @@ public class IntroActivity extends AppCompatActivity {
                         Log.w(TAG, "getDynamicLink:onFailure", e);
                     }
                 });
+    }
 
+    /**
+     * 구글 애널리틱스에 로그를 남깁니다.
+     * @param eventName
+     */
+    private void setEventLog(String eventName){
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.CONTENT, eventName);
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
     }
 }

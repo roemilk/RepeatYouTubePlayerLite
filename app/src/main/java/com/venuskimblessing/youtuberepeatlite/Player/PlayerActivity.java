@@ -158,7 +158,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.CONTENT, "플레이 화면 진입");
+        bundle.putString(FirebaseAnalytics.Param.CONTENT, "플레이 화면");
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
         mHelpButton = (Button) findViewById(R.id.player_help_button);
