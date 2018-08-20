@@ -20,6 +20,7 @@
         <string name = "dialog_help_title"> Ajuda </string>
     <string name="dialog_help_pro">Compre agora PRO</string>
     <string name="dialog_help_feedback">Send Feedback</string>
+    <string name="dialog_help_devlog">Devlog</string>
         <string name = "dialog_help_manual"> Guia do Usuário </string>
         <string name = "dialog_help_opensource"> Licença do OpenSource </string>
         <string name = "dialog_help_opensource_another"> Outra licença </string>
@@ -79,4 +80,7 @@
     <string name="ending_dialog_title">Tem certeza de que deseja sair do aplicativo?</string>
     <string name="ending_dialog_confirm">Yes</string>
     <string name="ending_dialog_cancel">No</string>
+
+    <!-- Devlog -->
+    <string name="dialog_help_devlog_link">https://www.facebook.com/RepeatYouTubePlayer/</string>
 </resources>

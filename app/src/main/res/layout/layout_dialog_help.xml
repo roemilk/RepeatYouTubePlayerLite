@@ -54,6 +54,20 @@
             android:background="#BDBDBD"></View>
 
         <Button
+            android:id="@+id/help_devlog_button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="@string/dialog_help_devlog"
+            android:textColor="#757575" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#BDBDBD"></View>
+
+        <Button
             android:id="@+id/help_feedback_button"
             android:layout_width="match_parent"
             android:layout_height="50dp"

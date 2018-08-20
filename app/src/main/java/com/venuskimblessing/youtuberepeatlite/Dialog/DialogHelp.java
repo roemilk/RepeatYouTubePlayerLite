@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,8 +26,9 @@ public class DialogHelp extends Dialog implements View.OnClickListener {
     public static final String TAG = "DialogHelp";
 
     private Context mContext = null;
+    private Resources mRes = null;
     private LinearLayout mHelpMenuLay, mLicenseLay;
-    private Button mProButton, mGuideButton, mLisenceButton, mFeedbackButton;
+    private Button mProButton, mGuideButton, mLisenceButton, mFeedbackButton, mDevlogButton;
     private TextView mVersionTextView, mVersionItemTextView;
     private TextView mExpandableButton0, mExpandableButton1, mExpandableButton2, mExpandableVersionButton;
     private ExpandableLayout mExpandableLay0, mExpandableLay1, mExpandableLay2, mExpandableVersionLay;
@@ -52,6 +54,7 @@ public class DialogHelp extends Dialog implements View.OnClickListener {
     private void init(){
         setContentView(R.layout.layout_dialog_help);
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        mRes = mContext.getResources();
 
         mHelpMenuLay = (LinearLayout)findViewById(R.id.help_menu_parent_lay);
         mLicenseLay = (LinearLayout)findViewById(R.id.help_license_parent_lay);
@@ -79,6 +82,9 @@ public class DialogHelp extends Dialog implements View.OnClickListener {
 
         mFeedbackButton = (Button)findViewById(R.id.help_feedback_button);
         mFeedbackButton.setOnClickListener(this);
+
+        mDevlogButton = (Button)findViewById(R.id.help_devlog_button);
+        mDevlogButton.setOnClickListener(this);
 
         mProButton.setOnClickListener(this);
         mGuideButton.setOnClickListener(this);
@@ -116,6 +122,14 @@ public class DialogHelp extends Dialog implements View.OnClickListener {
 
             case R.id.help_feedback_button:
                 sendFeedback();
+                break;
+            case R.id.help_devlog_button:
+                if(mRes != null){
+                    String link = mRes.getString(R.string.dialog_help_devlog_link);
+                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                    intent.setPackage("com.android.chrome");
+                    mContext.startActivity(intent);
+                }
                 break;
         }
     }

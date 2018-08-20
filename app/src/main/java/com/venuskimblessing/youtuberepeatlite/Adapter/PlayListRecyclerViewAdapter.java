@@ -70,6 +70,8 @@ public class PlayListRecyclerViewAdapter extends RecyclerView.Adapter<PlayListRe
         String thumbUrl = data.getImg_url();
         int duration = Integer.parseInt(data.getDuration());
         String title = data.getTitle();
+        int startTime = Integer.parseInt(data.getStartTime());
+        int endTime = Integer.parseInt(data.getEndTime());
 
         Glide.with(mContext).load(thumbUrl)
                 .thumbnail(0.1f)
@@ -77,6 +79,8 @@ public class PlayListRecyclerViewAdapter extends RecyclerView.Adapter<PlayListRe
 
         holder.durationTextView.setText(MediaUtils.getMillSecToHMS(duration));
         holder.titleTextView.setText(title);
+        holder.startTimeTextView.setText(MediaUtils.getMillSecToHMS(startTime));
+        holder.endTimeTextView.setText(MediaUtils.getMillSecToHMS(endTime));
 
         holder.moveButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -129,7 +133,7 @@ public class PlayListRecyclerViewAdapter extends RecyclerView.Adapter<PlayListRe
     public class ItemViewHolder extends RecyclerView.ViewHolder {
         private RelativeLayout parentLay, moreLay;
         private ImageView thumbImageView;
-        private TextView durationTextView, titleTextView;
+        private TextView durationTextView, titleTextView, startTimeTextView, endTimeTextView;
         private Button moveButton;
 
         public ItemViewHolder(View itemView) {
@@ -139,6 +143,9 @@ public class PlayListRecyclerViewAdapter extends RecyclerView.Adapter<PlayListRe
 
             titleTextView = (TextView) itemView.findViewById(R.id.view_playlist_title_textView);
             durationTextView = (TextView) itemView.findViewById(R.id.view_playlist_duration_textView);
+
+            startTimeTextView = (TextView) itemView.findViewById(R.id.view_playlist_startTime_textView);
+            endTimeTextView = (TextView) itemView.findViewById(R.id.view_playlist_endTime_textView);
 
             moveButton = (Button) itemView.findViewById(R.id.view_playlist_move_button);
             moreLay = (RelativeLayout) itemView.findViewById(R.id.view_playlist_more_lay);

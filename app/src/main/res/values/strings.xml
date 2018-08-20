@@ -22,6 +22,7 @@
     <!-- 도움말 -->
     <string name="dialog_help_title">Help</string>
     <string name="dialog_help_feedback">Send Feedback</string>
+    <string name="dialog_help_devlog">Devlog</string>
     <string name="dialog_help_pro">Buy now PRO</string>
     <string name="dialog_help_manual">User Guide</string>
     <string name="dialog_help_opensource">OpenSource License</string>
@@ -89,5 +90,8 @@ It is your very smart choice.\n\nPRO benefits\n
     <string name="ending_dialog_title">Are you sure you want to quit the app?</string>
     <string name="ending_dialog_confirm">Yes</string>
     <string name="ending_dialog_cancel">No</string>
+
+    <!-- Devlog -->
+    <string name="dialog_help_devlog_link">https://www.facebook.com/RepeatYouTubePlayer/</string>
 
 </resources>

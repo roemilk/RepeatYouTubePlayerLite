@@ -32,6 +32,7 @@
     <string name="dialog_help_title"> Bantuan </string>
     <string name="dialog_help_pro">Beli sekarang PRO</string>
             <string name="dialog_help_feedback">Send Feedback</string>
+    <string name="dialog_help_devlog">Devlog</string>
     <string name="dialog_help_manual"> Panduan Pengguna </string>
         
     <string name="dialog_help_opensource"> Lisensi OpenSource </string>
@@ -107,4 +108,7 @@ Ini adalah pilihan Anda yang sangat cerdas. \n\n Solusi PRO \n
     <string name="ending_dialog_title">Anda yakin ingin keluar dari aplikasi?</string>
     <string name="ending_dialog_confirm">Yes</string>
     <string name="ending_dialog_cancel">No</string>
+
+    <!-- Devlog -->
+    <string name="dialog_help_devlog_link">https://www.facebook.com/RepeatYouTubePlayer/</string>
 </resources>

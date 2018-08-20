@@ -34,6 +34,7 @@
 
     <string name="dialog_help_pro">立即購買PRO</string>
     <string name="dialog_help_feedback">Send Feedback</string>
+    <string name="dialog_help_devlog">Devlog</string>
         
     <string name="dialog_help_manual">用戶指南</string>
         
@@ -113,4 +114,7 @@
     <string name="ending_dialog_title">您確定要退出該應用嗎？</string>
     <string name="ending_dialog_confirm">Yes</string>
     <string name="ending_dialog_cancel">No</string>
+
+    <!-- Devlog -->
+    <string name="dialog_help_devlog_link">https://www.facebook.com/RepeatYouTubePlayer/</string>
 </resources>

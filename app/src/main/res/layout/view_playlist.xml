@@ -49,6 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:gravity="center"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/view_playlist_thumb_lay"
@@ -63,6 +64,38 @@
                 android:text="제목"
                 android:textColor="#000000"
                 android:textSize="14dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/view_playlist_startTime_textView"
+                    android:textSize="14dp"
+                    android:text="00:00:00"
+                    android:textColor="#757575"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:textSize="14dp"
+                    android:text=" - "
+                    android:textColor="#757575"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/view_playlist_endTime_textView"
+                    android:textSize="14dp"
+                    android:text="99:99:99"
+                    android:textColor="#757575"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
         </LinearLayout>
         
         <RelativeLayout

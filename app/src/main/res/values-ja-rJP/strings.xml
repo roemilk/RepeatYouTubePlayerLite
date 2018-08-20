@@ -20,6 +20,7 @@
     <string name="dialog_help_title">ヘルプ</string>
     <string name="dialog_help_pro">今すぐ購入</string>
     <string name="dialog_help_feedback">Send Feedback</string>
+    <string name="dialog_help_devlog">Devlog</string>
     <string name="dialog_help_manual">ユーザーガイド</string>
     <string name="dialog_help_opensource">オープンソースライセンス</string>
     <string name="dialog_help_opensource_another">その他のライセンス</string>
@@ -79,4 +80,7 @@
     <string name="ending_dialog_title">アプリを本当に終了するか？</string>
     <string name="ending_dialog_confirm">Yes</string>
     <string name="ending_dialog_cancel">No</string>
+
+    <!-- Devlog -->
+    <string name="dialog_help_devlog_link">https://www.facebook.com/RepeatYouTubePlayer/</string>
 </resources>

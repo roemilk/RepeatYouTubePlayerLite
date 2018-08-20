@@ -847,6 +847,10 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
      */
     private void initInviteItem(){
         mInvitationState = SharedPreferencesUtils.getBoolean(this, CommonSharedPreferencesKey.KEY_INVITATION);
+
+        //test
+        mInvitationState = true;
+
         if(mInvitationState){
             CommonUserData.sMaxRepeatCount = CommonUserData.COUNT_MAX;
         }else {

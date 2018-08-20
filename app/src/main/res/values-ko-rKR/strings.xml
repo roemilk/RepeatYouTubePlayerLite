@@ -23,6 +23,7 @@
     <string name="dialog_help_title">도움말</string>
     <string name="dialog_help_pro">PRO 구매하러 가기</string>
     <string name="dialog_help_feedback">Send Feedback</string>
+    <string name="dialog_help_devlog">업데이트 노트</string>
     <string name="dialog_help_manual">사용 설명서</string>
     <string name="dialog_help_opensource">오픈소스 라이선스</string>
     <string name="dialog_help_opensource_another">그 외 라이선스</string>
@@ -91,4 +92,7 @@
     <string name="ending_dialog_title">앱을 정말 종료하시겠습니까?</string>
     <string name="ending_dialog_confirm">종료</string>
     <string name="ending_dialog_cancel">취소</string>
+
+    <!-- Devlog -->
+    <string name="dialog_help_devlog_link">http://roemilk.tistory.com/category/%EC%9C%A0%ED%8A%9C%EB%B8%8C%20%EB%B0%98%EB%B3%B5%ED%95%B4%EC%A4%98%20Dev%20Log</string>
 </resources>

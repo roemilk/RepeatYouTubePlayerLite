@@ -34,6 +34,7 @@
         
     <string name="dialog_help_pro">Купить сейчас PRO</string>
     <string name="dialog_help_feedback">Send Feedback</string>
+    <string name="dialog_help_devlog">Devlog</string>
 
     <string name="dialog_help_manual"> Руководство пользователя </string>
         
@@ -112,4 +113,7 @@
     <string name="ending_dialog_title">Вы действительно хотите выйти из приложения?</string>
     <string name="ending_dialog_confirm">Yes</string>
     <string name="ending_dialog_cancel">No</string>
+
+    <!-- Devlog -->
+    <string name="dialog_help_devlog_link">https://www.facebook.com/RepeatYouTubePlayer/</string>
 </resources>
