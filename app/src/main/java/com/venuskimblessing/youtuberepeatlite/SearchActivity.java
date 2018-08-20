@@ -74,7 +74,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class SearchActivity extends AppCompatActivity implements SearchRecyclerViewAdapter.OnClickRecyclerViewItemListener, View.OnClickListener {
     public static final String TAG = "SearchActivity";
 
-    public static final String DEFAULT_WORD = "cinematic trailer";
+    public static final String DEFAULT_WORD = "게임";
 
     //Request Code
     public static final int REQUEST_INVITE = 1;
@@ -94,6 +94,9 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     public static final String ORDER_VIDEOCOUNT = "videoCount";
     public static final String ORDER_VIEWCOUNT = "viewCount";
     public String mOrder = ORDER_RELEVANCE;
+
+    //Search Type
+    public static final String TYPE_VIDEO = "video";
 
     private TextView mEmptyTextView = null;
     private Button mInviteButton = null;
@@ -184,7 +187,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
             searchWord = DEFAULT_WORD;
         }
 
-        mCallYoutubeSearch = mService.getYoutubeSearch("snippet",searchWord, "50", mOrder, mNextPageToken, CommonApiKey.KEY_API_YOUTUBE);
+        mCallYoutubeSearch = mService.getYoutubeSearch("snippet",searchWord, "50", TYPE_VIDEO, mOrder, mNextPageToken, CommonApiKey.KEY_API_YOUTUBE);
         mCallYoutubeSearch.enqueue(callback);
     }
 
