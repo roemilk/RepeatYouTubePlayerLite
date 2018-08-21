@@ -75,7 +75,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class SearchActivity extends AppCompatActivity implements SearchRecyclerViewAdapter.OnClickRecyclerViewItemListener, View.OnClickListener {
     public static final String TAG = "SearchActivity";
 
-    public static final String DEFAULT_WORD = "게임";
+    public static final String DEFAULT_WORD = "beautiful 4k";
 
     //Request Code
     public static final int REQUEST_INVITE = 1;
@@ -348,10 +348,19 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
      * @param eventName
      */
     private void setEventLog(String eventName){
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-        Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.CONTENT, eventName);
-        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+        try{
+            mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+            Bundle bundle = new Bundle();
+            bundle.putString(FirebaseAnalytics.Param.CONTENT, eventName);
+
+            if(mFirebaseAnalytics != null){
+                mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+            }else{
+                Log.d(TAG, "FirebaseAnalytics is Null...");
+            }
+        }catch(Exception e){
+            Log.d(TAG, "Exception : " + e.toString());
+        }
     }
 
     @Override

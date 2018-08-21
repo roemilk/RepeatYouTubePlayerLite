@@ -139,13 +139,17 @@ public class IntroActivity extends AppCompatActivity {
      * @param eventName
      */
     private void setEventLog(String eventName){
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-        Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.CONTENT, eventName);
-        if(mFirebaseAnalytics != null){
-            mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
-        }else{
-            Log.d(TAG, "FirebaseAnalytics is Null..");
+        try{
+            mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+            Bundle bundle = new Bundle();
+            bundle.putString(FirebaseAnalytics.Param.CONTENT, eventName);
+            if(mFirebaseAnalytics != null){
+                mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+            }else{
+                Log.d(TAG, "FirebaseAnalytics is Null..");
+            }
+        }catch(Exception e){
+            Log.d(TAG, "Exception : " + e.toString());
         }
     }
 }
