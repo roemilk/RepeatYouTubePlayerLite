@@ -83,4 +83,12 @@
 
     <!-- Devlog -->
     <string name="dialog_help_devlog_link">https://www.facebook.com/RepeatYouTubePlayer/</string>
+
+    <!-- recommend -->
+    <string name="dialog_recommend_title">recomendado repetir vídeos do youtube</string>
+    <string name="dialog_recommend_hometraining">treinamento em casa</string>
+    <string name="dialog_recommend_dance">aula de dança</string>
+    <string name="dialog_recommend_asmr">ASMR</string>
+    <string name="dialog_recommend_makeup">prática de maquiagem</string>
+    <string name="dialog_recommend_magic">magic practice</string>
 </resources>

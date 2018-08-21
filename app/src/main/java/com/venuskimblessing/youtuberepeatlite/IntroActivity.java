@@ -142,6 +142,10 @@ public class IntroActivity extends AppCompatActivity {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.CONTENT, eventName);
-        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+        if(mFirebaseAnalytics != null){
+            mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+        }else{
+            Log.d(TAG, "FirebaseAnalytics is Null..");
+        }
     }
 }

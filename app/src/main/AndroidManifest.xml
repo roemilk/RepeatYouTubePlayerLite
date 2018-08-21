@@ -53,5 +53,4 @@
             android:name=".LoadingActivity"
             android:screenOrientation="portrait"></activity>
     </application>
-
 </manifest>

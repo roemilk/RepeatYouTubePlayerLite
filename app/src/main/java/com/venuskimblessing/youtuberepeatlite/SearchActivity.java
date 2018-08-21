@@ -46,6 +46,7 @@ import com.venuskimblessing.youtuberepeatlite.Common.CommonUserData;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogEnding;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogInfo;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogInvitation;
+import com.venuskimblessing.youtuberepeatlite.Dialog.DialogRecommend;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogSort;
 import com.venuskimblessing.youtuberepeatlite.Json.PlayingData;
 import com.venuskimblessing.youtuberepeatlite.Json.SearchList;
@@ -101,6 +102,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     private TextView mEmptyTextView = null;
     private Button mInviteButton = null;
     private Button mSortButton = null;
+    private Button mRecommentButton = null;
     private MaterialTextField mMaterialTextField = null;
     private EditText mEditTextSearchWord = null;
     private RecyclerView mRecyclerView = null;
@@ -151,6 +153,9 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 
         mSortButton = (Button)findViewById(R.id.search_sort_button);
         mSortButton.setOnClickListener(this);
+
+        mRecommentButton = (Button)findViewById(R.id.search_recomment_button);
+        mRecommentButton.setOnClickListener(this);
 
         mRecyclerView = (RecyclerView)findViewById(R.id.search_recyclerview);
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -498,6 +503,40 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                     }
                 });
                 dialogSort.show();
+                break;
+
+            case R.id.search_recomment_button:
+                setEventLog(EVENT_SORT);
+                final DialogRecommend dialogRecommend = new DialogRecommend(this, R.style.custom_dialog_fullScreen);
+                dialogRecommend.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        switch (view.getId()){
+                            case R.id.recommend_home_button:
+                                mEditTextSearchWord.setText(getResources().getString(R.string.dialog_recommend_hometraining));
+                                break;
+                            case R.id.recommend_dance_button:
+                                mEditTextSearchWord.setText(getResources().getString(R.string.dialog_recommend_dance));
+                                break;
+                            case R.id.recommend_asmr_button:
+                                mEditTextSearchWord.setText(getResources().getString(R.string.dialog_recommend_asmr));
+                                break;
+                            case R.id.recommend_makeup_button:
+                                mEditTextSearchWord.setText(getResources().getString(R.string.dialog_recommend_makeup));
+                                break;
+                            case R.id.recommend_magic_button:
+                                mEditTextSearchWord.setText(getResources().getString(R.string.dialog_recommend_magic));
+                                break;
+                        }
+                        dialogRecommend.dismiss();
+                        mNextPageToken = "";
+                        if(mItems != null){
+                            mItems.clear();
+                        }
+                        loadContentsList();
+                    }
+                });
+                dialogRecommend.show();
                 break;
         }
     }

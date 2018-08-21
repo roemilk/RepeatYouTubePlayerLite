@@ -15,7 +15,7 @@
     <string name="guidelast_content">何度も繰り返し見たいシーンがありますか？\ n聞き続けたい曲の部分はありますか？\n\nExperienceは最も簡単で簡単なYouTubeの繰り返しですapp！</string>
     <string name="guidelast_start">開始方法</string>
 
-    <string name="search_word_edittext_hint">ここをクリックして検索してください。</string>
+    <string name="search_word_edittext_hint">検索用語を入力してください。</string>
 
     <string name="dialog_help_title">ヘルプ</string>
     <string name="dialog_help_pro">今すぐ購入</string>
@@ -83,4 +83,12 @@
 
     <!-- Devlog -->
     <string name="dialog_help_devlog_link">https://www.facebook.com/RepeatYouTubePlayer/</string>
+
+    <!-- recommend -->
+    <string name="dialog_recommend_title">お薦めのリピートyoutube videos</string>
+    <string name="dialog_recommend_hometraining">home training</string>
+    <string name="dialog_recommend_dance">ダンスの練習</string>
+    <string name="dialog_recommend_asmr">asmr</string>
+    <string name="dialog_recommend_makeup">メイクアップ</string>
+    <string name="dialog_recommend_magic">magic practice</string>
 </resources>

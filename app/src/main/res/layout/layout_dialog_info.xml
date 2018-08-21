@@ -109,6 +109,8 @@
                     android:id="@+id/dialog_info_description_textView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:layout_marginTop="20dp"
                     android:textColor="#757575"
                     android:textSize="14dp" />

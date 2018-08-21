@@ -17,7 +17,7 @@
     <string name="guidelast_start">시작하기</string>
 
     <!-- 검색하기 -->
-    <string name="search_word_edittext_hint">터치하여 검색어를 입력해주세요.</string>
+    <string name="search_word_edittext_hint">검색어를 입력해주세요.</string>
 
     <!-- 도움말 -->
     <string name="dialog_help_title">도움말</string>
@@ -95,4 +95,12 @@
 
     <!-- Devlog -->
     <string name="dialog_help_devlog_link">http://roemilk.tistory.com/category/%EC%9C%A0%ED%8A%9C%EB%B8%8C%20%EB%B0%98%EB%B3%B5%ED%95%B4%EC%A4%98%20Dev%20Log</string>
+
+    <!-- recommend -->
+    <string name="dialog_recommend_title">반복 재생하기 좋은 유튜브 동영상!</string>
+    <string name="dialog_recommend_hometraining">홈 트레이닝</string>
+    <string name="dialog_recommend_dance">춤 연습</string>
+    <string name="dialog_recommend_asmr">ASMR</string>
+    <string name="dialog_recommend_makeup">메이크업 강좌</string>
+    <string name="dialog_recommend_magic">마술 강좌</string>
 </resources>

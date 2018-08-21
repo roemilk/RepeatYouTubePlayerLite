@@ -27,7 +27,7 @@
     <string name="guidelast_start"> Начало работы </string>
 
         
-    <string name="search_word_edittext_hint"> Нажмите здесь и выполните поиск. </string>
+    <string name="search_word_edittext_hint"> Введите поисковый запрос. </string>
 
         
     <string name="dialog_help_title"> Справка </string>
@@ -116,4 +116,12 @@
 
     <!-- Devlog -->
     <string name="dialog_help_devlog_link">https://www.facebook.com/RepeatYouTubePlayer/</string>
+
+    <!-- recommend -->
+    <string name="dialog_recommend_title">рекомендуется повторять видео с YouTube</string>
+    <string name="dialog_recommend_hometraining">home training</string>
+    <string name="dialog_recommend_dance">dance practice</string>
+    <string name="dialog_recommend_asmr">asmr</string>
+    <string name="dialog_recommend_makeup">makeup practice</string>
+    <string name="dialog_recommend_magic">magic practice</string>
 </resources>

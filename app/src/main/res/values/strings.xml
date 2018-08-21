@@ -94,4 +94,11 @@ It is your very smart choice.\n\nPRO benefits\n
     <!-- Devlog -->
     <string name="dialog_help_devlog_link">https://www.facebook.com/RepeatYouTubePlayer/</string>
 
+    <!-- recommend -->
+    <string name="dialog_recommend_title">Recommended repeat youtube videos</string>
+    <string name="dialog_recommend_hometraining">home training</string>
+    <string name="dialog_recommend_dance">dance practice</string>
+    <string name="dialog_recommend_asmr">asmr</string>
+    <string name="dialog_recommend_makeup">makeup practice</string>
+    <string name="dialog_recommend_magic">magic practice</string>
 </resources>
