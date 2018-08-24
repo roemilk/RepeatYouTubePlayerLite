@@ -60,11 +60,11 @@
     <string name="dialog_free_unlock">Desbloquear gratuitamente</string>
 
     <string name="invitation_title">convite</string>
-    <string name="invitation_message">Este aplicativo é o player gratuito mais popular que suporta repetição de vídeos do YouTube</string>
+    <string name="invitation_message">O melhor aplicativo de loop gratuito de vídeo do YouTube</string>
     <string name="invitation_deep_link">https://play.google.com/store/apps/details?id=com.venuskimblessing.youtuberepeatlite</string>
     <string name="invitation_cta">Instalar</string>
     <string name="invitation_tip_title">Convide seus amigos!</string>
-    <string name="invitation_tip_content">Convide seus amigos e obtenha benefícios premium.\n\nSe você convidar cinco amigos, poderá desbloquear todos os recursos premium bloqueados.</string>
+    <string name="invitation_tip_content">Convide seus amigos e obtenha benefícios premium.\n\nSe você convidar dez amigos, poderá desbloquear todos os recursos premium bloqueados.</string>
     <string name="invitation_button">Convide seus amigos!</string>
     <string name="invitation_count">Amigos Convidados</string>
     <string name="invitation_complete">Parabéns! \n Todos os recursos premium estão desbloqueados.</string>
@@ -91,4 +91,5 @@
     <string name="dialog_recommend_asmr">ASMR</string>
     <string name="dialog_recommend_makeup">prática de maquiagem</string>
     <string name="dialog_recommend_magic">magic practice</string>
+    <string name="dialog_recommend_cook">Cozinhar</string>
 </resources>

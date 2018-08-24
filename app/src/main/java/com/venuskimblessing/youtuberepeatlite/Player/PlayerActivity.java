@@ -547,7 +547,20 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                     String img_url = mSnippet.getThumbnails().getMedium().getUrl();
                     String title = mSnippet.title;
                     long duration = mYouTubePlayer.getDurationMillis();
-                    mPlayListDataManager.insert(img_url, title, String.valueOf(duration), mPlayId, String.valueOf(mStartTime), String.valueOf(mEndTime), String.valueOf(mRepeatCount));
+                    mPlayListArray = mPlayListDataManager.loadPlayList();
+
+                    PlayListData firstPlayListData = new PlayListData();
+                    firstPlayListData.setImg_url(img_url);
+                    firstPlayListData.setTitle(title);
+                    firstPlayListData.setDuration(String.valueOf(duration));
+                    firstPlayListData.setVideoId(mPlayId);
+                    firstPlayListData.setStartTime(String.valueOf(mStartTime));
+                    firstPlayListData.setEndTime(String.valueOf(mEndTime));
+                    firstPlayListData.setRepeat(String.valueOf(mRepeatCount));
+                    mPlayListArray.add(0, firstPlayListData);
+
+//                    mPlayListDataManager.insert(img_url, title, String.valueOf(duration), mPlayId, String.valueOf(mStartTime), String.valueOf(mEndTime), String.valueOf(mRepeatCount));
+                    mPlayListDataManager.insertAllList(mPlayListArray);
                     mPlayListButton.performClick();
                     Toast.makeText(this, getResources().getString(R.string.playlist_add), Toast.LENGTH_SHORT).show();
                 }

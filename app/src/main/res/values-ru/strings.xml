@@ -93,11 +93,11 @@
 
     <!-- 초대장 -->
     <string name="invitation_title">приглашение</string>
-    <string name="invitation_message">Это приложение является самым популярным бесплатным проигрывателем, который поддерживает повторение видео YouTube</string>
+    <string name="invitation_message">Лучшее приложение для плеера для видеороликов на YouTube</string>
     <string name="invitation_deep_link">https://play.google.com/store/apps/details?id=com.venuskimblessing.youtuberepeatlite</string>
     <string name="invitation_cta">устанавливать</string>
     <string name="invitation_tip_title">Пригласить друзей!</string>
-    <string name="invitation_tip_content">Пригласите своих друзей и получите премиальные льготы. \n\n Если вы пригласите пятерых из ваших друзей, вы сможете разблокировать все заблокированные функции премиум-класса.</string>
+    <string name="invitation_tip_content">Пригласите своих друзей и получите премиальные льготы. \n\n Если вы пригласите десять своих друзей, вы сможете разблокировать все заблокированные функции премиум-класса.</string>
     <string name="invitation_button">Пригласить друзей!</string>
     <string name="invitation_count">Приглашенные друзья</string>
     <string name="invitation_complete">Поздравляем! \ N Все функции премиум-класса разблокированы.</string>
@@ -124,4 +124,5 @@
     <string name="dialog_recommend_asmr">asmr</string>
     <string name="dialog_recommend_makeup">makeup practice</string>
     <string name="dialog_recommend_magic">magic practice</string>
+    <string name="dialog_recommend_cook">Готовить</string>
 </resources>

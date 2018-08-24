@@ -60,11 +60,11 @@
     <string name="dialog_free_unlock">無料でロック解除</string>
 
     <string name="invitation_title">招待</string>
-    <string name="invitation_message">このアプリは、YouTube動画のリピートをサポートする最も一般的な無料のプレーヤーです</string>
+    <string name="invitation_message">最高のYouTube動画を繰り返し再生無料プレーヤーアプリです</string>
     <string name="invitation_deep_link">https://play.google.com/store/apps/details?id=com.venuskimblessing.youtuberepeatlite</string>
     <string name="invitation_cta">Install</string>
     <string name="invitation_tip_title">あなたの友人を招待してください！</string>
-    <string name="invitation_tip_content">あなたの友人を招待し、優遇を得ることができます。\n\n5人の友だちを招待すると、すべてのロックされたプレミアム機能のロックを解除することができます。</string>
+    <string name="invitation_tip_content">あなたの友人を招待し、優遇を得ることができます。\n\n10人の友だちを招待すると、すべてのロックされたプレミアム機能のロックを解除することができます。</string>
     <string name="invitation_button">あなたの友人を招待してください！</string>
     <string name="invitation_count">招待された友達</string>
     <string name="invitation_complete">おめでとう！\nすべてのプレミアム機能がロック解除されました。</string>
@@ -91,4 +91,5 @@
     <string name="dialog_recommend_asmr">asmr</string>
     <string name="dialog_recommend_makeup">メイクアップ</string>
     <string name="dialog_recommend_magic">magic practice</string>
+    <string name="dialog_recommend_cook">料理を作る</string>
 </resources>

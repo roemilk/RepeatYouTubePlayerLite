@@ -61,17 +61,25 @@ public class PlayListDataManager {
         return list;
     }
 
-//    /**
-//     * 리스트의 모든 데이터를 insert한다.
-//     * @param list
-//     */
-//    public void insertAllList(ArrayList<PlayListData> list){
-//        deleteAll();
-//        initAutoIncrement();
-//        for(PlayListData data : list){
-//            insert(data.getImg_url(), data.getTitle(), data.getDuration(), data.getVideoId(), data.getStartTime(), data.getEndTime());
-//        }
-//    }
+    /**
+     * 리스트의 모든 데이터를 insert한다.
+     * @param list
+     */
+    public void insertAllList(ArrayList<PlayListData> list){
+        deleteAll();
+        initAutoIncrement();
+        for(PlayListData data : list){
+            String img_url = data.getImg_url();
+            String title = data.getTitle();
+            String duration = data.getDuration();
+            String videoId = data.getVideoId();
+            String startTime = data.getStartTime();
+            String endTime = data.getEndTime();
+            String repeatCount = data.getRepeat();
+            insert(img_url, title, duration, videoId, startTime, endTime, repeatCount);
+        }
+    }
+
     /**
      * 테이블에 데이터를 삽입한다.
      * @param imgUrl

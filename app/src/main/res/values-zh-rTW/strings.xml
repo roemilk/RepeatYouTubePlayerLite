@@ -94,11 +94,11 @@
 
     <!-- 초대장 -->
     <string name="invitation_title">請帖</string>
-    <string name="invitation_message">此應用是支持YouTube視頻重複的最受歡迎的免費播放器</string>
+    <string name="invitation_message">最好的YouTube視頻循環免費播放器應用程序</string>
     <string name="invitation_deep_link">https://play.google.com/store/apps/details?id=com.venuskimblessing.youtuberepeatlite</string>
     <string name="invitation_cta">安裝</string>
     <string name="invitation_tip_title">邀請你的朋友！</string>
-    <string name="invitation_tip_content">邀請您的朋友並獲得高級優惠。\n\n如果您邀請五位朋友，則可以解鎖所有鎖定的高級功能。</string>
+    <string name="invitation_tip_content">如果您邀請了十位朋友，您將可以解鎖所有鎖定的高級功能。</string>
     <string name="invitation_button">邀請你的朋友！</string>
     <string name="invitation_count">特邀朋友</string>
     <string name="invitation_complete">恭喜！ \n 所有高級功能均已解鎖。</string>
@@ -125,4 +125,5 @@
     <string name="dialog_recommend_asmr">asmr</string>
     <string name="dialog_recommend_makeup">makeup practice</string>
     <string name="dialog_recommend_magic">magic practice</string>
+    <string name="dialog_recommend_cook">做飯</string>
 </resources>
