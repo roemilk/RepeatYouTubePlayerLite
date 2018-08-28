@@ -35,6 +35,15 @@
                 android:textSize="18dp"
                 android:textStyle="bold" />
 
+            <Button
+                android:id="@+id/playlist_deleteAll_button"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:layout_toLeftOf="@+id/playlist_autoplay_textView"
+                android:background="@drawable/ic_delete_all_white_24dp" />
+
             <com.github.zagum.switchicon.SwitchIconView
                 android:id="@+id/playlist_repeat_switchIconView"
                 android:layout_width="34dp"

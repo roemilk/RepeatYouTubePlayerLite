@@ -74,7 +74,7 @@
     <string name="playlist_add"> Добавлен в список воспроизведения. </string>
         
     <string name="playlist_empty"> Плейлист пуст. \nДобавить список воспроизведения. </string>
-
+    <string name="playlist_delete">Вы действительно хотите удалить все плейлисты?</string>
         
     <string name="error_videos_emptyInfo"> Информация не существует. </string>
 

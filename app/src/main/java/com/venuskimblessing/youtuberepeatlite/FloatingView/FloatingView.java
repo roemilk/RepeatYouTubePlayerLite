@@ -106,7 +106,7 @@ public class FloatingView extends RelativeLayout {
                         if(mAutoPlay){
                             startPlayList(mPlayIndex);
                         }else{
-                            startPlay(mPlayListData.getVideoId());
+                            startPlay(mPlayListData);
                         }
                     }
                 });
@@ -181,7 +181,6 @@ public class FloatingView extends RelativeLayout {
 
     public void setPlayData(PlayListData playData) {
         this.mPlayListData = playData;
-        initTime(mPlayListData);
     }
 
     public void setPlayListData(ArrayList<PlayListData> playListDataArrayList, int startIndex) {
@@ -312,11 +311,12 @@ public class FloatingView extends RelativeLayout {
     /**
      * 단일 영상 재생
      *
-     * @param id
      */
-    private void startPlay(String id) {
+    private void startPlay(PlayListData data) {
+        initTime(data);
+        String videoId = data.getVideoId();
         if (mYouTubePlayer != null) {
-            mYouTubePlayer.loadVideo(id, mStartTime);
+            mYouTubePlayer.loadVideo(videoId, mStartTime);
         }
     }
 

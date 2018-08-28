@@ -72,9 +72,8 @@
 
         
     <string name="playlist_add">已添加到播放列表。</string>
-        
     <string name="playlist_empty">播放列表為空。\n添加播放列表。</string>
-
+    <string name="playlist_delete">您確定要刪除所有播放列表嗎？</string>
         
     <string name="error_videos_emptyInfo">信息不存在。</string>
 

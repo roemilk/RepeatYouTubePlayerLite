@@ -43,6 +43,7 @@
 
         <string name = "playlist_add"> Adicionado à lista de reprodução. </string>
         <string name = "playlist_empty"> A lista de reprodução está vazia. \n Adicione uma lista de reprodução. </string>
+        <string name="playlist_delete">Tem certeza de que deseja excluir todas as playlists?</string>
 
         <string name = "error_videos_emptyInfo"> A informação não existe. </string>
 

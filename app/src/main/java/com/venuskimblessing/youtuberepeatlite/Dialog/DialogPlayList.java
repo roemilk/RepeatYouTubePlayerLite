@@ -1,7 +1,9 @@
 package com.venuskimblessing.youtuberepeatlite.Dialog;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -43,7 +45,7 @@ public class DialogPlayList extends Dialog implements View.OnClickListener, Play
 
     private Context mContext;
     private TextView mEmptyTextView;
-    private Button mClosebutton;
+    private Button mClosebutton,mDeleteAllButton;
     private RecyclerView mPlayListRecyclerView;
     private PlayListRecyclerViewAdapter mPlayListRecyclerViewAdapter;
     private ItemTouchHelper mItemTouchHelper;
@@ -83,8 +85,12 @@ public class DialogPlayList extends Dialog implements View.OnClickListener, Play
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         mEmptyTextView = (TextView) findViewById(R.id.playlist_empty_textView);
         mPlayListRecyclerView = (RecyclerView) findViewById(R.id.playlist_recyclerview);
+
         mClosebutton = (Button) findViewById(R.id.playlist_close_button);
         mClosebutton.setOnClickListener(this);
+
+        mDeleteAllButton = (Button) findViewById(R.id.playlist_deleteAll_button);
+        mDeleteAllButton.setOnClickListener(this);
 
         //Play Controller
         mControllerCardView = (CardView)findViewById(R.id.playlist_controller_cardview);
@@ -180,6 +186,14 @@ public class DialogPlayList extends Dialog implements View.OnClickListener, Play
         }
     }
 
+    private void deleteAll(){
+        mPlayListDataManager.deleteAll();
+        mList.clear();
+        mPlayListRecyclerViewAdapter.notifyDataSetChanged();
+        mEmptyTextView.setVisibility(View.VISIBLE);
+        mControllerCardView.setVisibility(View.GONE);
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -199,6 +213,25 @@ public class DialogPlayList extends Dialog implements View.OnClickListener, Play
 
                 mRepeatSwitchIconView.setIconEnabled(allRepeatState, true);
                 SharedPreferencesUtils.setBoolean(mContext, CommonSharedPreferencesKey.KEY_ALLREPEAT, allRepeatState);
+                break;
+
+            case R.id.playlist_deleteAll_button:
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setTitle("PLAYLIST");
+                builder.setMessage(mContext.getResources().getString(R.string.playlist_delete));
+                builder.setPositiveButton("YES",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                deleteAll();
+                            }
+                        });
+                builder.setNegativeButton("NO",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                            }
+                        });
+                builder.show();
                 break;
         }
     }

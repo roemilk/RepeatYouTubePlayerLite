@@ -50,6 +50,8 @@
     <!-- 플레이리스트 -->
     <string name="playlist_add">플레이리스트에 추가되었습니다.</string>
     <string name="playlist_empty">플레이리스트가 비어있습니다.\n플레이리스트를 추가하세요.</string>
+    <string name="playlist_delete">플레이리스트의 목록을 모두 삭제 하시겠습니까?</string>
+
     <string name="playlist_all_repeat_enable">전체 반복이 설정 되었습니다.</string>
     <string name="playlist_all_repeat_disable">전체 반복이 해제 되었습니다.</string>
 

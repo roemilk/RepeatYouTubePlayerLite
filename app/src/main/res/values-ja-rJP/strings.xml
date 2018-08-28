@@ -43,6 +43,7 @@
 
     <string name="playlist_add">プレイリストに追加されました。</string>
     <string name="playlist_empty">プレイリストは空です。\nプレイリストを追加してください。</string>
+    <string name="playlist_delete">すべてのプレイリストを削除してもよろしいですか？</string>
 
     <string name="error_videos_emptyInfo">情報が存在しません。</string>
 

@@ -69,8 +69,8 @@
 
         
     <string name="playlist_add"> Ditambahkan ke daftar putar. </string>
-        
     <string name="playlist_empty"> Daftar putar kosong. \nTambahkan daftar putar. </string>
+    <string name="playlist_delete">Anda yakin ingin menghapus semua daftar putar?</string>
 
         
     <string name="error_videos_emptyInfo"> Informasi tidak ada. </string>

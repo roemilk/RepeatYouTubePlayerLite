@@ -16,7 +16,7 @@ android {
     //Signing configurations for build variants "release"
     signingConfigs {
         release {
-            storeFile file("D:/keystore/venuskimblessing.jks")
+            storeFile file("C:/keystore/venuskimblessing.jks")
             storePassword "kknd2457!"
             keyAlias "venuskim"
             keyPassword "kknd2457!"

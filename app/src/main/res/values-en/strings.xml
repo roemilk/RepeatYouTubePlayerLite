@@ -50,6 +50,7 @@
     <!-- 플레이리스트 -->
     <string name="playlist_add">Added to playlist.</string>
     <string name="playlist_empty">The playlist is empty.\nAdd a playlist.</string>
+    <string name="playlist_delete">Are you sure you want to delete all playlists?</string>
 
     <!-- Error -->
     <string name="error_videos_emptyInfo">Information does not exist.</string>
