@@ -16,13 +16,16 @@
 
 package com.venuskimblessing.youtuberepeatlite.Player;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.OrientationEventListener;
 import android.view.View;
@@ -31,8 +34,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.common.internal.service.Common;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
@@ -46,6 +47,8 @@ import com.venuskimblessing.youtuberepeatlite.Dialog.DialogPickerCount;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogPickerTime;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogPlayList;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogPro;
+import com.venuskimblessing.youtuberepeatlite.FloatingView.FloatingManager;
+import com.venuskimblessing.youtuberepeatlite.FloatingView.FloatingService;
 import com.venuskimblessing.youtuberepeatlite.Json.PlayingData;
 import com.venuskimblessing.youtuberepeatlite.Json.Videos;
 import com.venuskimblessing.youtuberepeatlite.PlayList.PlayListData;
@@ -58,15 +61,11 @@ import com.venuskimblessing.youtuberepeatlite.SearchActivity;
 import com.venuskimblessing.youtuberepeatlite.Utils.MediaUtils;
 import com.venuskimblessing.youtuberepeatlite.Utils.SharedPreferencesUtils;
 import com.venuskimblessing.youtuberepeatlite.Utils.UIConvertUtils;
-
 import net.cachapa.expandablelayout.ExpandableLayout;
-
 import org.florescu.android.rangeseekbar.RangeSeekBar;
-
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -80,6 +79,8 @@ import retrofit2.Retrofit;
  */
 public class PlayerActivity extends YouTubeFailureRecoveryActivity implements View.OnClickListener, YouTubePlayer.PlaybackEventListener, YouTubePlayer.PlayerStateChangeListener, RangeSeekBar.OnRangeSeekBarChangeListener<Integer>, ExpandableLayout.OnExpansionUpdateListener {
     public static final String TAG = "PlayerActivity";
+
+    public final int REQ_CODE_OVERLAY_PERMISSION = 123;
 
     //TYPE
     private final String TYPE_MIME = "text/plain";
@@ -96,7 +97,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     private TimerTask mTimerTask = null;
 
     //Top Menu
-    private Button mHelpButton, mSearchButton, mBackButton, mOrientationButton, mLockButton, mPlayListButton;
+    private Button mHelpButton, mSearchButton, mBackButton, mOrientationButton, mLockButton, mPlayListButton, mPopupButton;
     private TextView mTopCountTextView;
 
     //Bottom Menu
@@ -204,6 +205,9 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
         mRepeatButton = (Button) findViewById(R.id.player_setting_repeat_button);
         mRepeatButton.setOnClickListener(this);
+
+        mPopupButton = (Button) findViewById(R.id.player_top_popup_button);
+        mPopupButton.setOnClickListener(this);
 
         initRangeSeekBar();
         initPickerTime();
@@ -571,6 +575,13 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 dialogPickerCount.setOnSelectedNumberPickerListener(onSelectedNumberPickerListener);
                 dialogPickerCount.show();
                 break;
+
+            case R.id.player_top_popup_button:
+                mPlayListArray = mPlayListDataManager.loadPlayList();
+                PlayListData currentData = createPlayListData();
+                mPlayListArray.add(0, currentData);
+                startOverlayWindowService(this);
+                break;
         }
     }
 
@@ -761,6 +772,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         if (mYouTubePlayer != null) {
             mYouTubePlayer.release();
         }
+        stopService(new Intent(this, FloatingService.class));
         super.onDestroy();
     }
 
@@ -1048,5 +1060,57 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
             }
         });
         dialogPro.show();
+    }
+
+    //Overlay
+    public void startOverlayWindowService(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                && !Settings.canDrawOverlays(context)) {
+            onObtainingPermissionOverlayWindow();
+        } else {
+            Intent intent = new Intent(this, FloatingService.class);
+            boolean autoPlay = SharedPreferencesUtils.getBoolean(PlayerActivity.this, CommonSharedPreferencesKey.KEY_AUTOPLAY);
+            if (autoPlay && mPlayListArray.size() > 0) {
+                Log.d(TAG, "autoplay...");
+                intent.putExtra("type", FloatingManager.TYPE_INTENT_LIST);
+                intent.putExtra("list", mPlayListArray);
+                intent.putExtra("index", mPlayIndex);
+            } else {
+                Log.d(TAG, "not autoplay...");
+                intent.putExtra("type", FloatingManager.TYPE_INTENT_DATA);
+                PlayListData data = createPlayListData();
+                intent.putExtra("data", data);
+            }
+            startService(intent);
+            goHome();
+        }
+    }
+
+    public void onObtainingPermissionOverlayWindow() {
+        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
+        startActivityForResult(intent, REQ_CODE_OVERLAY_PERMISSION);
+    }
+
+    private PlayListData createPlayListData() {
+        String img_url = mSnippet.getThumbnails().getMedium().getUrl();
+        String title = mSnippet.title;
+        long duration = mYouTubePlayer.getDurationMillis();
+
+        PlayListData firstPlayListData = new PlayListData();
+        firstPlayListData.setImg_url(img_url);
+        firstPlayListData.setTitle(title);
+        firstPlayListData.setDuration(String.valueOf(duration));
+        firstPlayListData.setVideoId(mPlayId);
+        firstPlayListData.setStartTime(String.valueOf(mStartTime));
+        firstPlayListData.setEndTime(String.valueOf(mEndTime));
+        firstPlayListData.setRepeat(String.valueOf(mRepeatCount));
+        return firstPlayListData;
+    }
+
+    public void goHome(){
+        Intent intent = new Intent(Intent.ACTION_MAIN); //태스크의 첫 액티비티로 시작
+        intent.addCategory(Intent.CATEGORY_HOME);   //홈화면 표시
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //새로운 태스크를 생성하여 그 태스크안에서 액티비티 추가
+        startActivity(intent);
     }
 }

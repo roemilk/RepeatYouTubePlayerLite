@@ -1,6 +1,8 @@
 package com.venuskimblessing.youtuberepeatlite.PlayList;
 
-public class PlayListData {
+import java.io.Serializable;
+
+public class PlayListData implements Serializable {
     private int id;
     private String img_url;
     private String title;
