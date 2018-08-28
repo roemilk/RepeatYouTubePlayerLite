@@ -105,5 +105,10 @@
     <string name="dialog_recommend_asmr">ASMR</string>
     <string name="dialog_recommend_makeup">메이크업 강좌</string>
     <string name="dialog_recommend_magic">마술 강좌</string>
+
     <string name="dialog_recommend_cook">요리만들기</string>
+    <string name="dialog_recommend_music">인기차트</string>
+    <string name="dialog_recommend_sleep">수면 음악</string>
+    <string name="dialog_recommend_relaxing">힐링 음악</string>
+    <string name="dialog_recommend_kids">어린이 애니메이션</string>
 </resources>

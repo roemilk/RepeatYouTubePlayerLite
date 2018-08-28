@@ -26,68 +26,129 @@
             android:textSize="18dp"
             android:textStyle="bold" />
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:background="#7F000000"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/recommend_home_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:background="#00000000"
-                android:drawableTop="@drawable/ic_home_white_24dp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="@string/dialog_recommend_hometraining"
-                android:textColor="#FFFFFF" />
+                android:background="#7F000000"
+                android:orientation="vertical">
 
-            <Button
-                android:id="@+id/recommend_dance_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="#00000000"
-                android:drawableTop="@drawable/ic_dance_white_24dp"
-                android:gravity="center"
-                android:text="@string/dialog_recommend_dance"
-                android:textColor="#FFFFFF" />
+                <Button
+                    android:id="@+id/recommend_home_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="#00000000"
+                    android:drawableTop="@drawable/ic_home_white_24dp"
+                    android:gravity="center"
+                    android:text="@string/dialog_recommend_hometraining"
+                    android:textColor="#FFFFFF" />
 
-            <Button
-                android:id="@+id/recommend_asmr_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="#00000000"
-                android:drawableTop="@drawable/ic_asmr_white_24dp"
-                android:gravity="center"
-                android:text="@string/dialog_recommend_asmr"
-                android:textColor="#FFFFFF" />
+                <Button
+                    android:id="@+id/recommend_dance_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="#00000000"
+                    android:drawableTop="@drawable/ic_dance_white_24dp"
+                    android:gravity="center"
+                    android:text="@string/dialog_recommend_dance"
+                    android:textColor="#FFFFFF" />
 
-            <Button
-                android:id="@+id/recommend_makeup_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="#00000000"
-                android:drawableTop="@drawable/ic_makeup_white_24dp"
-                android:gravity="center"
-                android:text="@string/dialog_recommend_makeup"
-                android:textColor="#FFFFFF" />
+                <Button
+                    android:id="@+id/recommend_asmr_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="#00000000"
+                    android:drawableTop="@drawable/ic_asmr_white_24dp"
+                    android:gravity="center"
+                    android:text="@string/dialog_recommend_asmr"
+                    android:textColor="#FFFFFF" />
 
-            <Button
-                android:id="@+id/recommend_magic_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="15dp"
-                android:background="#00000000"
-                android:drawableTop="@drawable/ic_magic_white_24dp"
-                android:gravity="center"
-                android:text="@string/dialog_recommend_magic"
-                android:textColor="#FFFFFF" />
-        </LinearLayout>
+                <Button
+                    android:id="@+id/recommend_makeup_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="#00000000"
+                    android:drawableTop="@drawable/ic_makeup_white_24dp"
+                    android:gravity="center"
+                    android:text="@string/dialog_recommend_makeup"
+                    android:textColor="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/recommend_magic_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="#00000000"
+                    android:drawableTop="@drawable/ic_magic_white_24dp"
+                    android:gravity="center"
+                    android:text="@string/dialog_recommend_magic"
+                    android:textColor="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/recommend_cook_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="#00000000"
+                    android:drawableTop="@drawable/ic_cook_white_24dp"
+                    android:gravity="center"
+                    android:text="@string/dialog_recommend_cook"
+                    android:textColor="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/recommend_billbordMusic_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="#00000000"
+                    android:drawableTop="@drawable/ic_billbord_white_24dp"
+                    android:gravity="center"
+                    android:text="@string/dialog_recommend_music"
+                    android:textColor="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/recommend_sleep_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="#00000000"
+                    android:drawableTop="@drawable/ic_sleep_white_24dp"
+                    android:gravity="center"
+                    android:text="@string/dialog_recommend_sleep"
+                    android:textColor="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/recommend_relaxing_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="#00000000"
+                    android:drawableTop="@drawable/ic_relaxing_white_24dp"
+                    android:gravity="center"
+                    android:text="@string/dialog_recommend_relaxing"
+                    android:textColor="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/recommend_kids_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="#00000000"
+                    android:drawableTop="@drawable/ic_kids_white_24dp"
+                    android:gravity="center"
+                    android:text="@string/dialog_recommend_kids"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+
+        </ScrollView>
     </LinearLayout>
 </RelativeLayout>

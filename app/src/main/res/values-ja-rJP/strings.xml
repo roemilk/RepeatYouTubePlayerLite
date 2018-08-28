@@ -92,5 +92,10 @@
     <string name="dialog_recommend_asmr">asmr</string>
     <string name="dialog_recommend_makeup">メイクアップ</string>
     <string name="dialog_recommend_magic">magic practice</string>
+
     <string name="dialog_recommend_cook">料理を作る</string>
+    <string name="dialog_recommend_music">music awards</string>
+    <string name="dialog_recommend_sleep">sleep music</string>
+    <string name="dialog_recommend_relaxing">relaxing music</string>
+    <string name="dialog_recommend_kids">kids Animation</string>
 </resources>

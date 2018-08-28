@@ -124,5 +124,10 @@
     <string name="dialog_recommend_asmr">asmr</string>
     <string name="dialog_recommend_makeup">makeup practice</string>
     <string name="dialog_recommend_magic">magic practice</string>
+
     <string name="dialog_recommend_cook">做飯</string>
+    <string name="dialog_recommend_music">music awards</string>
+    <string name="dialog_recommend_sleep">sleep music</string>
+    <string name="dialog_recommend_relaxing">relaxing music</string>
+    <string name="dialog_recommend_kids">kids animation</string>
 </resources>

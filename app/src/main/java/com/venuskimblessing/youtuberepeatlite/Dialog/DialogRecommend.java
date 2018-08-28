@@ -16,7 +16,8 @@ public class DialogRecommend extends Dialog implements View.OnClickListener {
 
     private Context mContext = null;
     private RelativeLayout mRootLay;
-    private Button mHomeButton, mDanceButton, mAsmrButton, mMakeupButton, mMagicButton;
+    private Button mHomeButton, mDanceButton, mAsmrButton, mMakeupButton, mMagicButton,
+            mCookButton, mMusicButton, mSleepButton, mRelaxingButton, mKidsButton;;
     private View.OnClickListener mListener = null;
 
     public DialogRecommend(@NonNull Context context) {
@@ -48,12 +49,24 @@ public class DialogRecommend extends Dialog implements View.OnClickListener {
         mMakeupButton = (Button)findViewById(R.id.recommend_makeup_button);
         mMagicButton = (Button)findViewById(R.id.recommend_magic_button);
 
+        mCookButton = (Button)findViewById(R.id.recommend_cook_button);
+        mMusicButton = (Button)findViewById(R.id.recommend_billbordMusic_button);
+        mSleepButton = (Button)findViewById(R.id.recommend_sleep_button);
+        mRelaxingButton = (Button) findViewById(R.id.recommend_relaxing_button);
+        mKidsButton = (Button) findViewById(R.id.recommend_kids_button);
+
         mRootLay.setOnClickListener(this);
         mHomeButton.setOnClickListener(this);
         mDanceButton.setOnClickListener(this);
         mAsmrButton.setOnClickListener(this);
         mMakeupButton.setOnClickListener(this);
         mMagicButton.setOnClickListener(this);
+
+        mCookButton.setOnClickListener(this);
+        mMusicButton.setOnClickListener(this);
+        mSleepButton.setOnClickListener(this);
+        mRelaxingButton.setOnClickListener(this);
+        mKidsButton.setOnClickListener(this);
     }
 
     public void setOnClickListener(View.OnClickListener onClickListener){
