@@ -51,6 +51,7 @@ import com.venuskimblessing.youtuberepeatlite.FloatingView.FloatingManager;
 import com.venuskimblessing.youtuberepeatlite.FloatingView.FloatingService;
 import com.venuskimblessing.youtuberepeatlite.Json.PlayingData;
 import com.venuskimblessing.youtuberepeatlite.Json.Videos;
+import com.venuskimblessing.youtuberepeatlite.LoadingActivity;
 import com.venuskimblessing.youtuberepeatlite.PlayList.PlayListData;
 import com.venuskimblessing.youtuberepeatlite.PlayList.PlayListDataManager;
 import com.venuskimblessing.youtuberepeatlite.R;
@@ -80,7 +81,9 @@ import retrofit2.Retrofit;
 public class PlayerActivity extends YouTubeFailureRecoveryActivity implements View.OnClickListener, YouTubePlayer.PlaybackEventListener, YouTubePlayer.PlayerStateChangeListener, RangeSeekBar.OnRangeSeekBarChangeListener<Integer>, ExpandableLayout.OnExpansionUpdateListener {
     public static final String TAG = "PlayerActivity";
 
+    //Request Code
     public final int REQ_CODE_OVERLAY_PERMISSION = 123;
+    public final int REQ_CODE_AD_FINISH = 1004;
 
     //TYPE
     private final String TYPE_MIME = "text/plain";
@@ -226,6 +229,17 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         Log.d(TAG, "onPause..");
         stopTimer();
         super.onPause();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "request code : " + requestCode + " result code : " + resultCode);
+        if(requestCode == REQ_CODE_AD_FINISH){
+            if(resultCode == RESULT_OK){
+                showPopupFlaotingWindow();
+            }
+        }
     }
 
     @Override
@@ -577,10 +591,13 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 break;
 
             case R.id.player_top_popup_button:
-                mPlayListArray = mPlayListDataManager.loadPlayList();
-                PlayListData currentData = createPlayListData();
-                mPlayListArray.add(0, currentData);
-                startOverlayWindowService(this);
+//                mPlayListArray = mPlayListDataManager.loadPlayList();
+//                PlayListData currentData = createPlayListData();
+//                mPlayListArray.add(0, currentData);
+//                startOverlayWindowService(this);
+
+                intent = new Intent(this, LoadingActivity.class);
+                startActivityForResult(intent, REQ_CODE_AD_FINISH);
                 break;
         }
     }
@@ -1112,5 +1129,12 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         intent.addCategory(Intent.CATEGORY_HOME);   //홈화면 표시
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //새로운 태스크를 생성하여 그 태스크안에서 액티비티 추가
         startActivity(intent);
+    }
+
+    private void showPopupFlaotingWindow(){
+        mPlayListArray = mPlayListDataManager.loadPlayList();
+        PlayListData currentData = createPlayListData();
+        mPlayListArray.add(0, currentData);
+        startOverlayWindowService(this);
     }
 }

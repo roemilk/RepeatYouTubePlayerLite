@@ -17,7 +17,6 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +34,10 @@ import com.github.florent37.materialtextfield.MaterialTextField;
 //import com.google.android.gms.ads.InterstitialAd;
 //import com.google.android.gms.ads.MobileAds;
 //import com.google.android.gms.common.internal.service.Common;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
@@ -46,9 +49,9 @@ import com.venuskimblessing.youtuberepeatlite.Common.CommonUserData;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogEnding;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogInfo;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogInvitation;
+import com.venuskimblessing.youtuberepeatlite.Dialog.DialogPro;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogRecommend;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogSort;
-import com.venuskimblessing.youtuberepeatlite.Json.PlayingData;
 import com.venuskimblessing.youtuberepeatlite.Json.SearchList;
 import com.venuskimblessing.youtuberepeatlite.Json.Videos;
 import com.venuskimblessing.youtuberepeatlite.Player.PlayerActivity;
@@ -62,20 +65,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class SearchActivity extends AppCompatActivity implements SearchRecyclerViewAdapter.OnClickRecyclerViewItemListener, View.OnClickListener {
     public static final String TAG = "SearchActivity";
 
-    public static final String DEFAULT_WORD = "beautiful 4k";
+    public static final String DEFAULT_WORD = "best movie scene hd";
 
     //Request Code
     public static final int REQUEST_INVITE = 1;
@@ -123,8 +122,12 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     //TYPE
     private final String TYPE_MIME = "text/plain";
 
-//    //전면광고
-//    private InterstitialAd mInterstitialAd = null;
+    //전면광고
+    private InterstitialAd mInterstitialAd = null;
+    private boolean mShareYouTubeFlag = false;
+
+    //Video
+    private String mVideoId = "";
 //
 //    //배너광고
 //    private LinearLayout mBannerLay;
@@ -137,27 +140,28 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        getShareIntentData();
+        getShareIntentData(getIntent());
+        MobileAds.initialize(this, CommonApiKey.KEY_ADMOB_TEST_APP_ID);
 
-        mEmptyTextView = (TextView)findViewById(R.id.search_empty_textView);
+        mEmptyTextView = (TextView) findViewById(R.id.search_empty_textView);
 
         mInviteButton = (Button) findViewById(R.id.search_invite_button);
         mInviteButton.setOnClickListener(this);
 
-        mMaterialTextField = (MaterialTextField)findViewById(R.id.search_top_materialTextField);
+        mMaterialTextField = (MaterialTextField) findViewById(R.id.search_top_materialTextField);
         mMaterialTextField.getEditText().setBackgroundColor(Color.WHITE);
         mMaterialTextField.getCard().setBackgroundColor(Color.WHITE);
 
-        mEditTextSearchWord = (EditText)findViewById(R.id.search_top_searchWord_editText);
+        mEditTextSearchWord = (EditText) findViewById(R.id.search_top_searchWord_editText);
         mEditTextSearchWord.setOnEditorActionListener(onEditorActionListener);
 
-        mSortButton = (Button)findViewById(R.id.search_sort_button);
+        mSortButton = (Button) findViewById(R.id.search_sort_button);
         mSortButton.setOnClickListener(this);
 
-        mRecommentButton = (Button)findViewById(R.id.search_recomment_button);
+        mRecommentButton = (Button) findViewById(R.id.search_recomment_button);
         mRecommentButton.setOnClickListener(this);
 
-        mRecyclerView = (RecyclerView)findViewById(R.id.search_recyclerview);
+        mRecyclerView = (RecyclerView) findViewById(R.id.search_recyclerview);
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -167,10 +171,10 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 int itemTotalCount = recyclerView.getAdapter().getItemCount() - 6;
                 if (lastVisibleItemPosition == itemTotalCount) {
                     Log.d(TAG, "last Position...");
-                    if(mLoading){
+                    if (mLoading) {
                         Log.d(TAG, "loading... return");
                         return;
-                    }else{
+                    } else {
                         Log.d(TAG, "not loading loadcontentslist...");
                         mLoading = true;
                         loadContentsList();
@@ -182,17 +186,24 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         loadContentsList();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume..");
+        loadFullAd();
+    }
+
     private void initRetrofit() {
         mService = RetrofitManager.getRetrofitService(RetrofitCommons.BASE_URL);
     }
 
-    private void loadContentsList(){
+    private void loadContentsList() {
         String searchWord = mEditTextSearchWord.getText().toString().trim();
-        if(searchWord.equals("")){
+        if (searchWord.equals("")) {
             searchWord = DEFAULT_WORD;
         }
 
-        mCallYoutubeSearch = mService.getYoutubeSearch("snippet",searchWord, "50", TYPE_VIDEO, mOrder, mNextPageToken, CommonApiKey.KEY_API_YOUTUBE);
+        mCallYoutubeSearch = mService.getYoutubeSearch("snippet", searchWord, "50", TYPE_VIDEO, mOrder, mNextPageToken, CommonApiKey.KEY_API_YOUTUBE);
         mCallYoutubeSearch.enqueue(callback);
     }
 
@@ -204,7 +215,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         mCallVideos.enqueue(callback);
     }
 
-    private void setAdapter(){
+    private void setAdapter() {
         mSearchRecyclerViewAdapter = new SearchRecyclerViewAdapter(this);
         mSearchRecyclerViewAdapter.setOnClickRecyclerViewItemListener(this);
         mSearchRecyclerViewAdapter.setData(mSearchList);
@@ -214,7 +225,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    private void refreshAdapter(){
+    private void refreshAdapter() {
         mSearchRecyclerViewAdapter.setData(mSearchList);
         mSearchRecyclerViewAdapter.notifyDataSetChanged();
     }
@@ -222,37 +233,37 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     /**
      * 유튜브 플레이어 호출
      */
-    private void startPlayer(String videoId){
-        Intent intent = new Intent(this, LoadingActivity.class);
-        if(videoId != null){
+    private void startPlayerActivity(String videoId) {
+        Intent intent = new Intent(this, PlayerActivity.class);
+        if (videoId != null) {
             intent.putExtra("videoId", videoId);
             startActivityForResult(intent, REQUEST_PLAYER_INVITE);
         }
     }
 
-    private void parseJsonStringData(String json){
+    private void parseJsonStringData(String json) {
         Log.d(TAG, "result data : " + json);
 
         try {
             JSONObject jsonObject = new JSONObject(json);
             JSONArray jsonArray = jsonObject.getJSONArray("items");
-            if(jsonArray.length() == 0){
+            if (jsonArray.length() == 0) {
                 Log.d(TAG, "jsonArray is Size 0!");
 
-                if(mItems.size() != 0){
+                if (mItems.size() != 0) {
                     return;
-                }else{
+                } else {
                     mEmptyTextView.setVisibility(View.VISIBLE);
                     mRecyclerView.setVisibility(View.INVISIBLE);
                 }
-            }else{
+            } else {
                 mEmptyTextView.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
             }
 
             mNextPageToken = jsonObject.getString("nextPageToken");
 
-            for(int i=0; i<jsonArray.length(); i++){
+            for (int i = 0; i < jsonArray.length(); i++) {
                 SearchList.ItemsItem itemsItem = new SearchList().new ItemsItem();
 
                 JSONObject itemsObject = jsonArray.getJSONObject(i);
@@ -267,19 +278,19 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 JSONObject snippetObject = itemsObject.getJSONObject("snippet");
                 String title = snippetObject.optString("title", "null");
                 String description = snippetObject.optString("description", "null");
-                    itemsItem.setTitle(title);
-                    itemsItem.setDescription(description);
+                itemsItem.setTitle(title);
+                itemsItem.setDescription(description);
 
-                        JSONObject thumbnailsObject = snippetObject.getJSONObject("thumbnails");
-                            JSONObject defaultObject = thumbnailsObject.getJSONObject("default");
-                            JSONObject mediumObject = thumbnailsObject.getJSONObject("medium");
-                            JSONObject highObject = thumbnailsObject.getJSONObject("high");
+                JSONObject thumbnailsObject = snippetObject.getJSONObject("thumbnails");
+                JSONObject defaultObject = thumbnailsObject.getJSONObject("default");
+                JSONObject mediumObject = thumbnailsObject.getJSONObject("medium");
+                JSONObject highObject = thumbnailsObject.getJSONObject("high");
 
-                            String url = highObject.optString("url", "null");
+                String url = highObject.optString("url", "null");
 
 //                            String width = highObject.getString("width");
 //                            String height = highObject.getString("height");
-                            itemsItem.setThumbnails_url(url);
+                itemsItem.setThumbnails_url(url);
 //                            itemsItem.setThumbnails_width(width);
 //                            itemsItem.setThumbnails_height(height);
 
@@ -293,27 +304,33 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
             e.printStackTrace();
         }
 
-        if(mSearchRecyclerViewAdapter != null){
+        if (mSearchRecyclerViewAdapter != null) {
             refreshAdapter();
-        }else{
+        } else {
             setAdapter();
         }
 
         mLoading = false;
     }
 
-    private void hideKeyboard(){
+    private void hideKeyboard() {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(mEditTextSearchWord.getWindowToken(), 0);
     }
 
-        /**
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Log.d(TAG, "onNewIntent");
+        getShareIntentData(intent);
+    }
+
+    /**
      * 유튜브로 부터 공유 메타데이터 수신
      */
-    private void getShareIntentData() {
+    private void getShareIntentData(Intent intent) {
         Log.d(TAG, "유튜브 공유로부터 비디오 메타 데이터를 넘겨받습니다.");
 
-        Intent intent = getIntent();
         String action = intent.getAction();
         String type = intent.getType();
 
@@ -322,10 +339,11 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 String shareText = intent.getStringExtra(Intent.EXTRA_TEXT);
                 Log.d(TAG, "ShareText : " + shareText);
 
-                String videoId = shareText.substring(17);
-                Log.d(TAG, "videoId : " + videoId);
+                mVideoId = shareText.substring(17);
+                Log.d(TAG, "videoId : " + mVideoId);
 
-                startPlayer(videoId);
+                mShareYouTubeFlag = true;
+                CommonUserData.sAdCount = 0;
             }
         }
     }
@@ -345,20 +363,21 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 
     /**
      * 구글 애널리틱스에 로그를 남깁니다.
+     *
      * @param eventName
      */
-    private void setEventLog(String eventName){
-        try{
+    private void setEventLog(String eventName) {
+        try {
             mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
             Bundle bundle = new Bundle();
             bundle.putString(FirebaseAnalytics.Param.CONTENT, eventName);
 
-            if(mFirebaseAnalytics != null){
+            if (mFirebaseAnalytics != null) {
                 mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
-            }else{
+            } else {
                 Log.d(TAG, "FirebaseAnalytics is Null...");
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             Log.d(TAG, "Exception : " + e.toString());
         }
     }
@@ -382,7 +401,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 }
                 SharedPreferencesUtils.setInt(SearchActivity.this, CommonSharedPreferencesKey.KEY_INVITATION_COUTN, invitationCount);
 
-                if(invitationCount >= CommonUserData.INVITE_COUNT_COMPLETE){
+                if (invitationCount >= CommonUserData.INVITE_COUNT_COMPLETE) {
                     setEventLog(EVENT_INVITATION_COMPLETE);
                     SharedPreferencesUtils.setBoolean(SearchActivity.this, CommonSharedPreferencesKey.KEY_INVITATION, true);
                 }
@@ -391,8 +410,8 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 // Sending failed or it was canceled, show failure message to the user
                 // ...
             }
-        }else if(requestCode == REQUEST_PLAYER_INVITE){
-            if(resultCode == RESULT_OK){
+        } else if (requestCode == REQUEST_PLAYER_INVITE) {
+            if (resultCode == RESULT_OK) {
                 mInviteButton.performClick();
             }
         }
@@ -410,7 +429,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
             switch (actionId) {
                 case EditorInfo.IME_ACTION_SEARCH:
-                    if(mItems != null){
+                    if (mItems != null) {
                         mNextPageToken = "";
                         mItems.clear();
                     }
@@ -426,49 +445,49 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     };
 
     //통신처리
-   private Callback<String> callback = new Callback<String>() {
-       @Override
-       public void onResponse(Call<String> call, Response<String> response) {
-           String result = response.body().toString();
-           Log.d(TAG, "onResponse...");
+    private Callback<String> callback = new Callback<String>() {
+        @Override
+        public void onResponse(Call<String> call, Response<String> response) {
+            String result = response.body().toString();
+            Log.d(TAG, "onResponse...");
 
-           if (call == mCallYoutubeSearch) {
-               parseJsonStringData(result);
-           } else if (call == mCallVideos) {
-               Videos videos = (Videos) mGson.fromJson(result, Videos.class);
+            if (call == mCallYoutubeSearch) {
+                parseJsonStringData(result);
+            } else if (call == mCallVideos) {
+                Videos videos = (Videos) mGson.fromJson(result, Videos.class);
                 Videos.PageInfo pageInfo = videos.pageInfo;
                 String totalResults = pageInfo.totalResults;
-                if(totalResults.equals("0")){
+                if (totalResults.equals("0")) {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             Toast.makeText(SearchActivity.this, getResources().getString(R.string.error_videos_emptyInfo), Toast.LENGTH_LONG).show();
                         }
                     });
-                }else{
+                } else {
                     DialogInfo dialogInfo = new DialogInfo(SearchActivity.this, R.style.custom_dialog_fullScreen);
                     dialogInfo.setData(videos, mSelectedItem.getThumbnails_url());
                     dialogInfo.setListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            String videoId = (String)v.getTag();
-                            startPlayer(videoId);
+                            mVideoId = (String) v.getTag();
+                            checkShowFullAd();
                         }
                     });
                     dialogInfo.show();
                 }
-           }
-       }
+            }
+        }
 
-       @Override
-       public void onFailure(Call<String> call, Throwable t) {
-           Log.d(TAG, "t " + t.toString());
-       }
-   };
+        @Override
+        public void onFailure(Call<String> call, Throwable t) {
+            Log.d(TAG, "t " + t.toString());
+        }
+    };
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.search_invite_button:
                 setEventLog(EVENT_INVITATION);
                 DialogInvitation dialogInvitation = new DialogInvitation(this, R.style.custom_dialog_fullScreen);
@@ -485,7 +504,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 dialogSort.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        switch (view.getId()){
+                        switch (view.getId()) {
                             case R.id.sort_date_button:
                                 mOrder = ORDER_DATE;
                                 mSortButton.setBackgroundResource(R.drawable.ic_sort_date_wite_24dp);
@@ -505,7 +524,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                         }
                         dialogSort.dismiss();
                         mNextPageToken = "";
-                        if(mItems != null){
+                        if (mItems != null) {
                             mItems.clear();
                         }
                         loadContentsList();
@@ -520,7 +539,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 dialogRecommend.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        switch (view.getId()){
+                        switch (view.getId()) {
                             case R.id.recommend_home_button:
                                 mEditTextSearchWord.setText(getResources().getString(R.string.dialog_recommend_hometraining));
                                 break;
@@ -555,7 +574,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                         }
                         dialogRecommend.dismiss();
                         mNextPageToken = "";
-                        if(mItems != null){
+                        if (mItems != null) {
                             mItems.clear();
                         }
                         loadContentsList();
@@ -571,4 +590,87 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         DialogEnding dialogEnding = new DialogEnding(SearchActivity.this, R.style.custom_dialog_fullScreen);
         dialogEnding.show();
     }
+
+    //전면 광고
+
+    /**
+     * 전면 광고 노출
+     */
+    private void loadFullAd() {
+        Log.d(TAG, "전면 광고 로드..");
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(CommonApiKey.KEY_ADMOB_TEST_UNIT_ID);
+        mInterstitialAd.setAdListener(adListener);
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+    }
+
+    private void checkShowFullAd() {
+        int adCount = CommonUserData.sAdCount;
+        int delayCount = CommonUserData.AD_DEALY_COUNT;
+        if (adCount == 0 || adCount >= delayCount) {
+            Log.d(TAG, "show full ad...");
+            showFullAd();
+        } else {
+            Log.d(TAG, "not show full ad...");
+            startPlayerActivity(mVideoId);
+        }
+        CommonUserData.sAdCount++;
+    }
+
+    private void showFullAd() {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+            CommonUserData.sAdCount = 0;
+        } else {
+            Log.d(TAG, "광고 로드 실패 재호출");
+        }
+    }
+
+    private AdListener adListener = new AdListener() {
+        @Override
+        public void onAdClosed() {
+            super.onAdClosed();
+            Log.d(TAG, "onAdClosed");
+            startPlayerActivity(mVideoId);
+        }
+
+        @Override
+        public void onAdFailedToLoad(int i) {
+            super.onAdFailedToLoad(i);
+            Log.d(TAG, "onAdFailedToLoad");
+            startPlayerActivity(mVideoId);
+        }
+
+        @Override
+        public void onAdLeftApplication() {
+            super.onAdLeftApplication();
+        }
+
+        @Override
+        public void onAdOpened() {
+            super.onAdOpened();
+        }
+
+        @Override
+        public void onAdLoaded() {
+            super.onAdLoaded();
+            if(mShareYouTubeFlag){
+                Log.d(TAG, "유튜브 전용 로직");
+                showFullAd();
+                mShareYouTubeFlag = false;
+            }
+            Log.d(TAG, "onAdLoaded...");
+        }
+
+        @Override
+        public void onAdClicked() {
+            super.onAdClicked();
+        }
+
+        @Override
+        public void onAdImpression() {
+            super.onAdImpression();
+        }
+    };
 }

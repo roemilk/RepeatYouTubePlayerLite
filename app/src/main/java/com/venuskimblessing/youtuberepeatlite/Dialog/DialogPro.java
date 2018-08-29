@@ -43,6 +43,10 @@ public class DialogPro extends Dialog {
         mInvitationButton = (Button)findViewById(R.id.dialog_invite_button);
     }
 
+    public void setDisableInvitationButton(){
+        mInvitationButton.setVisibility(View.GONE);
+    }
+
     public void setOnClickListener(View.OnClickListener onClickListener){
         this.listener = onClickListener;
         if(listener != null){

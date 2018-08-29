@@ -111,4 +111,7 @@
     <string name="dialog_recommend_sleep">수면 음악</string>
     <string name="dialog_recommend_relaxing">힐링 음악</string>
     <string name="dialog_recommend_kids">어린이 애니메이션</string>
+
+    <!-- default word -->
+    <string name="default_word">best scene movie</string>
 </resources>

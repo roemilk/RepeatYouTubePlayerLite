@@ -133,6 +133,7 @@ public class FloatingView extends RelativeLayout {
                 Log.d(TAG, "PAUSED");
             }else if(state == PlayerConstants.PlayerState.ENDED){
                 Log.d(TAG, "ENDED");
+                play();
             }
         }
 
@@ -293,18 +294,33 @@ public class FloatingView extends RelativeLayout {
                 mYouTubePlayer.pause();
                 mYouTubePlayer.seekTo(mStartTime);
 
-                if (mAutoPlay) {
-                    if(checkPlayPossiblePlayIndex()){
-                        startPlayList(mPlayIndex);
-                    }else{
-                        mPlayIndex = 0;
-                        startPlayList(mPlayIndex);
-                    }
-                } else {
-                    Log.d(TAG, "자동 플레이가 지정되어 있지 않습니다.");
-                    return;
-                }
+                play();
+//                if (mAutoPlay) {
+//                    if(checkPlayPossiblePlayIndex()){
+//                        startPlayList(mPlayIndex);
+//                    }else{
+//                        mPlayIndex = 0;
+//                        startPlayList(mPlayIndex);
+//                    }
+//                } else {
+//                    Log.d(TAG, "자동 플레이가 지정되어 있지 않습니다.");
+//                    return;
+//                }
             }
+        }
+    }
+
+    private void play(){
+        if (mAutoPlay) {
+            if(checkPlayPossiblePlayIndex()){
+                startPlayList(mPlayIndex);
+            }else{
+                mPlayIndex = 0;
+                startPlayList(mPlayIndex);
+            }
+        } else {
+            Log.d(TAG, "자동 플레이가 지정되어 있지 않습니다.");
+            return;
         }
     }
 

@@ -106,4 +106,7 @@ It is your very smart choice.\n\nPRO benefits \n
     <string name="dialog_recommend_sleep">sleep music</string>
     <string name="dialog_recommend_relaxing">relaxing music</string>
     <string name="dialog_recommend_kids">kids Animation</string>
+
+    <!-- default word -->
+    <string name="default_word">best movie scene hd</string>
 </resources>
