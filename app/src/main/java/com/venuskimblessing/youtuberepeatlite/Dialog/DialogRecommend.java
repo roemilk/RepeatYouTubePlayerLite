@@ -78,7 +78,7 @@ public class DialogRecommend extends Dialog implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        if(id == R.id.sort_menu_root_lay){
+        if(id == R.id.recomment_menu_root_lay){
             dismiss();
         }else{
             if(mListener != null){
