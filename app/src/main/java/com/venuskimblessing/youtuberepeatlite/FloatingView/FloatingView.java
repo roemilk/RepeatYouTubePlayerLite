@@ -1,7 +1,9 @@
 package com.venuskimblessing.youtuberepeatlite.FloatingView;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
@@ -58,6 +60,10 @@ public class FloatingView extends RelativeLayout {
     private ImageView mExitImageView, mZoomImageView;
     private TextView mTimeTextView;
     private OnTouchListener mListener;
+
+    //Screen BroadcastReciver
+    private ScreenOffOnReciver mScreenOffOnReciver = new ScreenOffOnReciver();
+    private IntentFilter mFilterScreenOff = new IntentFilter(Intent.ACTION_SCREEN_OFF);
 
     public FloatingView(Context context, OnTouchListener mViewTouchListener) {
         super(context);
@@ -358,6 +364,30 @@ public class FloatingView extends RelativeLayout {
             return true; //재생 가능 Index 범위
         }else{
             return false; //재생 불가능 Index 범위
+        }
+    }
+
+    //BroadcastReciver
+    public void register(){
+        mContext.registerReceiver(mScreenOffOnReciver, mFilterScreenOff);
+    }
+
+    public void unRegister(){
+        mContext.unregisterReceiver(mScreenOffOnReciver);
+    }
+
+    public class ScreenOffOnReciver extends BroadcastReceiver {
+        private static final String TAG = "ScreenOffOnReciver";
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(intent.getAction().equals(Intent.ACTION_SCREEN_OFF)){
+                Log.d(TAG, "Screen Off..");
+
+                if(mYouTubePlayer != null){
+                    mYouTubePlayer.pause();
+                }
+            }
         }
     }
 }
