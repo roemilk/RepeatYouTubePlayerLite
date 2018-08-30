@@ -528,10 +528,12 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                     @Override
                     public void onPlay(PlayListData data) {
                         mDialogPlayList.dismiss();
+                        mCurrentPlayListData = data;
                         mPlayId = data.getVideoId();
                         mPlayType = getPlayType();
                         mStartTime = Integer.parseInt(data.getStartTime());
                         mEndTime = Integer.parseInt(data.getEndTime());
+                        loadVideos(mPlayId);
                         if(SharedPreferencesUtils.getBoolean(PlayerActivity.this, CommonSharedPreferencesKey.KEY_AUTOPLAY)){
                             startAutoPlay(mPlayId);
                         }else{

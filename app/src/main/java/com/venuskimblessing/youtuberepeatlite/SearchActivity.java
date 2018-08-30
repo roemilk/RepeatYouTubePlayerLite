@@ -575,6 +575,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                         dialogRecommend.dismiss();
                         mNextPageToken = "";
                         if (mItems != null) {
+                            mRecyclerView.scrollToPosition(0);
                             mItems.clear();
                         }
                         loadContentsList();
