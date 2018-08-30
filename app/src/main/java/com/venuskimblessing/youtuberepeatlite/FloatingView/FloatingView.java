@@ -85,6 +85,7 @@ public class FloatingView extends RelativeLayout {
     }
 
     private void init() {
+        register();
         mAutoPlay = SharedPreferencesUtils.getBoolean(mContext, CommonSharedPreferencesKey.KEY_AUTOPLAY);
         String infService = Context.LAYOUT_INFLATER_SERVICE;
         LayoutInflater li = (LayoutInflater) mContext.getSystemService(infService);
@@ -217,6 +218,7 @@ public class FloatingView extends RelativeLayout {
         mExitImageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                unRegister();
                 Intent intent = new Intent(mContext, SearchActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intent);
