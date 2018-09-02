@@ -1029,8 +1029,10 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                     if(videos != null){
                         ArrayList<Videos.Item> items = videos.items;
                         if(items != null){
-                            if(items.size() != 0){
+                            if(items.size() > 0) {
                                 mSnippet = videos.items.get(0).snippet;
+                            }else {
+                                Toast.makeText(PlayerActivity.this, getResources().getString(R.string.error_videos_emptyInfo), Toast.LENGTH_SHORT);
                             }
                         }
                     }
