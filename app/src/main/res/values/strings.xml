@@ -54,6 +54,7 @@
 
     <!-- Error -->
     <string name="error_videos_emptyInfo">Information does not exist.</string>
+    <string name="error_network">Sorry. A network error occurred.\nplease try again..</string>
 
     <!-- ad loading -->
     <string name="loading_pacman_text">Please wait ...</string>

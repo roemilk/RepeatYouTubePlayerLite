@@ -46,6 +46,7 @@
         <string name="playlist_delete">Tem certeza de que deseja excluir todas as playlists?</string>
 
         <string name = "error_videos_emptyInfo"> A informação não existe. </string>
+    <string name="error_network">Desculpa. Ocorreu um erro de rede.\nPor favor, tente novamente..</string>
 
     <string name="loading_pacman_text">Please wait ...</string>
 

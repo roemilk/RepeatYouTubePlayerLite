@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -49,7 +48,6 @@ import com.venuskimblessing.youtuberepeatlite.Common.CommonUserData;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogEnding;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogInfo;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogInvitation;
-import com.venuskimblessing.youtuberepeatlite.Dialog.DialogPro;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogRecommend;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogSort;
 import com.venuskimblessing.youtuberepeatlite.Json.SearchList;
@@ -65,6 +63,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -74,7 +73,11 @@ import retrofit2.Retrofit;
 public class SearchActivity extends AppCompatActivity implements SearchRecyclerViewAdapter.OnClickRecyclerViewItemListener, View.OnClickListener {
     public static final String TAG = "SearchActivity";
 
-    public static final String DEFAULT_WORD = "best movie scene hd";
+    public static final String DEFAULT_WORD = "";
+
+    //Search Type
+    private final String TYPE_POPULAR = "popular"; //인기동영상
+    private final String TYPE_SEARCH = "search"; //일반검색
 
     //Request Code
     public static final int REQUEST_INVITE = 1;
@@ -110,6 +113,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 
     private Retrofit mRetrofit = null;
     private RetrofitService mService = null;
+    private Call<String> mCallPopularSearch = null;
     private Call<String> mCallYoutubeSearch = null;
     private Call<String> mCallVideos = null;
     private Gson mGson = new Gson();
@@ -177,13 +181,19 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                     } else {
                         Log.d(TAG, "not loading loadcontentslist...");
                         mLoading = true;
-                        loadContentsList();
+
+                        String word = mEditTextSearchWord.getText().toString().trim();
+                        if(word.equals("")){
+                            loadPopularContentsList();
+                        }else{
+                            loadSearchContentsList();
+                        }
                     }
                 }
             }
         });
         initRetrofit();
-        loadContentsList();
+        loadPopularContentsList();
     }
 
     @Override
@@ -197,7 +207,17 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         mService = RetrofitManager.getRetrofitService(RetrofitCommons.BASE_URL);
     }
 
-    private void loadContentsList() {
+    /**
+     * 인기 동영상을 불러옵니다.
+     */
+    private void loadPopularContentsList(){
+        String regionCode = Locale.getDefault().getCountry();
+        mCallPopularSearch = mService.getPopularYoutubeVideos("snippet", "mostPopular", regionCode, "50", mNextPageToken, CommonApiKey.KEY_API_YOUTUBE);
+        mCallPopularSearch.enqueue(callback);
+
+    }
+
+    private void loadSearchContentsList() {
         String searchWord = mEditTextSearchWord.getText().toString().trim();
         if (searchWord.equals("")) {
             searchWord = DEFAULT_WORD;
@@ -241,7 +261,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         }
     }
 
-    private void parseJsonStringData(String json) {
+    private void parseJsonStringData(String json, String type) {
         Log.d(TAG, "result data : " + json);
 
         try {
@@ -268,9 +288,16 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 
                 JSONObject itemsObject = jsonArray.getJSONObject(i);
 
-                JSONObject idObject = itemsObject.getJSONObject("id");
-                String kind = idObject.optString("kind", "null");
-                String videoId = idObject.optString("videoId", "null");
+                String kind = null;
+                String videoId = null;
+                if(type.equals(TYPE_SEARCH)){
+                    JSONObject idObject = itemsObject.getJSONObject("id");
+                    kind = idObject.optString("kind", "null");
+                    videoId = idObject.optString("videoId", "null");
+                }else{
+                    kind = itemsObject.optString("kind", "null");
+                    videoId = itemsObject.optString("id", "null");
+                }
 
                 itemsItem.setKind(kind);
                 itemsItem.setVideoId(videoId);
@@ -433,7 +460,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                         mNextPageToken = "";
                         mItems.clear();
                     }
-                    loadContentsList();
+                    loadSearchContentsList();
                     hideKeyboard();
                     break;
                 default:
@@ -452,7 +479,9 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
             Log.d(TAG, "onResponse...");
 
             if (call == mCallYoutubeSearch) {
-                parseJsonStringData(result);
+                parseJsonStringData(result, TYPE_SEARCH);
+            } else if(call == mCallPopularSearch){
+                parseJsonStringData(result, TYPE_POPULAR);
             } else if (call == mCallVideos) {
                 Videos videos = (Videos) mGson.fromJson(result, Videos.class);
                 Videos.PageInfo pageInfo = videos.pageInfo;
@@ -527,7 +556,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                         if (mItems != null) {
                             mItems.clear();
                         }
-                        loadContentsList();
+                        loadSearchContentsList();
                     }
                 });
                 dialogSort.show();
@@ -578,7 +607,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                             mRecyclerView.scrollToPosition(0);
                             mItems.clear();
                         }
-                        loadContentsList();
+                        loadSearchContentsList();
                     }
                 });
                 dialogRecommend.show();

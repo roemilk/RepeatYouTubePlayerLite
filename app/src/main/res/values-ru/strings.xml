@@ -77,6 +77,7 @@
     <string name="playlist_delete">Вы действительно хотите удалить все плейлисты?</string>
         
     <string name="error_videos_emptyInfo"> Информация не существует. </string>
+    <string name="error_network">Сожалею. Произошла сетевая ошибка. пожалуйста, попробуйте снова..</string>
 
     <string name="loading_pacman_text">Please wait ...</string>
 

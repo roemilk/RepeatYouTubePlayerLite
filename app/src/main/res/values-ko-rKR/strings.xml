@@ -57,6 +57,7 @@
 
     <!-- Error -->
     <string name="error_videos_emptyInfo">정보가 존재하지 않습니다.</string>
+    <string name="error_network">죄송합니다.\n네트워크 오류가 발생하였습니다.\n다시 시도해주세요.</string>
 
     <string name="loading_pacman_text">Please wait ...</string>
 

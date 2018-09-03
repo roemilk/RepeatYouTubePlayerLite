@@ -375,7 +375,9 @@ public class FloatingView extends RelativeLayout {
     }
 
     public void unRegister(){
-        mContext.unregisterReceiver(mScreenOffOnReciver);
+        try{
+            mContext.unregisterReceiver(mScreenOffOnReciver);
+        }catch(IllegalArgumentException e){ }
     }
 
     public class ScreenOffOnReciver extends BroadcastReceiver {

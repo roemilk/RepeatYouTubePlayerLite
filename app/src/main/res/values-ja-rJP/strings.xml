@@ -46,6 +46,7 @@
     <string name="playlist_delete">すべてのプレイリストを削除してもよろしいですか？</string>
 
     <string name="error_videos_emptyInfo">情報が存在しません。</string>
+    <string name="error_network">ごめんなさい。\nネットワークエラーが発生しました。\nもう一度やり直してください..</string>
 
     <string name="loading_pacman_text">Please wait ...</string>
 

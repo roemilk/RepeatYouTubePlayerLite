@@ -74,6 +74,7 @@
 
         
     <string name="error_videos_emptyInfo"> Informasi tidak ada. </string>
+    <string name="error_network">Maaf. Terjadi kesalahan jaringan.\nsilakan coba lagi ..</string>
 
     <string name="loading_pacman_text">Please wait ...</string>
 

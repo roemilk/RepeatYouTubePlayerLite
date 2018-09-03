@@ -435,7 +435,12 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
      */
     private void startPlay(String id) {
         if (mYouTubePlayer != null) {
-            mYouTubePlayer.loadVideo(id);
+            try{
+                mYouTubePlayer.loadVideo(id);
+            }catch(IllegalStateException e){
+                Toast.makeText(this, getResources().getString(R.string.error_network), Toast.LENGTH_SHORT).show();
+                finish();
+            }
 //            new Handler().postDelayed(new Runnable() {
 //                @Override
 //                public void run() {
@@ -564,21 +569,9 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 }
 
                 if(mSnippet != null){
-                    String img_url = mSnippet.getThumbnails().getMedium().getUrl();
-                    String title = mSnippet.title;
-                    long duration = mYouTubePlayer.getDurationMillis();
                     mPlayListArray = mPlayListDataManager.loadPlayList();
-
-                    PlayListData firstPlayListData = new PlayListData();
-                    firstPlayListData.setImg_url(img_url);
-                    firstPlayListData.setTitle(title);
-                    firstPlayListData.setDuration(String.valueOf(duration));
-                    firstPlayListData.setVideoId(mPlayId);
-                    firstPlayListData.setStartTime(String.valueOf(mStartTime));
-                    firstPlayListData.setEndTime(String.valueOf(mEndTime));
-                    firstPlayListData.setRepeat(String.valueOf(mRepeatCount));
-                    mPlayListArray.add(0, firstPlayListData);
-
+                    PlayListData data = createPlayListData();
+                    mPlayListArray.add(0, data);
 //                    mPlayListDataManager.insert(img_url, title, String.valueOf(duration), mPlayId, String.valueOf(mStartTime), String.valueOf(mEndTime), String.valueOf(mRepeatCount));
                     mPlayListDataManager.insertAllList(mPlayListArray);
                     mPlayListButton.performClick();
@@ -1048,8 +1041,13 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
     //Dialog
     public void showProDialog(){
-        if(mYouTubePlayer.isPlaying()){
-            mYouTubePlayer.pause();
+        if(mYouTubePlayer != null){
+            if(mYouTubePlayer.isPlaying()){
+                mYouTubePlayer.pause();
+            }
+        }else{
+            Toast.makeText(this, getResources().getString(R.string.error_network), Toast.LENGTH_SHORT).show();
+            finish();
         }
 
         final DialogPro dialogPro = new DialogPro(this, R.style.custom_dialog_fullScreen);
@@ -1113,7 +1111,12 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     }
 
     private PlayListData createPlayListData() {
-        String img_url = mSnippet.getThumbnails().getMedium().getUrl();
+        String img_url = null;
+        try{
+            img_url = mSnippet.getThumbnails().getMedium().getUrl();
+        }catch(NullPointerException e){
+            img_url = "";
+        }
         String title = mSnippet.title;
         long duration = mYouTubePlayer.getDurationMillis();
 

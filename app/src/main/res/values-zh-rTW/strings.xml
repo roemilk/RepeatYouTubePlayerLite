@@ -76,6 +76,7 @@
     <string name="playlist_delete">您確定要刪除所有播放列表嗎？</string>
         
     <string name="error_videos_emptyInfo">信息不存在。</string>
+    <string name="error_network">抱歉。 發生網絡錯誤。 請再試一次..</string>
 
     <string name="loading_pacman_text">Please wait ...</string>
 

@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.venuskimblessing.youtuberepeatlite.Interface.PlayListItemTouchHelperCallback;
 import com.venuskimblessing.youtuberepeatlite.PlayList.PlayListData;
 import com.venuskimblessing.youtuberepeatlite.PlayList.PlayListDataManager;
@@ -73,8 +74,17 @@ public class PlayListRecyclerViewAdapter extends RecyclerView.Adapter<PlayListRe
         int startTime = Integer.parseInt(data.getStartTime());
         int endTime = Integer.parseInt(data.getEndTime());
 
+        if(thumbUrl.equals("")){
+            holder.thumbImageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        }else{
+            holder.thumbImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        }
+
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.error(R.drawable.nothumb);
         Glide.with(mContext).load(thumbUrl)
                 .thumbnail(0.1f)
+                .apply(requestOptions)
                 .into(holder.thumbImageView);
 
         holder.durationTextView.setText(MediaUtils.getMillSecToHMS(duration));
