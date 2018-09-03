@@ -7,7 +7,7 @@ android {
         applicationId "com.venuskimblessing.youtuberepeatlite"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 6
+        versionCode 7
         versionName "1.0.6"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
