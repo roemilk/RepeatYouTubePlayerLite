@@ -40,7 +40,7 @@
             android:layout_marginRight="15dp"
             android:layout_toLeftOf="@+id/search_recomment_button"
             android:background="@drawable/ic_coffe_white_24dp"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/search_recomment_button"
@@ -71,7 +71,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
             android:background="@drawable/ic_invite_white_24dp"
-            android:visibility="gone" />
+            android:visibility="visible" />
     </RelativeLayout>
 
     <RelativeLayout

@@ -48,6 +48,7 @@ import com.venuskimblessing.youtuberepeatlite.Common.CommonUserData;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogEnding;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogInfo;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogInvitation;
+import com.venuskimblessing.youtuberepeatlite.Dialog.DialogPro;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogRecommend;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogSort;
 import com.venuskimblessing.youtuberepeatlite.Json.SearchList;
@@ -105,6 +106,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     private Button mInviteButton = null;
     private Button mSortButton = null;
     private Button mRecommentButton = null;
+    private Button mCoffeeButton = null;
     private MaterialTextField mMaterialTextField = null;
     private EditText mEditTextSearchWord = null;
     private RecyclerView mRecyclerView = null;
@@ -145,7 +147,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         getShareIntentData(getIntent());
-        MobileAds.initialize(this, CommonApiKey.KEY_ADMOB_TEST_APP_ID);
+        MobileAds.initialize(this, CommonApiKey.KEY_ADMOB_APP_ID);
 
         mEmptyTextView = (TextView) findViewById(R.id.search_empty_textView);
 
@@ -164,6 +166,9 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 
         mRecommentButton = (Button) findViewById(R.id.search_recomment_button);
         mRecommentButton.setOnClickListener(this);
+
+        mCoffeeButton = (Button) findViewById(R.id.search_coffee_button);
+        mCoffeeButton.setOnClickListener(this);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.search_recyclerview);
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -611,6 +616,10 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 });
                 dialogRecommend.show();
                 break;
+
+            case R.id.search_coffee_button:
+
+                break;
         }
     }
 
@@ -629,7 +638,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         Log.d(TAG, "전면 광고 로드..");
 
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(CommonApiKey.KEY_ADMOB_TEST_UNIT_ID);
+        mInterstitialAd.setAdUnitId(CommonApiKey.KEY_ADMOB_FULL_UNIT);
         mInterstitialAd.setAdListener(adListener);
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
     }

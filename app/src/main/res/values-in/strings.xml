@@ -46,7 +46,7 @@
     <string name="dialog_help_version_yes_item"> Anda menggunakan versi premium. </string>
 
         
-    <string name="player_numberpick"> Berapa hitungan yang akan Anda ulangi?\nVersi Lite terbatas hingga maksimal 6 pengulangan.</string>
+    <string name="player_numberpick"> Berapa hitungan yang akan Anda ulangi?\nVersi Lite terbatas hingga maksimal 6 pengulangan.\n\nJika Anda mengundang sepuluh teman Anda, Anda akan dapat membuka semua fitur premium yang terkunci.</string>
     <string name="player_numberpick_invite">Berapa banyak jumlah yang akan Anda ulangi?\nNSetelah Anda mengundang teman, Anda dapat menggunakan 99 jumlah ulangan.</string>
         
     <string name="player_repeat_title"> Pengaturan pemutaran ulang </string>

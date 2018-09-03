@@ -32,7 +32,7 @@
     <string name="dialog_help_version_yes_item">You are using the premium version.</string>
 
     <!-- 플레이어 -->
-    <string name="player_numberpick">How many count will you repeat?\nThe Lite version is limited to a maximum of 6 repeat.</string>
+    <string name="player_numberpick">How many count will you repeat?\nThe Lite version is limited to a maximum of 6 repeat.\n\nIf you invite ten of your friends, you will be able to unlock all locked premium features.</string>
     <string name="player_numberpick_invite">How many count will you repeat?\nSince you have invited friends, you can use 99 repeat count.</string>
     <string name="player_repeat_title">Setting repeat play</string>
     <string name="player_repeat_starttime">StartTime :</string>

@@ -28,7 +28,7 @@
         <string name = "dialog_help_version_no_item"> Você está usando a versão gratuita. </string>
         <string name = "dialog_help_version_yes_item"> Você está usando a versão premium. </string>
 
-        <string name = "player_numberpick"> Quantos você irá repetir?\nA versão Lite está limitada a um máximo de 6 repetições.</string>
+        <string name = "player_numberpick"> Quantos você irá repetir?\nA versão Lite está limitada a um máximo de 6 repetições.\n\nSe você convidar dez amigos, poderá desbloquear todos os recursos premium bloqueados.</string>
     <string name="player_numberpick_invite">Quantos você irá repetir?\nPorque você convidou amigos, você pode usar 99 repetições.</string>
         <string name = "player_repeat_title"> Configurando reprodução repetida </string>
         <string name = "player_repeat_starttime"> StartTime: </string>

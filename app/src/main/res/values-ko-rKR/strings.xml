@@ -32,7 +32,7 @@
     <string name="dialog_help_version_yes_item">프리미엄 버전을 사용 중입니다.</string>
 
     <!-- 플레이어 -->
-    <string name="player_numberpick">반복 횟수를 설정해주세요.\nLite 버전은 6회까지만 반복을 지원합니다.</string>
+    <string name="player_numberpick">반복 횟수를 설정해주세요.\nLite 버전은 6회까지만 반복을 지원합니다.\n\n친구 10명을 초대하면 모든 프리미엄 기능을 잠금 해제할 수 있습니다!</string>
     <string name="player_numberpick_invite">반복 횟수를 설정해주세요.\n친구 초대 효과로 99번 반복이 가능합니다.</string>
     <string name="player_repeat_title">반복재생 설정하기</string>
     <string name="player_repeat_starttime">시작 시간 :</string>
@@ -115,4 +115,11 @@
 
     <!-- default word -->
     <string name="default_word">best scene movie</string>
+
+    <!-- Coffee -->
+    <string name="dialog_coffee_description">개발자에게 따뜻한 커피 한잔을 사주세요.\n그리고 Pro 버전으로 업그레이드 하세요.</string>
+    <string name="dialog_coffee_infoTitle">Pro 버전</string>
+    <string name="dialog_coffee_info">- 모든 기능의 잠금 해제
+    - Pro 전용 기능 추가 예정\n- </string>
+    <string name="dialog_coffee_button"></string>
 </resources>
