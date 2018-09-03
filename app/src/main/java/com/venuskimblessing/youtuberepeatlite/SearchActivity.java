@@ -145,7 +145,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         getShareIntentData(getIntent());
-        MobileAds.initialize(this, CommonApiKey.KEY_ADMOB_TEST_APP_ID);
+        MobileAds.initialize(this, CommonApiKey.KEY_ADMOB_APP_ID);
 
         mEmptyTextView = (TextView) findViewById(R.id.search_empty_textView);
 
@@ -214,7 +214,6 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         String regionCode = Locale.getDefault().getCountry();
         mCallPopularSearch = mService.getPopularYoutubeVideos("snippet", "mostPopular", regionCode, "50", mNextPageToken, CommonApiKey.KEY_API_YOUTUBE);
         mCallPopularSearch.enqueue(callback);
-
     }
 
     private void loadSearchContentsList() {
@@ -630,7 +629,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         Log.d(TAG, "전면 광고 로드..");
 
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(CommonApiKey.KEY_ADMOB_TEST_UNIT_ID);
+        mInterstitialAd.setAdUnitId(CommonApiKey.KEY_ADMOB_FULL_UNIT);
         mInterstitialAd.setAdListener(adListener);
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
     }
