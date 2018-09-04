@@ -30,6 +30,15 @@ public class SearchList {
         private String thumbnails_url;
         private String thumbnails_width;
         private String thumbnails_height;
+        private String duration;
+
+        public String getDuration() {
+            return duration;
+        }
+
+        public void setDuration(String duration) {
+            this.duration = duration;
+        }
 
         public String getKind() {
             return kind;

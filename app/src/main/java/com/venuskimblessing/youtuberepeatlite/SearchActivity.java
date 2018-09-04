@@ -48,7 +48,6 @@ import com.venuskimblessing.youtuberepeatlite.Common.CommonUserData;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogEnding;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogInfo;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogInvitation;
-import com.venuskimblessing.youtuberepeatlite.Dialog.DialogPro;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogRecommend;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogSort;
 import com.venuskimblessing.youtuberepeatlite.Json.SearchList;
@@ -57,6 +56,7 @@ import com.venuskimblessing.youtuberepeatlite.Player.PlayerActivity;
 import com.venuskimblessing.youtuberepeatlite.Retrofit.RetrofitCommons;
 import com.venuskimblessing.youtuberepeatlite.Retrofit.RetrofitManager;
 import com.venuskimblessing.youtuberepeatlite.Retrofit.RetrofitService;
+import com.venuskimblessing.youtuberepeatlite.Utils.MediaUtils;
 import com.venuskimblessing.youtuberepeatlite.Utils.SharedPreferencesUtils;
 
 import org.json.JSONArray;
@@ -117,11 +117,13 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     private RetrofitService mService = null;
     private Call<String> mCallPopularSearch = null;
     private Call<String> mCallYoutubeSearch = null;
-    private Call<String> mCallVideos = null;
+    private Call<String> mCallVideoDetail = null;
+    private Call<String> mCallVideosContentsDetail = null;
     private Gson mGson = new Gson();
 
     private SearchList mSearchList = new SearchList();
     public ArrayList<SearchList.ItemsItem> mItems = null;
+    public ArrayList<SearchList.ItemsItem> mDurationItems = new ArrayList<>();
     private String mNextPageToken = "";
     private SearchList.ItemsItem mSelectedItem = null;
 
@@ -235,8 +237,65 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
      * 비디오의 상세 정보를 가져온다.
      */
     private void loadVideos(String id) {
-        mCallVideos = mService.getYoutubeVideos("snippet,contentDetails,statistics", id, CommonApiKey.KEY_API_YOUTUBE);
-        mCallVideos.enqueue(callback);
+        mCallVideoDetail = mService.getYoutubeVideos("snippet,contentDetails,statistics", id, CommonApiKey.KEY_API_YOUTUBE);
+        mCallVideoDetail.enqueue(callback);
+    }
+
+    /**
+     * 다수의 비디오 리스트에 대한 상세 정보를 얻어온다.
+     * @param ids
+     */
+    private void loadVideosContentsDetail(String ids){
+        mCallVideosContentsDetail = mService.getYoutubeVideos("contentDetails", ids, CommonApiKey.KEY_API_YOUTUBE);
+        mCallVideosContentsDetail.enqueue(callback);
+    }
+
+    /**
+     * 통신을 위한 VideoId를 조합한다.
+     * @return
+     */
+    private String createVideoIdList(){
+        StringBuilder stringBuilder = new StringBuilder();
+        for(int i=0; i<mDurationItems.size(); i++){
+            SearchList.ItemsItem item = mDurationItems.get(i);
+            String videoId = item.getVideoId();
+            stringBuilder.append(videoId);
+            if(i == mDurationItems.size() - 1){
+                break;
+            }
+            stringBuilder.append(",");
+        }
+        return stringBuilder.toString().trim();
+    }
+
+    /**
+     * durationItems에 duration을 세팅하는 작업을 한 후 원본 mItems와 통합하는 작업을 한다.
+     * @param videos
+     */
+    private void mergeVideosList(Videos videos ){
+        ArrayList<Videos.Item> items = videos.items;
+        for(int i=0; i<items.size(); i++){
+            Videos.Item item = items.get(i);
+
+            Videos.ContentDetails contentDetails = item.contentDetails;
+            String durationString = null;
+            if(contentDetails != null){
+                durationString = contentDetails.duration;
+            }
+
+            int duration = 0;
+            if(durationString != null){
+                duration = (int) MediaUtils.getDuration(durationString);
+            }
+
+            String durationResult = MediaUtils.getMillSecToHMS(duration);
+            if(durationResult != null){
+                SearchList.ItemsItem durationItem = mDurationItems.get(i);
+                durationItem.setDuration(durationResult);
+            }
+        }
+        mItems.addAll(mDurationItems);
+        mDurationItems.clear();
     }
 
     private void setAdapter() {
@@ -289,7 +348,6 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 SearchList.ItemsItem itemsItem = new SearchList().new ItemsItem();
-
                 JSONObject itemsObject = jsonArray.getJSONObject(i);
 
                 String kind = null;
@@ -328,20 +386,25 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 mItems = mSearchList.getItems();
 
                 Log.d(TAG, "mItems size : " + mItems.size());
-                mItems.add(itemsItem);
+//                mItems.add(itemsItem);
+                mDurationItems.add(itemsItem);
             }
         } catch (JSONException e) {
             Log.d(TAG, "e : " + e.toString());
             e.printStackTrace();
         }
 
-        if (mSearchRecyclerViewAdapter != null) {
-            refreshAdapter();
-        } else {
-            setAdapter();
-        }
+        //Duration 정보 가져오기
+        String queryVideosId = createVideoIdList();
+        loadVideosContentsDetail(queryVideosId);
 
-        mLoading = false;
+//        if (mSearchRecyclerViewAdapter != null) {
+//            refreshAdapter();
+//        } else {
+//            setAdapter();
+//        }
+//
+//        mLoading = false;
     }
 
     private void hideKeyboard() {
@@ -486,7 +549,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 parseJsonStringData(result, TYPE_SEARCH);
             } else if(call == mCallPopularSearch){
                 parseJsonStringData(result, TYPE_POPULAR);
-            } else if (call == mCallVideos) {
+            } else if (call == mCallVideoDetail) {
                 Videos videos = (Videos) mGson.fromJson(result, Videos.class);
                 Videos.PageInfo pageInfo = videos.pageInfo;
                 String totalResults = pageInfo.totalResults;
@@ -508,6 +571,26 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                         }
                     });
                     dialogInfo.show();
+                }
+            } else if(call == mCallVideosContentsDetail){
+                Videos videos = (Videos) mGson.fromJson(result, Videos.class);
+                Videos.PageInfo pageInfo = videos.pageInfo;
+                String totalResults = pageInfo.totalResults;
+                if (totalResults.equals("0")) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(SearchActivity.this, getResources().getString(R.string.error_videos_emptyInfo), Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }else{
+                    mergeVideosList(videos);
+                    if (mSearchRecyclerViewAdapter != null) {
+                        refreshAdapter();
+                    } else {
+                        setAdapter();
+                    }
+                    mLoading = false;
                 }
             }
         }

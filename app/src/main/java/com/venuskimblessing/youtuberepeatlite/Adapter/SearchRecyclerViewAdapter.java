@@ -62,6 +62,7 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
         String title = item.getTitle();
         String thumbUrl = item.getThumbnails_url();
         String videoId = item.getVideoId();
+        String duration = item.getDuration();
 
         ImageView thumbNailImageView = holder.image;
 
@@ -80,6 +81,7 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
 
         holder.title.setText(title);
         holder.title.setSelected(true);
+        holder.time.setText(duration);
     }
 
     @Override
@@ -89,12 +91,13 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
 
     class ItemViewHolder extends RecyclerView.ViewHolder{
         private ImageView image;
-        private TextView title;
+        private TextView title, time;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
             image = (ImageView)itemView.findViewById(R.id.search_cardview_imageView);
             title = (TextView)itemView.findViewById(R.id.search_cardview_textView);
+            time = (TextView)itemView.findViewById(R.id.search_cardview_time_textView);
         }
     }
 }
