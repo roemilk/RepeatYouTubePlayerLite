@@ -114,9 +114,8 @@ It is your very smart choice.\n\nPRO benefits\n
     <string name="default_word">best movie scene hd</string>
 
     <!-- Coffee -->
-    <string name="dialog_coffee_description">개발자에게 따뜻한 커피 한잔을 사주세요.\n그리고 Pro 버전으로 업그레이드 하세요.</string>
-    <string name="dialog_coffee_infoTitle">Pro 버전</string>
-    <string name="dialog_coffee_info">- 모든 기능의 잠금 해제
-    - Pro 전용 기능 추가 예정\n- </string>
-    <string name="dialog_coffee_button"></string>
+    <string name="dialog_coffee_description">Please give the developer a warm cup of coffee.\nPro Upgrade with a cup of coffee.</string>
+    <string name="dialog_coffee_infoTitle">Pro Version Upgrade</string>
+    <string name="dialog_coffee_info">No ads at all.\nA dedicated feature of the PRO version\nwill be added in the future.\nCharge the developer energy!\n\nThank you.\nI will do a lot of good updates.</string>
+    <string name="dialog_coffee_button">Upgrade your Pro with a cup of coffee</string>
 </resources>

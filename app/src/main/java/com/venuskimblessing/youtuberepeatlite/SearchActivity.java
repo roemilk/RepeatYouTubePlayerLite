@@ -45,6 +45,7 @@ import com.venuskimblessing.youtuberepeatlite.Adapter.SearchRecyclerViewAdapter;
 import com.venuskimblessing.youtuberepeatlite.Common.CommonApiKey;
 import com.venuskimblessing.youtuberepeatlite.Common.CommonSharedPreferencesKey;
 import com.venuskimblessing.youtuberepeatlite.Common.CommonUserData;
+import com.venuskimblessing.youtuberepeatlite.Dialog.DialogCoffee;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogEnding;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogInfo;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogInvitation;
@@ -717,7 +718,8 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 break;
 
             case R.id.search_coffee_button:
-
+                DialogCoffee dialogCoffee = new DialogCoffee(this, R.style.custom_dialog_fullScreen);
+                dialogCoffee.show();
                 break;
         }
     }
