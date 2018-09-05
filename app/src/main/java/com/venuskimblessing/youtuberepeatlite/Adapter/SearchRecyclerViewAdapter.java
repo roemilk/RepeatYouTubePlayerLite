@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.venuskimblessing.youtuberepeatlite.Json.SearchList;
 import com.venuskimblessing.youtuberepeatlite.R;
+import com.venuskimblessing.youtuberepeatlite.Utils.FormatUtils;
 
 import java.util.ArrayList;
 
@@ -63,6 +64,8 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
         String thumbUrl = item.getThumbnails_url();
         String videoId = item.getVideoId();
         String duration = item.getDuration();
+        String channelTitle = item.getChannelTitle();
+        String viewCount = item.getViewCount();
 
         ImageView thumbNailImageView = holder.image;
 
@@ -82,6 +85,8 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
         holder.title.setText(title);
         holder.title.setSelected(true);
         holder.time.setText(duration);
+        holder.channelTitle.setText(channelTitle);
+        holder.viewCount.setText(FormatUtils.parseNumberFormat(viewCount));
     }
 
     @Override
@@ -91,13 +96,15 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
 
     class ItemViewHolder extends RecyclerView.ViewHolder{
         private ImageView image;
-        private TextView title, time;
+        private TextView title, time, channelTitle, viewCount;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
             image = (ImageView)itemView.findViewById(R.id.search_cardview_imageView);
             title = (TextView)itemView.findViewById(R.id.search_cardview_textView);
             time = (TextView)itemView.findViewById(R.id.search_cardview_time_textView);
+            channelTitle = (TextView)itemView.findViewById(R.id.search_cardview_channelTitle_textView);
+            viewCount = (TextView)itemView.findViewById(R.id.search_cardview_viewCount_textView);
         }
     }
 }

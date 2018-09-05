@@ -31,6 +31,24 @@ public class SearchList {
         private String thumbnails_width;
         private String thumbnails_height;
         private String duration;
+        private String channelTitle;
+        private String viewCount;
+
+        public String getChannelTitle() {
+            return channelTitle;
+        }
+
+        public void setChannelTitle(String channelTitle) {
+            this.channelTitle = channelTitle;
+        }
+
+        public String getViewCount() {
+            return viewCount;
+        }
+
+        public void setViewCount(String viewCount) {
+            this.viewCount = viewCount;
+        }
 
         public String getDuration() {
             return duration;

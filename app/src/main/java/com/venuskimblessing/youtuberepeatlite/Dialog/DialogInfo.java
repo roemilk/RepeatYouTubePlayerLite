@@ -103,7 +103,12 @@ public class DialogInfo extends Dialog implements View.OnClickListener {
             Videos.statistics statistics = item.statistics;
             if(statistics != null){
                 String viewCount = statistics.viewCount;
-                String resultViewcount = FormatUtils.parseNumberFormat(viewCount);
+                String resultViewcount = "";
+                if(viewCount != null && !viewCount.equals("")){
+                    resultViewcount = FormatUtils.parseNumberFormat(viewCount);
+                }else{
+                    resultViewcount = "???";
+                }
                 mViewCountTextView.setText(resultViewcount);
             }
         }

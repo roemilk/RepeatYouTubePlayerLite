@@ -35,7 +35,7 @@ public class IntroActivity extends AppCompatActivity {
 
     //Firebase
     private FirebaseAnalytics mFirebaseAnalytics;
-    private final String EVENT_INVITATION_INSTALL = "Invitation Install";
+    private final String EVENT_INVITATION_INSTALL = "InvitationUser";
 
     private FadeTextView mLineTextView = null;
     private String mPlayId = null;
@@ -105,6 +105,8 @@ public class IntroActivity extends AppCompatActivity {
                 .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
                     @Override
                     public void onSuccess(PendingDynamicLinkData data) {
+                        setEventLog(EVENT_INVITATION_INSTALL);
+
                         if (data == null) {
                             Log.d(TAG, "getInvitation: no data");
                             return;
@@ -119,7 +121,6 @@ public class IntroActivity extends AppCompatActivity {
                         if (invite != null) {
                             String invitationId = invite.getInvitationId();
                             Log.d(TAG, "InvitationId : " + invitationId);
-                            setEventLog(EVENT_INVITATION_INSTALL);
                         }
 
                         // Handle the deep link
@@ -141,10 +142,8 @@ public class IntroActivity extends AppCompatActivity {
     private void setEventLog(String eventName){
         try{
             mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-            Bundle bundle = new Bundle();
-            bundle.putString(FirebaseAnalytics.Param.CONTENT, eventName);
             if(mFirebaseAnalytics != null){
-                mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+                mFirebaseAnalytics.logEvent(eventName, null);
             }else{
                 Log.d(TAG, "FirebaseAnalytics is Null..");
             }

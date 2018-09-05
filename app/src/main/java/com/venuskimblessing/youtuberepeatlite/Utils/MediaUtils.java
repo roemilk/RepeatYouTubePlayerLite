@@ -14,18 +14,22 @@ public class MediaUtils {
      * @return
      */
     public static long getDuration(String timeString) {
-        String time = timeString.substring(2);
-        long duration = 0L;
-        Object[][] indexs = new Object[][]{{"H", 3600}, {"M", 60}, {"S", 1}};
-        for(int i = 0; i < indexs.length; i++) {
-            int index = time.indexOf((String) indexs[i][0]);
-            if(index != -1) {
-                String value = time.substring(0, index);
-                duration += Integer.parseInt(value) * (int) indexs[i][1] * 1000;
-                time = time.substring(value.length() + 1);
+        try{
+            String time = timeString.substring(2);
+            long duration = 0L;
+            Object[][] indexs = new Object[][]{{"H", 3600}, {"M", 60}, {"S", 1}};
+            for(int i = 0; i < indexs.length; i++) {
+                int index = time.indexOf((String) indexs[i][0]);
+                if(index != -1) {
+                    String value = time.substring(0, index);
+                    duration += Integer.parseInt(value) * (int) indexs[i][1] * 1000;
+                    time = time.substring(value.length() + 1);
+                }
             }
+            return duration;
+        }catch(Exception e){ //간혹 Duration 형식이 이상하게 내려오는 문제로 NumberformatException이 발생하여 파싱이 불가하여 예외처리 (ex .. P1DT..)
+            return 0;
         }
-        return duration;
     }
 
     /**

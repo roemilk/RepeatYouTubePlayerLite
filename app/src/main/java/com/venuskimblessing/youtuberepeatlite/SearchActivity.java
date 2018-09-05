@@ -149,7 +149,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         getShareIntentData(getIntent());
-        MobileAds.initialize(this, CommonApiKey.KEY_ADMOB_APP_ID);
+        MobileAds.initialize(this, CommonApiKey.KEY_ADMOB_TEST_APP_ID);
 
         mEmptyTextView = (TextView) findViewById(R.id.search_empty_textView);
 
@@ -246,7 +246,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
      * @param ids
      */
     private void loadVideosContentsDetail(String ids){
-        mCallVideosContentsDetail = mService.getYoutubeVideos("contentDetails", ids, CommonApiKey.KEY_API_YOUTUBE);
+        mCallVideosContentsDetail = mService.getYoutubeVideos("contentDetails, statistics", ids, CommonApiKey.KEY_API_YOUTUBE);
         mCallVideosContentsDetail.enqueue(callback);
     }
 
@@ -278,6 +278,9 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
             Videos.Item item = items.get(i);
 
             Videos.ContentDetails contentDetails = item.contentDetails;
+            SearchList.ItemsItem durationItem = mDurationItems.get(i);
+
+            //Duration set
             String durationString = null;
             if(contentDetails != null){
                 durationString = contentDetails.duration;
@@ -290,8 +293,19 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 
             String durationResult = MediaUtils.getMillSecToHMS(duration);
             if(durationResult != null){
-                SearchList.ItemsItem durationItem = mDurationItems.get(i);
                 durationItem.setDuration(durationResult);
+            }
+
+            //ViewCount set
+            Videos.statistics statistics = item.statistics;
+
+            String viewCount = null;
+            if(statistics != null){
+                viewCount = statistics.viewCount;
+            }
+
+            if(viewCount != null){
+                durationItem.setViewCount(viewCount);
             }
         }
         mItems.addAll(mDurationItems);
@@ -367,8 +381,10 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 JSONObject snippetObject = itemsObject.getJSONObject("snippet");
                 String title = snippetObject.optString("title", "null");
                 String description = snippetObject.optString("description", "null");
+                String channelTitle = snippetObject.optString("channelTitle", "null");
                 itemsItem.setTitle(title);
                 itemsItem.setDescription(description);
+                itemsItem.setChannelTitle(channelTitle);
 
                 JSONObject thumbnailsObject = snippetObject.getJSONObject("thumbnails");
                 JSONObject defaultObject = thumbnailsObject.getJSONObject("default");
@@ -721,7 +737,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         Log.d(TAG, "전면 광고 로드..");
 
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(CommonApiKey.KEY_ADMOB_FULL_UNIT);
+        mInterstitialAd.setAdUnitId(CommonApiKey.KEY_ADMOB_TEST_UNIT_ID);
         mInterstitialAd.setAdListener(adListener);
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
     }
