@@ -3,7 +3,7 @@ package com.venuskimblessing.youtuberepeatlite.Common;
 public class CommonUserData {
 
     //재생 횟수
-    public static final int COUNT_DEFAULT = 6;
+    public static final int COUNT_DEFAULT = 99;
     public static final int COUNT_MAX = 99;
     public static final int REWORD_ADD_COUNT = 10; //보상 카운드 증가수
     public static int sMaxRepeatCount = COUNT_DEFAULT; //무료사용자의 경우 기본이 6

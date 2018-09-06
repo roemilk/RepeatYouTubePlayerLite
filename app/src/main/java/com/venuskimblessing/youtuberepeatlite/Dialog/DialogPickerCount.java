@@ -58,14 +58,14 @@ public class DialogPickerCount extends Dialog implements View.OnTouchListener {
         mNumberPicker = (NumberPicker)findViewById(R.id.number_picker);
         mNumberPicker.setOnTouchListener(this);
 
-        mRepeatCountTextView = (TextView)findViewById(R.id.number_picker_count_textView);
-        boolean inviteState = SharedPreferencesUtils.getBoolean(mContext, CommonSharedPreferencesKey.KEY_INVITATION);
-        Resources resources = mContext.getResources();
-        if(inviteState){
-            mRepeatCountTextView.setText(resources.getString(R.string.player_numberpick_invite));
-        }else{
-            mRepeatCountTextView.setText(resources.getString(R.string.player_numberpick));
-        }
+//        mRepeatCountTextView = (TextView)findViewById(R.id.number_picker_count_textView);
+//        boolean inviteState = SharedPreferencesUtils.getBoolean(mContext, CommonSharedPreferencesKey.KEY_INVITATION);
+//        Resources resources = mContext.getResources();
+//        if(inviteState){
+//            mRepeatCountTextView.setText(resources.getString(R.string.player_numberpick_invite));
+//        }else{
+//            mRepeatCountTextView.setText(resources.getString(R.string.player_numberpick));
+//        }
     }
 
     public void setOnSelectedNumberPickerListener(OnSelectedNumberPickerListener listener){

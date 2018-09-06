@@ -28,7 +28,8 @@
     <string name="dialog_help_version_no_item">無料版を使用しています。</string>
     <string name="dialog_help_version_yes_item">プレミアムバージョンを使用しています。</string>
 
-    <string name="player_numberpick">何回繰り返しますか？\nLiteバージョンは最大6回のリピートに制限されています。\n\n10人の友だちを招待すると、すべてのロックされたプレミアム機能のロックを解除することができます。</string>
+    <!--<string name="player_numberpick">何回繰り返しますか？\nLiteバージョンは最大6回のリピートに制限されています。\n\n10人の友だちを招待すると、すべてのロックされたプレミアム機能のロックを解除することができます。</string>-->
+    <string name = "player_numberpick">何回繰り返しますか？</string>
     <string name="player_numberpick_invite">何回繰り返しますか？\n友だちを招待したので、99の繰り返し回数を使用できます。</string>
     <string name="player_repeat_title">リピート再生を設定する</string>
     <string name="player_repeat_starttime"> StartTime：</string>

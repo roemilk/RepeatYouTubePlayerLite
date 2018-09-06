@@ -49,7 +49,8 @@
     <string name="dialog_help_version_yes_item">您正在使用高級版本。</string>
 
         
-    <string name="player_numberpick">你會重複幾次計數？\nLite版本限制為最多6次重複。</string>
+    <!--<string name="player_numberpick">你會重複幾次計數？\nLite版本限制為最多6次重複。</string>-->
+    <string name="player_numberpick">請指定重複次數。</string>
     <string name="player_numberpick_invite">你會重複多少次？\n既然你邀請了朋友，你可以使用99次重複計數。</string>
         
     <string name="player_repeat_title">設置重複播放</string>
