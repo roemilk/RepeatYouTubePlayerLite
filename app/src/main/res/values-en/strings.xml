@@ -108,12 +108,16 @@ It is your very smart choice.\n\nPRO benefits \n
     <string name="dialog_recommend_relaxing">relaxing music</string>
     <string name="dialog_recommend_kids">kids Animation</string>
 
+    <string name="dialog_recommend_sexy">sexy</string>
+    <string name="dialog_recommend_sexyani">sexy animation</string>
+    <string name="dialog_recommend_sexysound">sexy sound</string>
+
     <!-- default word -->
     <string name="default_word">best movie scene hd</string>
 
     <!-- Coffee -->
-    <string name="dialog_coffee_description">Please give the developer a warm cup of coffee.\nPro Upgrade with a cup of coffee.</string>
+    <string name="dialog_coffee_description">Please give the developer a warm cup of coffee.\nGet a Pro Version for the price of a cup of coffee.</string>
     <string name="dialog_coffee_infoTitle">Pro Version Upgrade</string>
-    <string name="dialog_coffee_info">No ads at all.\nA dedicated feature of the PRO version\nwill be added in the future.\nCharge the developer energy!\n\nThank you.\nI will do a lot of good updates.</string>
-    <string name="dialog_coffee_button">Upgrade your Pro with a cup of coffee</string>
+    <string name="dialog_coffee_info">- No ads at all.\n- Dedicated features of PRO version will be added in the future.\n- Everyone who upgrades will always receive God blessing.\n\nThank you.\nI will make a lot of good features.</string>
+    <string name="dialog_coffee_button">Pro upgrade to a cup of coffee</string>
 </resources>

@@ -704,6 +704,15 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                             case R.id.recommend_kids_button:
                                 mEditTextSearchWord.setText(getResources().getString(R.string.dialog_recommend_kids));
                                 break;
+                            case R.id.recommend_sexy_button:
+                                mEditTextSearchWord.setText(getResources().getString(R.string.dialog_recommend_sexy));
+                                break;
+                            case R.id.recommend_sexyAni_button:
+                                mEditTextSearchWord.setText(getResources().getString(R.string.dialog_recommend_sexyani));
+                                break;
+                            case R.id.recommend_sexySound_button:
+                                mEditTextSearchWord.setText(getResources().getString(R.string.dialog_recommend_sexysound));
+                                break;
                         }
                         dialogRecommend.dismiss();
                         mNextPageToken = "";

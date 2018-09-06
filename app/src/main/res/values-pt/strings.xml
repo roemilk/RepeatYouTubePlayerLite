@@ -100,12 +100,16 @@
     <string name="dialog_recommend_relaxing">relaxing music</string>
     <string name="dialog_recommend_kids">kids Animation</string>
 
+    <string name="dialog_recommend_sexy">sexy</string>
+    <string name="dialog_recommend_sexyani">sexy ani</string>
+    <string name="dialog_recommend_sexysound">sexy sound</string>
+
     <!-- default word -->
     <string name="default_word">best movie scene hd</string>
 
     <!-- Coffee -->
-    <string name="dialog_coffee_description">개발자에게 따뜻한 커피 한잔을 사주세요.\n커피 한잔으로 Pro 업그레이드를 하세요.</string>
-    <string name="dialog_coffee_infoTitle">Pro 버전 업그레이드</string>
-    <string name="dialog_coffee_info">- 광고가 전혀 없습니다.\n- 앞으로 PRO 버전의 전용 기능이 추가됩니다.\n- 개발자의 에너지 충전!\n\n감사합니다.\n좋은 기능 많이 만들겠습니다.</string>
-    <string name="dialog_coffee_button">커피 한잔으로 Pro 업그레이드 하기</string>
+    <string name="dialog_coffee_description">Por favor, dê ao desenvolvedor uma xícara de café quente.\nObtenha uma versão Pro pelo preço de uma xícara de café.</string>
+    <string name="dialog_coffee_infoTitle">Pro upgrade</string>
+    <string name="dialog_coffee_info">- Sem anúncios.\n- Recursos dedicados da versão PRO serão adicionados no futuro.\n- Todos os que upgrades sempre receberão bênção de Deus.\n\nObrigado.\nEu vou fazer muitos bons recursos.</string>
+    <string name="dialog_coffee_button">Pro upgrade para uma xícara de café</string>
 </resources>

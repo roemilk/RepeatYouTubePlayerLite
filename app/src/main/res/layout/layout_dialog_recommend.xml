@@ -73,6 +73,39 @@
                     android:textColor="#FFFFFF" />
 
                 <Button
+                    android:id="@+id/recommend_sexy_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="#00000000"
+                    android:drawableTop="@drawable/ic_sexy_white_24dp"
+                    android:gravity="center"
+                    android:text="@string/dialog_recommend_sexy"
+                    android:textColor="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/recommend_sexyAni_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="#00000000"
+                    android:drawableTop="@drawable/ic_sexyani_white_24dp"
+                    android:gravity="center"
+                    android:text="@string/dialog_recommend_sexyani"
+                    android:textColor="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/recommend_sexySound_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="#00000000"
+                    android:drawableTop="@drawable/ic_sexysound_white_24dp"
+                    android:gravity="center"
+                    android:text="@string/dialog_recommend_sexysound"
+                    android:textColor="#FFFFFF" />
+
+                <Button
                     android:id="@+id/recommend_makeup_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -31,7 +31,7 @@ public class DialogEnding extends Dialog implements View.OnClickListener {
     private static final String TAG = "DialogEnding";
 
     private Context mContext;
-    private AdView mAdView;
+//    private AdView mAdView;
     private Button mYesButton, mNoButton;
     private TextView mEndingDialogTextView;
     private LinearLayout mEndingDialogLoadingLay;
@@ -53,6 +53,7 @@ public class DialogEnding extends Dialog implements View.OnClickListener {
         super(context, cancelable, cancelListener);
         this.mContext = context;
         init();
+        showBanner();
     }
 
     private void init() {
@@ -61,17 +62,17 @@ public class DialogEnding extends Dialog implements View.OnClickListener {
 
         mEndingDialogLoadingLay = (LinearLayout)findViewById(R.id.ending_dialog_loading_lay);
         mEndingDialogTextView = (TextView)findViewById(R.id.dialog_ending_title_textView);
-        mLoadingIndicator = (AVLoadingIndicatorView)findViewById(R.id.ending_dialog_pacman_indicator);
-        mLoadingIndicator.setIndicatorColor(Color.DKGRAY);
-        mLoadingIndicator.show();
+//        mLoadingIndicator = (AVLoadingIndicatorView)findViewById(R.id.ending_dialog_pacman_indicator);
+//        mLoadingIndicator.setIndicatorColor(Color.DKGRAY);
+//        mLoadingIndicator.show();
 
-        MobileAds.initialize(mContext,
-                CommonApiKey.KEY_ADMOB_APP_ID);
+//        MobileAds.initialize(mContext,
+//                CommonApiKey.KEY_ADMOB_APP_ID);
 
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-        mAdView.setAdListener(adListener);
+//        mAdView = findViewById(R.id.adView);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdView.loadAd(adRequest);
+//        mAdView.setAdListener(adListener);
 
         mYesButton = (Button)findViewById(R.id.ending_dialog_yes_button);
         mNoButton = (Button)findViewById(R.id.ending_dialog_no_button);
@@ -81,9 +82,9 @@ public class DialogEnding extends Dialog implements View.OnClickListener {
     }
 
     private void showBanner(){
-        mLoadingIndicator.hide();
-        mEndingDialogLoadingLay.setVisibility(View.GONE);
-        mAdView.setVisibility(View.VISIBLE);
+//        mLoadingIndicator.hide();
+//        mEndingDialogLoadingLay.setVisibility(View.GONE);
+//        mAdView.setVisibility(View.VISIBLE);
         mEndingDialogTextView.setVisibility(View.VISIBLE);
         mYesButton.setVisibility(View.VISIBLE);
         mNoButton.setVisibility(View.VISIBLE);
@@ -101,49 +102,49 @@ public class DialogEnding extends Dialog implements View.OnClickListener {
         }
     }
 
-    private AdListener adListener = new AdListener() {
-        @Override
-        public void onAdClosed() {
-            super.onAdClosed();
-            Log.d(TAG, "onAdClosed..");
-        }
-
-        @Override
-        public void onAdFailedToLoad(int i) {
-            super.onAdFailedToLoad(i);
-            showBanner();
-            Log.d(TAG, "onAdFailedToLoad..");
-        }
-
-        @Override
-        public void onAdLeftApplication() {
-            super.onAdLeftApplication();
-            Log.d(TAG, "onAdLeftApplication..");
-        }
-
-        @Override
-        public void onAdOpened() {
-            super.onAdOpened();
-            Log.d(TAG, "onAdOpened..");
-        }
-
-        @Override
-        public void onAdLoaded() {
-            super.onAdLoaded();
-            showBanner();
-            Log.d(TAG, "onAdLoaded..");
-        }
-
-        @Override
-        public void onAdClicked() {
-            super.onAdClicked();
-            Log.d(TAG, "onAdClicked..");
-        }
-
-        @Override
-        public void onAdImpression() {
-            super.onAdImpression();
-            Log.d(TAG, "onAdImpression..");
-        }
-    };
+//    private AdListener adListener = new AdListener() {
+//        @Override
+//        public void onAdClosed() {
+//            super.onAdClosed();
+//            Log.d(TAG, "onAdClosed..");
+//        }
+//
+//        @Override
+//        public void onAdFailedToLoad(int i) {
+//            super.onAdFailedToLoad(i);
+//            showBanner();
+//            Log.d(TAG, "onAdFailedToLoad..");
+//        }
+//
+//        @Override
+//        public void onAdLeftApplication() {
+//            super.onAdLeftApplication();
+//            Log.d(TAG, "onAdLeftApplication..");
+//        }
+//
+//        @Override
+//        public void onAdOpened() {
+//            super.onAdOpened();
+//            Log.d(TAG, "onAdOpened..");
+//        }
+//
+//        @Override
+//        public void onAdLoaded() {
+//            super.onAdLoaded();
+//            showBanner();
+//            Log.d(TAG, "onAdLoaded..");
+//        }
+//
+//        @Override
+//        public void onAdClicked() {
+//            super.onAdClicked();
+//            Log.d(TAG, "onAdClicked..");
+//        }
+//
+//        @Override
+//        public void onAdImpression() {
+//            super.onAdImpression();
+//            Log.d(TAG, "onAdImpression..");
+//        }
+//    };
 }
