@@ -116,6 +116,7 @@ Ini adalah pilihan Anda yang sangat cerdas. \n\n Solusi PRO \n
 
     <!-- recommend -->
     <string name="dialog_recommend_title">merekomendasikan mengulang video youtube</string>
+    <string name="dialog_recommend_most">most popular</string>
     <string name="dialog_recommend_hometraining">home training</string>
     <string name="dialog_recommend_dance">dance practice</string>
     <string name="dialog_recommend_asmr">asmr</string>

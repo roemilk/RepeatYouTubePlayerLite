@@ -559,9 +559,12 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     private Callback<String> callback = new Callback<String>() {
         @Override
         public void onResponse(Call<String> call, Response<String> response) {
-            String result = response.body().toString();
-            Log.d(TAG, "onResponse...");
-
+            String result = null;
+            try{
+                result = response.body().toString();
+            }catch(Exception e){
+                Toast.makeText(SearchActivity.this, getResources().getString(R.string.error_videos_emptyInfo), Toast.LENGTH_LONG).show();
+            }
             if (call == mCallYoutubeSearch) {
                 parseJsonStringData(result, TYPE_SEARCH);
             } else if(call == mCallPopularSearch){
@@ -656,9 +659,11 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                                 break;
                         }
                         dialogSort.dismiss();
+                        mRecyclerView.scrollToPosition(0);
                         mNextPageToken = "";
                         if (mItems != null) {
                             mItems.clear();
+                            mSearchRecyclerViewAdapter.notifyDataSetChanged();
                         }
                         loadSearchContentsList();
                     }
@@ -673,6 +678,16 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                     @Override
                     public void onClick(View view) {
                         switch (view.getId()) {
+                            case R.id.recommend_most_button:
+                                dialogRecommend.dismiss();
+                                mNextPageToken = "";
+                                if(mItems != null){
+                                    mRecyclerView.scrollToPosition(0);
+                                    mItems.clear();
+                                    loadPopularContentsList();
+                                    return;
+                                }
+                                break;
                             case R.id.recommend_home_button:
                                 mEditTextSearchWord.setText(getResources().getString(R.string.dialog_recommend_hometraining));
                                 break;

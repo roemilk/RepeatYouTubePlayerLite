@@ -13,9 +13,13 @@ public class FormatUtils {
      */
     public static String parseNumberFormat(String s) {
         Log.d(TAG, s);
-        long inValues = Long.parseLong(s);
-        DecimalFormat Commas = new DecimalFormat("#,###");
-        String result = (String)Commas.format(inValues);
-        return result;
+        try{
+            long inValues = Long.parseLong(s);
+            DecimalFormat Commas = new DecimalFormat("#,###");
+            String result = (String)Commas.format(inValues);
+            return result;
+        }catch(Exception e){
+            return "Empty";
+        }
     }
 }

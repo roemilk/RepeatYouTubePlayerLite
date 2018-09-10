@@ -14,5 +14,4 @@ public class DeveloperKey {
    * to register a new developer key.
    */
   public static final String DEVELOPER_KEY = "AIzaSyAyj3mbaODhHNNKJGv3oIukTOUZg20z73A";
-
 }

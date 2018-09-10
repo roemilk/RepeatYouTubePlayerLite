@@ -10,7 +10,11 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
+
 import com.venuskimblessing.youtuberepeatlite.PlayList.PlayListData;
+import com.venuskimblessing.youtuberepeatlite.R;
+import com.venuskimblessing.youtuberepeatlite.SearchActivity;
 
 import java.util.ArrayList;
 
@@ -31,7 +35,15 @@ public class FloatingService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         initFloatingWindow();
-        int type = intent.getIntExtra("type", 0);
+        int type = 0;
+        try{
+            type = intent.getIntExtra("type", 0);
+        }catch(Exception e){
+            Toast.makeText(this, getResources().getString(R.string.error_network), Toast.LENGTH_SHORT).show();
+            Intent exceptionIntent = new Intent(this, SearchActivity.class);
+            exceptionIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(exceptionIntent);
+        }
         switch (type) {
             case FloatingManager.TYPE_INTENT_DATA:
                 Log.d(TAG, "TYPE_INTENT_DATA...");

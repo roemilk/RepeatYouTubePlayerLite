@@ -89,6 +89,7 @@
 
     <!-- recommend -->
     <string name="dialog_recommend_title">お薦めのリピートyoutube videos</string>
+    <string name="dialog_recommend_most">most popular</string>
     <string name="dialog_recommend_hometraining">home training</string>
     <string name="dialog_recommend_dance">ダンスの練習</string>
     <string name="dialog_recommend_asmr">asmr</string>

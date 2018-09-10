@@ -102,6 +102,7 @@
 
     <!-- recommend -->
     <string name="dialog_recommend_title">반복 재생하기 좋은 유튜브 동영상 추천!</string>
+    <string name="dialog_recommend_most">인기 동영상</string>
     <string name="dialog_recommend_hometraining">홈 트레이닝</string>
     <string name="dialog_recommend_dance">춤 연습</string>
     <string name="dialog_recommend_asmr">ASMR</string>
