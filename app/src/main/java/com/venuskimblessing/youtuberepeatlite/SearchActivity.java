@@ -734,6 +734,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                         if (mItems != null) {
                             mRecyclerView.scrollToPosition(0);
                             mItems.clear();
+                            mSearchRecyclerViewAdapter.notifyDataSetChanged();
                         }
                         loadSearchContentsList();
                     }

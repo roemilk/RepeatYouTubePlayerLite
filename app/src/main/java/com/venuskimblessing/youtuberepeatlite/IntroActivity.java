@@ -20,6 +20,8 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.appinvite.FirebaseAppInvite;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.hanks.htextview.fade.FadeTextView;
 import com.hanks.htextview.line.LineTextView;
 import com.venuskimblessing.youtuberepeatlite.Common.CommonApiKey;
@@ -28,6 +30,7 @@ import com.venuskimblessing.youtuberepeatlite.Json.SearchList;
 import com.venuskimblessing.youtuberepeatlite.Player.DeveloperKey;
 import com.venuskimblessing.youtuberepeatlite.Player.PlayerActivity;
 import com.venuskimblessing.youtuberepeatlite.Player.YouTubeFailureRecoveryActivity;
+import com.venuskimblessing.youtuberepeatlite.Utils.OSUtils;
 import com.venuskimblessing.youtuberepeatlite.Utils.SharedPreferencesUtils;
 
 public class IntroActivity extends AppCompatActivity {
@@ -40,11 +43,15 @@ public class IntroActivity extends AppCompatActivity {
     private FadeTextView mLineTextView = null;
     private String mPlayId = null;
 
+    //RemoteConfig
+    FirebaseRemoteConfig mFirebaseRemoteConfig;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
         getDynamicLink();
+//        OSUtils.printKeyHash(this);
 //        getShareIntentData();
 
         mLineTextView = (FadeTextView) findViewById(R.id.intro_textView);
@@ -150,5 +157,16 @@ public class IntroActivity extends AppCompatActivity {
         }catch(Exception e){
             Log.d(TAG, "Exception : " + e.toString());
         }
+    }
+
+    /**
+     * initRemoteConfig
+     */
+    private void initRemoteConfig(){
+        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setDeveloperModeEnabled(BuildConfig.DEBUG)
+                .build();
+        mFirebaseRemoteConfig.setConfigSettings(configSettings);
     }
 }
