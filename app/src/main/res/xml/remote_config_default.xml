@@ -2,16 +2,12 @@
 <!-- START xml_defaults -->
 <defaultsMap>
     <entry>
-        <key>loading_phrase</key>
-        <value>Fetching config…</value>
-    </entry>
-    <entry>
-        <key>welcome_message_caps</key>
+        <key>chat_enable</key>
         <value>false</value>
     </entry>
     <entry>
-        <key>welcome_message</key>
-        <value>Welcome to my awesome app!</value>
+        <key>chat_message</key>
+        <value>empty</value>
     </entry>
 </defaultsMap>
     <!-- END xml_defaults -->

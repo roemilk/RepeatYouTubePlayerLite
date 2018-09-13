@@ -8,12 +8,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.github.javiersantos.piracychecker.PiracyChecker;
 import com.github.javiersantos.piracychecker.enums.InstallerID;
 import com.google.android.gms.common.internal.service.Common;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -26,6 +29,7 @@ import com.hanks.htextview.fade.FadeTextView;
 import com.hanks.htextview.line.LineTextView;
 import com.venuskimblessing.youtuberepeatlite.Common.CommonApiKey;
 import com.venuskimblessing.youtuberepeatlite.Common.CommonSharedPreferencesKey;
+import com.venuskimblessing.youtuberepeatlite.Dialog.DialogChat;
 import com.venuskimblessing.youtuberepeatlite.Json.SearchList;
 import com.venuskimblessing.youtuberepeatlite.Player.DeveloperKey;
 import com.venuskimblessing.youtuberepeatlite.Player.PlayerActivity;
@@ -57,13 +61,16 @@ public class IntroActivity extends AppCompatActivity {
         mLineTextView = (FadeTextView) findViewById(R.id.intro_textView);
         mLineTextView.animateText(getResources().getString(R.string.app_name));
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity();
-                finish();
-            }
-        }, 2000);
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                startActivity();
+//                finish();
+//            }
+//        }, 2000);
+
+        initRemoteConfig();
+        showChat();
     }
 
     @Override
@@ -168,5 +175,49 @@ public class IntroActivity extends AppCompatActivity {
                 .setDeveloperModeEnabled(BuildConfig.DEBUG)
                 .build();
         mFirebaseRemoteConfig.setConfigSettings(configSettings);
+//        mFirebaseRemoteConfig.setDefaults(R.xml.remote_config_default);
+
+        fetch();
+    }
+
+    private void fetch(){
+        long cacheExpiration = 3600; // 1 hour in seconds.
+        // If your app is using developer mode, cacheExpiration is set to 0, so each fetch will
+        // retrieve values from the service.
+        if (mFirebaseRemoteConfig.getInfo().getConfigSettings().isDeveloperModeEnabled()) {
+            cacheExpiration = 0;
+        }
+
+        mFirebaseRemoteConfig.fetch(cacheExpiration)
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(IntroActivity.this, "Fetch Succeeded",
+                                    Toast.LENGTH_SHORT).show();
+
+                            // After config data is successfully fetched, it must be activated before newly fetched
+                            // values are returned.
+                            mFirebaseRemoteConfig.activateFetched();
+                        } else {
+                            Toast.makeText(IntroActivity.this, "Fetch Failed",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        displayWelcomeMessage();
+                    }
+                });
+    }
+
+    private void displayWelcomeMessage() {
+        String chatEnable = mFirebaseRemoteConfig.getString("chat_enable");
+        String chatMessage = mFirebaseRemoteConfig.getString("chat_message");
+
+        Toast.makeText(this, "chatEnable : " + chatEnable, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, chatMessage, Toast.LENGTH_SHORT).show();
+    }
+
+    private void showChat(){
+        DialogChat dialogChat = new DialogChat(this, R.style.custom_dialog_fullScreen);
+        dialogChat.show();
     }
 }
