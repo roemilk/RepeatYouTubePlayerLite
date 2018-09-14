@@ -10,15 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.github.javiersantos.piracychecker.PiracyChecker;
-import com.github.javiersantos.piracychecker.enums.InstallerID;
-import com.google.android.gms.common.internal.service.Common;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayerView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.appinvite.FirebaseAppInvite;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
@@ -26,15 +21,9 @@ import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.hanks.htextview.fade.FadeTextView;
-import com.hanks.htextview.line.LineTextView;
-import com.venuskimblessing.youtuberepeatlite.Common.CommonApiKey;
+import com.venuskimblessing.youtuberepeatlite.Common.CommonConfig;
 import com.venuskimblessing.youtuberepeatlite.Common.CommonSharedPreferencesKey;
-import com.venuskimblessing.youtuberepeatlite.Dialog.DialogChat;
-import com.venuskimblessing.youtuberepeatlite.Json.SearchList;
-import com.venuskimblessing.youtuberepeatlite.Player.DeveloperKey;
-import com.venuskimblessing.youtuberepeatlite.Player.PlayerActivity;
-import com.venuskimblessing.youtuberepeatlite.Player.YouTubeFailureRecoveryActivity;
-import com.venuskimblessing.youtuberepeatlite.Utils.OSUtils;
+import com.venuskimblessing.youtuberepeatlite.Common.CommonUserData;
 import com.venuskimblessing.youtuberepeatlite.Utils.SharedPreferencesUtils;
 
 public class IntroActivity extends AppCompatActivity {
@@ -61,16 +50,15 @@ public class IntroActivity extends AppCompatActivity {
         mLineTextView = (FadeTextView) findViewById(R.id.intro_textView);
         mLineTextView.animateText(getResources().getString(R.string.app_name));
 
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                startActivity();
-//                finish();
-//            }
-//        }, 2000);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity();
+                finish();
+            }
+        }, 2000);
 
         initRemoteConfig();
-        showChat();
     }
 
     @Override
@@ -175,8 +163,6 @@ public class IntroActivity extends AppCompatActivity {
                 .setDeveloperModeEnabled(BuildConfig.DEBUG)
                 .build();
         mFirebaseRemoteConfig.setConfigSettings(configSettings);
-//        mFirebaseRemoteConfig.setDefaults(R.xml.remote_config_default);
-
         fetch();
     }
 
@@ -203,21 +189,15 @@ public class IntroActivity extends AppCompatActivity {
                             Toast.makeText(IntroActivity.this, "Fetch Failed",
                                     Toast.LENGTH_SHORT).show();
                         }
-                        displayWelcomeMessage();
+
+                        setConfig();
                     }
                 });
     }
 
-    private void displayWelcomeMessage() {
+    private void setConfig() {
         String chatEnable = mFirebaseRemoteConfig.getString("chat_enable");
-        String chatMessage = mFirebaseRemoteConfig.getString("chat_message");
-
-        Toast.makeText(this, "chatEnable : " + chatEnable, Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, chatMessage, Toast.LENGTH_SHORT).show();
-    }
-
-    private void showChat(){
-        DialogChat dialogChat = new DialogChat(this, R.style.custom_dialog_fullScreen);
-        dialogChat.show();
+        CommonConfig.sChatEnable = Boolean.valueOf(chatEnable);
+        Log.d(TAG, "ChatEnable : " + CommonConfig.sChatEnable);
     }
 }

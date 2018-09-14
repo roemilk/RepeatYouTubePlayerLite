@@ -43,8 +43,10 @@ import com.google.gson.Gson;
 import com.venuskimblessing.youtuberepeatlite.Adapter.SearchDecoration;
 import com.venuskimblessing.youtuberepeatlite.Adapter.SearchRecyclerViewAdapter;
 import com.venuskimblessing.youtuberepeatlite.Common.CommonApiKey;
+import com.venuskimblessing.youtuberepeatlite.Common.CommonConfig;
 import com.venuskimblessing.youtuberepeatlite.Common.CommonSharedPreferencesKey;
 import com.venuskimblessing.youtuberepeatlite.Common.CommonUserData;
+import com.venuskimblessing.youtuberepeatlite.Dialog.DialogChat;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogCoffee;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogEnding;
 import com.venuskimblessing.youtuberepeatlite.Dialog.DialogInfo;
@@ -104,10 +106,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     public static final String TYPE_VIDEO = "video";
 
     private TextView mEmptyTextView = null;
-    private Button mInviteButton = null;
-    private Button mSortButton = null;
-    private Button mRecommentButton = null;
-    private Button mCoffeeButton = null;
+    private Button mInviteButton, mSortButton, mRecommentButton, mCoffeeButton, mChatButton;
     private MaterialTextField mMaterialTextField = null;
     private EditText mEditTextSearchWord = null;
     private RecyclerView mRecyclerView = null;
@@ -200,6 +199,16 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 }
             }
         });
+
+        mChatButton = (Button)findViewById(R.id.search_chat_button);
+        mChatButton.setOnClickListener(this);
+
+        if(CommonConfig.sChatEnable){
+            mChatButton.setVisibility(View.VISIBLE);
+        }else{
+            mChatButton.setVisibility(View.GONE);
+        }
+
         initRetrofit();
         loadPopularContentsList();
     }
@@ -746,6 +755,10 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 DialogCoffee dialogCoffee = new DialogCoffee(this, R.style.custom_dialog_fullScreen);
                 dialogCoffee.show();
                 break;
+
+            case R.id.search_chat_button:
+                showChat();
+                break;
         }
     }
 
@@ -837,4 +850,9 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
             super.onAdImpression();
         }
     };
+
+    private void showChat(){
+        DialogChat dialogChat = new DialogChat(this, R.style.custom_dialog_fullScreen);
+        dialogChat.show();
+    }
 }
