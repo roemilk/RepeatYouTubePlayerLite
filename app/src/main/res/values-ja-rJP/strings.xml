@@ -114,4 +114,10 @@
     <string name="dialog_coffee_infoTitle">プロバージョンのアップグレード</string>
     <string name="dialog_coffee_info">- 広告はまったくありません。\n- 今後、PROバージョンの専用機能が追加される予定です。\n- アップグレードした人は、常に祝福を受けるでしょう。\n\nありがとうございました。\n私は多くの良い機能を作ります。</string>
     <string name="dialog_coffee_button">コーヒーのカップへのプロアップグレード</string>
+
+    <!-- Chat -->
+    <string name="dialog_chat_nick">Please enter your nickname.</string>
+    <string name="dialog_chat_title">Global Chat Room</string>
+    <string name="dialog_chat_join">Join</string>
+    <string name="dialog_chat_send">Send</string>
 </resources>

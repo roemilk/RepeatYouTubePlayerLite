@@ -114,4 +114,10 @@
     <string name="dialog_coffee_infoTitle">Pro upgrade</string>
     <string name="dialog_coffee_info">- Sem anúncios.\n- Recursos dedicados da versão PRO serão adicionados no futuro.\n- Todos os que upgrades sempre receberão bênção de Deus.\n\nObrigado.\nEu vou fazer muitos bons recursos.</string>
     <string name="dialog_coffee_button">Pro upgrade para uma xícara de café</string>
+
+    <!-- Chat -->
+    <string name="dialog_chat_nick">Please enter your nickname.</string>
+    <string name="dialog_chat_title">Global Chat Room</string>
+    <string name="dialog_chat_join">Join</string>
+    <string name="dialog_chat_send">Send</string>
 </resources>

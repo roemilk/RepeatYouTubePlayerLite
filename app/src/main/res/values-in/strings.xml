@@ -141,4 +141,10 @@ Ini adalah pilihan Anda yang sangat cerdas. \n\n Solusi PRO \n
     <string name="dialog_coffee_infoTitle">Pro Version Upgrade</string>
     <string name="dialog_coffee_info">- Tidak ada iklan sama sekali.\n- Fitur khusus versi PRO akan ditambahkan di masa depan.\n- Setiap orang yang melakukan upgrade akan selalu menerima berkah.\n\nTerima kasih\nSaya akan membuat banyak fitur bagus.</string>
     <string name="dialog_coffee_button">Pro upgrade ke secangkir kopi</string>
+
+    <!-- Chat -->
+    <string name="dialog_chat_nick">Please enter your nickname.</string>
+    <string name="dialog_chat_title">Global Chat Room</string>
+    <string name="dialog_chat_join">Join</string>
+    <string name="dialog_chat_send">Send</string>
 </resources>

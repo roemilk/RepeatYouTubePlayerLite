@@ -32,7 +32,7 @@ public class DialogChat extends Dialog implements View.OnClickListener, ValueEve
     private LinearLayout mChatIntroLay;
     private ListView mListView;
     private EditText mNickEditText, mMessageEditText;
-    private Button mJoinButton, mMessageSendButton;
+    private Button mJoinButton, mMessageSendButton, mCloseButton;
 
     private ArrayAdapter<String> mArrayAdapter;
 
@@ -77,6 +77,9 @@ public class DialogChat extends Dialog implements View.OnClickListener, ValueEve
         mMessageSendButton = (Button)findViewById(R.id.chat_bottom_send_button);
         mMessageSendButton.setOnClickListener(this);
 
+        mCloseButton = (Button)findViewById(R.id.chat_top_lay_close_button);
+        mCloseButton.setOnClickListener(this);
+
         mArrayAdapter = new ArrayAdapter<>(mContext, R.layout.view_chat_textview, R.id.view_chat_textView1);
         mListView.setAdapter(mArrayAdapter);
 
@@ -98,6 +101,9 @@ public class DialogChat extends Dialog implements View.OnClickListener, ValueEve
                 mChatIntroLay.setVisibility(View.GONE);
                 mChatBodyLay.setVisibility(View.VISIBLE);
                 mMessageEditText.requestFocus();
+                break;
+            case R.id.chat_top_lay_close_button:
+                dismiss();
                 break;
         }
     }

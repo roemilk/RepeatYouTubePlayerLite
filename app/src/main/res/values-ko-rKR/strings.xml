@@ -127,4 +127,10 @@
     <string name="dialog_coffee_infoTitle">Pro 버전 업그레이드</string>
     <string name="dialog_coffee_info">- 광고가 전혀 없습니다.\n- 앞으로 PRO 버전의 전용 기능이 추가됩니다.\n- 구매하시는 모든 분들께 축복이 가득 하실 것입니다.!\n\n감사합니다.\n좋은 기능 많이 만들겠습니다.</string>
     <string name="dialog_coffee_button">커피 한잔 가격으로 Pro 업그레이드 하기</string>
+
+    <!-- Chat -->
+    <string name="dialog_chat_nick">대화명을 입력해주세요.</string>
+    <string name="dialog_chat_title">유튜브 정보 공유 채팅방</string>
+    <string name="dialog_chat_join">입장</string>
+    <string name="dialog_chat_send">전송</string>
 </resources>

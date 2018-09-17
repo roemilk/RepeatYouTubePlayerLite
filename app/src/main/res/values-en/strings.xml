@@ -122,4 +122,10 @@ It is your very smart choice.\n\nPRO benefits \n
     <string name="dialog_coffee_infoTitle">Pro Version Upgrade</string>
     <string name="dialog_coffee_info">- No ads at all.\n- Dedicated features of PRO version will be added in the future.\n- Everyone who upgrades will always receive God blessing.\n\nThank you.\nI will make a lot of good features.</string>
     <string name="dialog_coffee_button">Pro upgrade to a cup of coffee</string>
+
+    <!-- Chat -->
+    <string name="dialog_chat_nick">Please enter your nickname.</string>
+    <string name="dialog_chat_title">Global Chat Room</string>
+    <string name="dialog_chat_join">Join</string>
+    <string name="dialog_chat_send">Send</string>
 </resources>

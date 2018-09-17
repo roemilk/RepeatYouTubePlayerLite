@@ -146,4 +146,10 @@
     <string name="dialog_coffee_infoTitle">專業版升級</string>
     <string name="dialog_coffee_info">- 根本沒有廣告。\n- 將來會添加PRO版本的專用功能。\n- 升級的每個人都將永遠得到上帝的祝福。\n\n謝謝。\n我會做很多很好的功能。</string>
     <string name="dialog_coffee_button">親升級到一杯咖啡</string>
+
+    <!-- Chat -->
+    <string name="dialog_chat_nick">Please enter your nickname.</string>
+    <string name="dialog_chat_title">Global Chat Room</string>
+    <string name="dialog_chat_join">Join</string>
+    <string name="dialog_chat_send">Send</string>
 </resources>

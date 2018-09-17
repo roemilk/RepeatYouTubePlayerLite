@@ -160,9 +160,10 @@ public class IntroActivity extends AppCompatActivity {
     private void initRemoteConfig(){
         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
         FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
-                .setDeveloperModeEnabled(BuildConfig.DEBUG)
+//                .setDeveloperModeEnabled(BuildConfig.DEBUG)
                 .build();
         mFirebaseRemoteConfig.setConfigSettings(configSettings);
+//        mFirebaseRemoteConfig.setDefaults(R.xml.remote_config_defaults);
         fetch();
     }
 
@@ -179,15 +180,19 @@ public class IntroActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(IntroActivity.this, "Fetch Succeeded",
-                                    Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, "Fetch Succeeded");
+
+//                            Toast.makeText(IntroActivity.this, "Fetch Succeeded",
+//                                    Toast.LENGTH_SHORT).show();
 
                             // After config data is successfully fetched, it must be activated before newly fetched
                             // values are returned.
                             mFirebaseRemoteConfig.activateFetched();
                         } else {
-                            Toast.makeText(IntroActivity.this, "Fetch Failed",
-                                    Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, "Fetch Failed");
+
+//                            Toast.makeText(IntroActivity.this, "Fetch Failed",
+//                                    Toast.LENGTH_SHORT).show();
                         }
 
                         setConfig();

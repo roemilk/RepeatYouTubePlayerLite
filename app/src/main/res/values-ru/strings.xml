@@ -146,4 +146,10 @@
     <string name="dialog_coffee_infoTitle">Pro Version Upgrade</string>
     <string name="dialog_coffee_info">- Нет рекламы.\n- В будущем будут добавлены выделенные функции версии PRO.\n- Все, кто обновляется, всегда получат Божье благословение.\n\nСпасибо.\nЯ сделаю много хороших функций.</string>
     <string name="dialog_coffee_button">Профессиональное обновление до чашки кофе</string>
+
+    <!-- Chat -->
+    <string name="dialog_chat_nick">Please enter your nickname.</string>
+    <string name="dialog_chat_title">Global Chat Room</string>
+    <string name="dialog_chat_join">Join</string>
+    <string name="dialog_chat_send">Send</string>
 </resources>
