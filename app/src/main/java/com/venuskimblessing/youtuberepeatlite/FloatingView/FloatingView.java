@@ -287,17 +287,19 @@ public class FloatingView extends RelativeLayout {
      */
     private void repeatPlayRange(int currentTime) {
         Log.d(TAG, "currentTime : " + currentTime + " endTime : " + mEndTime);
-
         if (mRepeatCount - 1 > 0) {
             if (currentTime >= mEndTime - 1) { //반복 횟수가 설정된 경우
                 mYouTubePlayer.seekTo(mStartTime);
                 mYouTubePlayer.play();
                 mRepeatCount--;
+
+                Log.d(TAG, "repeat count : " + mRepeatCount);
             }
         } else {
             if (currentTime >= mEndTime) { //Repeat End
                 if (mRepeatCount > 0) { //영상을 유튜브플레이버튼을 눌러서 시작하는 경우는 타이머의 조건에 포함되지 않아 최초플레이의 경우 RepeatCount 한개가 감소되지 않고 시작하는 문제가 있어 RepeatCount를 표시하는 텍스트뷰와 싱크를 맞추기 위해 마지막 부분에서 감소처리하여 싱크를 맞춘다.
                     mRepeatCount--;
+                    Log.d(TAG, "repeat count : " + mRepeatCount);
                 }
                 mYouTubePlayer.pause();
                 mYouTubePlayer.seekTo(mStartTime);
@@ -377,7 +379,9 @@ public class FloatingView extends RelativeLayout {
     public void unRegister(){
         try{
             mContext.unregisterReceiver(mScreenOffOnReciver);
-        }catch(IllegalArgumentException e){ }
+        }catch(IllegalArgumentException e){
+            Log.d(TAG, "unRegister ILLegalArgumentException...");
+        }
     }
 
     public class ScreenOffOnReciver extends BroadcastReceiver {
