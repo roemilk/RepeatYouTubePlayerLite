@@ -50,6 +50,9 @@ public class FloatingService extends Service {
 
                 mPlayListData = (PlayListData)intent.getSerializableExtra("data");
                 floatingView.setPlayData(mPlayListData);
+
+                int repeatCount = intent.getIntExtra("repeatcount", 0);
+                floatingView.setRepeatCount(repeatCount);
                 break;
             case FloatingManager.TYPE_INTENT_LIST:
                 Log.d(TAG, "TYPE_INTENT_LIST...");

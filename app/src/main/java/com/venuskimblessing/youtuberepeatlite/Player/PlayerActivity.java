@@ -1144,6 +1144,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
             intent.putExtra("type", FloatingManager.TYPE_INTENT_DATA);
             PlayListData data = createPlayListData();
             intent.putExtra("data", data);
+            intent.putExtra("repeatcount", mRepeatCount);
         }
         startService(intent);
         goHome();

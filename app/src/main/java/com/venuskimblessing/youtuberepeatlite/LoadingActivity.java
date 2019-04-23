@@ -47,7 +47,7 @@ public class LoadingActivity extends AppCompatActivity {
      */
     private void loadFullAd() {
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(CommonApiKey.KEY_ADMOB_FULL_UNIT);
+        mInterstitialAd.setAdUnitId(CommonApiKey.KEY_ADMOB_TEST_UNIT_ID);
         mInterstitialAd.setAdListener(adListener);
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
     }

@@ -58,7 +58,7 @@ public class FloatingView extends RelativeLayout {
 
     //Controller
     private ImageView mExitImageView, mZoomImageView;
-    private TextView mTimeTextView;
+    private TextView mTimeTextView, mCountTextView;
     private OnTouchListener mListener;
 
     //Screen BroadcastReciver
@@ -191,6 +191,10 @@ public class FloatingView extends RelativeLayout {
         this.mPlayListData = playData;
     }
 
+    public void setRepeatCount(int repeatCount){
+        this.mRepeatCount = repeatCount;
+    }
+
     public void setPlayListData(ArrayList<PlayListData> playListDataArrayList, int startIndex) {
         this.mPlayListDataArrayList = playListDataArrayList;
         this.mPlayIndex = startIndex;
@@ -201,6 +205,10 @@ public class FloatingView extends RelativeLayout {
         mEndTime = (Integer.parseInt(data.getEndTime()) / 1000);
 
         mTimeTextView.setText(MediaUtils.getSecToHMS(mStartTime) + " - " + MediaUtils.getSecToHMS(mEndTime));
+    }
+
+    private void updateRepeatCount(){
+        mCountTextView.setText("R" + String.valueOf(mRepeatCount));
     }
 
     private void customMenu() {
@@ -247,6 +255,14 @@ public class FloatingView extends RelativeLayout {
 
         mTimeTextView.setTextColor(Color.WHITE);
         mPlayerUIController.addView(mTimeTextView);
+
+        mCountTextView = new TextView(mContext);
+        LinearLayout.LayoutParams countTextParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        countTextParams.rightMargin = marginRight;
+        countTextParams.gravity = Gravity.CENTER_VERTICAL;
+        mCountTextView.setLayoutParams(countTextParams);
+        mCountTextView.setTextColor(Color.WHITE);
+        mPlayerUIController.addView(mCountTextView);
     }
 
     /**
@@ -318,6 +334,7 @@ public class FloatingView extends RelativeLayout {
 //                }
             }
         }
+        updateRepeatCount();
     }
 
     private void play(){
@@ -340,6 +357,7 @@ public class FloatingView extends RelativeLayout {
      */
     private void startPlay(PlayListData data) {
         initTime(data);
+        updateRepeatCount();
         String videoId = data.getVideoId();
         if (mYouTubePlayer != null) {
             mYouTubePlayer.loadVideo(videoId, mStartTime);
