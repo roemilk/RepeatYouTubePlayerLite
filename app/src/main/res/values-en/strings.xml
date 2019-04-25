@@ -128,4 +128,7 @@ It is your very smart choice.\n\nPRO benefits \n
     <string name="dialog_chat_title">Global Chat Room</string>
     <string name="dialog_chat_join">Join</string>
     <string name="dialog_chat_send">Send</string>
+
+    <!-- NumberPick -->
+    <string name="dialog_numberpick_infinite">Infinite</string>
 </resources>

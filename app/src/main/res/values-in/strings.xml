@@ -147,4 +147,7 @@ Ini adalah pilihan Anda yang sangat cerdas. \n\n Solusi PRO \n
     <string name="dialog_chat_title">Global Chat Room</string>
     <string name="dialog_chat_join">Join</string>
     <string name="dialog_chat_send">Send</string>
+
+    <!-- NumberPick -->
+    <string name="dialog_numberpick_infinite">Infinite</string>
 </resources>

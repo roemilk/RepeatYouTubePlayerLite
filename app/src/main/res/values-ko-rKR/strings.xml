@@ -133,4 +133,7 @@
     <string name="dialog_chat_title">유튜브 정보 공유 채팅방</string>
     <string name="dialog_chat_join">입장</string>
     <string name="dialog_chat_send">전송</string>
+
+    <!-- NumberPick -->
+    <string name="dialog_numberpick_infinite">무한 반복</string>
 </resources>

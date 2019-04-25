@@ -616,7 +616,12 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
             }
             mRepeatCount = value;
 
-            mExpandableCountTextView.setText(String.valueOf(mRepeatCount));
+            if(mRepeatCount <= 0){
+                String infiniteString = getResources().getString(R.string.dialog_numberpick_infinite);
+                mExpandableCountTextView.setText(infiniteString);
+            }else{
+                mExpandableCountTextView.setText(String.valueOf(mRepeatCount));
+            }
             mExpandableCountTextView.setVisibility(View.VISIBLE);
 
             mTopCountTextView.setText(String.valueOf(mRepeatCount));

@@ -18,6 +18,8 @@ import com.venuskimblessing.youtuberepeatlite.Common.CommonSharedPreferencesKey;
 import com.venuskimblessing.youtuberepeatlite.R;
 import com.venuskimblessing.youtuberepeatlite.Utils.SharedPreferencesUtils;
 
+import java.util.ArrayList;
+
 public class DialogPickerCount extends Dialog implements View.OnTouchListener {
     public static final String TAG = "DialogPickerCount";
 
@@ -56,6 +58,7 @@ public class DialogPickerCount extends Dialog implements View.OnTouchListener {
         mGestureDetector = new GestureDetector(getContext(), new GestureListener());
 
         mNumberPicker = (NumberPicker)findViewById(R.id.number_picker);
+        initNumberPicker();
         mNumberPicker.setOnTouchListener(this);
 
 //        mRepeatCountTextView = (TextView)findViewById(R.id.number_picker_count_textView);
@@ -66,6 +69,37 @@ public class DialogPickerCount extends Dialog implements View.OnTouchListener {
 //        }else{
 //            mRepeatCountTextView.setText(resources.getString(R.string.player_numberpick));
 //        }
+    }
+
+    /**
+     *
+     */
+    public void initNumberPicker(){
+        final String[] arrayString = getStringArray(0,100);
+        mNumberPicker.setMinValue(0);
+        mNumberPicker.setMaxValue(arrayString.length-1);
+        mNumberPicker.setValue(0);
+
+        mNumberPicker.setFormatter(new NumberPicker.Formatter() {
+            @Override
+            public String format(int value) {
+                return arrayString[value];
+            }
+        });
+    }
+
+    public String[] getStringArray(int min, int max) {
+        ArrayList<String> stringList = new ArrayList<>();
+        for(int i = min; i < max; i++) {
+            if(i == 0) {
+                String infiniteString = mContext.getResources().getString(R.string.dialog_numberpick_infinite);
+                stringList.add(infiniteString);
+                continue;
+            }
+            stringList.add(String.valueOf(i));
+        }
+        String[] array = stringList.toArray(new String[stringList.size()]);
+        return array;
     }
 
     public void setOnSelectedNumberPickerListener(OnSelectedNumberPickerListener listener){
