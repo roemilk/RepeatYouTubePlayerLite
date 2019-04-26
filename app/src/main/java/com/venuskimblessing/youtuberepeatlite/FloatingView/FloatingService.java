@@ -53,6 +53,9 @@ public class FloatingService extends Service {
 
                 int repeatCount = intent.getIntExtra("repeatcount", 0);
                 floatingView.setRepeatCount(repeatCount);
+
+                boolean repeatInfinite = intent.getBooleanExtra("infinite", false);
+                floatingView.setRepeatInfinite(repeatInfinite);
                 break;
             case FloatingManager.TYPE_INTENT_LIST:
                 Log.d(TAG, "TYPE_INTENT_LIST...");

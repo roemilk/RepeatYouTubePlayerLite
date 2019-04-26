@@ -50,6 +50,7 @@ public class FloatingView extends RelativeLayout {
     private int mStartTime = 0; //시작시간
     private int mEndTime = 0; //끝시간
     private int mRepeatCount = 0; //반복횟수
+    private boolean mRepeatInfinite = false; //무한반복
 
     //PlayData
     private PlayListData mPlayListData;
@@ -195,6 +196,10 @@ public class FloatingView extends RelativeLayout {
         this.mRepeatCount = repeatCount;
     }
 
+    public void setRepeatInfinite(boolean infinite){
+        this.mRepeatInfinite = infinite;
+    }
+
     public void setPlayListData(ArrayList<PlayListData> playListDataArrayList, int startIndex) {
         this.mPlayListDataArrayList = playListDataArrayList;
         this.mPlayIndex = startIndex;
@@ -208,7 +213,12 @@ public class FloatingView extends RelativeLayout {
     }
 
     private void updateRepeatCount(){
-        mCountTextView.setText("R" + String.valueOf(mRepeatCount));
+        if(mRepeatInfinite){
+            String infiniteString = mContext.getResources().getString(R.string.dialog_numberpick_infinite);
+            mCountTextView.setText(infiniteString);
+        }else{
+            mCountTextView.setText("R" + String.valueOf(mRepeatCount));
+        }
     }
 
     private void customMenu() {
@@ -303,6 +313,15 @@ public class FloatingView extends RelativeLayout {
      */
     private void repeatPlayRange(int currentTime) {
         Log.d(TAG, "currentTime : " + currentTime + " endTime : " + mEndTime);
+
+        if(mRepeatInfinite){ //무한 반복
+            if (currentTime >= mEndTime - 1) {
+                mYouTubePlayer.seekTo(mStartTime);
+                mYouTubePlayer.play();
+            }
+            return;
+        }
+
         if (mRepeatCount - 1 > 0) {
             if (currentTime >= mEndTime - 1) { //반복 횟수가 설정된 경우
                 mYouTubePlayer.seekTo(mStartTime);

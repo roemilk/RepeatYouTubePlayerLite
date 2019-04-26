@@ -124,6 +124,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     private int mEndTime = 0; //끝시간
     private int mRepeatCount = 0; //반복횟수
     private boolean mLock = false;
+    private boolean mRepeatInfinite = false; //무한반복
 
     //Firebase
     private FirebaseAnalytics mFirebaseAnalytics;
@@ -615,15 +616,17 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 return;
             }
             mRepeatCount = value;
-
-            if(mRepeatCount <= 0){
+            if(value <= 0){
+                mRepeatCount = 0;
+                mRepeatInfinite = true;
                 String infiniteString = getResources().getString(R.string.dialog_numberpick_infinite);
                 mExpandableCountTextView.setText(infiniteString);
             }else{
+                mRepeatCount = value;
+                mRepeatInfinite = false;
                 mExpandableCountTextView.setText(String.valueOf(mRepeatCount));
             }
             mExpandableCountTextView.setVisibility(View.VISIBLE);
-
             mTopCountTextView.setText(String.valueOf(mRepeatCount));
         }
     };
@@ -697,6 +700,14 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
      */
     private void repeatPlayRange(long currentTime) {
         Log.d(TAG, "currentTime : " + currentTime + " endTime : " + mEndTime);
+
+        if(mRepeatInfinite){ //무한 반복
+            if (currentTime >= mEndTime - 500) {
+                mYouTubePlayer.seekToMillis(mStartTime);
+                mYouTubePlayer.play();
+            }
+            return;
+        }
 
         if (mRepeatCount - 1 > 0) {
             if (currentTime >= mEndTime - 500) { //반복 횟수가 설정된 경우
@@ -1150,6 +1161,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
             PlayListData data = createPlayListData();
             intent.putExtra("data", data);
             intent.putExtra("repeatcount", mRepeatCount);
+            intent.putExtra("infinite", mRepeatInfinite);
         }
         startService(intent);
         goHome();
