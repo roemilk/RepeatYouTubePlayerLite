@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.venuskimblessing.youtuberepeatlite">
+    package="com.venuskimblessing.youtuberepeatfree">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -18,7 +18,7 @@
         tools:replace="android:icon">
 
         <activity
-            android:name=".IntroActivity"
+            android:name="com.venuskimblessing.youtuberepeatfree.IntroActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,16 +28,16 @@
         </activity>
 
         <activity
-            android:name=".GuideActivity"
+            android:name="com.venuskimblessing.youtuberepeatfree.GuideActivity"
             android:screenOrientation="portrait"></activity>
 
         <activity
-            android:name=".Player.PlayerActivity"
+            android:name="com.venuskimblessing.youtuberepeatfree.Player.PlayerActivity"
             android:screenOrientation="portrait"
             android:configChanges="screenSize|orientation">
         </activity>
         <activity
-            android:name=".SearchActivity"
+            android:name="com.venuskimblessing.youtuberepeatfree.SearchActivity"
             android:screenOrientation="portrait"
             android:configChanges="screenSize|orientation"
             android:launchMode="singleTask"
@@ -51,10 +51,10 @@
         </activity>
 
         <activity
-            android:name=".LoadingActivity"
+            android:name="com.venuskimblessing.youtuberepeatfree.LoadingActivity"
             android:screenOrientation="portrait"></activity>
 
-        <service android:name=".FloatingView.FloatingService"
+        <service android:name="com.venuskimblessing.youtuberepeatfree.FloatingView.FloatingService"
             android:exported="true"
             android:enabled="true"
             android:permission="android.permission.SYSTEM_ALERT_WINDOW"></service>

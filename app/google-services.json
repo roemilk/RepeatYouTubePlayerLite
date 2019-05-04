@@ -1,68 +1,45 @@
 {
   "project_info": {
-    "project_number": "515582152483",
-    "firebase_url": "https://repeatplayerlite-8511b.firebaseio.com",
-    "project_id": "repeatplayerlite-8511b",
-    "storage_bucket": "repeatplayerlite-8511b.appspot.com"
+    "project_number": "518294995451",
+    "firebase_url": "https://repeatplayerfree.firebaseio.com",
+    "project_id": "repeatplayerfree",
+    "storage_bucket": "repeatplayerfree.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:515582152483:android:5e9e53a072302ee3",
+        "mobilesdk_app_id": "1:518294995451:android:196fed438414fac6",
         "android_client_info": {
-          "package_name": "com.venuskimblessing.youtuberepeatlite"
+          "package_name": "com.venuskimblessing.youtuberepeatfree"
         }
       },
       "oauth_client": [
         {
-          "client_id": "515582152483-oub8pv4b108bu7vsse7fvtejn2c8rcqc.apps.googleusercontent.com",
+          "client_id": "518294995451-pfteame6brt91t3574f38cktdodehdee.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.venuskimblessing.youtuberepeatlite",
-            "certificate_hash": "5bf7876723037fac550cfa5aa985f1962cba34f4"
+            "package_name": "com.venuskimblessing.youtuberepeatfree",
+            "certificate_hash": "7eb7cc4da9c5b3404845d2de0a94c8ba676d6d1a"
           }
         },
         {
-          "client_id": "515582152483-d0kvp4dvu72dhdklu57nejugaasbcqgt.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.venuskimblessing.youtuberepeatlite",
-            "certificate_hash": "6f0e0bff0602d72536486a26b6eafd4821ed110c"
-          }
-        },
-        {
-          "client_id": "515582152483-r9cqkr9admea00trr02ugmtque54kci4.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.venuskimblessing.youtuberepeatlite",
-            "certificate_hash": "b47d810565d25525db90cf4bf3be2826bb740910"
-          }
-        },
-        {
-          "client_id": "515582152483-5blkadvm5p24p5pg9ur59unsln3lqnm1.apps.googleusercontent.com",
+          "client_id": "518294995451-e9dv6nbjkgjb0alr5ag4htn65opgct5j.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCYtU8b59DLy22PwrLU427c24akHp7iu6c"
+          "current_key": "AIzaSyBmqwJ95H4G1ia1EnPFkwAUIOlvSXJCy_g"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "515582152483-5blkadvm5p24p5pg9ur59unsln3lqnm1.apps.googleusercontent.com",
+              "client_id": "518294995451-e9dv6nbjkgjb0alr5ag4htn65opgct5j.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     }

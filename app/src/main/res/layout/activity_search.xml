@@ -40,7 +40,7 @@
             android:layout_marginRight="15dp"
             android:layout_toLeftOf="@+id/search_recomment_button"
             android:background="@drawable/ic_chat_white_24dp"
-            android:visibility="visible" />s
+            android:visibility="invisible" />s
 
         <Button
             android:id="@+id/search_recomment_button"
