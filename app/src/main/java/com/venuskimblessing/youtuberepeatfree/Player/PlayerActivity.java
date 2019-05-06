@@ -160,7 +160,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
 //        checkPiracyChecker();
-        initInviteItem();
+//        initInviteItem();
         getExtraData();
         initPlayList();
         initRetrofit();
@@ -510,10 +510,10 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 finish();
                 break;
             case R.id.player_screen_orientation_button:
-                if (!mInvitationState) {
-                    showProDialog();
-                    return;
-                }
+//                if (!mInvitationState) {
+//                    showProDialog();
+//                    return;
+//                }
 
                 if (getScreenOrientation() == Configuration.ORIENTATION_PORTRAIT) {
                     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);

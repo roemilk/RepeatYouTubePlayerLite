@@ -6,7 +6,7 @@ public class CommonUserData {
     public static final int COUNT_DEFAULT = 99;
     public static final int COUNT_MAX = 99;
     public static final int REWORD_ADD_COUNT = 10; //보상 카운드 증가수
-    public static int sMaxRepeatCount = COUNT_DEFAULT; //무료사용자의 경우 기본이 6
+    public static int sMaxRepeatCount = COUNT_DEFAULT;
 
     //보상광고 카운트
     public static final int REWARD_SCREENLOCK_COUNT = 2;
@@ -14,8 +14,8 @@ public class CommonUserData {
 
     //광고 카운트
     public static int sAdCount = 0;
-    public static final int AD_DEALY_COUNT = 2; //3번에 한번씩 노출
+    public static final int AD_DEALY_COUNT = 2; //2번에 한번씩 노출
 
     //친구초대 카운트
-    public static final int INVITE_COUNT_COMPLETE = 10; //친구초대 완료 횟수
+    public static final int INVITE_COUNT_COMPLETE = 10; //친구초대 완료 횟수 (사용하지 않음)
 }

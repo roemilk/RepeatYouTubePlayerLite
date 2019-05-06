@@ -41,7 +41,7 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
-        getDynamicLink();
+//        getDynamicLink();
 //        OSUtils.printKeyHash(this);
 //        getShareIntentData();
 
@@ -200,6 +200,5 @@ public class IntroActivity extends AppCompatActivity {
     private void setConfig() {
         String chatEnable = mFirebaseRemoteConfig.getString("chat_enable");
         CommonConfig.sChatEnable = Boolean.valueOf(chatEnable);
-        Log.d(TAG, "ChatEnable : " + CommonConfig.sChatEnable);
     }
 }

@@ -56,11 +56,11 @@
             android:id="@+id/search_sort_button"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_alignWithParentIfMissing="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
             android:layout_toLeftOf="@+id/search_coffee_button"
             android:background="@drawable/ic_sort_white_24dp"
-            android:layout_alignWithParentIfMissing="true"
             android:visibility="visible" />
 
         <Button
@@ -77,11 +77,11 @@
             android:id="@+id/search_invite_button"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@+id/search_recomment_button"
             android:background="@drawable/ic_invite_white_24dp"
-            android:visibility="gone" />
+            android:visibility="visible" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -101,9 +101,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:visibility="gone"
             android:text="검색 결과가 없습니다."
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:visibility="gone" />
 
         <!--<LinearLayout-->
         <!--android:id="@+id/player_banner_lay"-->

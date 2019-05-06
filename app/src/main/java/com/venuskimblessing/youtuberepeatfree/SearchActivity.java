@@ -149,7 +149,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         getShareIntentData(getIntent());
-        MobileAds.initialize(this, CommonApiKey.KEY_ADMOB_TEST_APP_ID);
+        MobileAds.initialize(this, CommonApiKey.KEY_ADMOB_APP_ID);
 
         mEmptyTextView = (TextView) findViewById(R.id.search_empty_textView);
 
@@ -470,7 +470,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     }
 
     /**
-     * 초대를 보냅니다.
+     * 초대를 보냅니다. Deprecated...
      */
     private void onInviteClicked() {
         Intent intent = new AppInviteInvitation.IntentBuilder(getString(R.string.invitation_title))
@@ -481,6 +481,17 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 
         startActivityForResult(intent, REQUEST_INVITE);
     }
+
+    private void inviteFriends(){
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.invitation_message) + "\n\n" + "https://youtuberepeatfree.page.link/main");
+//        sendIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.invitation_title));
+        sendIntent.setType("text/plain");
+        startActivity(Intent.createChooser(sendIntent,
+                "Introduce this app to your friends"));
+    }
+
 
     /**
      * 구글 애널리틱스에 로그를 남깁니다.
@@ -635,13 +646,15 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.search_invite_button:
-                setEventLog(EVENT_INVITATION);
-                DialogInvitation dialogInvitation = new DialogInvitation(this, R.style.custom_dialog_fullScreen);
-                dialogInvitation.setOnClickListener(this);
-                dialogInvitation.show();
+//                setEventLog(EVENT_INVITATION);
+//                DialogInvitation dialogInvitation = new DialogInvitation(this, R.style.custom_dialog_fullScreen);
+//                dialogInvitation.setOnClickListener(this);
+//                dialogInvitation.show();
+                inviteFriends();
                 break;
             case R.id.dialog_invitation_button:
-                onInviteClicked();
+//                onInviteClicked();
+//                inviteFriends();
                 break;
 
             case R.id.search_sort_button:
@@ -778,7 +791,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         Log.d(TAG, "전면 광고 로드..");
 
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(CommonApiKey.KEY_ADMOB_TEST_UNIT_ID);
+        mInterstitialAd.setAdUnitId(CommonApiKey.KEY_ADMOB_FULL_UNIT);
         mInterstitialAd.setAdListener(adListener);
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
     }
