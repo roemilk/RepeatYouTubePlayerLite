@@ -111,9 +111,9 @@ public class FloatingView extends RelativeLayout {
                         mYouTubePlayer.addListener(youTubePlayerListener);
                         customMenu();
 
-                        if(mAutoPlay){
+                        if (mAutoPlay) {
                             startPlayList(mPlayIndex);
-                        }else{
+                        } else {
                             startPlay(mPlayListData);
                         }
                     }
@@ -131,15 +131,15 @@ public class FloatingView extends RelativeLayout {
 
         @Override
         public void onStateChange(@NonNull PlayerConstants.PlayerState state) {
-            if(state == PlayerConstants.PlayerState.PLAYING){
+            if (state == PlayerConstants.PlayerState.PLAYING) {
                 Log.d(TAG, "PLAYING");
                 if (mStartTime == mEndTime) {
                     mYouTubePlayer.pause();
                     return;
                 }
-            }else if(state == PlayerConstants.PlayerState.PAUSED){
+            } else if (state == PlayerConstants.PlayerState.PAUSED) {
                 Log.d(TAG, "PAUSED");
-            }else if(state == PlayerConstants.PlayerState.ENDED){
+            } else if (state == PlayerConstants.PlayerState.ENDED) {
                 Log.d(TAG, "ENDED");
                 play();
             }
@@ -192,11 +192,11 @@ public class FloatingView extends RelativeLayout {
         this.mPlayListData = playData;
     }
 
-    public void setRepeatCount(int repeatCount){
+    public void setRepeatCount(int repeatCount) {
         this.mRepeatCount = repeatCount;
     }
 
-    public void setRepeatInfinite(boolean infinite){
+    public void setRepeatInfinite(boolean infinite) {
         this.mRepeatInfinite = infinite;
     }
 
@@ -212,11 +212,11 @@ public class FloatingView extends RelativeLayout {
         mTimeTextView.setText(MediaUtils.getSecToHMS(mStartTime) + " - " + MediaUtils.getSecToHMS(mEndTime));
     }
 
-    private void updateRepeatCount(){
-        if(mRepeatInfinite){
+    private void updateRepeatCount() {
+        if (mRepeatInfinite) {
             String infiniteString = mContext.getResources().getString(R.string.dialog_numberpick_infinite);
             mCountTextView.setText(infiniteString);
-        }else{
+        } else {
             mCountTextView.setText("R" + String.valueOf(mRepeatCount));
         }
     }
@@ -314,7 +314,7 @@ public class FloatingView extends RelativeLayout {
     private void repeatPlayRange(int currentTime) {
         Log.d(TAG, "currentTime : " + currentTime + " endTime : " + mEndTime);
 
-        if(mRepeatInfinite){ //무한 반복
+        if (mRepeatInfinite) { //무한 반복
             if (currentTime >= mEndTime - 1) {
                 mYouTubePlayer.seekTo(mStartTime);
                 mYouTubePlayer.play();
@@ -340,27 +340,16 @@ public class FloatingView extends RelativeLayout {
                 mYouTubePlayer.seekTo(mStartTime);
 
                 play();
-//                if (mAutoPlay) {
-//                    if(checkPlayPossiblePlayIndex()){
-//                        startPlayList(mPlayIndex);
-//                    }else{
-//                        mPlayIndex = 0;
-//                        startPlayList(mPlayIndex);
-//                    }
-//                } else {
-//                    Log.d(TAG, "자동 플레이가 지정되어 있지 않습니다.");
-//                    return;
-//                }
             }
         }
         updateRepeatCount();
     }
 
-    private void play(){
+    private void play() {
         if (mAutoPlay) {
-            if(checkPlayPossiblePlayIndex()){
+            if (checkPlayPossiblePlayIndex()) {
                 startPlayList(mPlayIndex);
-            }else{
+            } else {
                 mPlayIndex = 0;
                 startPlayList(mPlayIndex);
             }
@@ -372,7 +361,6 @@ public class FloatingView extends RelativeLayout {
 
     /**
      * 단일 영상 재생
-     *
      */
     private void startPlay(PlayListData data) {
         initTime(data);
@@ -386,11 +374,11 @@ public class FloatingView extends RelativeLayout {
     /**
      * 플레이리스트 영상 재생
      */
-    private void startPlayList(int playIndex){
+    private void startPlayList(int playIndex) {
         PlayListData data = mPlayListDataArrayList.get(playIndex);
         initTime(data);
         String videoId = data.getVideoId();
-        if(mYouTubePlayer != null){
+        if (mYouTubePlayer != null) {
             mYouTubePlayer.loadVideo(videoId, mStartTime);
             mPlayIndex++;
         }
@@ -398,25 +386,26 @@ public class FloatingView extends RelativeLayout {
 
     /**
      * 재생 가능한 인덱스인지 검사
+     *
      * @return
      */
-    private boolean checkPlayPossiblePlayIndex(){
-        if(mPlayIndex < mPlayListDataArrayList.size()){
+    private boolean checkPlayPossiblePlayIndex() {
+        if (mPlayIndex < mPlayListDataArrayList.size()) {
             return true; //재생 가능 Index 범위
-        }else{
+        } else {
             return false; //재생 불가능 Index 범위
         }
     }
 
     //BroadcastReciver
-    public void register(){
+    public void register() {
         mContext.registerReceiver(mScreenOffOnReciver, mFilterScreenOff);
     }
 
-    public void unRegister(){
-        try{
+    public void unRegister() {
+        try {
             mContext.unregisterReceiver(mScreenOffOnReciver);
-        }catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             Log.d(TAG, "unRegister ILLegalArgumentException...");
         }
     }
@@ -426,10 +415,10 @@ public class FloatingView extends RelativeLayout {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if(intent.getAction().equals(Intent.ACTION_SCREEN_OFF)){
+            if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
                 Log.d(TAG, "Screen Off..");
 
-                if(mYouTubePlayer != null){
+                if (mYouTubePlayer != null) {
                     mYouTubePlayer.pause();
                 }
             }

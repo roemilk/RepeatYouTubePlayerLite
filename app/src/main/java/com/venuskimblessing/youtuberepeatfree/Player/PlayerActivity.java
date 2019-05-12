@@ -568,13 +568,22 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 break;
 
             case R.id.player_setting_playlist_button:
-                if (!mInvitationState) {
-                    showProDialog();
-                    return;
-                }
+//                if (!mInvitationState) {
+//                    showProDialog();
+//                    return;
+//                }
 
                 if (mSnippet != null) {
                     mPlayListArray = mPlayListDataManager.loadPlayList();
+
+                    if(mPlayListArray != null){
+                        if(mPlayListArray.size() >= CommonUserData.PLAYLIST_LIMIT_COUNT){
+                            //제한 5회 다이얼로그 출력 프로버전 유도
+                            showProDialog();
+                            return;
+                        }
+                    }
+
                     PlayListData data = createPlayListData();
                     mPlayListArray.add(0, data);
 //                    mPlayListDataManager.insert(img_url, title, String.valueOf(duration), mPlayId, String.valueOf(mStartTime), String.valueOf(mEndTime), String.valueOf(mRepeatCount));
@@ -610,10 +619,10 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     private DialogPickerCount.OnSelectedNumberPickerListener onSelectedNumberPickerListener = new DialogPickerCount.OnSelectedNumberPickerListener() {
         @Override
         public void onSelectedValue(int value) {
-            if (CommonUserData.sMaxRepeatCount < value) {
-                showProDialog();
-                return;
-            }
+//            if (CommonUserData.sMaxRepeatCount < value) {
+//                showProDialog();
+//                return;
+//            }
             mRepeatCount = value;
             if(value <= 0){
                 mRepeatCount = 0;

@@ -11,6 +11,8 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -27,6 +29,7 @@ import com.venuskimblessing.youtuberepeatfree.Common.CommonSharedPreferencesKey;
 import com.venuskimblessing.youtuberepeatfree.Interface.PlayListItemTouchHelperCallback;
 import com.venuskimblessing.youtuberepeatfree.PlayList.PlayListData;
 import com.venuskimblessing.youtuberepeatfree.PlayList.PlayListDataManager;
+import com.venuskimblessing.youtuberepeatfree.Player.PlayerActivity;
 import com.venuskimblessing.youtuberepeatfree.R;
 import com.venuskimblessing.youtuberepeatfree.Utils.SharedPreferencesUtils;
 
@@ -119,6 +122,13 @@ public class DialogPlayList extends Dialog implements View.OnClickListener, Play
 
         loadPlayListData();
         setAdapter();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
+        MenuInflater menuInflater = ((PlayerActivity)mContext).getMenuInflater();
+        menuInflater.inflate(R.menu.playlist_menu, menu);
+        return true;
     }
 
     public void setOnClickListener(OnClickDialogPlayListListener listener){
@@ -246,7 +256,7 @@ public class DialogPlayList extends Dialog implements View.OnClickListener, Play
                     break;
                 case R.id.view_playlist_more_lay:
                     Toast.makeText(mContext, "플레이리스트 More 뷰 클릭 이벤트", Toast.LENGTH_SHORT).show();
-
+                    
                     break;
             }
         }

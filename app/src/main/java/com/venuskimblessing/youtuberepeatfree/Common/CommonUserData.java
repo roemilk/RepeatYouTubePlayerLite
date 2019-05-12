@@ -8,6 +8,9 @@ public class CommonUserData {
     public static final int REWORD_ADD_COUNT = 10; //보상 카운드 증가수
     public static int sMaxRepeatCount = COUNT_DEFAULT;
 
+    //플레이리스트
+    public static final int PLAYLIST_LIMIT_COUNT = 5; //무료 사용자 플레이리스트 추가 최대개수
+
     //보상광고 카운트
     public static final int REWARD_SCREENLOCK_COUNT = 2;
     public static int sRewardCount = 0;
