@@ -7,8 +7,8 @@ android {
         applicationId "com.venuskimblessing.youtuberepeatfree"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 2
-        versionName "1.0.1"
+        versionCode 3
+        versionName "1.0.2"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -16,7 +16,7 @@ android {
     //Signing configurations for build variants "release"
     signingConfigs {
         release {
-            storeFile file("E:/keystore/venuskimblessing.jks")
+            storeFile file("D:/keystore/venuskimblessing.jks")
             storePassword "kknd2457!"
             keyAlias "venuskim"
             keyPassword "kknd2457!"

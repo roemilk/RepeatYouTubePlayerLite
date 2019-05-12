@@ -541,6 +541,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                         mCurrentPlayListData = data;
                         mPlayId = data.getVideoId();
                         mPlayType = getPlayType();
+                        mPlayIndex = getPlayIndex(mPlayId);
                         mStartTime = Integer.parseInt(data.getStartTime());
                         mEndTime = Integer.parseInt(data.getEndTime());
                         loadVideos(mPlayId);
@@ -975,7 +976,6 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
             startAutoPlay(mPlayId);
             refreshPlayListController();
         } else if (mPlayType == TYPE_PLAYLIST) {
-            Log.d(TAG, "PlayIndex : " + mPlayIndex);
             mCurrentPlayListData = mPlayListArray.get(mPlayIndex + 1);
             mPlayId = mCurrentPlayListData.getVideoId();
             mStartTime = Integer.parseInt(mCurrentPlayListData.getStartTime());
@@ -1153,8 +1153,8 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         mFirebaseAnalytics.logEvent("FloatingPopupWindow", null);
 
         mPlayListArray = mPlayListDataManager.loadPlayList();
-        PlayListData currentData = createPlayListData();
-        mPlayListArray.add(0, currentData);
+//        PlayListData currentData = createPlayListData();
+//        mPlayListArray.add(0, currentData);
 
         Intent intent = new Intent(this, FloatingService.class);
         boolean autoPlay = SharedPreferencesUtils.getBoolean(PlayerActivity.this, CommonSharedPreferencesKey.KEY_AUTOPLAY);

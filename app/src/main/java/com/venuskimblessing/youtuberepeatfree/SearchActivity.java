@@ -814,7 +814,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
             mInterstitialAd.show();
             CommonUserData.sAdCount = 0;
         } else {
-            Log.d(TAG, "광고 로드 실패 재호출");
+            Log.d(TAG, "showFullAd 광고 로드 실패 재호출");
             startPlayerActivity(mVideoId);
         }
     }

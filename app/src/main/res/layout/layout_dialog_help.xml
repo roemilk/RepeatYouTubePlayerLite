@@ -57,6 +57,7 @@
             android:id="@+id/help_devlog_button"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:visibility="gone"
             android:background="#FFFFFF"
             android:gravity="center"
             android:text="@string/dialog_help_devlog"
@@ -65,6 +66,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:visibility="gone"
             android:background="#BDBDBD"></View>
 
         <Button

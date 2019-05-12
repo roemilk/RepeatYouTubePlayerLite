@@ -33,6 +33,8 @@ import com.venuskimblessing.youtuberepeatfree.Utils.SharedPreferencesUtils;
 import com.venuskimblessing.youtuberepeatfree.Utils.UIConvertUtils;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.ListIterator;
 
 public class FloatingView extends RelativeLayout {
     private final String TAG = "FloatingView";
@@ -56,6 +58,9 @@ public class FloatingView extends RelativeLayout {
     private PlayListData mPlayListData;
     private ArrayList<PlayListData> mPlayListDataArrayList;
     private int mPlayIndex = 0;
+
+    //PlayList Iterator
+    private ListIterator<PlayListData> mPlayListIterator = null;
 
     //Controller
     private ImageView mExitImageView, mZoomImageView;
@@ -203,6 +208,12 @@ public class FloatingView extends RelativeLayout {
     public void setPlayListData(ArrayList<PlayListData> playListDataArrayList, int startIndex) {
         this.mPlayListDataArrayList = playListDataArrayList;
         this.mPlayIndex = startIndex;
+    }
+
+    private void printAllPlayListData(){
+        for(PlayListData data : mPlayListDataArrayList){
+            Log.d(TAG, "data title : " + data.getTitle());
+        }
     }
 
     private void initTime(PlayListData data) {
