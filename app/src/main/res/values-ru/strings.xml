@@ -142,10 +142,10 @@
     <string name="default_word">best movie scene hd</string>
 
     <!-- Coffee -->
-    <string name="dialog_coffee_description">Пожалуйста, дайте разработчику теплую чашку кофе.\nПолучите версию Pro за чашечку кофе.</string>
+    <string name="dialog_coffee_description">Upgrade to a powerful Pro version at a lower price than a cup of coffee.</string>
     <string name="dialog_coffee_infoTitle">Pro Version Upgrade</string>
-    <string name="dialog_coffee_info">- Нет рекламы.\n- В будущем будут добавлены выделенные функции версии PRO.\n- Все, кто обновляется, всегда получат Божье благословение.\n\nСпасибо.\nЯ сделаю много хороших функций.</string>
-    <string name="dialog_coffee_button">Профессиональное обновление до чашки кофе</string>
+    <string name="dialog_coffee_info">- No ads at all.\n- Dedicated features of Pro version will be added in the future.\n- Everyone who upgrades will always receive God blessing.\n\nThank you.\nI will make a lot of good features.</string>
+    <string name="dialog_coffee_button">View Pro Version Details</string>
 
     <!-- Chat -->
     <string name="dialog_chat_nick">Please enter your nickname.</string>
@@ -155,4 +155,14 @@
 
     <!-- NumberPick -->
     <string name="dialog_numberpick_infinite">Infinite</string>
+
+    <!-- 초대 -->
+    <string name="share_title">Introduce this fantastic app to your friends. thank you.♡</string>
+
+    <!-- RateThisApp -->
+    <string name="rate_title">타이틀</string>
+    <string name="rate_message">타이틀</string>
+    <string name="rate_yes_button">타이틀</string>
+    <string name="rate_no_button">타이틀</string>
+    <string name="rate_cancel_button">타이틀</string>
 </resources>

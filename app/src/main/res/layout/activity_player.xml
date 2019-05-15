@@ -10,8 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:background="#000000"
-        android:paddingBottom="6dp"
-        android:paddingTop="6dp">
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp">
 
         <Button
             android:id="@+id/player_back_button"
@@ -59,18 +59,19 @@
             android:layout_height="28dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/player_screen_orientation_button"
+            android:layout_toLeftOf="@+id/player_fullscreen_button"
             android:background="@drawable/ic_lock_open_white_24dp" />
 
         <Button
-            android:id="@+id/player_screen_orientation_button"
+            android:id="@+id/player_fullscreen_button"
             android:layout_width="28dp"
             android:layout_height="28dp"
+            android:visibility="visible"
             android:layout_alignWithParentIfMissing="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/player_search_button"
-            android:background="@drawable/ic_screen_rotation_white_24dp" />
+            android:background="@drawable/ic_fullscreen_white_24dp" />
 
         <Button
             android:id="@+id/player_search_button"
@@ -91,12 +92,20 @@
             android:background="@drawable/ic_help_outline_white_24dp" />
     </RelativeLayout>
 
-    <com.google.android.youtube.player.YouTubePlayerView
-        android:id="@+id/player_youtube_view"
+    <LinearLayout
+        android:id="@+id/player_youtube_view_lay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clickable="true"
         android:layout_above="@+id/player_setting_lay"
-        android:layout_below="@+id/player_topSetting_lay"></com.google.android.youtube.player.YouTubePlayerView>
+        android:layout_below="@+id/player_topSetting_lay">
+
+        <com.google.android.youtube.player.YouTubePlayerView
+            android:id="@+id/player_youtube_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></com.google.android.youtube.player.YouTubePlayerView>
+    </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/player_setting_lay"
@@ -225,8 +234,8 @@
                 android:id="@+id/expandable_content_lay_0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
                 android:orientation="vertical">
 
                 <RelativeLayout

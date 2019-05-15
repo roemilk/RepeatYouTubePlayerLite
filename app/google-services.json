@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "518294995451-dlhduj70jtcvu5ig7lts3mqmdjlt6kdn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.venuskimblessing.youtuberepeatfree",
+            "certificate_hash": "0e885623cdd63bca954805b45df71c12d05b2c81"
+          }
+        },
+        {
+          "client_id": "518294995451-ja8o3rid0c4g6lbm1cu6h8g135ceo55j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.venuskimblessing.youtuberepeatfree",
+            "certificate_hash": "f803d2f68a27ad04e95bb2e8b420786df3545b78"
+          }
+        },
+        {
           "client_id": "518294995451-pfteame6brt91t3574f38cktdodehdee.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -41,7 +57,8 @@
             }
           ]
         }
-      }
+      },
+      "admob_app_id": "ca-app-pub-8974353837020608~7336436218"
     }
   ],
   "configuration_version": "1"

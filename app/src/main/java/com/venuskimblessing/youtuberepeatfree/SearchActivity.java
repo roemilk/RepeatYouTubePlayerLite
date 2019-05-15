@@ -40,6 +40,7 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
+import com.kobakei.ratethisapp.RateThisApp;
 import com.venuskimblessing.youtuberepeatfree.Adapter.SearchDecoration;
 import com.venuskimblessing.youtuberepeatfree.Adapter.SearchRecyclerViewAdapter;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonApiKey;
@@ -148,6 +149,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        initRateThisApp();
         getShareIntentData(getIntent());
         MobileAds.initialize(this, CommonApiKey.KEY_ADMOB_APP_ID);
 
@@ -218,6 +220,14 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         super.onResume();
         Log.d(TAG, "onResume..");
         loadFullAd();
+    }
+
+    /**
+     * 리뷰 요청 팝업
+     */
+    private void initRateThisApp(){
+        RateThisApp.onCreate(this);
+        RateThisApp.showRateDialogIfNeeded(this);
     }
 
     private void initRetrofit() {
@@ -489,7 +499,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 //        sendIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.invitation_title));
         sendIntent.setType("text/plain");
         startActivity(Intent.createChooser(sendIntent,
-                "Introduce this app to your friends"));
+                getString(R.string.share_title)));
     }
 
 
@@ -615,23 +625,27 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 }
             } else if(call == mCallVideosContentsDetail){
                 Videos videos = (Videos) mGson.fromJson(result, Videos.class);
-                Videos.PageInfo pageInfo = videos.pageInfo;
-                String totalResults = pageInfo.totalResults;
-                if (totalResults.equals("0")) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(SearchActivity.this, getResources().getString(R.string.error_videos_emptyInfo), Toast.LENGTH_LONG).show();
+                if(videos != null){
+                    Videos.PageInfo pageInfo = videos.pageInfo;
+                    String totalResults = pageInfo.totalResults;
+                    if (totalResults.equals("0")) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(SearchActivity.this, getResources().getString(R.string.error_videos_emptyInfo), Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }else{
+                        mergeVideosList(videos);
+                        if (mSearchRecyclerViewAdapter != null) {
+                            refreshAdapter();
+                        } else {
+                            setAdapter();
                         }
-                    });
-                }else{
-                    mergeVideosList(videos);
-                    if (mSearchRecyclerViewAdapter != null) {
-                        refreshAdapter();
-                    } else {
-                        setAdapter();
+                        mLoading = false;
                     }
-                    mLoading = false;
+                }else{ // 네트워크 오류
+                    Toast.makeText(SearchActivity.this, getString(R.string.error_videos_emptyInfo), Toast.LENGTH_SHORT).show();
                 }
             }
         }

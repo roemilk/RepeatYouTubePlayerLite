@@ -123,10 +123,10 @@
     <string name="default_word">best scene movie</string>
 
     <!-- Coffee -->
-    <string name="dialog_coffee_description">개발자에게 따뜻한 커피 한잔을 사주세요.\n커피 한잔 가격으로 Pro 업그레이드를 하세요.</string>
+    <string name="dialog_coffee_description">커피 한잔 가격보다 저렴한 가격으로 강력한 Pro 버전 업그레이드를 하세요.</string>
     <string name="dialog_coffee_infoTitle">Pro 버전 업그레이드</string>
-    <string name="dialog_coffee_info">- 광고가 전혀 없습니다.\n- 앞으로 PRO 버전의 전용 기능이 추가됩니다.\n- 구매하시는 모든 분들께 축복이 가득 하실 것입니다.!\n\n감사합니다.\n좋은 기능 많이 만들겠습니다.</string>
-    <string name="dialog_coffee_button">커피 한잔 가격으로 Pro 업그레이드 하기</string>
+    <string name="dialog_coffee_info">- 모든 광고가 전혀 없습니다.\n- 차후 PRO 버전의 전용 기능이 추가됩니다.\n- 구매하시는 모든 분들께 축복이 가득 하실 것입니다.!\n\n감사합니다.</string>
+    <string name="dialog_coffee_button">Pro 버전 구경하러 가기</string>
 
     <!-- Chat -->
     <string name="dialog_chat_nick">대화명을 입력해주세요.</string>
@@ -136,4 +136,14 @@
 
     <!-- NumberPick -->
     <string name="dialog_numberpick_infinite">무한 반복</string>
+
+    <!-- 초대 -->
+    <string name="share_title">이 환상적인 앱을 친구에게 소개해주세요.\n이 앱을 친구에게 소개해주시는 모든 분들에게 행운이 가득하실 것입니다.\n사랑합니다♡</string>
+
+    <!-- RateThisApp -->
+    <string name="rate_title">타이틀</string>
+    <string name="rate_message">메시지</string>
+    <string name="rate_yes_button">예</string>
+    <string name="rate_no_button">아니오</string>
+    <string name="rate_cancel_button">취소</string>
 </resources>

@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -17,6 +18,8 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.appinvite.FirebaseAppInvite;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.hanks.htextview.fade.FadeTextView;
@@ -45,6 +48,7 @@ public class IntroActivity extends AppCompatActivity {
 //        OSUtils.printKeyHash(this);
 //        getShareIntentData();
 
+        getFCMToken();
         mLineTextView = (FadeTextView) findViewById(R.id.intro_textView);
         mLineTextView.animateText(getResources().getString(R.string.app_name));
 
@@ -98,7 +102,7 @@ public class IntroActivity extends AppCompatActivity {
     /**
      * Invite DynamicLink를 수신합니다.
      */
-    private void getDynamicLink(){
+    private void getDynamicLink() {
         //Invite 수신 기록
         FirebaseDynamicLinks.getInstance().getDynamicLink(getIntent())
                 .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
@@ -136,17 +140,18 @@ public class IntroActivity extends AppCompatActivity {
 
     /**
      * 구글 애널리틱스에 로그를 남깁니다.
+     *
      * @param eventName
      */
-    private void setEventLog(String eventName){
-        try{
+    private void setEventLog(String eventName) {
+        try {
             mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-            if(mFirebaseAnalytics != null){
+            if (mFirebaseAnalytics != null) {
                 mFirebaseAnalytics.logEvent(eventName, null);
-            }else{
+            } else {
                 Log.d(TAG, "FirebaseAnalytics is Null..");
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             Log.d(TAG, "Exception : " + e.toString());
         }
     }
@@ -154,7 +159,7 @@ public class IntroActivity extends AppCompatActivity {
     /**
      * initRemoteConfig
      */
-    private void initRemoteConfig(){
+    private void initRemoteConfig() {
         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
         FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
 //                .setDeveloperModeEnabled(BuildConfig.DEBUG)
@@ -164,7 +169,7 @@ public class IntroActivity extends AppCompatActivity {
         fetch();
     }
 
-    private void fetch(){
+    private void fetch() {
         long cacheExpiration = 3600; // 1 hour in seconds.
         // If your app is using developer mode, cacheExpiration is set to 0, so each fetch will
         // retrieve values from the service.
@@ -200,5 +205,22 @@ public class IntroActivity extends AppCompatActivity {
     private void setConfig() {
         String chatEnable = mFirebaseRemoteConfig.getString("chat_enable");
         CommonConfig.sChatEnable = Boolean.valueOf(chatEnable);
+    }
+
+    private void getFCMToken() {
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+                        Log.d(TAG, "token : " + token);
+                    }
+                });
     }
 }

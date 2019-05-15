@@ -142,10 +142,10 @@
     <string name="default_word">best movie scene hd</string>
 
     <!-- Coffee -->
-    <string name="dialog_coffee_description">請給開發者一杯熱咖啡。\n以一杯咖啡的價格獲得專業版。</string>
-    <string name="dialog_coffee_infoTitle">專業版升級</string>
-    <string name="dialog_coffee_info">- 根本沒有廣告。\n- 將來會添加PRO版本的專用功能。\n- 升級的每個人都將永遠得到上帝的祝福。\n\n謝謝。\n我會做很多很好的功能。</string>
-    <string name="dialog_coffee_button">親升級到一杯咖啡</string>
+    <string name="dialog_coffee_description">Upgrade to a powerful Pro version at a lower price than a cup of coffee.</string>
+    <string name="dialog_coffee_infoTitle">Pro Version Upgrade</string>
+    <string name="dialog_coffee_info">- No ads at all.\n- Dedicated features of Pro version will be added in the future.\n- Everyone who upgrades will always receive God blessing.\n\nThank you.\nI will make a lot of good features.</string>
+    <string name="dialog_coffee_button">View Pro Version Details</string>
 
     <!-- Chat -->
     <string name="dialog_chat_nick">Please enter your nickname.</string>
@@ -155,4 +155,14 @@
 
     <!-- NumberPick -->
     <string name="dialog_numberpick_infinite">Infinite</string>
+
+    <!-- 초대 -->
+    <string name="share_title">Introduce this fantastic app to your friends. thank you.♡</string>
+
+    <!-- RateThisApp -->
+    <string name="rate_title">타이틀</string>
+    <string name="rate_message">타이틀</string>
+    <string name="rate_yes_button">타이틀</string>
+    <string name="rate_no_button">타이틀</string>
+    <string name="rate_cancel_button">타이틀</string>
 </resources>

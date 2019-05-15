@@ -110,10 +110,10 @@
     <string name="default_word">best movie scene hd</string>
 
     <!-- Coffee -->
-    <string name="dialog_coffee_description">開発者に暖かいコーヒーを与えてください。\n1杯のコーヒーの価格のプロ版を手に入れよう。</string>
+    <string name="dialog_coffee_description">一杯のコーヒーよりも低価格で強力なProバージョンにアップグレードしてください。</string>
     <string name="dialog_coffee_infoTitle">プロバージョンのアップグレード</string>
-    <string name="dialog_coffee_info">- 広告はまったくありません。\n- 今後、PROバージョンの専用機能が追加される予定です。\n- アップグレードした人は、常に祝福を受けるでしょう。\n\nありがとうございました。\n私は多くの良い機能を作ります。</string>
-    <string name="dialog_coffee_button">コーヒーのカップへのプロアップグレード</string>
+    <string name="dialog_coffee_info">- 広告はまったくありません。\n- 今後、Proバージョンの専用機能が追加される予定です。\n- アップグレードした人は、常に祝福を受けるでしょう。\n\nありがとうございました。\n私は多くの良い機能を作ります。</string>
+    <string name="dialog_coffee_button">Proバージョンの詳細を見る</string>
 
     <!-- Chat -->
     <string name="dialog_chat_nick">Please enter your nickname.</string>
@@ -123,4 +123,14 @@
 
     <!-- NumberPick -->
     <string name="dialog_numberpick_infinite">Infinite</string>
+
+    <!-- 초대 -->
+    <string name="share_title">Introduce this fantastic app to your friends. thank you.♡</string>
+
+    <!-- RateThisApp -->
+    <string name="rate_title">타이틀</string>
+    <string name="rate_message">타이틀</string>
+    <string name="rate_yes_button">타이틀</string>
+    <string name="rate_no_button">타이틀</string>
+    <string name="rate_cancel_button">타이틀</string>
 </resources>

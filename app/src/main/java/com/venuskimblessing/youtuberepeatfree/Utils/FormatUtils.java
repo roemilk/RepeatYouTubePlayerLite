@@ -12,13 +12,16 @@ public class FormatUtils {
      * @return
      */
     public static String parseNumberFormat(String s) {
-        Log.d(TAG, s);
-        try{
-            long inValues = Long.parseLong(s);
-            DecimalFormat Commas = new DecimalFormat("#,###");
-            String result = (String)Commas.format(inValues);
-            return result;
-        }catch(Exception e){
+        if(s != null){
+            try{
+                long inValues = Long.parseLong(s);
+                DecimalFormat Commas = new DecimalFormat("#,###");
+                String result = (String)Commas.format(inValues);
+                return result;
+            }catch(Exception e){
+                return "Empty";
+            }
+        }else{
             return "Empty";
         }
     }

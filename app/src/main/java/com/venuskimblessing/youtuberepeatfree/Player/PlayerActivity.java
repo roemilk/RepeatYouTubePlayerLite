@@ -17,8 +17,6 @@
 package com.venuskimblessing.youtuberepeatfree.Player;
 
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -26,7 +24,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.OrientationEventListener;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -104,7 +101,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     private TimerTask mTimerTask = null;
 
     //Top Menu
-    private Button mHelpButton, mSearchButton, mBackButton, mOrientationButton, mLockButton, mPlayListButton, mPopupButton;
+    private Button mHelpButton, mSearchButton, mBackButton, mFullscreenButton, mLockButton, mPlayListButton, mPopupButton;
     private TextView mTopCountTextView;
 
     //Bottom Menu
@@ -131,9 +128,6 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     //TimeDialog
     DialogPickerTime mDialogPickerTime = null;
 
-    //화면전환
-    private OrientationEventListener mOrientationEventListener = null;
-
     //Network
     private Retrofit mRetrofit = null;
     private RetrofitService mService = null;
@@ -152,8 +146,9 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     private int mPlayType = TYPE_NORMAL;
     private int mPlayIndex = 0;
 
-    //Invitation
+    //flag
     private boolean mInvitationState = false;
+    private boolean mFullScreenFlag = false; //풀스크린 상태
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -179,8 +174,8 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         mBackButton = (Button) findViewById(R.id.player_back_button);
         mBackButton.setOnClickListener(this);
 
-        mOrientationButton = (Button) findViewById(R.id.player_screen_orientation_button);
-        mOrientationButton.setOnClickListener(this);
+        mFullscreenButton = (Button) findViewById(R.id.player_fullscreen_button);
+        mFullscreenButton.setOnClickListener(this);
 
         mLockButton = (Button) findViewById(R.id.player_top_lock_button);
         mLockButton.setOnClickListener(this);
@@ -253,6 +248,13 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         Log.d(TAG, "onInitializationSuccess..");
 
         this.mYouTubePlayer = player;
+        mYouTubePlayer.setOnFullscreenListener(new YouTubePlayer.OnFullscreenListener() {
+            @Override
+            public void onFullscreen(boolean b) {
+                Log.d(TAG, "onFullscreen >> " + b);
+                mFullScreenFlag = b;
+            }
+        });
         this.mProvider = provider;
         this.wasRestored = wasRestored;
         player.setPlaybackEventListener(this);
@@ -370,7 +372,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     }
 
     private void setStylePlayer() {
-        mYouTubePlayer.setShowFullscreenButton(false);
+        mYouTubePlayer.setShowFullscreenButton(true);
     }
 
     /**
@@ -422,6 +424,8 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
             mSearchButton.setVisibility(View.GONE);
             mBackButton.setVisibility(View.GONE);
             mPlayListButton.setVisibility(View.GONE);
+            mPopupButton.setVisibility(View.GONE);
+            mFullscreenButton.setVisibility(View.INVISIBLE);
         } else {
             mYouTubePlayer.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
 
@@ -430,6 +434,8 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
             mSearchButton.setVisibility(View.VISIBLE);
             mBackButton.setVisibility(View.VISIBLE);
             mPlayListButton.setVisibility(View.VISIBLE);
+            mPopupButton.setVisibility(View.VISIBLE);
+            mFullscreenButton.setVisibility(View.VISIBLE);
         }
     }
 
@@ -509,20 +515,24 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
             case R.id.player_back_button:
                 finish();
                 break;
-            case R.id.player_screen_orientation_button:
+            case R.id.player_fullscreen_button:
 //                if (!mInvitationState) {
 //                    showProDialog();
 //                    return;
 //                }
 
-                if (getScreenOrientation() == Configuration.ORIENTATION_PORTRAIT) {
-                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                    mTopCountTextView.setVisibility(View.VISIBLE);
-                    hideMenu();
-                } else if (getScreenOrientation() == Configuration.ORIENTATION_LANDSCAPE) {
-                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                    mTopCountTextView.setVisibility(View.GONE);
-                    showMenu();
+//                if (getScreenOrientation() == Configuration.ORIENTATION_PORTRAIT) {
+//                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+//                    mTopCountTextView.setVisibility(View.VISIBLE);
+//                    hideMenu();
+//                } else if (getScreenOrientation() == Configuration.ORIENTATION_LANDSCAPE) {
+//                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//                    mTopCountTextView.setVisibility(View.GONE);
+//                    showMenu();
+//                }
+
+                if(mYouTubePlayer != null){
+                    mYouTubePlayer.setFullscreen(true);
                 }
                 break;
 
@@ -665,7 +675,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         mTimerTask = new TimerTask() {
             @Override
             public void run() {
-                Log.d(TAG, "timer detected...");
+//                Log.d(TAG, "timer detected...");
 
                 long currentTime = mYouTubePlayer.getCurrentTimeMillis();
                 repeatPlayRange(currentTime);
@@ -708,7 +718,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
      * @param currentTime
      */
     private void repeatPlayRange(long currentTime) {
-        Log.d(TAG, "currentTime : " + currentTime + " endTime : " + mEndTime);
+//        Log.d(TAG, "currentTime : " + currentTime + " endTime : " + mEndTime);
 
         if(mRepeatInfinite){ //무한 반복
             if (currentTime >= mEndTime - 500) {
@@ -830,7 +840,15 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
     @Override
     public void onBackPressed() {
-        finish();
+        if(mLock){ //잠금 상태면 무시
+            return;
+        }
+
+        if(mFullScreenFlag){ //풀스크린일때는 풀스크린 해제
+            mYouTubePlayer.setFullscreen(false);
+        }else{
+            finish();
+        }
     }
 
     @Override

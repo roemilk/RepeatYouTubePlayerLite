@@ -39,16 +39,17 @@ public class FloatingService extends Service {
         try{
             type = intent.getIntExtra("type", 0);
         }catch(Exception e){
-            Toast.makeText(this, getResources().getString(R.string.error_network), Toast.LENGTH_SHORT).show();
-            Intent exceptionIntent = new Intent(this, SearchActivity.class);
-            exceptionIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(exceptionIntent);
+            exceptionCatch();
         }
         switch (type) {
             case FloatingManager.TYPE_INTENT_DATA:
                 Log.d(TAG, "TYPE_INTENT_DATA...");
 
-                mPlayListData = (PlayListData)intent.getSerializableExtra("data");
+                try{
+                    mPlayListData = (PlayListData)intent.getSerializableExtra("data");
+                }catch(Exception e){
+                    exceptionCatch();
+                }
                 floatingView.setPlayData(mPlayListData);
 
                 int repeatCount = intent.getIntExtra("repeatcount", 0);
@@ -111,6 +112,13 @@ public class FloatingService extends Service {
         mWindowManager.addView(floatingView, windowViewLayoutParams);
     }
 
+    private void exceptionCatch(){
+        Toast.makeText(this, getResources().getString(R.string.error_network), Toast.LENGTH_SHORT).show();
+        Intent exceptionIntent = new Intent(this, SearchActivity.class);
+        exceptionIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(exceptionIntent);
+    }
+
     /**
      * Tourch Listener
      */
@@ -140,7 +148,9 @@ public class FloatingService extends Service {
                     windowViewLayoutParams.x = mViewX + x;
                     windowViewLayoutParams.y = mViewY + y;
 
-                    mWindowManager.updateViewLayout(floatingView, windowViewLayoutParams);
+                    try{
+                        mWindowManager.updateViewLayout(floatingView, windowViewLayoutParams);
+                    }catch (Exception e){ }
                     break;
             }
             return false;
