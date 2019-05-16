@@ -196,6 +196,13 @@ public class DialogPlayList extends Dialog implements View.OnClickListener, Play
         }
     }
 
+    /**
+     * 콘트롤러를 숨긴다.
+     */
+    public void hideController(){
+        mControllerCardView.setVisibility(View.GONE);
+    }
+
     private void deleteAll(){
         mPlayListDataManager.deleteAll();
         mList.clear();

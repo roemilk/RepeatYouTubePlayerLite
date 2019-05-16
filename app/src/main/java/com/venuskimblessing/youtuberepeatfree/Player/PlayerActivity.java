@@ -39,6 +39,8 @@ import com.google.gson.Gson;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonApiKey;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonSharedPreferencesKey;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonUserData;
+import com.venuskimblessing.youtuberepeatfree.Common.IntentAction;
+import com.venuskimblessing.youtuberepeatfree.Common.IntentKey;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogHelp;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogPickerCount;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogPickerTime;
@@ -289,6 +291,9 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 mPlayId = shareText.substring(17);
                 Log.d(TAG, "mPlayId : " + mPlayId);
             }
+        }else if(IntentAction.INTENT_ACTION_SEARCH_PLAYLIST.equals(action)){
+            PlayListData data = (PlayListData)intent.getSerializableExtra(IntentKey.INTENT_KEY_SEARCH_PLAYLIST);
+            startPlayListPlay(data);
         }
     }
 
@@ -440,7 +445,28 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     }
 
     /**
-     * 영상 재생
+     * 플레이리스트 재생 처리
+     * @param data
+     */
+    private void startPlayListPlay(PlayListData data){
+        Log.d(TAG, "startPlayListPlay...");
+
+        mCurrentPlayListData = data;
+        mPlayId = data.getVideoId();
+        mPlayType = getPlayType();
+        mPlayIndex = getPlayIndex(mPlayId);
+        mStartTime = Integer.parseInt(data.getStartTime());
+        mEndTime = Integer.parseInt(data.getEndTime());
+        loadVideos(mPlayId);
+        if (SharedPreferencesUtils.getBoolean(PlayerActivity.this, CommonSharedPreferencesKey.KEY_AUTOPLAY)) {
+            startAutoPlay(mPlayId);
+        } else {
+            startPlay(mPlayId);
+        }
+    }
+
+    /**
+     * 일반 영상 재생
      *
      * @param id
      */
@@ -548,18 +574,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                     @Override
                     public void onPlay(PlayListData data) {
                         mDialogPlayList.dismiss();
-                        mCurrentPlayListData = data;
-                        mPlayId = data.getVideoId();
-                        mPlayType = getPlayType();
-                        mPlayIndex = getPlayIndex(mPlayId);
-                        mStartTime = Integer.parseInt(data.getStartTime());
-                        mEndTime = Integer.parseInt(data.getEndTime());
-                        loadVideos(mPlayId);
-                        if (SharedPreferencesUtils.getBoolean(PlayerActivity.this, CommonSharedPreferencesKey.KEY_AUTOPLAY)) {
-                            startAutoPlay(mPlayId);
-                        } else {
-                            startPlay(mPlayId);
-                        }
+                        startPlayListPlay(data);
                     }
                 });
                 mDialogPlayList.setOnClickControllerListener(new DialogPlayList.OnClickDialogControllerListener() {

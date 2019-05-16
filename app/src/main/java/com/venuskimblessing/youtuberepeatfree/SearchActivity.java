@@ -47,15 +47,19 @@ import com.venuskimblessing.youtuberepeatfree.Common.CommonApiKey;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonConfig;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonSharedPreferencesKey;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonUserData;
+import com.venuskimblessing.youtuberepeatfree.Common.IntentAction;
+import com.venuskimblessing.youtuberepeatfree.Common.IntentKey;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogChat;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogCoffee;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogEnding;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogInfo;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogInvitation;
+import com.venuskimblessing.youtuberepeatfree.Dialog.DialogPlayList;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogRecommend;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogSort;
 import com.venuskimblessing.youtuberepeatfree.Json.SearchList;
 import com.venuskimblessing.youtuberepeatfree.Json.Videos;
+import com.venuskimblessing.youtuberepeatfree.PlayList.PlayListData;
 import com.venuskimblessing.youtuberepeatfree.Player.PlayerActivity;
 import com.venuskimblessing.youtuberepeatfree.Retrofit.RetrofitCommons;
 import com.venuskimblessing.youtuberepeatfree.Retrofit.RetrofitManager;
@@ -107,7 +111,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     public static final String TYPE_VIDEO = "video";
 
     private TextView mEmptyTextView = null;
-    private Button mInviteButton, mSortButton, mRecommentButton, mCoffeeButton, mChatButton;
+    private Button mInviteButton, mSortButton, mRecommentButton, mCoffeeButton, mPlaylistButton;
     private MaterialTextField mMaterialTextField = null;
     private EditText mEditTextSearchWord = null;
     private RecyclerView mRecyclerView = null;
@@ -137,6 +141,9 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 
     //Video
     private String mVideoId = "";
+
+    //PlayList
+    private DialogPlayList mDialogPlayList = null;
 //
 //    //배너광고
 //    private LinearLayout mBannerLay;
@@ -174,6 +181,9 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         mCoffeeButton = (Button) findViewById(R.id.search_coffee_button);
         mCoffeeButton.setOnClickListener(this);
 
+        mPlaylistButton = (Button) findViewById(R.id.search_playlist_button);
+        mPlaylistButton.setOnClickListener(this);
+
         mRecyclerView = (RecyclerView) findViewById(R.id.search_recyclerview);
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -201,15 +211,6 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 }
             }
         });
-
-        mChatButton = (Button)findViewById(R.id.search_chat_button);
-        mChatButton.setOnClickListener(this);
-
-        if(CommonConfig.sChatEnable){
-            mChatButton.setVisibility(View.VISIBLE);
-        }else{
-            mChatButton.setVisibility(View.GONE);
-        }
 
         initRetrofit();
         loadPopularContentsList();
@@ -784,8 +785,22 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 dialogCoffee.show();
                 break;
 
-            case R.id.search_chat_button:
-                showChat();
+            case R.id.search_playlist_button:
+                mDialogPlayList = new DialogPlayList(this, R.style.custom_dialog_fullScreen);
+                mDialogPlayList.setOnClickListener(new DialogPlayList.OnClickDialogPlayListListener() {
+                    @Override
+                    public void onPlay(PlayListData data) {
+//                        Intent intent = new Intent(SearchActivity.this, PlayerActivity.class);
+//                        intent.setAction(IntentAction.INTENT_ACTION_SEARCH_PLAYLIST);
+//                        intent.putExtra(IntentKey.INTENT_KEY_SEARCH_PLAYLIST, data);
+//                        startActivity(intent);
+                        String id = data.getVideoId();
+                        mVideoId = id;
+                        checkShowFullAd();
+                    }
+                });
+                mDialogPlayList.show();
+                mDialogPlayList.hideController();
                 break;
         }
     }

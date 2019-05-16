@@ -33,14 +33,14 @@
         </com.github.florent37.materialtextfield.MaterialTextField>
 
         <Button
-            android:id="@+id/search_chat_button"
+            android:id="@+id/search_playlist_button"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
             android:layout_toLeftOf="@+id/search_recomment_button"
-            android:background="@drawable/ic_chat_white_24dp"
-            android:visibility="invisible" />s
+            android:background="@drawable/ic_playlist_play_white_24dp"
+            android:visibility="visible" />
 
         <Button
             android:id="@+id/search_recomment_button"
@@ -81,7 +81,7 @@
             android:layout_marginRight="15dp"
             android:layout_toLeftOf="@+id/search_recomment_button"
             android:background="@drawable/ic_share_white_24dp"
-            android:visibility="visible" />
+            android:visibility="gone" />
     </RelativeLayout>
 
     <RelativeLayout
