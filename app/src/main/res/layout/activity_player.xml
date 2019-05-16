@@ -193,7 +193,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#2196F3"
+            android:background="#212121"
             android:elevation="6dp">
 
             <TextView
@@ -206,7 +206,7 @@
                 android:gravity="center"
                 android:padding="16dp"
                 android:text="@string/player_repeat_title"
-                android:textColor="#ffffff" />
+                android:textColor="#bdbdbd" />
 
             <TextView
                 android:id="@+id/expand_count_textView"
@@ -216,7 +216,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="20dp"
                 android:text="0"
-                android:textColor="#ffffff"
+                android:textColor="#bdbdbd"
                 android:textSize="18dp"
                 android:textStyle="bold"
                 android:visibility="visible" />
@@ -226,6 +226,7 @@
             android:id="@+id/expandable_layout_0"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#616161"
             app:el_duration="500"
             app:el_expanded="false"
             app:el_parallax="0.5">
@@ -252,6 +253,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
+                        android:textColor="#f5f5f5"
                         android:gravity="center_vertical"
                         android:text="@string/player_repeat_starttime" />
 
@@ -263,6 +265,7 @@
                         android:layout_marginRight="15dp"
                         android:layout_toRightOf="@id/player_setting_startTime_textView"
                         android:focusable="false"
+                        android:textColor="#f5f5f5"
                         android:gravity="center_vertical"
                         android:text="00:00:00"
                         android:textSize="13dp" />
@@ -271,6 +274,7 @@
                         android:id="@+id/player_setting_endTime_textView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="#f5f5f5"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/player_setting_startTime_editText"
                         android:gravity="center_vertical"
@@ -280,6 +284,7 @@
                         android:id="@+id/player_setting_endTime_editText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="#f5f5f5"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/player_setting_endTime_textView"
                         android:focusable="false"
