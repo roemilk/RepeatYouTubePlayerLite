@@ -158,7 +158,7 @@ public class PlayListRecyclerViewAdapter extends RecyclerView.Adapter<PlayListRe
             endTimeTextView = (TextView) itemView.findViewById(R.id.view_playlist_endTime_textView);
 
             moveButton = (Button) itemView.findViewById(R.id.view_playlist_move_button);
-            moreLay = (RelativeLayout) itemView.findViewById(R.id.view_playlist_more_lay);
+            moreLay = (RelativeLayout) itemView.findViewById(R.id.view_playlist_share_lay);
         }
     }
 }

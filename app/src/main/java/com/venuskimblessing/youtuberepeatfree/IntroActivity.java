@@ -44,7 +44,7 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
-//        getDynamicLink();
+        getDynamicLink();
 //        OSUtils.printKeyHash(this);
 //        getShareIntentData();
 
@@ -108,7 +108,6 @@ public class IntroActivity extends AppCompatActivity {
                 .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
                     @Override
                     public void onSuccess(PendingDynamicLinkData data) {
-                        setEventLog(EVENT_INVITATION_INSTALL);
 
                         if (data == null) {
                             Log.d(TAG, "getInvitation: no data");
@@ -117,17 +116,8 @@ public class IntroActivity extends AppCompatActivity {
 
                         // Get the deep link
                         Uri deepLink = data.getLink();
-                        Log.d(TAG, "deppLink : " + deepLink);
+                        Log.d(TAG, "deeplink : " + deepLink);
 
-                        // Extract invite
-                        FirebaseAppInvite invite = FirebaseAppInvite.getInvitation(data);
-                        if (invite != null) {
-                            String invitationId = invite.getInvitationId();
-                            Log.d(TAG, "InvitationId : " + invitationId);
-                        }
-
-                        // Handle the deep link
-                        // ...
                     }
                 })
                 .addOnFailureListener(this, new OnFailureListener() {

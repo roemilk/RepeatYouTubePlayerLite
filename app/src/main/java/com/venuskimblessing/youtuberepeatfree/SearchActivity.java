@@ -787,6 +787,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 
             case R.id.search_playlist_button:
                 mDialogPlayList = new DialogPlayList(this, R.style.custom_dialog_fullScreen);
+                mDialogPlayList.setActivity(this);
                 mDialogPlayList.setOnClickListener(new DialogPlayList.OnClickDialogPlayListListener() {
                     @Override
                     public void onPlay(PlayListData data) {
