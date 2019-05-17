@@ -103,6 +103,7 @@ public class PlayListRecyclerViewAdapter extends RecyclerView.Adapter<PlayListRe
         });
 
         holder.parentLay.setTag(data);
+        holder.moreLay.setTag(data);
         holder.parentLay.setOnClickListener(mOnClickPlayListItemListener);
         holder.moreLay.setOnClickListener(mOnClickPlayListItemListener);
     }

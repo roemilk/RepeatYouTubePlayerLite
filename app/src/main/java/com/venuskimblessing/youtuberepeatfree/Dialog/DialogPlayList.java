@@ -35,15 +35,15 @@ import com.suke.widget.SwitchButton;
 import com.venuskimblessing.youtuberepeatfree.Adapter.PlayListRecyclerViewAdapter;
 import com.venuskimblessing.youtuberepeatfree.Adapter.SearchDecoration;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonSharedPreferencesKey;
+import com.venuskimblessing.youtuberepeatfree.DynamicLink.DynamicLinkManager;
 import com.venuskimblessing.youtuberepeatfree.Interface.PlayListItemTouchHelperCallback;
 import com.venuskimblessing.youtuberepeatfree.PlayList.PlayListData;
 import com.venuskimblessing.youtuberepeatfree.PlayList.PlayListDataManager;
 import com.venuskimblessing.youtuberepeatfree.Player.PlayerActivity;
 import com.venuskimblessing.youtuberepeatfree.R;
+import com.venuskimblessing.youtuberepeatfree.Utils.MediaUtils;
 import com.venuskimblessing.youtuberepeatfree.Utils.SharedPreferencesUtils;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class DialogPlayList extends Dialog implements View.OnClickListener, PlayListRecyclerViewAdapter.OnStartDragListener {
@@ -57,8 +57,7 @@ public class DialogPlayList extends Dialog implements View.OnClickListener, Play
         public void play(View v);
     }
 
-    private Activity activity;
-    private Context mContext;
+    private Activity mActivity;
     private TextView mEmptyTextView;
     private Button mClosebutton,mDeleteAllButton;
     private RecyclerView mPlayListRecyclerView;
@@ -77,31 +76,33 @@ public class DialogPlayList extends Dialog implements View.OnClickListener, Play
     private SwitchIconView mRepeatSwitchIconView;
     private OnClickDialogControllerListener mControllerListener = null;
 
-    public DialogPlayList(@NonNull Context context) {
-        super(context);
-        this.mContext = context;
+    //DynamicLink
+    private DynamicLinkManager mDynamicLinkManager = null;
+
+    public DialogPlayList(@NonNull Activity activity) {
+        super(activity);
+        this.mActivity = activity;
         init();
     }
 
-    public DialogPlayList(@NonNull Context context, int themeResId) {
-        super(context, themeResId);
-        this.mContext = context;
+    public DialogPlayList(@NonNull Activity activity, int themeResId) {
+        super(activity, themeResId);
+        this.mActivity = activity;
         init();
     }
 
-    protected DialogPlayList(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
-        super(context, cancelable, cancelListener);
-        this.mContext = context;
+    protected DialogPlayList(@NonNull Activity activity, boolean cancelable, @Nullable OnCancelListener cancelListener) {
+        super(activity, cancelable, cancelListener);
+        this.mActivity = activity;
         init();
-    }
-
-    public void setActivity(Activity activity){
-        this.activity = activity;
     }
 
     private void init(){
         setContentView(R.layout.layout_dialog_playlist);
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        mDynamicLinkManager = new DynamicLinkManager(mActivity);
+
         mEmptyTextView = (TextView) findViewById(R.id.playlist_empty_textView);
         mPlayListRecyclerView = (RecyclerView) findViewById(R.id.playlist_recyclerview);
 
@@ -124,16 +125,16 @@ public class DialogPlayList extends Dialog implements View.OnClickListener, Play
         mControllerCloseButton.setOnClickListener(onClickPlayControllerListener);
         mRepeatSwitchIconView.setOnClickListener(this);
 
-        boolean autoPlayState = SharedPreferencesUtils.getBoolean(mContext, CommonSharedPreferencesKey.KEY_AUTOPLAY);
+        boolean autoPlayState = SharedPreferencesUtils.getBoolean(mActivity, CommonSharedPreferencesKey.KEY_AUTOPLAY);
         mAutoplayButton.setChecked(autoPlayState);
         mAutoplayButton.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                SharedPreferencesUtils.setBoolean(mContext, CommonSharedPreferencesKey.KEY_AUTOPLAY, isChecked);
+                SharedPreferencesUtils.setBoolean(mActivity, CommonSharedPreferencesKey.KEY_AUTOPLAY, isChecked);
             }
         });
 
-        boolean allRepeatState = SharedPreferencesUtils.getBoolean(mContext, CommonSharedPreferencesKey.KEY_ALLREPEAT);
+        boolean allRepeatState = SharedPreferencesUtils.getBoolean(mActivity, CommonSharedPreferencesKey.KEY_ALLREPEAT);
         mRepeatSwitchIconView.setIconEnabled(allRepeatState, true);
 
         loadPlayListData();
@@ -142,7 +143,7 @@ public class DialogPlayList extends Dialog implements View.OnClickListener, Play
 
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
-        MenuInflater menuInflater = ((PlayerActivity)mContext).getMenuInflater();
+        MenuInflater menuInflater = ((PlayerActivity) mActivity).getMenuInflater();
         menuInflater.inflate(R.menu.playlist_menu, menu);
         return true;
     }
@@ -160,7 +161,7 @@ public class DialogPlayList extends Dialog implements View.OnClickListener, Play
     }
 
     private void loadPlayListData(){
-        mPlayListDataManager = new PlayListDataManager(mContext);
+        mPlayListDataManager = new PlayListDataManager(mActivity);
         mPlayListDataManager.initTable();
         mList = mPlayListDataManager.loadPlayList();
 
@@ -174,13 +175,13 @@ public class DialogPlayList extends Dialog implements View.OnClickListener, Play
     }
 
     private void setAdapter() {
-        mPlayListRecyclerViewAdapter = new PlayListRecyclerViewAdapter(mContext);
+        mPlayListRecyclerViewAdapter = new PlayListRecyclerViewAdapter(mActivity);
         mPlayListRecyclerViewAdapter.setOnStartDragListener(this);
         mPlayListRecyclerViewAdapter.setOnClickPlayListItemListener(onClickPlayListItemListener);
         mPlayListRecyclerViewAdapter.setData(mList);
         mPlayListRecyclerView.setHasFixedSize(true);
-        mPlayListRecyclerView.addItemDecoration(new SearchDecoration(mContext));
-        mPlayListRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        mPlayListRecyclerView.addItemDecoration(new SearchDecoration(mActivity));
+        mPlayListRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
 
         PlayListItemTouchHelperCallback mCallback = new PlayListItemTouchHelperCallback(mPlayListRecyclerViewAdapter);
         mItemTouchHelper = new ItemTouchHelper(mCallback);
@@ -199,7 +200,7 @@ public class DialogPlayList extends Dialog implements View.OnClickListener, Play
      * 컨트롤러 정보를 새로고침 한다.
      */
     public void refreshController(String thumbUrl, String title, boolean playing){
-        Glide.with(mContext).load(thumbUrl)
+        Glide.with(mActivity).load(thumbUrl)
                 .thumbnail(0.1f)
                 .into(mControllerImageView);
 
@@ -227,54 +228,6 @@ public class DialogPlayList extends Dialog implements View.OnClickListener, Play
         mControllerCardView.setVisibility(View.GONE);
     }
 
-    private void shareLink(String dynamicLinkUrl){
-        Intent intent = new Intent(android.content.Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, dynamicLinkUrl);
-        Intent chooser = Intent.createChooser(intent, "친구에게 공유하기");
-        mContext.startActivity(chooser);
-    }
-
-//    private void createDynamicLink(){
-//        DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
-//                .setLink(Uri.parse("https://youtubeplayerfree.com/a=abcd&b=123"))
-//                .setDomainUriPrefix("https://youtuberepeatfree.page.link/")
-//                // Open links with this app on Android
-//                .setAndroidParameters(new DynamicLink.AndroidParameters.Builder().build())
-//                // Open links with com.example.ios on iOS
-//                .setIosParameters(new DynamicLink.IosParameters.Builder("com.example.ios").build())
-//                .buildDynamicLink();
-//
-//        Uri dynamicLinkUri = dynamicLink.getUri();
-//        Log.d(TAG, "url : " + dynamicLinkUri.toString());
-//    }
-
-    private void createShortDynamicLink(){
-        Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                .setLink(Uri.parse("https://youtubeplayerfree.com"))
-                .setDomainUriPrefix("https://youtuberepeatfree.page.link/")
-                .setAndroidParameters(new DynamicLink.AndroidParameters.Builder().build())
-                // Set parameters
-                // ...
-                .buildShortDynamicLink()
-                .addOnCompleteListener(activity, new OnCompleteListener<ShortDynamicLink>() {
-                    @Override
-                    public void onComplete(@NonNull Task<ShortDynamicLink> task) {
-                        if (task.isSuccessful()) {
-                            // Short link created
-                            Uri shortLink = task.getResult().getShortLink();
-                            Uri flowchartLink = task.getResult().getPreviewLink();
-
-                            Log.d(TAG, "short url : " + shortLink.toString());
-                            Log.d(TAG, "flowchartLink url : " + flowchartLink.toString());
-                        } else {
-                            // Error
-                            // ...
-                        }
-                    }
-                });
-    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -285,21 +238,21 @@ public class DialogPlayList extends Dialog implements View.OnClickListener, Play
             case R.id.playlist_repeat_switchIconView:
                 boolean allRepeatState = !mRepeatSwitchIconView.isIconEnabled();
 
-                Resources resources = mContext.getResources();
+                Resources resources = mActivity.getResources();
                 if(allRepeatState){
-                    Toast.makeText(mContext, resources.getString(R.string.playlist_all_repeat_enable), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mActivity, resources.getString(R.string.playlist_all_repeat_enable), Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(mContext, resources.getString(R.string.playlist_all_repeat_disable), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mActivity, resources.getString(R.string.playlist_all_repeat_disable), Toast.LENGTH_SHORT).show();
                 }
 
                 mRepeatSwitchIconView.setIconEnabled(allRepeatState, true);
-                SharedPreferencesUtils.setBoolean(mContext, CommonSharedPreferencesKey.KEY_ALLREPEAT, allRepeatState);
+                SharedPreferencesUtils.setBoolean(mActivity, CommonSharedPreferencesKey.KEY_ALLREPEAT, allRepeatState);
                 break;
 
             case R.id.playlist_deleteAll_button:
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
                 builder.setTitle("PLAYLIST");
-                builder.setMessage(mContext.getResources().getString(R.string.playlist_delete));
+                builder.setMessage(mActivity.getResources().getString(R.string.playlist_delete));
                 builder.setPositiveButton("YES",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
@@ -320,16 +273,20 @@ public class DialogPlayList extends Dialog implements View.OnClickListener, Play
     private View.OnClickListener onClickPlayListItemListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            PlayListData data = (PlayListData)v.getTag();
             switch (v.getId()){
                 case R.id.view_playlist_parent_lay:
-                    PlayListData data = (PlayListData)v.getTag();
                     listener.onPlay(data);
                     break;
                 case R.id.view_playlist_share_lay:
-                    Toast.makeText(mContext, "플레이리스트 More 뷰 클릭 이벤트", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mActivity, "플레이리스트 More 뷰 클릭 이벤트", Toast.LENGTH_SHORT).show();
 //                    shareLink();
 //                    createDynamicLink();
-                    createShortDynamicLink();
+                    String title = data.getTitle();
+                    String id = data.getVideoId();
+                    String startTime = data.getStartTime();
+                    String endTime = data.getEndTime();
+                    mDynamicLinkManager.createShortDynamicLink(title, id, startTime, endTime);
                     break;
             }
         }

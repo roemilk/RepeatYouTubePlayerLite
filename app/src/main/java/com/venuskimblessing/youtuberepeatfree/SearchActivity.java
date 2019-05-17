@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -38,7 +39,11 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.appinvite.AppInviteInvitation;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.google.gson.Gson;
 import com.kobakei.ratethisapp.RateThisApp;
 import com.venuskimblessing.youtuberepeatfree.Adapter.SearchDecoration;
@@ -219,8 +224,44 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume..");
+        getDynamicLink();
         loadFullAd();
+    }
+
+    /**
+     * Invite DynamicLink를 수신합니다.
+     */
+    private void getDynamicLink() {
+        //Invite 수신 기록
+        FirebaseDynamicLinks.getInstance().getDynamicLink(getIntent())
+                .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
+                    @Override
+                    public void onSuccess(PendingDynamicLinkData data) {
+
+                        if (data == null) {
+                            Log.d(TAG, "dynamiclink : no data");
+                            return;
+                        }
+
+                        // Get the deep link
+                        Uri deepLink = data.getLink();
+                        Log.d(TAG, "deeplink : " + deepLink);
+
+                        String id = deepLink.getQueryParameter("id");
+                        String startTime = deepLink.getQueryParameter("starttime");
+                        String endTime = deepLink.getQueryParameter("endtime");
+
+                        Log.d(TAG, "deeplink value >> " + id + "   " + startTime + "   " + endTime);
+
+                        startSharePlayerActivity(id, startTime, endTime);
+                    }
+                })
+                .addOnFailureListener(this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "getDynamicLink:onFailure", e);
+                    }
+                });
     }
 
     /**
@@ -358,6 +399,21 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
             intent.putExtra("videoId", videoId);
             startActivityForResult(intent, REQUEST_PLAYER_INVITE);
         }
+    }
+
+    /**
+     * 공유 받은 데이터에 대한 영상 재생
+     * @param id video id
+     * @param startTime 시작시간
+     * @param startEndTime 끝시간
+     */
+    private void startSharePlayerActivity(String id, String startTime, String startEndTime){
+        Intent intent = new Intent(this, PlayerActivity.class);
+        intent.setAction(IntentAction.INTENT_ACTION_SHARE_VIDEO);
+        intent.putExtra(IntentKey.INTENT_KEY_ID, id);
+        intent.putExtra(IntentKey.INTENT_KEY_START, startTime);
+        intent.putExtra(IntentKey.INTENT_KEY_END, startEndTime);
+        startActivity(intent);
     }
 
     private void parseJsonStringData(String json, String type) {
@@ -787,7 +843,6 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 
             case R.id.search_playlist_button:
                 mDialogPlayList = new DialogPlayList(this, R.style.custom_dialog_fullScreen);
-                mDialogPlayList.setActivity(this);
                 mDialogPlayList.setOnClickListener(new DialogPlayList.OnClickDialogPlayListListener() {
                     @Override
                     public void onPlay(PlayListData data) {

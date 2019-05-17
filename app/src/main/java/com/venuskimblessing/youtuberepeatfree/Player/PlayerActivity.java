@@ -46,6 +46,7 @@ import com.venuskimblessing.youtuberepeatfree.Dialog.DialogPickerCount;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogPickerTime;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogPlayList;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogPro;
+import com.venuskimblessing.youtuberepeatfree.DynamicLink.DynamicLinkManager;
 import com.venuskimblessing.youtuberepeatfree.FloatingView.FloatingManager;
 import com.venuskimblessing.youtuberepeatfree.FloatingView.FloatingService;
 import com.venuskimblessing.youtuberepeatfree.Json.PlayingData;
@@ -103,7 +104,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     private TimerTask mTimerTask = null;
 
     //Top Menu
-    private Button mHelpButton, mSearchButton, mBackButton, mFullscreenButton, mLockButton, mPlayListButton, mPopupButton;
+    private Button mHelpButton, mSearchButton, mBackButton, mFullscreenButton, mLockButton, mPlayListButton, mPopupButton, mShareButton;
     private TextView mTopCountTextView;
 
     //Bottom Menu
@@ -114,7 +115,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     private TextView mExpandableCountTextView;
     private EditText mStartTimeEditText, mEndTimeEditText, mRepeatCountEditText;
     private ExpandableLayout mExpandableLayout_0, mExpandableLayout_1;
-    private TextView mExpandableButton_0, mExpandableButton_1;
+    private TextView mExpandableButton_0;
     private Button mPlayListAddButton, mRepeatButton;
 
     private String mPlayId = null;
@@ -152,6 +153,9 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     private boolean mInvitationState = false;
     private boolean mFullScreenFlag = false; //풀스크린 상태
 
+    //DynamicLink
+    private DynamicLinkManager mDynamicLinkManager = null;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -162,6 +166,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         initPlayList();
         initRetrofit();
 
+        mDynamicLinkManager = new DynamicLinkManager(this);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.CONTENT, "PlayerActivity");
@@ -213,6 +218,9 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
         mPopupButton = (Button) findViewById(R.id.player_top_popup_button);
         mPopupButton.setOnClickListener(this);
+
+        mShareButton = (Button) findViewById(R.id.player_setting_share_button);
+        mShareButton.setOnClickListener(this);
 
         initRangeSeekBar();
         initPickerTime();
@@ -294,6 +302,21 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         }else if(IntentAction.INTENT_ACTION_SEARCH_PLAYLIST.equals(action)){
             PlayListData data = (PlayListData)intent.getSerializableExtra(IntentKey.INTENT_KEY_SEARCH_PLAYLIST);
             startPlayListPlay(data);
+        }else if(IntentAction.INTENT_ACTION_SHARE_VIDEO.equals(action)){
+            String id = intent.getStringExtra(IntentKey.INTENT_KEY_ID);
+            String startTime = intent.getStringExtra(IntentKey.INTENT_KEY_START);
+            String endTime = intent.getStringExtra(IntentKey.INTENT_KEY_END);
+            mPlayId = id;
+            mStartTime = Integer.parseInt(startTime);
+            mEndTime = Integer.parseInt(endTime);
+
+            String convertStartTime = MediaUtils.getMillSecToHMS(mStartTime);
+            String convertEndTime = MediaUtils.getMillSecToHMS(mEndTime);
+            Toast.makeText(this, "친구가 추천한 최고의 장면\n" + convertStartTime + " - " + convertEndTime + " 을 재생합니다.", Toast.LENGTH_LONG).show();
+
+            if(!mExpandableLayout_0.isExpanded()){
+                mExpandableLayout_0.expand(true);
+            }
         }
     }
 
@@ -638,6 +661,14 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                     intent = new Intent(this, LoadingActivity.class);
                     startActivityForResult(intent, REQ_CODE_AD_FINISH);
                 }
+                break;
+
+            case R.id.player_setting_share_button:
+                String title = "empty";
+                if(mSnippet != null){
+                    title = mSnippet.title;
+                }
+                mDynamicLinkManager.createShortDynamicLink(title, mPlayId, String.valueOf(mStartTime), String.valueOf(mEndTime));
                 break;
         }
     }

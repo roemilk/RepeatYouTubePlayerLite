@@ -44,7 +44,7 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
-        getDynamicLink();
+//        getDynamicLink();
 //        OSUtils.printKeyHash(this);
 //        getShareIntentData();
 
@@ -97,35 +97,6 @@ public class IntroActivity extends AppCompatActivity {
 //            intent.putExtra("videoId", mPlayId);
 //        }
         startActivity(intent);
-    }
-
-    /**
-     * Invite DynamicLink를 수신합니다.
-     */
-    private void getDynamicLink() {
-        //Invite 수신 기록
-        FirebaseDynamicLinks.getInstance().getDynamicLink(getIntent())
-                .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
-                    @Override
-                    public void onSuccess(PendingDynamicLinkData data) {
-
-                        if (data == null) {
-                            Log.d(TAG, "getInvitation: no data");
-                            return;
-                        }
-
-                        // Get the deep link
-                        Uri deepLink = data.getLink();
-                        Log.d(TAG, "deeplink : " + deepLink);
-
-                    }
-                })
-                .addOnFailureListener(this, new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "getDynamicLink:onFailure", e);
-                    }
-                });
     }
 
     /**
