@@ -103,7 +103,7 @@
             android:id="@+id/view_playlist_share_lay"
             android:visibility="visible"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="17dp"
             android:layout_width="wrap_content"
             android:layout_height="80dp">
             <Button

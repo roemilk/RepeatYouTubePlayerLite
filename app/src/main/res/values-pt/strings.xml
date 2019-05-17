@@ -127,10 +127,8 @@
     <!-- 초대 -->
     <string name="share_title">Introduce this fantastic app to your friends. thank you.♡</string>
 
-    <!-- RateThisApp -->
-    <string name="rate_title">타이틀</string>
-    <string name="rate_message">타이틀</string>
-    <string name="rate_yes_button">타이틀</string>
-    <string name="rate_no_button">타이틀</string>
-    <string name="rate_cancel_button">타이틀</string>
+    <!-- 구간 공유 -->
+    <string name="range_share_hint">Show your best scenes to your friends!</string>
+    <string name="range_share_text">This is the best scene!</string>
+    <string name="range_share_prefix">This is the best scene my friend recommended.</string>
 </resources>

@@ -11,12 +11,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
+import com.venuskimblessing.youtuberepeatfree.Dialog.LoadingIndicator;
+import com.venuskimblessing.youtuberepeatfree.R;
 import com.venuskimblessing.youtuberepeatfree.Utils.MediaUtils;
+import com.wang.avi.AVLoadingIndicatorView;
 
 public class DynamicLinkManager {
     private final String TAG = "DynamicLinkManager";
 
     private Activity mActivity;
+    private LoadingIndicator mLoadingIndicator;
 
     public DynamicLinkManager(Activity activity) {
         this.mActivity = activity;
@@ -30,6 +34,10 @@ public class DynamicLinkManager {
      * @param endTime
      */
     public void createShortDynamicLink(final String title, String id, final String startTime, final String endTime) {
+        //loading
+        mLoadingIndicator = new LoadingIndicator(mActivity, R.style.custom_dialog_fullScreen);
+        mLoadingIndicator.startLoadingView();
+
         StringBuffer sb = new StringBuffer();
         sb.append("https://youtubeplayerfree.com?");
         sb.append("id=" + id);
@@ -81,12 +89,15 @@ public class DynamicLinkManager {
         String convertStartTime = MediaUtils.getMillSecToHMS(Integer.parseInt(startTime));
         String convertEndTime = MediaUtils.getMillSecToHMS(Integer.parseInt(endTime));
 
-        String shareTitle = "최고의 장면을 친구에게 보여주기";
+        String shareHint = mActivity.getString(R.string.range_share_hint) + "\n" + convertStartTime + " - " + convertEndTime;
+        String shareText = mActivity.getString(R.string.range_share_text);
 
         Intent intent = new Intent(android.content.Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, "꼭 함께 보고 싶은 최고의 장면! \n\n" + title + "\n" + convertStartTime + " - " + convertEndTime + "\n\n" + dynamicLinkUrl);
-        Intent chooser = Intent.createChooser(intent, shareTitle);
+        intent.putExtra(Intent.EXTRA_TEXT, shareText + "\n\n" + title + "\n\n" + convertStartTime + " - " + convertEndTime + "\n\n" + dynamicLinkUrl);
+        Intent chooser = Intent.createChooser(intent, shareHint);
         mActivity.startActivity(chooser);
+
+        mLoadingIndicator.stopLoadingView();
     }
 }

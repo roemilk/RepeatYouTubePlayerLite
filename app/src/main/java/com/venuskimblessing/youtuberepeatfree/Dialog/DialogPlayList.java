@@ -279,9 +279,6 @@ public class DialogPlayList extends Dialog implements View.OnClickListener, Play
                     listener.onPlay(data);
                     break;
                 case R.id.view_playlist_share_lay:
-                    Toast.makeText(mActivity, "플레이리스트 More 뷰 클릭 이벤트", Toast.LENGTH_SHORT).show();
-//                    shareLink();
-//                    createDynamicLink();
                     String title = data.getTitle();
                     String id = data.getVideoId();
                     String startTime = data.getStartTime();

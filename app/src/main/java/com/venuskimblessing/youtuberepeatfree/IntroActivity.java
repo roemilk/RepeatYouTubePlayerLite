@@ -48,7 +48,7 @@ public class IntroActivity extends AppCompatActivity {
 //        OSUtils.printKeyHash(this);
 //        getShareIntentData();
 
-        getFCMToken();
+//        getFCMToken();
         mLineTextView = (FadeTextView) findViewById(R.id.intro_textView);
         mLineTextView.animateText(getResources().getString(R.string.app_name));
 
@@ -58,8 +58,8 @@ public class IntroActivity extends AppCompatActivity {
                 startActivity();
                 finish();
             }
-        }, 2000);
-        initRemoteConfig();
+        }, 1500);
+//        initRemoteConfig();
     }
 
     @Override

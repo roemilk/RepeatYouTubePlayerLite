@@ -140,10 +140,8 @@
     <!-- 초대 -->
     <string name="share_title">이 환상적인 앱을 친구에게 소개해주세요.\n이 앱을 친구에게 소개해주시는 모든 분들에게 행운이 가득하실 것입니다.\n사랑합니다♡</string>
 
-    <!-- RateThisApp -->
-    <string name="rate_title">타이틀</string>
-    <string name="rate_message">메시지</string>
-    <string name="rate_yes_button">예</string>
-    <string name="rate_no_button">아니오</string>
-    <string name="rate_cancel_button">취소</string>
+    <!-- 구간 공유 -->
+    <string name="range_share_hint">최고의 장면을 친구에게 보여주기!</string>
+    <string name="range_share_text">꼭 함께 보고 싶은 최고의 장면!</string>
+    <string name="range_share_prefix">친구가 추천한 최고의 장면!</string>
 </resources>

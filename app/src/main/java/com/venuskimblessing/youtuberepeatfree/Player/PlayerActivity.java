@@ -312,7 +312,8 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
             String convertStartTime = MediaUtils.getMillSecToHMS(mStartTime);
             String convertEndTime = MediaUtils.getMillSecToHMS(mEndTime);
-            Toast.makeText(this, "친구가 추천한 최고의 장면\n" + convertStartTime + " - " + convertEndTime + " 을 재생합니다.", Toast.LENGTH_LONG).show();
+            String prefixString = getString(R.string.range_share_prefix);
+            Toast.makeText(this, prefixString + "\n\n" + convertStartTime + " - " + convertEndTime, Toast.LENGTH_LONG).show();
 
             if(!mExpandableLayout_0.isExpanded()){
                 mExpandableLayout_0.expand(true);
