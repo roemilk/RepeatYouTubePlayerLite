@@ -4,21 +4,11 @@
     <string name="app_name">YouTube Repeat Free</string>
 
         
-    <string name="intro"> Вы можете воспроизводить любимые фильмы двумя способами. </string>
-        
-    <string name="search"> Вы можете найти нужное видео в поиске. </string>
-        
-    <string name="guide1"> Есть ли у вас видеоролики, которые вы хотели бы повторить в приложении YouTube? </string>
-        
-    <string name="guide2"> Нажмите «Поделиться». В списке появится повторное приложение YouTube. </string>
-        
-    <string name="guide3"> Повторить воспроизведение Загружает видео, которое ваше приложение размещает на YouTube. </string>
-        
-    <string name="guide4"> Задайте область, которую вы хотите повторить. </string>
-        
-    <string name="guide5"> Сколько раз вы будете повторять? </string>
-        
-    <string name="guide6"> Теперь нажмите Play и наслаждайтесь! </string>
+    <string name = "introduce1"> Quickly find the YouTube video you want in your search. </string>
+         <string name = "introduce2"> You can use various Feature.</string>
+         <string name = "introduce3"> You can keep a scene you want to keep in your playlist. </string>
+         <string name = "introduce4"> You can watch the video while doing other work with the floating window function. </string>
+         <string name = "introduce5"> Choose the best scene and share it with your friends!!! </string>
         
     <string name="guidelast"> Нажмите кнопку «Пуск». </string>
         
@@ -160,7 +150,8 @@
     <string name="share_title">Introduce this fantastic app to your friends. thank you.♡</string>
 
     <!-- 구간 공유 -->
-    <string name="range_share_hint">Show your best scenes to your friends!</string>
-    <string name="range_share_text">This is the best scene!</string>
+    <string name="range_share_hint">show best moments to friends.</string>
+    <string name="range_share_text">You should check out this!!</string>
+    <string name="range_share_text2">Touch to watch video!</string>
     <string name="range_share_prefix">This is the best scene my friend recommended.</string>
 </resources>

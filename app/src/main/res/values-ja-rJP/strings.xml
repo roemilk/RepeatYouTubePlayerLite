@@ -3,14 +3,11 @@
 
     <string name="app_name">YouTube 繰り返し Free</string>
 
-    <string name="intro">お気に入りの映画は2通りの方法で再生できます。</string>
-    <string name="search">検索に必要なビデオを見つけることができます。</string>
-    <string name="guide1"> YouTubeアプリで繰り返したい動画はありますか？</string>
-    <string name="guide2"> [共有]をクリックします。 YouTubeリピートアプリがリストに表示されます。</string>
-    <string name="guide3">リピート再生アプリがYouTube上で共有している動画を読み込みます。</string>
-    <string name="guide4">繰り返したい領域を設定します。</string>
-    <string name="guide5">何度繰り返しますか？</string>
-    <string name="guide6"> Playをクリックして楽しんでください！</string>
+    <string name = "introduce1"> 検索で目的のビデオを見つけることができます。</string>
+         <string name = "introduce2"> さまざまな機能を利用することができます。 </string>
+         <string name = "introduce3"> 最高のシーンをプレイリストに保存することができます。</string>
+         <string name = "introduce4"> フローティングウィンドウの機能に他の作業をしながら、ビデオを鑑賞することができます。 </string>
+         <string name = "introduce5"> 最高のシーンを選択して、友人に共有してください！ </string>
     <string name="guidelast">スタートボタンをクリックします。</string>
     <string name="guidelast_content">何度も繰り返し見たいシーンがありますか？\ n聞き続けたい曲の部分はありますか？\n\nExperienceは最も簡単で簡単なYouTubeの繰り返しですapp！</string>
     <string name="guidelast_start">開始方法</string>
@@ -128,7 +125,8 @@
     <string name="share_title">Introduce this fantastic app to your friends. thank you.♡</string>
 
     <!-- 구간 공유 -->
-    <string name="range_share_hint">最高のシーンを友人に見せてください！</string>
-    <string name="range_share_text">これは最高のシーンです！</string>
-    <string name="range_share_prefix">これは私の友人がお勧めする最高のシーンです。</string>
+    <string name="range_share_hint">show best moments to friends.</string>
+    <string name="range_share_text">You should check out this!!</string>
+    <string name="range_share_text2">Touch to watch video!</string>
+    <string name="range_share_prefix">This is the best scene my friend recommended.</string>
 </resources>

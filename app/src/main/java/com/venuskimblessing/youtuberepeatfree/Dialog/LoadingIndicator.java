@@ -39,12 +39,16 @@ public class LoadingIndicator extends Dialog {
     }
 
     public void startLoadingView(){
-        mAvi.show();
+        if(mAvi != null){
+            mAvi.show();
+        }
         this.show();
     }
 
     public void stopLoadingView(){
-        mAvi.hide();
+        if(mAvi != null){
+            mAvi.hide();
+        }
         this.dismiss();
     }
 }

@@ -48,50 +48,35 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
     }
 
     private void setResourceData(){
-        GuideData guideIntro = new GuideData();
-        guideIntro.setResourceImage(R.drawable.guideintro);
-        guideIntro.setDescription(getResources().getString(R.string.intro));
+        GuideData introduce1 = new GuideData();
+        introduce1.setResourceImage(R.drawable.introduce1);
+        introduce1.setDescription(getResources().getString(R.string.introduce1));
 
-        GuideData guideSearch = new GuideData();
-        guideSearch.setResourceImage(R.drawable.guidesearch);
-        guideSearch.setDescription(getResources().getString(R.string.search));
+        GuideData introduce2 = new GuideData();
+        introduce2.setResourceImage(R.drawable.introduce2);
+        introduce2.setDescription(getResources().getString(R.string.introduce2));
 
-        GuideData guideData01 = new GuideData();
-        guideData01.setResourceImage(R.drawable.guide01);
-        guideData01.setDescription(getResources().getString(R.string.guide1));
+        GuideData introduce3 = new GuideData();
+        introduce3.setResourceImage(R.drawable.introduce3);
+        introduce3.setDescription(getResources().getString(R.string.introduce3));
 
-        GuideData guideData02 = new GuideData();
-        guideData02.setResourceImage(R.drawable.guide02);
-        guideData02.setDescription(getResources().getString(R.string.guide2));
+        GuideData introduce4 = new GuideData();
+        introduce4.setResourceImage(R.drawable.introduce4);
+        introduce4.setDescription(getResources().getString(R.string.introduce4));
 
-        GuideData guideData03 = new GuideData();
-        guideData03.setResourceImage(R.drawable.guide03);
-        guideData03.setDescription(getResources().getString(R.string.guide3));
-
-        GuideData guideData04 = new GuideData();
-        guideData04.setResourceImage(R.drawable.guide04);
-        guideData04.setDescription(getResources().getString(R.string.guide4));
-
-        GuideData guideData05 = new GuideData();
-        guideData05.setResourceImage(R.drawable.guide05);
-        guideData05.setDescription(getResources().getString(R.string.guide5));
-
-        GuideData guideData06 = new GuideData();
-        guideData06.setResourceImage(R.drawable.guide06);
-        guideData06.setDescription(getResources().getString(R.string.guide6));
+        GuideData introduce5 = new GuideData();
+        introduce5.setResourceImage(R.drawable.introduce5);
+        introduce5.setDescription(getResources().getString(R.string.introduce5));
 
         GuideData guideLast = new GuideData();
         guideLast.setResourceImage(R.drawable.bg_loading);
         guideLast.setDescription(getResources().getString(R.string.guidelast));
 
-        mResourceList.add(guideIntro);
-        mResourceList.add(guideSearch);
-        mResourceList.add(guideData01);
-        mResourceList.add(guideData02);
-        mResourceList.add(guideData03);
-        mResourceList.add(guideData04);
-        mResourceList.add(guideData05);
-        mResourceList.add(guideData06);
+        mResourceList.add(introduce1);
+        mResourceList.add(introduce2);
+        mResourceList.add(introduce3);
+        mResourceList.add(introduce4);
+        mResourceList.add(introduce5);
         mResourceList.add(guideLast);
     }
 

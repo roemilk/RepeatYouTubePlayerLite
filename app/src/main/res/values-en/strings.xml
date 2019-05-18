@@ -4,14 +4,11 @@
     <string name="app_name">YouTube Repeat Free</string>
 
     <!-- 사용 설명 가이드 -->
-    <string name="intro">You can play your favorite movies in two ways.</string>
-    <string name="search">You can find the video you want in the search.</string>
-    <string name="guide1">Do you have videos that you would like to repeat in the YouTube app?</string>
-    <string name="guide2">Click Share. The YouTube repeat app will appear in the list.</string>
-    <string name="guide3">Repeat play Loads a video that your app shared on YouTube.</string>
-    <string name="guide4">Set the area you want to repeat.</string>
-    <string name="guide5">How many times will you repeat?</string>
-    <string name="guide6">Now click Play and enjoy it!</string>
+    <string name = "introduce1"> Quickly find the YouTube video you want in your search. </string>
+         <string name = "introduce2"> You can use various Feature.</string>
+         <string name = "introduce3"> You can keep a scene you want to keep in your playlist. </string>
+         <string name = "introduce4"> You can watch the video while doing other work with the floating window function. </string>
+         <string name = "introduce5"> Choose the best scene and share it with your friends!!! </string>
     <string name="guidelast">Click the Start button.</string>
     <string name="guidelast_content">Are there any scenes you would like to keep seeing over and over again?\nDo you have any part of the song you want to keep listening to?\n\nExperience the most convenient and easy YouTube iterations app!</string>
     <string name="guidelast_start">Getting Start</string>
@@ -136,7 +133,8 @@ It is your very smart choice.\n\nPRO benefits \n
     <string name="share_title">Introduce this fantastic app to your friends. thank you.♡</string>
 
     <!-- 구간 공유 -->
-    <string name="range_share_hint">Show your best scenes to your friends!</string>
-    <string name="range_share_text">This is the best scene!</string>
+    <string name="range_share_hint">show best moments to friends.</string>
+    <string name="range_share_text">You should check out this!!</string>
+    <string name="range_share_text2">Touch to watch video!</string>
     <string name="range_share_prefix">This is the best scene my friend recommended.</string>
 </resources>
