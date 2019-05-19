@@ -139,7 +139,7 @@
 
     <!-- 구간 공유 -->
     <string name="range_share_hint">최고의 장면을 친구에게 보여주기!</string>
-    <string name="range_share_text">꼭 함께 보고 싶은 최고의 장면!</string>
+    <string name="range_share_text">이 장면 한번 봐봐~ 와..완전 쩔어!!</string>
     <string name="range_share_text2">비디오 보러가기</string>
     <string name="range_share_prefix">친구가 추천한 최고의 장면!</string>
 </resources>
