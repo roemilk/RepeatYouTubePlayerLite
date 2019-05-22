@@ -101,20 +101,17 @@ public class DynamicLinkManager {
 
         String shareHint = mActivity.getString(R.string.range_share_hint) + "\n" + convertStartTime + " - " + convertEndTime;
         String shareText = mActivity.getString(R.string.range_share_text);
+        String shareResultText = shareText + "\n\n" + title + "\n\n" + convertStartTime + " - " + convertEndTime + "\n\n" + dynamicLinkUrl;
 
         Intent reciver = new Intent(mActivity, ShareAppReciver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(mActivity, 0, reciver, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Intent intent = new Intent(android.content.Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, shareText + "\n\n" + title + "\n\n" + convertStartTime + " - " + convertEndTime + "\n\n" + dynamicLinkUrl);
-
-        List targetList = getTargetList();
+        List<Intent> targetList = getTargetList(shareResultText);
         Intent chooser = null;
 //        if (Build.VERSION.SDK_INT >= 22) {
 //            chooser = Intent.createChooser(intent, shareHint, pendingIntent.getIntentSender());
 //        } else {
-            chooser = Intent.createChooser(intent, shareHint);
+            chooser = Intent.createChooser(targetList.remove(0), shareHint);
 //        }
 
         Log.d(TAG, "targetList : " + targetList);
@@ -124,10 +121,8 @@ public class DynamicLinkManager {
         mLoadingIndicator.stopLoadingView();
     }
 
-    private List getTargetList() {
+    private List getTargetList(String text) {
         String subject = "메시지 제목";
-        String text = "메시지 내용은\n다음줄에서..";
-
         List targetedShareIntents = new ArrayList<>();
 
         // 페이스북
@@ -149,6 +144,14 @@ public class DynamicLinkManager {
         Intent gmailIntent = getShareIntent("gmail", subject, text);
         if (gmailIntent != null)
             targetedShareIntents.add(gmailIntent);
+
+        Intent kakaoIntent = getShareIntent("kakao", subject, text);
+        if (kakaoIntent != null)
+            targetedShareIntents.add(kakaoIntent);
+
+        Intent snapchatIntent = getShareIntent("snapchat", subject, text);
+        if (snapchatIntent != null)
+            targetedShareIntents.add(snapchatIntent);
 
         return targetedShareIntents;
     }
