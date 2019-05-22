@@ -58,5 +58,7 @@
             android:exported="true"
             android:enabled="true"
             android:permission="android.permission.SYSTEM_ALERT_WINDOW"></service>
+
+        <receiver android:name=".BroadcastReceiver.ShareAppReciver" android:exported="false"/>
     </application>
 </manifest>

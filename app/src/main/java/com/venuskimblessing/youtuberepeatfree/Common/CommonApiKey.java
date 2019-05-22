@@ -10,10 +10,10 @@ public class CommonApiKey {
     public static final String KEY_ADMOB_REWARD_UNIT = "ca-app-pub-8974353837020608/2246612326"; //리워드 광고 단위ID
 
     //테스트용 ID
-//    public static final String KEY_ADMOB_APP_ID = "ca-app-pub-3940256099942544~3347511713"; //테스트 앱ID
-//    public static final String KEY_ADMOB_FULL_UNIT = "ca-app-pub-3940256099942544/1033173712"; //테스트 단위ID (배너, 전면)
+    public static final String KEY_ADMOB_APP_ID = "ca-app-pub-3940256099942544~3347511713"; //테스트 앱ID
+    public static final String KEY_ADMOB_FULL_UNIT = "ca-app-pub-3940256099942544/1033173712"; //테스트 단위ID (배너, 전면)
 
     //릴리즈용 ID
-    public static final String KEY_ADMOB_APP_ID = "ca-app-pub-8974353837020608~7336436218"; //앱ID
-    public static final String KEY_ADMOB_FULL_UNIT = "ca-app-pub-8974353837020608/6514432847"; //전면광고 단위ID
+//    public static final String KEY_ADMOB_APP_ID = "ca-app-pub-8974353837020608~7336436218"; //앱ID
+//    public static final String KEY_ADMOB_FULL_UNIT = "ca-app-pub-8974353837020608/6514432847"; //전면광고 단위ID
 }

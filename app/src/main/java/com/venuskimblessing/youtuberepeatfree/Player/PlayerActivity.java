@@ -84,6 +84,7 @@ import retrofit2.Retrofit;
  */
 public class PlayerActivity extends YouTubeFailureRecoveryActivity implements View.OnClickListener, YouTubePlayer.PlaybackEventListener, YouTubePlayer.PlayerStateChangeListener, RangeSeekBar.OnRangeSeekBarChangeListener<Integer>, ExpandableLayout.OnExpansionUpdateListener {
     public static final String TAG = "PlayerActivity";
+    public static final String TAG_ACTIVITY = "activity_life";
 
     //Request Code
     public final int REQ_CODE_OVERLAY_PERMISSION = 123;
@@ -159,6 +160,8 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG_ACTIVITY, "onCreate...");
+
         setContentView(R.layout.activity_player);
 //        checkPiracyChecker();
 //        initInviteItem();
@@ -227,8 +230,21 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     }
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d(TAG, "onRestart..");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG_ACTIVITY, "onStart...");
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
+        Log.d(TAG_ACTIVITY, "onResume...");
         getShareIntentData();
         startPlay(mPlayId);
         loadVideos(mPlayId);
@@ -236,10 +252,17 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
     @Override
     protected void onPause() {
-        Log.d(TAG, "onPause..");
         stopTimer();
         super.onPause();
+        Log.d(TAG, "onPause..");
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG_ACTIVITY, "onCreate...");
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -670,6 +693,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                     title = mSnippet.title;
                 }
                 mDynamicLinkManager.createShortDynamicLink(title, mPlayId, String.valueOf(mStartTime), String.valueOf(mEndTime));
+                mFirebaseAnalytics.logEvent("dynamic_link_send", null);
                 break;
         }
     }
@@ -878,6 +902,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         }
         stopService(new Intent(this, FloatingService.class));
         super.onDestroy();
+        Log.d(TAG, "onDestroy..");
     }
 
     @Override
