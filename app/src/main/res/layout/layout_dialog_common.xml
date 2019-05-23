@@ -28,8 +28,8 @@
                 android:id="@+id/dialog_common_title_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:gravity="center"
                 android:text="@string/invitation_tip_title"
                 android:textColor="#FFFFFF"
@@ -40,52 +40,57 @@
                 android:id="@+id/dialog_common_content_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:layout_marginTop="5dp"
-                android:gravity="center"
+                android:gravity="left"
                 android:text="@string/invitation_tip_content"
                 android:textColor="#FFFFFF"
                 android:textSize="16dp" />
 
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/dialog_common_one_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="15dp"
-                android:background="#FF9800"
-                android:text="@string/invitation_button"
-                android:textColor="#FFFFFF"
-                android:textSize="16dp"
-                android:textStyle="bold" />
-            <Button
-                android:id="@+id/dialog_common_two_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="5dp"
-                android:background="#FF9800"
-                android:text="@string/invitation_button"
-                android:textColor="#FFFFFF"
-                android:textSize="16dp"
-                android:textStyle="bold" />
-            <Button
-                android:id="@+id/dialog_common_three_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="5dp"
-                android:background="#FF9800"
-                android:text="@string/invitation_button"
-                android:textColor="#FFFFFF"
-                android:textSize="16dp"
-                android:textStyle="bold" />
+                <Button
+                    android:id="@+id/dialog_common_one_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
+                    android:background="#FF9800"
+                    android:text="@string/invitation_button"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+                <Button
+                    android:id="@+id/dialog_common_two_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#FF9800"
+                    android:text="@string/invitation_button"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+                <Button
+                    android:id="@+id/dialog_common_three_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#FF9800"
+                    android:text="@string/invitation_button"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
-
     </ScrollView>
 </RelativeLayout>

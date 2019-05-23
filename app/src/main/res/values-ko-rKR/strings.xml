@@ -144,10 +144,10 @@
     <string name="range_share_prefix">친구가 추천한 최고의 장면!</string>
 
     <!-- 잠긴 기능 -->
-    <string name="locked_feature_title">잠금 해제가 필요한 프리미엄 기능입니다.</string>
-    <string name="locked_feature_content">두가지 방법 중 하나로 모든 프리미엄 기능을 사용할 수 있습니다.\n프로 버전 업그레이드로 모든 기능을 사용할 수 있습니다.\n친구들에게 앱을 소개하고 무료로 잠겨있는 모든 기능을 사용할 수 있습니다!</string>
-    <string name="locked_feature_buyPro">프로 버전 업그레이드</string>
-    <string name="locked_feature_share">앱 소개하고 무료로 모든 기능 얻기</string>
+    <string name="locked_feature_title">으아앗...ㅠㅠ</string>
+    <string name="locked_feature_content">프리미엄 전용 기능입니다.\n\n페이스북 친구들에게 앱을 소개하고 무료로 잠겨있는 모든 기능을 사용할 수 있습니다!</string>
+    <string name="locked_feature_buyPro">프리미엄 버전 업그레이드</string>
+    <string name="locked_feature_share">무료로 모든 기능 얻기</string>
 
     <!-- 페이스북 디벨로퍼 AppId -->
     <string name="facebook_app_id">2346907598897007</string>
