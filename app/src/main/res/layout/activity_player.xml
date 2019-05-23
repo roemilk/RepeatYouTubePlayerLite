@@ -299,6 +299,12 @@
                         android:layout_marginRight="20dp"
                         android:background="@drawable/ic_share_white_24dp" />
 
+                    <com.facebook.share.widget.ShareButton
+                        android:id="@+id/player_setting_facebookShareButton"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        />
+
                     <Button
                         android:id="@+id/player_setting_repeat_button"
                         android:layout_width="40dp"

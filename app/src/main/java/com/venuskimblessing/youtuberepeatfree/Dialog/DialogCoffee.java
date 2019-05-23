@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 import com.venuskimblessing.youtuberepeatfree.R;
 
 public class DialogCoffee extends Dialog implements View.OnClickListener {
-    private static final String TAG = "DialogInvitation";
+    private static final String TAG = "DialogCommon";
 
     private Context mContext;
     private RelativeLayout mParentLay;

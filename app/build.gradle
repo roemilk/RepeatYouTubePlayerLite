@@ -89,6 +89,7 @@ dependencies {
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:8.0.1'
     implementation 'com.facebook.android:audience-network-sdk:5.0.0'
     implementation 'com.google.ads.mediation:facebook:4.99.3.0'
+    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
     implementation 'com.google.firebase:firebase-config:16.5.0'
     implementation 'io.github.kobakei:ratethisapp:1.2.0'
 }

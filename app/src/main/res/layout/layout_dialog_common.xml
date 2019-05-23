@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/dialog_invitation_parent_lay"
+    android:id="@+id/dialog_common_parent_lay"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -19,12 +19,13 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="280dp"
-                android:layout_height="280dp"
+                android:id="@+id/dialog_common_logo_imageView"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
                 android:src="@drawable/img_invitation_rabbit" />
 
             <TextView
-                android:id="@+id/dialog_invitation_tip_title_textView"
+                android:id="@+id/dialog_common_title_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
@@ -36,7 +37,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/dialog_invitation_tip_content_textView"
+                android:id="@+id/dialog_common_content_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
@@ -47,26 +48,38 @@
                 android:textColor="#FFFFFF"
                 android:textSize="16dp" />
 
-            <TextView
-                android:id="@+id/dialog_invitation_count_textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:text="@string/invitation_count"
-                android:textColor="#FFFFFF"
-                android:textSize="18dp"
-                android:textStyle="bold" />
 
             <Button
-                android:id="@+id/dialog_invitation_button"
+                android:id="@+id/dialog_common_one_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="15dp"
+                android:background="#FF9800"
+                android:text="@string/invitation_button"
+                android:textColor="#FFFFFF"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+            <Button
+                android:id="@+id/dialog_common_two_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp"
+                android:background="#FF9800"
+                android:text="@string/invitation_button"
+                android:textColor="#FFFFFF"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+            <Button
+                android:id="@+id/dialog_common_three_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp"
                 android:background="#FF9800"
                 android:text="@string/invitation_button"
                 android:textColor="#FFFFFF"

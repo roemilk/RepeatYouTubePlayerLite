@@ -60,5 +60,10 @@
             android:permission="android.permission.SYSTEM_ALERT_WINDOW"></service>
 
         <receiver android:name=".BroadcastReceiver.ShareAppReciver" android:exported="false"/>
+
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <provider android:authorities="com.facebook.app.FacebookContentProvider2346907598897007"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true"/>
     </application>
 </manifest>

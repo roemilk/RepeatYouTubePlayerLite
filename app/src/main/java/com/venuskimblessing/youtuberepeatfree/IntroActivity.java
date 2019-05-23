@@ -1,12 +1,16 @@
 package com.venuskimblessing.youtuberepeatfree;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -26,6 +30,9 @@ import com.hanks.htextview.fade.FadeTextView;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonConfig;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonSharedPreferencesKey;
 import com.venuskimblessing.youtuberepeatfree.Utils.SharedPreferencesUtils;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class IntroActivity extends AppCompatActivity {
     public static final String TAG = "IntroActivity";
@@ -48,7 +55,7 @@ public class IntroActivity extends AppCompatActivity {
 //        getDynamicLink();
 //        OSUtils.printKeyHash(this);
 //        getShareIntentData();
-
+        getHashKey();
 //        getFCMToken();
         mLineTextView = (FadeTextView) findViewById(R.id.intro_textView);
         mLineTextView.animateText(getResources().getString(R.string.app_name));
@@ -184,5 +191,26 @@ public class IntroActivity extends AppCompatActivity {
                         Log.d(TAG, "token : " + token);
                     }
                 });
+    }
+
+    private void getHashKey() {
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        if (packageInfo == null)
+            Log.e("KeyHash", "KeyHash:null");
+
+        for (Signature signature : packageInfo.signatures) {
+            try {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            } catch (NoSuchAlgorithmException e) {
+                Log.e("KeyHash", "Unable to get MessageDigest. signature=" + signature, e);
+            }
+        }
     }
 }

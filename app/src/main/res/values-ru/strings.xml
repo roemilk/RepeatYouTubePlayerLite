@@ -153,5 +153,7 @@
     <string name="range_share_hint">show best moments to friends.</string>
     <string name="range_share_text">You should check out this!!</string>
     <string name="range_share_text2">Touch to watch video!</string>
-    <string name="range_share_prefix">This is the best scene my friend recommended.</string>
+
+
+    <string name="facebook_app_id">2346907598897007</string>
 </resources>

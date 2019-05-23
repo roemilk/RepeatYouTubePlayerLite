@@ -31,6 +31,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.share.Sharer;
+import com.facebook.share.model.ShareHashtag;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareButton;
+import com.facebook.share.widget.ShareDialog;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
@@ -41,6 +50,7 @@ import com.venuskimblessing.youtuberepeatfree.Common.CommonSharedPreferencesKey;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonUserData;
 import com.venuskimblessing.youtuberepeatfree.Common.IntentAction;
 import com.venuskimblessing.youtuberepeatfree.Common.IntentKey;
+import com.venuskimblessing.youtuberepeatfree.Dialog.DialogCommon;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogHelp;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogPickerCount;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogPickerTime;
@@ -157,11 +167,14 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     //DynamicLink
     private DynamicLinkManager mDynamicLinkManager = null;
 
+    //Facebook Share
+    private CallbackManager mCallbackManager;
+    private ShareDialog mShareDialog;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG_ACTIVITY, "onCreate...");
-
         setContentView(R.layout.activity_player);
 //        checkPiracyChecker();
 //        initInviteItem();
@@ -271,8 +284,10 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         if (requestCode == REQ_CODE_AD_FINISH) {
             if (resultCode == RESULT_OK) {
                 showPopupFlaotingWindow();
+                return;
             }
         }
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -604,9 +619,11 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 //                    showMenu();
 //                }
 
-                if(mYouTubePlayer != null){
-                    mYouTubePlayer.setFullscreen(true);
-                }
+                showLockedFeatureDialog();
+
+//                if(mYouTubePlayer != null){
+//                    mYouTubePlayer.setFullscreen(true);
+//                }
                 break;
 
             case R.id.player_top_lock_button:
@@ -1263,5 +1280,68 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         }
         startService(intent);
         goHome();
+    }
+
+    //FaceBook 공유
+    private void shareFacebook(){
+        mCallbackManager = CallbackManager.Factory.create();
+        mShareDialog = new ShareDialog(this);
+        mShareDialog.registerCallback(mCallbackManager, new FacebookCallback<Sharer.Result>() {
+            @Override
+            public void onSuccess(Sharer.Result result) {
+                Log.d("facebookcallback", "onSuccess..");
+
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d("facebookcallback", "onCancel..");
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d("facebookcallback", "onError..");
+
+            }
+        });
+        if (ShareDialog.canShow(ShareLinkContent.class)) {
+            ShareHashtag shareHashtag = new ShareHashtag.Builder().setHashtag("#youtube").build();
+            ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                    .setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.venuskimblessing.youtuberepeatfree"))
+                    .setShareHashtag(shareHashtag)
+                    .build();
+            mShareDialog.show(linkContent);
+        }
+    }
+
+    /**
+     * Locked Feature Dialog
+     * 잠금이 걸려 있는 기능에 대한 팝업
+     */
+    private void showLockedFeatureDialog(){
+        final DialogCommon dialogCommonLockedFeature = new DialogCommon(this, R.style.custom_dialog_fullScreen);
+        dialogCommonLockedFeature.setTitle(getString(R.string.locked_feature_title));
+        dialogCommonLockedFeature.setContent(getString(R.string.locked_feature_content));
+        dialogCommonLockedFeature.mThreeButton.setVisibility(View.GONE);
+        dialogCommonLockedFeature.mOneButton.setText(getString(R.string.locked_feature_buyPro));
+        dialogCommonLockedFeature.mTwoButton.setText(getString(R.string.locked_feature_share));
+        dialogCommonLockedFeature.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()){
+                    case R.id.dialog_common_one_button:
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse("market://details?id=com.venuskimblessing.youtuberepeat"));
+                        startActivity(intent);
+                        break;
+                    case R.id.dialog_common_two_button:
+                        shareFacebook();
+                        break;
+                }
+                dialogCommonLockedFeature.dismiss();
+            }
+        });
+        dialogCommonLockedFeature.show();
     }
 }

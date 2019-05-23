@@ -49,7 +49,6 @@ import com.kobakei.ratethisapp.RateThisApp;
 import com.venuskimblessing.youtuberepeatfree.Adapter.SearchDecoration;
 import com.venuskimblessing.youtuberepeatfree.Adapter.SearchRecyclerViewAdapter;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonApiKey;
-import com.venuskimblessing.youtuberepeatfree.Common.CommonConfig;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonSharedPreferencesKey;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonUserData;
 import com.venuskimblessing.youtuberepeatfree.Common.IntentAction;
@@ -58,7 +57,6 @@ import com.venuskimblessing.youtuberepeatfree.Dialog.DialogChat;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogCoffee;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogEnding;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogInfo;
-import com.venuskimblessing.youtuberepeatfree.Dialog.DialogInvitation;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogPlayList;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogRecommend;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogSort;
@@ -718,12 +716,12 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         switch (v.getId()) {
             case R.id.search_invite_button:
 //                setEventLog(EVENT_INVITATION);
-//                DialogInvitation dialogInvitation = new DialogInvitation(this, R.style.custom_dialog_fullScreen);
+//                DialogCommon dialogInvitation = new DialogCommon(this, R.style.custom_dialog_fullScreen);
 //                dialogInvitation.setOnClickListener(this);
 //                dialogInvitation.show();
                 inviteFriends();
                 break;
-            case R.id.dialog_invitation_button:
+            case R.id.dialog_common_one_button:
 //                onInviteClicked();
 //                inviteFriends();
                 break;
