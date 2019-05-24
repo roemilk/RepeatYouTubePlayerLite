@@ -34,11 +34,8 @@ import android.widget.Toast;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.share.Sharer;
-import com.facebook.share.model.ShareHashtag;
 import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.widget.ShareButton;
 import com.facebook.share.widget.ShareDialog;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -78,6 +75,7 @@ import net.cachapa.expandablelayout.ExpandableLayout;
 import org.florescu.android.rangeseekbar.RangeSeekBar;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -119,7 +117,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     private TextView mTopCountTextView;
 
     //Bottom Menu
-    private LinearLayout mBottomSettingLay;
+    private LinearLayout mSubFeatureLay, mBottomSettingLay;
 
     //ExpandableLayout
     private LinearLayout mExpandableContentLay_0 = null;
@@ -171,6 +169,12 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     private CallbackManager mCallbackManager;
     private ShareDialog mShareDialog;
 
+    //Shuffle
+    private Button mShuffleButton;
+    private Random mRandom = new Random();
+    private boolean mShuffle = false;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -205,6 +209,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
         mTopCountTextView = (TextView) findViewById(R.id.player_top_count_textView);
 
+        mSubFeatureLay = (LinearLayout) findViewById(R.id.player_setting_subFeature_lay);
         mBottomSettingLay = (LinearLayout) findViewById(R.id.player_setting_lay);
         mExpandableContentLay_0 = (LinearLayout) findViewById(R.id.expandable_content_lay_0);
         mExpandableLayout_0 = (ExpandableLayout) findViewById(R.id.expandable_layout_0);
@@ -237,6 +242,10 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
         mShareButton = (Button) findViewById(R.id.player_setting_share_button);
         mShareButton.setOnClickListener(this);
+
+        //Feature
+        mShuffleButton = (Button)findViewById(R.id.player_feature_shuffle_button);
+        mShuffleButton.setOnClickListener(this);
 
         initRangeSeekBar();
         initPickerTime();
@@ -619,17 +628,22 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 //                    showMenu();
 //                }
 
-                showLockedFeatureDialog();
+//                showUnLockSuccessDialog();
 
-//                if(mYouTubePlayer != null){
-//                    mYouTubePlayer.setFullscreen(true);
-//                }
+                if(mYouTubePlayer != null){
+                    mYouTubePlayer.setFullscreen(true);
+                }
                 break;
 
             case R.id.player_top_lock_button:
-                mLock = !mLock;
-                setLockButtonRes();
-                setLock();
+                boolean freeUnlock = SharedPreferencesUtils.getBoolean(this, CommonSharedPreferencesKey.KEY_PREMIUM_FREEUNLOCK);
+                if(freeUnlock){
+                    mLock = !mLock;
+                    setLockButtonRes();
+                    setLock();
+                }else{
+                    showLockedFeatureDialog();
+                }
                 break;
 
             case R.id.player_top_playlist_button:
@@ -711,6 +725,10 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 }
                 mDynamicLinkManager.createShortDynamicLink(title, mPlayId, String.valueOf(mStartTime), String.valueOf(mEndTime));
                 mFirebaseAnalytics.logEvent("dynamic_link_send", null);
+                break;
+
+            case R.id.player_feature_shuffle_button:
+                mShuffle = true;
                 break;
         }
     }
@@ -1048,7 +1066,13 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
     private boolean isNext() {
         mPlayListArray = mPlayListDataManager.loadPlayList();
-        mPlayIndex = getPlayIndex(mPlayId);
+
+        if(mShuffle){ //무작위 재생
+            mPlayIndex = getShufflePlayIndex();
+            return true;
+        }else{
+            mPlayIndex = getPlayIndex(mPlayId);
+        }
         if (mPlayType == TYPE_NORMAL) {
             if (mPlayListArray.size() != 0) {
                 return true;
@@ -1072,7 +1096,6 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
      */
     private void nextPlay() {
         Log.d(TAG, "다음 영상을 재생합니다.");
-
         if (mPlayType == TYPE_NORMAL) {
             mPlayType = TYPE_PLAYLIST;
             mCurrentPlayListData = mPlayListArray.get(0);
@@ -1083,7 +1106,14 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
             startAutoPlay(mPlayId);
             refreshPlayListController();
         } else if (mPlayType == TYPE_PLAYLIST) {
-            mCurrentPlayListData = mPlayListArray.get(mPlayIndex + 1);
+            int playIndex = 0;
+
+            if(mShuffle){ //무작위 재생
+                playIndex = mPlayIndex;
+            }else{ //기본 다음 영상 재생
+                playIndex = mPlayIndex + 1;
+            }
+            mCurrentPlayListData = mPlayListArray.get(playIndex);
             mPlayId = mCurrentPlayListData.getVideoId();
             mStartTime = Integer.parseInt(mCurrentPlayListData.getStartTime());
             mEndTime = Integer.parseInt(mCurrentPlayListData.getEndTime());
@@ -1091,6 +1121,18 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
             startAutoPlay(mPlayId);
             refreshPlayListController();
         }
+    }
+
+    /**
+     * 인덱스 셔플
+     */
+    private int getShufflePlayIndex(){
+        int allIndex = mPlayListArray.size();
+        Log.d(TAG, "shuffle allIndex >> " + allIndex);
+
+        int shuffleIndex = mRandom.nextInt(allIndex);
+        Log.d(TAG, "shuffle index >> " + shuffleIndex);
+        return shuffleIndex;
     }
 
     /**
@@ -1115,6 +1157,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         Log.d(TAG, "Index Search Detected : " + index);
         return index;
     }
+
 
     //PlayList Controller
 
@@ -1290,26 +1333,27 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
             @Override
             public void onSuccess(Sharer.Result result) {
                 Log.d("facebookcallback", "onSuccess..");
-
+                SharedPreferencesUtils.setBoolean(PlayerActivity.this, CommonSharedPreferencesKey.KEY_PREMIUM_FREEUNLOCK, true);
+                showUnLockSuccessDialog();
             }
 
             @Override
             public void onCancel() {
                 Log.d("facebookcallback", "onCancel..");
-
+                Toast.makeText(PlayerActivity.this, getString(R.string.locked_feature_share_err), Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onError(FacebookException error) {
-                Log.d("facebookcallback", "onError..");
+                Log.d("facebookcallback", "onError.." + error.toString());
 
             }
         });
         if (ShareDialog.canShow(ShareLinkContent.class)) {
-            ShareHashtag shareHashtag = new ShareHashtag.Builder().setHashtag("#youtube").build();
+//            ShareHashtag shareHashtag = new ShareHashtag.Builder().setHashtag("#youtube").build();
             ShareLinkContent linkContent = new ShareLinkContent.Builder()
                     .setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.venuskimblessing.youtuberepeatfree"))
-                    .setShareHashtag(shareHashtag)
+//                    .setShareHashtag(shareHashtag)
                     .build();
             mShareDialog.show(linkContent);
         }
@@ -1343,5 +1387,13 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
             }
         });
         dialogCommonLockedFeature.show();
+    }
+
+    private void showUnLockSuccessDialog(){
+        DialogCommon dialogCommonUnlockSuccess = new DialogCommon(this, R.style.custom_dialog_fullScreen);
+        dialogCommonUnlockSuccess.setTitle(getString(R.string.unlocked_feature_title));
+        dialogCommonUnlockSuccess.setContent(getString(R.string.unlocked_feature_content));
+        dialogCommonUnlockSuccess.hideButtonLay();
+        dialogCommonUnlockSuccess.show();
     }
 }

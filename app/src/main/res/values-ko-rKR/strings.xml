@@ -143,11 +143,21 @@
     <string name="range_share_text2">비디오 보러가기</string>
     <string name="range_share_prefix">친구가 추천한 최고의 장면!</string>
 
-    <!-- 잠긴 기능 -->
-    <string name="locked_feature_title">으아앗...ㅠㅠ</string>
-    <string name="locked_feature_content">프리미엄 전용 기능입니다.\n\n페이스북 친구들에게 앱을 소개하고 무료로 잠겨있는 모든 기능을 사용할 수 있습니다!</string>
+    <!-- lock -->
+    <string name="locked_feature_title">으아앙...ㅠㅠ</string>
+    <string name="locked_feature_content">프리미엄 기능입니다.\n\n프리미엄 버전으로 업그레이드하면 광고가 사라지며, 모든 프리미엄 기능을 제한 없이 사용할 수 있어요.\n\n페이스북 친구들에게 딱 한번 앱을 소개하고 무료로 얻을수 있는 모든 기능을 사용할 수 있어요!</string>
     <string name="locked_feature_buyPro">프리미엄 버전 업그레이드</string>
     <string name="locked_feature_share">무료로 모든 기능 얻기</string>
+    <string name="locked_feature_share_err">페북 친구들에게 앱을 소개하고 프리미엄 기능을 얻으세요!</string>
+
+    <!-- unlock -->
+    <string name="unlocked_feature_title">짝짝짝짝!!</string>
+    <string name="unlocked_feature_content">다양한 프리미엄 기능들을 사용할 수 있게 되었습니다.</string>
+
+    <!-- subFeature -->
+    <string name="sub_feature_shuffle_empty">플레이리스트 목록이 비어있습니다.</string>
+    <string name="sub_feature_shuffle_start">플레이리스트 셔플을 사용합니다.</string>
+    <string name="sub_feature_shffle_cancel">플레이리스트 셔플을 사용하지 않습니다.</string>
 
     <!-- 페이스북 디벨로퍼 AppId -->
     <string name="facebook_app_id">2346907598897007</string>

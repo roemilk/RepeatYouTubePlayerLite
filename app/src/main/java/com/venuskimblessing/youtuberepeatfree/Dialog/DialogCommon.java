@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ public class DialogCommon extends Dialog implements View.OnClickListener {
 
     private Context mContext;
     private RelativeLayout mParentLay;
+    private LinearLayout mBackgroundLay, mButtonLay;
     private ImageView mLogoImageView;
     private TextView mTitleTextView, mContentTextView;
     public Button mOneButton, mTwoButton, mThreeButton;
@@ -53,6 +55,8 @@ public class DialogCommon extends Dialog implements View.OnClickListener {
         mOneButton = (Button)findViewById(R.id.dialog_common_one_button);
         mTwoButton = (Button)findViewById(R.id.dialog_common_two_button);
         mThreeButton = (Button)findViewById(R.id.dialog_common_three_button);
+        mButtonLay = (LinearLayout)findViewById(R.id.dialog_common_button_lay);
+        mBackgroundLay = (LinearLayout)findViewById(R.id.dialog_common_background_lay);
 
         mParentLay.setOnClickListener(this);
         mOneButton.setOnClickListener(this);
@@ -72,6 +76,14 @@ public class DialogCommon extends Dialog implements View.OnClickListener {
 
     public void setContent(String content){
         this.mContentTextView.setText(content);
+    }
+
+    public void setBackgroundParentLay(int color){
+        mBackgroundLay.setBackgroundColor(color);
+    }
+
+    public void hideButtonLay(){
+        mButtonLay.setVisibility(View.GONE);
     }
 
     @Override
