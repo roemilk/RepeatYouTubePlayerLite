@@ -125,7 +125,7 @@
             android:layout_width="38dp"
             android:layout_height="38dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/ic_shuffle_24dp" />
+            android:background="@drawable/selector_shuffle_btn" />
 
         <Button
             android:layout_width="38dp"

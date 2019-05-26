@@ -173,7 +173,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     private Button mShuffleButton;
     private Random mRandom = new Random();
     private boolean mShuffle = false;
-
+    private int mShffleIndex = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -728,7 +728,24 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 break;
 
             case R.id.player_feature_shuffle_button:
-                mShuffle = true;
+                mShuffleButton.setSelected(!mShuffleButton.isSelected());
+                if(mShuffleButton.isSelected()){
+                    mPlayListArray = mPlayListDataManager.loadPlayList();
+                    if(mPlayListArray != null){
+                        if(mPlayListArray.size() <= 1) {
+                            Toast.makeText(PlayerActivity.this, getString(R.string.sub_feature_shuffle_empty), Toast.LENGTH_SHORT).show();
+                            mShuffleButton.setSelected(false);
+                            return;
+                        }else{
+                            mShuffle = true;
+                            startPlayListPlay(mPlayListArray.get(0));
+                            Toast.makeText(PlayerActivity.this, getString(R.string.sub_feature_shuffle_start), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }else{
+                    mShuffle = false;
+                    Toast.makeText(PlayerActivity.this, getString(R.string.sub_feature_shuffle_cancel), Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }
@@ -1068,7 +1085,9 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         mPlayListArray = mPlayListDataManager.loadPlayList();
 
         if(mShuffle){ //무작위 재생
-            mPlayIndex = getShufflePlayIndex();
+//            mPlayIndex = getShufflePlayIndex();
+            getShufflePlayIndex();
+            mPlayIndex = mShffleIndex;
             return true;
         }else{
             mPlayIndex = getPlayIndex(mPlayId);
@@ -1126,13 +1145,20 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     /**
      * 인덱스 셔플
      */
-    private int getShufflePlayIndex(){
+    private void getShufflePlayIndex(){
         int allIndex = mPlayListArray.size();
-        Log.d(TAG, "shuffle allIndex >> " + allIndex);
+//        Log.d(TAG, "shuffle allIndex >> " + allIndex);
 
         int shuffleIndex = mRandom.nextInt(allIndex);
-        Log.d(TAG, "shuffle index >> " + shuffleIndex);
-        return shuffleIndex;
+        if(shuffleIndex == mShffleIndex){
+            Log.d(TAG, "shuffleIndex and prev shuffle is euqal.. re try random. " + shuffleIndex + " " + mShffleIndex);
+            getShufflePlayIndex();
+            return;
+        }else {
+            Log.d(TAG, "shuffleIndex and prev shuffle is not euqal.. success " + shuffleIndex);
+            mShffleIndex = shuffleIndex;
+            return;
+        }
     }
 
     /**

@@ -157,7 +157,7 @@
     <!-- subFeature -->
     <string name="sub_feature_shuffle_empty">플레이리스트 목록이 비어있습니다.</string>
     <string name="sub_feature_shuffle_start">플레이리스트 셔플을 사용합니다.</string>
-    <string name="sub_feature_shffle_cancel">플레이리스트 셔플을 사용하지 않습니다.</string>
+    <string name="sub_feature_shuffle_cancel">플레이리스트 셔플을 사용하지 않습니다.</string>
 
     <!-- 페이스북 디벨로퍼 AppId -->
     <string name="facebook_app_id">2346907598897007</string>
