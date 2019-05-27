@@ -159,6 +159,11 @@
     <string name="sub_feature_shuffle_start">플레이리스트 셔플을 사용합니다.</string>
     <string name="sub_feature_shuffle_cancel">플레이리스트 셔플을 사용하지 않습니다.</string>
 
+    <!-- prev play -->
+    <string name="prev_play_empty">이전 영상이 없습니다.</string>
+    <string name="next_play_empty">다음 영상이 없습니다.</string>
+
+
     <!-- 페이스북 디벨로퍼 AppId -->
     <string name="facebook_app_id">2346907598897007</string>
 </resources>

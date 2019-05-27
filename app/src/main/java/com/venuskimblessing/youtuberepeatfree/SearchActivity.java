@@ -69,6 +69,7 @@ import com.venuskimblessing.youtuberepeatfree.Retrofit.RetrofitManager;
 import com.venuskimblessing.youtuberepeatfree.Retrofit.RetrofitService;
 import com.venuskimblessing.youtuberepeatfree.Utils.MediaUtils;
 import com.venuskimblessing.youtuberepeatfree.Utils.SharedPreferencesUtils;
+import com.venuskimblessing.youtuberepeatfree.Utils.SoftKeybordManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -147,6 +148,9 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 
     //PlayList
     private DialogPlayList mDialogPlayList = null;
+
+    //SoftKeyboard
+    private SoftKeybordManager mSoftKeybordManager;
 //
 //    //배너광고
 //    private LinearLayout mBannerLay;
@@ -158,6 +162,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        hideSoftKeyboard();
         setContentView(R.layout.activity_search);
         initRateThisApp();
         getShareIntentData(getIntent());
@@ -224,6 +229,11 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         super.onResume();
         getDynamicLink();
         loadFullAd();
+    }
+
+    private void hideSoftKeyboard(){
+        mSoftKeybordManager = new SoftKeybordManager(getWindow());
+        mSoftKeybordManager.hideSoftKeyInvisible();
     }
 
     /**

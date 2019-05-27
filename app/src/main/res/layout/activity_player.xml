@@ -36,6 +36,15 @@
             android:visibility="gone" />
 
         <Button
+            android:id="@+id/player_top_batterySaving_button"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/player_top_popup_button"
+            android:background="@drawable/ic_battery_saving_24dp" />
+
+        <Button
             android:id="@+id/player_top_popup_button"
             android:layout_width="28dp"
             android:layout_height="28dp"
@@ -111,14 +120,14 @@
         android:id="@+id/player_setting_subFeature_lay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:background="#000000"
         android:layout_above="@+id/player_setting_lay"
+        android:background="#000000"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        android:paddingTop="10dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="10dp">
 
         <Button
             android:id="@+id/player_feature_shuffle_button"
@@ -128,39 +137,38 @@
             android:background="@drawable/selector_shuffle_btn" />
 
         <Button
+            android:id="@+id/player_feature_replay_5_button"
             android:layout_width="38dp"
             android:layout_height="38dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/ic_replay_5_24dp" />
 
         <Button
+            android:id="@+id/player_feature_prev_button"
             android:layout_width="38dp"
             android:layout_height="38dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/ic_skip_previous_24dp" />
 
         <Button
+            android:id="@+id/player_feature_play_button"
             android:layout_width="38dp"
             android:layout_height="38dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/ic_play_arrow_24dp" />
 
         <Button
+            android:id="@+id/player_feature_next_button"
             android:layout_width="38dp"
             android:layout_height="38dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/ic_skip_next_24dp" />
 
         <Button
+            android:id="@+id/player_feature_forward_5_button"
             android:layout_width="38dp"
             android:layout_height="38dp"
-            android:layout_marginRight="10dp"
             android:background="@drawable/ic_forward_5_24dp" />
-
-        <Button
-            android:layout_width="38dp"
-            android:layout_height="38dp"
-            android:background="@drawable/ic_playlist_add_black_24dp" />
     </LinearLayout>
 
 
@@ -373,8 +381,8 @@
                         android:id="@+id/player_setting_playlist_button"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:visibility="visible"
-                        android:background="@drawable/ic_playlist_add_black_24dp" />
+                        android:background="@drawable/ic_playlist_add_black_24dp"
+                        android:visibility="visible" />
 
                 </LinearLayout>
             </LinearLayout>
