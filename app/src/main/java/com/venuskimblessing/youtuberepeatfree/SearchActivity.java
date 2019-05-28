@@ -19,21 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-//import com.android.billingclient.api.BillingClient;
-//import com.android.billingclient.api.BillingClientStateListener;
-//import com.android.billingclient.api.ConsumeResponseListener;
-//import com.android.billingclient.api.Purchase;
-//import com.android.billingclient.api.PurchaseHistoryResponseListener;
-//import com.android.billingclient.api.PurchasesUpdatedListener;
-//import com.android.vending.billing.IInAppBillingService;
 import com.github.florent37.materialtextfield.MaterialTextField;
-//import com.google.android.gms.ads.AdListener;
-//import com.google.android.gms.ads.AdRequest;
-//import com.google.android.gms.ads.AdView;
-//import com.google.android.gms.ads.InterstitialAd;
-//import com.google.android.gms.ads.MobileAds;
-//import com.google.android.gms.common.internal.service.Common;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
@@ -48,6 +34,7 @@ import com.google.gson.Gson;
 import com.kobakei.ratethisapp.RateThisApp;
 import com.venuskimblessing.youtuberepeatfree.Adapter.SearchDecoration;
 import com.venuskimblessing.youtuberepeatfree.Adapter.SearchRecyclerViewAdapter;
+import com.venuskimblessing.youtuberepeatfree.Billing.BillingManager;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonApiKey;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonSharedPreferencesKey;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonUserData;
@@ -76,6 +63,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -155,9 +143,9 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 //    //배너광고
 //    private LinearLayout mBannerLay;
 //    private AdView mAdView;
-//
-//    //인앱결제
-//    private BillingClient mBillingClient = null;
+
+    //Inapp
+    private BillingManager mBillingManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -167,6 +155,9 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         initRateThisApp();
         getShareIntentData(getIntent());
         MobileAds.initialize(this, CommonApiKey.KEY_ADMOB_APP_ID);
+
+        mBillingManager = new BillingManager(this);
+        mBillingManager.initBilling();
 
         mEmptyTextView = (TextView) findViewById(R.id.search_empty_textView);
 
@@ -210,9 +201,9 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                         mLoading = true;
 
                         String word = mEditTextSearchWord.getText().toString().trim();
-                        if(word.equals("")){
+                        if (word.equals("")) {
                             loadPopularContentsList();
-                        }else{
+                        } else {
                             loadSearchContentsList();
                         }
                     }
@@ -231,7 +222,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         loadFullAd();
     }
 
-    private void hideSoftKeyboard(){
+    private void hideSoftKeyboard() {
         mSoftKeybordManager = new SoftKeybordManager(getWindow());
         mSoftKeybordManager.hideSoftKeyInvisible();
     }
@@ -275,7 +266,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     /**
      * 리뷰 요청 팝업
      */
-    private void initRateThisApp(){
+    private void initRateThisApp() {
         RateThisApp.onCreate(this);
         RateThisApp.showRateDialogIfNeeded(this);
     }
@@ -287,7 +278,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     /**
      * 인기 동영상을 불러옵니다.
      */
-    private void loadPopularContentsList(){
+    private void loadPopularContentsList() {
         String regionCode = Locale.getDefault().getCountry();
         mCallPopularSearch = mService.getPopularYoutubeVideos("snippet", "mostPopular", regionCode, "50", mNextPageToken, CommonApiKey.KEY_API_YOUTUBE);
         mCallPopularSearch.enqueue(callback);
@@ -313,24 +304,26 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 
     /**
      * 다수의 비디오 리스트에 대한 상세 정보를 얻어온다.
+     *
      * @param ids
      */
-    private void loadVideosContentsDetail(String ids){
+    private void loadVideosContentsDetail(String ids) {
         mCallVideosContentsDetail = mService.getYoutubeVideos("contentDetails, statistics", ids, CommonApiKey.KEY_API_YOUTUBE);
         mCallVideosContentsDetail.enqueue(callback);
     }
 
     /**
      * 통신을 위한 VideoId를 조합한다.
+     *
      * @return
      */
-    private String createVideoIdList(){
+    private String createVideoIdList() {
         StringBuilder stringBuilder = new StringBuilder();
-        for(int i=0; i<mDurationItems.size(); i++){
+        for (int i = 0; i < mDurationItems.size(); i++) {
             SearchList.ItemsItem item = mDurationItems.get(i);
             String videoId = item.getVideoId();
             stringBuilder.append(videoId);
-            if(i == mDurationItems.size() - 1){
+            if (i == mDurationItems.size() - 1) {
                 break;
             }
             stringBuilder.append(",");
@@ -340,11 +333,12 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 
     /**
      * durationItems에 duration을 세팅하는 작업을 한 후 원본 mItems와 통합하는 작업을 한다.
+     *
      * @param videos
      */
-    private void mergeVideosList(Videos videos ){
+    private void mergeVideosList(Videos videos) {
         ArrayList<Videos.Item> items = videos.items;
-        for(int i=0; i<items.size(); i++){
+        for (int i = 0; i < items.size(); i++) {
             Videos.Item item = items.get(i);
 
             Videos.ContentDetails contentDetails = item.contentDetails;
@@ -352,17 +346,17 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 
             //Duration set
             String durationString = null;
-            if(contentDetails != null){
+            if (contentDetails != null) {
                 durationString = contentDetails.duration;
             }
 
             int duration = 0;
-            if(durationString != null){
+            if (durationString != null) {
                 duration = (int) MediaUtils.getDuration(durationString);
             }
 
             String durationResult = MediaUtils.getMillSecToHMS(duration);
-            if(durationResult != null){
+            if (durationResult != null) {
                 durationItem.setDuration(durationResult);
             }
 
@@ -370,11 +364,11 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
             Videos.statistics statistics = item.statistics;
 
             String viewCount = null;
-            if(statistics != null){
+            if (statistics != null) {
                 viewCount = statistics.viewCount;
             }
 
-            if(viewCount != null){
+            if (viewCount != null) {
                 durationItem.setViewCount(viewCount);
             }
         }
@@ -411,11 +405,12 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 
     /**
      * 공유 받은 데이터에 대한 영상 재생
-     * @param id video id
-     * @param startTime 시작시간
+     *
+     * @param id           video id
+     * @param startTime    시작시간
      * @param startEndTime 끝시간
      */
-    private void startSharePlayerActivity(String id, String startTime, String startEndTime){
+    private void startSharePlayerActivity(String id, String startTime, String startEndTime) {
         Intent intent = new Intent(this, PlayerActivity.class);
         intent.setAction(IntentAction.INTENT_ACTION_SHARE_VIDEO);
         intent.putExtra(IntentKey.INTENT_KEY_ID, id);
@@ -452,11 +447,11 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 
                 String kind = null;
                 String videoId = null;
-                if(type.equals(TYPE_SEARCH)){
+                if (type.equals(TYPE_SEARCH)) {
                     JSONObject idObject = itemsObject.getJSONObject("id");
                     kind = idObject.optString("kind", "null");
                     videoId = idObject.optString("videoId", "null");
-                }else{
+                } else {
                     kind = itemsObject.optString("kind", "null");
                     videoId = itemsObject.optString("id", "null");
                 }
@@ -557,7 +552,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         startActivityForResult(intent, REQUEST_INVITE);
     }
 
-    private void inviteFriends(){
+    private void inviteFriends() {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.invitation_message) + "\n\n" + "https://youtuberepeatfree.page.link/main");
@@ -656,14 +651,14 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         @Override
         public void onResponse(Call<String> call, Response<String> response) {
             String result = null;
-            try{
+            try {
                 result = response.body().toString();
-            }catch(Exception e){
+            } catch (Exception e) {
                 Toast.makeText(SearchActivity.this, getResources().getString(R.string.error_videos_emptyInfo), Toast.LENGTH_LONG).show();
             }
             if (call == mCallYoutubeSearch) {
                 parseJsonStringData(result, TYPE_SEARCH);
-            } else if(call == mCallPopularSearch){
+            } else if (call == mCallPopularSearch) {
                 parseJsonStringData(result, TYPE_POPULAR);
             } else if (call == mCallVideoDetail) {
                 Videos videos = (Videos) mGson.fromJson(result, Videos.class);
@@ -688,9 +683,9 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                     });
                     dialogInfo.show();
                 }
-            } else if(call == mCallVideosContentsDetail){
+            } else if (call == mCallVideosContentsDetail) {
                 Videos videos = (Videos) mGson.fromJson(result, Videos.class);
-                if(videos != null){
+                if (videos != null) {
                     Videos.PageInfo pageInfo = videos.pageInfo;
                     String totalResults = pageInfo.totalResults;
                     if (totalResults.equals("0")) {
@@ -700,7 +695,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                                 Toast.makeText(SearchActivity.this, getResources().getString(R.string.error_videos_emptyInfo), Toast.LENGTH_LONG).show();
                             }
                         });
-                    }else{
+                    } else {
                         mergeVideosList(videos);
                         if (mSearchRecyclerViewAdapter != null) {
                             refreshAdapter();
@@ -709,7 +704,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                         }
                         mLoading = false;
                     }
-                }else{ // 네트워크 오류
+                } else { // 네트워크 오류
                     Toast.makeText(SearchActivity.this, getString(R.string.error_videos_emptyInfo), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -783,7 +778,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                             case R.id.recommend_most_button:
                                 dialogRecommend.dismiss();
                                 mNextPageToken = "";
-                                if(mItems != null){
+                                if (mItems != null) {
                                     mRecyclerView.scrollToPosition(0);
                                     mItems.clear();
                                     loadPopularContentsList();
@@ -845,8 +840,9 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 break;
 
             case R.id.search_coffee_button:
-                DialogCoffee dialogCoffee = new DialogCoffee(this, R.style.custom_dialog_fullScreen);
-                dialogCoffee.show();
+//                DialogCoffee dialogCoffee = new DialogCoffee(this, R.style.custom_dialog_fullScreen);
+//                dialogCoffee.show();
+                mBillingManager.buyInapp();
                 break;
 
             case R.id.search_playlist_button:
@@ -882,7 +878,6 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
      */
     private void loadFullAd() {
         Log.d(TAG, "전면 광고 로드..");
-
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId(CommonApiKey.KEY_ADMOB_FULL_UNIT);
         mInterstitialAd.setAdListener(adListener);
@@ -939,7 +934,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         @Override
         public void onAdLoaded() {
             super.onAdLoaded();
-            if(mShareYouTubeFlag){
+            if (mShareYouTubeFlag) {
                 Log.d(TAG, "유튜브 전용 로직");
                 showFullAd();
                 mShareYouTubeFlag = false;
@@ -958,7 +953,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         }
     };
 
-    private void showChat(){
+    private void showChat() {
         DialogChat dialogChat = new DialogChat(this, R.style.custom_dialog_fullScreen);
         dialogChat.show();
     }
