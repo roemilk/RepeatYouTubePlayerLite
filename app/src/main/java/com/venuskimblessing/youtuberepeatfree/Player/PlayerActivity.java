@@ -30,7 +30,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -71,16 +70,12 @@ import com.venuskimblessing.youtuberepeatfree.Utils.MediaUtils;
 import com.venuskimblessing.youtuberepeatfree.Utils.SharedPreferencesUtils;
 import com.venuskimblessing.youtuberepeatfree.Utils.SoftKeybordManager;
 import com.venuskimblessing.youtuberepeatfree.Utils.UIConvertUtils;
-
 import net.cachapa.expandablelayout.ExpandableLayout;
-
 import org.florescu.android.rangeseekbar.RangeSeekBar;
-
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -182,13 +177,15 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     //SoftKey
     private SoftKeybordManager mSoftKeybordManager;
 
+    //BatterySaving
+    private DialogBatterySaving mDialogBatterySaving;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG_ACTIVITY, "onCreate...");
         setContentView(R.layout.activity_player);
 //        checkPiracyChecker();
-//        initInviteItem();
         setSoftKeyInvisible();
         getExtraData();
         initPlayList();
@@ -820,8 +817,9 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 }
                 break;
             case R.id.player_top_batterySaving_button:
-                DialogBatterySaving dialogBatterySaving = new DialogBatterySaving(this, R.style.custom_dialog_fullScreen);
-                dialogBatterySaving.show();
+                mDialogBatterySaving = new DialogBatterySaving(this, R.style.custom_dialog_fullScreen);
+                mDialogBatterySaving.show();
+                updateBatterSavingDialog();
                 break;
         }
     }
@@ -958,6 +956,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                             if (isNext()) {
                                 Log.d(TAG, "다음 영상이 존재합니다.");
                                 nextPlay();
+                                updateBatterSavingDialog();
                             } else {
                                 Log.d(TAG, "다음 영상이 존재하지 않습니다. 다시 처음부터 재생합니다.");
                                 //전체 반복 설정시 처음부터 다시 반복
@@ -967,6 +966,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                                 if (mPlayListArray.size() != 0) {
                                     mPlayType = TYPE_NORMAL;
                                     nextPlay();
+                                    updateBatterSavingDialog();
                                 }
 //                                }else{
 //                                    refreshPlayListController();
@@ -1519,5 +1519,26 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         dialogCommonUnlockSuccess.setContent(getString(R.string.unlocked_feature_content));
         dialogCommonUnlockSuccess.hideButtonLay();
         dialogCommonUnlockSuccess.show();
+    }
+
+    /**
+     * 베터리세이빙 다이얼로그 업데이트
+     */
+    private void updateBatterSavingDialog(){
+        if(mDialogBatterySaving != null){
+            if(mDialogBatterySaving.isShowing()){
+                String currentTitle = "";
+                if(mPlayType == TYPE_NORMAL){
+                    currentTitle = mSnippet.title;
+                }else if(mPlayType == TYPE_PLAYLIST){
+                    currentTitle = mCurrentPlayListData.getTitle();
+                }
+                String convertStartTime = MediaUtils.getMillSecToHMS(mStartTime);
+                String convertEndTime = MediaUtils.getMillSecToHMS(mEndTime);
+                String time = convertStartTime + " - " + convertEndTime;
+                mDialogBatterySaving.setTitle(currentTitle);
+                mDialogBatterySaving.setTime(time);
+            }
+        }
     }
 }
