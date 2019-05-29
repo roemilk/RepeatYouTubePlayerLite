@@ -853,6 +853,8 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 mDialogPlayList.setOnClickListener(new DialogPlayList.OnClickDialogPlayListListener() {
                     @Override
                     public void onPlay(PlayListData data) {
+                        Toast.makeText(SearchActivity.this, "test " + data.getId(), Toast.LENGTH_SHORT).show();
+
                         mVideoId = null;
                         mPlayListData = data;
                         checkShowFullAd();

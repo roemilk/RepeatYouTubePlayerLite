@@ -394,7 +394,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 Log.d(TAG, "mPlayId : " + mPlayId);
             }
         }else if(IntentAction.INTENT_ACTION_SEARCH_PLAYLIST.equals(action)){
-            PlayListData data = (PlayListData)intent.getSerializableExtra(IntentKey.INTENT_KEY_SEARCH_PLAYLIST);
+            PlayListData data = (PlayListData)intent.getSerializableExtra("data");
             startPlayListPlay(data);
         }else if(IntentAction.INTENT_ACTION_SHARE_VIDEO.equals(action)){
             String id = intent.getStringExtra(IntentKey.INTENT_KEY_ID);
@@ -426,10 +426,6 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                     if (videoId != null && !videoId.equals("")) {
                         mPlayId = videoId;
                     }
-                }else if(action.equals(IntentAction.INTENT_ACTION_SEARCH_PLAYLIST)){
-                    Log.d(TAG, "검색으로 받은 데이터");
-                    PlayListData data = (PlayListData)intent.getSerializableExtra("data");
-                    startPlayListPlay(data);
                 }
             }
         } else {
