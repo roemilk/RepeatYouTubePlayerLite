@@ -15,7 +15,7 @@
         <string name = "search_word_edittext_hint"> Por favor clique aqui e pesquise. </string>
 
         <string name = "dialog_help_title"> Ajuda </string>
-    <string name="dialog_help_pro">Compre agora PRO</string>
+    <string name="dialog_help_pro">Premium Upgrade</string>
     <string name="dialog_help_feedback">Send Feedback</string>
     <string name="dialog_help_devlog">Devlog</string>
         <string name = "dialog_help_manual"> Guia do Usuário </string>

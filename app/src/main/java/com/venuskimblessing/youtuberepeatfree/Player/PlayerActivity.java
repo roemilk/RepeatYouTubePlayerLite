@@ -33,7 +33,10 @@ import android.widget.Toast;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.common.Common;
+import com.facebook.share.Share;
 import com.facebook.share.Sharer;
+import com.facebook.share.model.ShareHashtag;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.google.android.youtube.player.YouTubeBaseActivity;
@@ -41,6 +44,7 @@ import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
+import com.venuskimblessing.youtuberepeatfree.BuyPremiumActivity;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonApiKey;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonSharedPreferencesKey;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonUserData;
@@ -93,7 +97,8 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
     //Request Code
     public final int REQ_CODE_OVERLAY_PERMISSION = 123;
-    public final int REQ_CODE_AD_FINISH = 1004;
+    public final int REQ_CODE_AD_FINISH_FLOATINGWINDOW = 1004;
+    public final int REQ_CODE_REWARD_FINISH_BATTERYSAVING = 1005;
 
     //TYPE
     private final String TYPE_MIME = "text/plain";
@@ -186,7 +191,6 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         Log.d(TAG_ACTIVITY, "onCreate...");
         setContentView(R.layout.activity_player);
 //        checkPiracyChecker();
-        setSoftKeyInvisible();
         getExtraData();
         initPlayList();
         initRetrofit();
@@ -274,12 +278,14 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         initPickerTime();
     }
 
-    /**
-     * 소프트키를 숨김처리합니다.
-     */
-    private void setSoftKeyInvisible() {
-        mSoftKeybordManager = new SoftKeybordManager(getWindow());
-        mSoftKeybordManager.hideSoftKeyInvisible();
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if(hasFocus){
+            mSoftKeybordManager = new SoftKeybordManager(getWindow());
+            mSoftKeybordManager.hideSystemUI();
+        }
     }
 
     @Override
@@ -321,13 +327,23 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "request code : " + requestCode + " result code : " + resultCode);
-        if (requestCode == REQ_CODE_AD_FINISH) {
+        if (requestCode == REQ_CODE_AD_FINISH_FLOATINGWINDOW) {
             if (resultCode == RESULT_OK) {
                 showPopupFlaotingWindow();
                 return;
             }
+        }else if(requestCode == REQ_CODE_REWARD_FINISH_BATTERYSAVING){
+            if(resultCode == RESULT_OK){
+                if(CommonUserData.sRewardUnlockedFeatureBatterSaving){
+                    mDialogBatterySaving = new DialogBatterySaving(this, R.style.custom_dialog_fullScreen);
+                    mDialogBatterySaving.show();
+                    updateBatterSavingDialog();
+                }
+            }
         }
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+        if(mCallbackManager != null){ //Facebook callback manager
+            mCallbackManager.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     @Override
@@ -493,22 +509,6 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     }
 
     /**
-     * 메뉴 보이기
-     */
-    private void showMenu() {
-        if (!mLock) {
-            mBottomSettingLay.setVisibility(View.VISIBLE);
-        }
-    }
-
-    /**
-     * 메뉴 숨기기
-     */
-    private void hideMenu() {
-        mBottomSettingLay.setVisibility(View.GONE);
-    }
-
-    /**
      * 잠금 상태에 따른 버튼의 이미지를 처리한다.
      */
     private void setLockButtonRes() {
@@ -525,7 +525,8 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     private void setLock() {
         if (mLock) {
             mYouTubePlayer.setPlayerStyle(YouTubePlayer.PlayerStyle.CHROMELESS);
-
+            mBatterSavingButton.setVisibility(View.GONE);
+            mSubFeatureLay.setVisibility(View.GONE);
             mBottomSettingLay.setVisibility(View.GONE);
             mHelpButton.setVisibility(View.GONE);
             mSearchButton.setVisibility(View.GONE);
@@ -535,7 +536,8 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
             mFullscreenButton.setVisibility(View.INVISIBLE);
         } else {
             mYouTubePlayer.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
-
+            mBatterSavingButton.setVisibility(View.VISIBLE);
+            mSubFeatureLay.setVisibility(View.VISIBLE);
             mBottomSettingLay.setVisibility(View.VISIBLE);
             mHelpButton.setVisibility(View.VISIBLE);
             mSearchButton.setVisibility(View.VISIBLE);
@@ -668,13 +670,12 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 break;
 
             case R.id.player_top_lock_button:
-                boolean freeUnlock = SharedPreferencesUtils.getBoolean(this, CommonSharedPreferencesKey.KEY_PREMIUM_FREEUNLOCK);
-                if(freeUnlock){
+                if(checkUnlockFeature()){
                     mLock = !mLock;
                     setLockButtonRes();
                     setLock();
                 }else{
-                    showLockedFeatureDialog();
+                    showShareLockedFeatureDialog(getString(R.string.locked_feature_lock_title));
                 }
                 break;
 
@@ -746,7 +747,8 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                     onObtainingPermissionOverlayWindow();
                 } else {
                     intent = new Intent(this, LoadingActivity.class);
-                    startActivityForResult(intent, REQ_CODE_AD_FINISH);
+                    intent.putExtra(LoadingActivity.TYPE_KEY, LoadingActivity.TYPE_FULL_AD);
+                    startActivityForResult(intent, REQ_CODE_AD_FINISH_FLOATINGWINDOW);
                 }
                 break;
 
@@ -760,24 +762,28 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 break;
 
             case R.id.player_feature_shuffle_button:
-                mShuffleButton.setSelected(!mShuffleButton.isSelected());
-                if(mShuffleButton.isSelected()){
-                    mPlayListArray = mPlayListDataManager.loadPlayList();
-                    if(mPlayListArray != null){
-                        if(mPlayListArray.size() <= 1) {
-                            Toast.makeText(PlayerActivity.this, getString(R.string.sub_feature_shuffle_empty), Toast.LENGTH_SHORT).show();
-                            mShuffleButton.setSelected(false);
-                            return;
-                        }else{
-                            SharedPreferencesUtils.setBoolean(PlayerActivity.this, CommonSharedPreferencesKey.KEY_AUTOPLAY, true);
-                            mShuffle = true;
-                            startPlayListPlay(mPlayListArray.get(0));
-                            Toast.makeText(PlayerActivity.this, getString(R.string.sub_feature_shuffle_start), Toast.LENGTH_SHORT).show();
+                if(checkUnlockFeature()){
+                    mShuffleButton.setSelected(!mShuffleButton.isSelected());
+                    if(mShuffleButton.isSelected()){
+                        mPlayListArray = mPlayListDataManager.loadPlayList();
+                        if(mPlayListArray != null){
+                            if(mPlayListArray.size() <= 1) {
+                                Toast.makeText(PlayerActivity.this, getString(R.string.sub_feature_shuffle_empty), Toast.LENGTH_SHORT).show();
+                                mShuffleButton.setSelected(false);
+                                return;
+                            }else{
+                                SharedPreferencesUtils.setBoolean(PlayerActivity.this, CommonSharedPreferencesKey.KEY_AUTOPLAY, true);
+                                mShuffle = true;
+                                startPlayListPlay(mPlayListArray.get(0));
+                                Toast.makeText(PlayerActivity.this, getString(R.string.sub_feature_shuffle_start), Toast.LENGTH_SHORT).show();
+                            }
                         }
+                    }else{
+                        mShuffle = false;
+                        Toast.makeText(PlayerActivity.this, getString(R.string.sub_feature_shuffle_cancel), Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    mShuffle = false;
-                    Toast.makeText(PlayerActivity.this, getString(R.string.sub_feature_shuffle_cancel), Toast.LENGTH_SHORT).show();
+                    showShareLockedFeatureDialog(getString(R.string.locked_feature_shuffle_title));
                 }
                 break;
 
@@ -817,9 +823,13 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 }
                 break;
             case R.id.player_top_batterySaving_button:
-                mDialogBatterySaving = new DialogBatterySaving(this, R.style.custom_dialog_fullScreen);
-                mDialogBatterySaving.show();
-                updateBatterSavingDialog();
+                if(SharedPreferencesUtils.getBoolean(PlayerActivity.this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION)){
+                    mDialogBatterySaving = new DialogBatterySaving(this, R.style.custom_dialog_fullScreen);
+                    mDialogBatterySaving.show();
+                    updateBatterSavingDialog();
+                }else{
+                    showRewardLockedFeatureDialog();
+                }
                 break;
         }
     }
@@ -1456,28 +1466,28 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         mShareDialog.registerCallback(mCallbackManager, new FacebookCallback<Sharer.Result>() {
             @Override
             public void onSuccess(Sharer.Result result) {
-                Log.d("facebookcallback", "onSuccess..");
-                SharedPreferencesUtils.setBoolean(PlayerActivity.this, CommonSharedPreferencesKey.KEY_PREMIUM_FREEUNLOCK, true);
+                Log.d("facebookcallback", "facebookcallback onSuccess..");
+                SharedPreferencesUtils.setBoolean(PlayerActivity.this, CommonSharedPreferencesKey.KEY_FEATURE_SHARE_UNLOCK, true);
                 showUnLockSuccessDialog();
             }
 
             @Override
             public void onCancel() {
-                Log.d("facebookcallback", "onCancel..");
+                Log.d("facebookcallback", "facebookcallback onCancel..");
                 Toast.makeText(PlayerActivity.this, getString(R.string.locked_feature_share_err), Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onError(FacebookException error) {
-                Log.d("facebookcallback", "onError.." + error.toString());
+                Log.d("facebookcallback", "facebookcallback onError.." + error.toString());
 
             }
         });
         if (ShareDialog.canShow(ShareLinkContent.class)) {
-//            ShareHashtag shareHashtag = new ShareHashtag.Builder().setHashtag("#youtube").build();
+            ShareHashtag shareHashtag = new ShareHashtag.Builder().setHashtag("#youtube").build();
             ShareLinkContent linkContent = new ShareLinkContent.Builder()
                     .setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.venuskimblessing.youtuberepeatfree"))
-//                    .setShareHashtag(shareHashtag)
+                    .setShareHashtag(shareHashtag)
                     .build();
             mShareDialog.show(linkContent);
         }
@@ -1485,12 +1495,12 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
     /**
      * Locked Feature Dialog
-     * 잠금이 걸려 있는 기능에 대한 팝업
+     * 잠금이 걸려 있으나 페이스북 공유로 언락할 수 있는 기능(잠금기능)
      */
-    private void showLockedFeatureDialog(){
+    private void showShareLockedFeatureDialog(String title){
         final DialogCommon dialogCommonLockedFeature = new DialogCommon(this, R.style.custom_dialog_fullScreen);
-        dialogCommonLockedFeature.setTitle(getString(R.string.locked_feature_title));
-        dialogCommonLockedFeature.setContent(getString(R.string.locked_feature_content));
+        dialogCommonLockedFeature.setTitle(title);
+        dialogCommonLockedFeature.setContent(getString(R.string.locked_feature_share_content));
         dialogCommonLockedFeature.mThreeButton.setVisibility(View.GONE);
         dialogCommonLockedFeature.mOneButton.setText(getString(R.string.locked_feature_buyPro));
         dialogCommonLockedFeature.mTwoButton.setText(getString(R.string.locked_feature_share));
@@ -1499,12 +1509,44 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
             public void onClick(View v) {
                 switch (v.getId()){
                     case R.id.dialog_common_one_button:
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse("market://details?id=com.venuskimblessing.youtuberepeat"));
+                        Intent intent = new Intent(PlayerActivity.this, BuyPremiumActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.dialog_common_two_button:
                         shareFacebook();
+                        break;
+                }
+                dialogCommonLockedFeature.dismiss();
+            }
+        });
+        dialogCommonLockedFeature.show();
+    }
+
+    /**
+     * Locked Feature Dialog
+     * 잠금이 걸려 있으나 리워드 감상으로 언락할 수 있는 기능(배터리)
+     */
+    private void showRewardLockedFeatureDialog(){
+        final DialogCommon dialogCommonLockedFeature = new DialogCommon(this, R.style.custom_dialog_fullScreen);
+        dialogCommonLockedFeature.setTitle(getString(R.string.locked_featrue_battery_title));
+        dialogCommonLockedFeature.setContent(getString(R.string.locked_feature_reward_content));
+        dialogCommonLockedFeature.mThreeButton.setVisibility(View.GONE);
+        dialogCommonLockedFeature.mOneButton.setText(getString(R.string.locked_feature_buyPro));
+        dialogCommonLockedFeature.mTwoButton.setText(getString(R.string.locked_feature_reward));
+        dialogCommonLockedFeature.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                switch (v.getId()){
+                    case R.id.dialog_common_one_button:
+                        intent = new Intent(PlayerActivity.this, BuyPremiumActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.dialog_common_two_button:
+                        //리워드 광고
+                        intent = new Intent(PlayerActivity.this, LoadingActivity.class);
+                        intent.putExtra(LoadingActivity.TYPE_KEY, LoadingActivity.TYPE_REWARD_AD);
+                        startActivityForResult(intent, REQ_CODE_REWARD_FINISH_BATTERYSAVING);
                         break;
                 }
                 dialogCommonLockedFeature.dismiss();
@@ -1539,6 +1581,21 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 mDialogBatterySaving.setTitle(currentTitle);
                 mDialogBatterySaving.setTime(time);
             }
+        }
+    }
+
+    /**
+     * 잠금 해제된 기능인지 체크한다.
+     * @return
+     */
+    private boolean checkUnlockFeature(){
+        boolean premiumUnlock = SharedPreferencesUtils.getBoolean(this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION);
+        boolean shareUnlock = SharedPreferencesUtils.getBoolean(this, CommonSharedPreferencesKey.KEY_FEATURE_SHARE_UNLOCK);
+
+        if(premiumUnlock == true || shareUnlock == true){
+            return true;
+        }else{
+            return false;
         }
     }
 }

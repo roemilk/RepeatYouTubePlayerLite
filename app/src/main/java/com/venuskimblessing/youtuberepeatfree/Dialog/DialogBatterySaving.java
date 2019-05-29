@@ -54,7 +54,7 @@ public class DialogBatterySaving extends Dialog {
         getWindow().setAttributes(params);
 
         mSoftKeybordManager = new SoftKeybordManager(getWindow());
-        mSoftKeybordManager.hideSoftKeyInvisible();
+        mSoftKeybordManager.hideSystemUI();
 
         mTitleTextView = (TextView)findViewById(R.id.battery_title_textView);
         mTitleTextView.setSelected(true);

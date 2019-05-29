@@ -1,21 +1,33 @@
 package com.venuskimblessing.youtuberepeatfree;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonApiKey;
+import com.venuskimblessing.youtuberepeatfree.Common.CommonUserData;
 import com.wang.avi.AVLoadingIndicatorView;
 
-public class LoadingActivity extends AppCompatActivity {
+public class LoadingActivity extends AppCompatActivity implements RewardedVideoAdListener {
     public static final String TAG = "LoadingActivity";
 
+    public static final String TYPE_KEY = "type";
+    public static final String TYPE_FULL_AD = "full_ad";
+    public static final String TYPE_REWARD_AD = "reward_ad";
+
     //전면광고
+    private RewardedVideoAd mRewardedVideoAd;
     private InterstitialAd mInterstitialAd = null;
 
     private LinearLayout mLoadingLay;
@@ -27,15 +39,38 @@ public class LoadingActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
-        loadFullAd();
-        mLoadingLay = (LinearLayout) findViewById(R.id.loading_lay);
-        mLoadingIndicator = (AVLoadingIndicatorView) findViewById(R.id.loading_pacman_indicator);
-        mLoadingIndicator.show();
+        Intent intent = getIntent();
+        String type = intent.getStringExtra(TYPE_KEY);
+        Log.d(TAG, "type : " + type);
+
+        if(type.equals(TYPE_FULL_AD)){
+            loadFullAd();
+            mLoadingLay = (LinearLayout) findViewById(R.id.loading_lay);
+            mLoadingIndicator = (AVLoadingIndicatorView) findViewById(R.id.loading_pacman_indicator);
+            mLoadingIndicator.show();
+        }else if(type.equals(TYPE_REWARD_AD)){
+            initRewardAd();
+            loadRewardAd();
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.d(TAG, "onBackPressed pass..");
+    }
+
+    private void initRewardAd(){
+        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
+        mRewardedVideoAd.setRewardedVideoAdListener(this);
+    }
+
+    private void loadRewardAd(){
+        mRewardedVideoAd.loadAd(CommonApiKey.KEY_ADMOB_REWARD, new AdRequest.Builder().build());
     }
 
     /**
@@ -98,5 +133,54 @@ public class LoadingActivity extends AppCompatActivity {
     private void finishActivity(){
         setResult(RESULT_OK);
         finish();
+    }
+
+    //보상형 광고 callback
+
+    @Override
+    public void onRewardedVideoAdLoaded() {
+        Toast.makeText(this, "onRewardedVideoAdLoaded", Toast.LENGTH_SHORT).show();
+        if(mRewardedVideoAd.isLoaded()){
+            mRewardedVideoAd.show();
+        }
+    }
+
+    @Override
+    public void onRewardedVideoAdOpened() {
+        Toast.makeText(this, "onRewardedVideoAdOpened", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoStarted() {
+        Toast.makeText(this, "onRewardedVideoStarted", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoAdClosed() {
+        Toast.makeText(this, "onRewardedVideoAdClosed", Toast.LENGTH_SHORT).show();
+        finishActivity();
+    }
+
+    @Override
+    public void onRewarded(RewardItem rewardItem) {
+        Toast.makeText(this, "onRewarded! currency: " + rewardItem.getType() + "  amount: " +
+                rewardItem.getAmount(), Toast.LENGTH_SHORT).show();
+        CommonUserData.sRewardUnlockedFeatureBatterSaving = true;
+    }
+
+    @Override
+    public void onRewardedVideoAdLeftApplication() {
+        Toast.makeText(this, "onRewardedVideoAdLeftApplication",
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoAdFailedToLoad(int i) {
+        Toast.makeText(this, "onRewardedVideoAdFailedToLoad", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoCompleted() {
+        Toast.makeText(this, "onRewardedVideoCompleted", Toast.LENGTH_SHORT).show();
     }
 }

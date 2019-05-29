@@ -18,7 +18,7 @@
 
     <!-- 도움말 -->
     <string name="dialog_help_title">도움말</string>
-    <string name="dialog_help_pro">PRO 구매하러 가기</string>
+    <string name="dialog_help_pro">프리미엄 업그레이드</string>
     <string name="dialog_help_feedback">Send Feedback</string>
     <string name="dialog_help_devlog">업데이트 노트</string>
     <string name="dialog_help_manual">사용 설명서</string>
@@ -144,15 +144,19 @@
     <string name="range_share_prefix">친구가 추천한 최고의 장면!</string>
 
     <!-- lock -->
-    <string name="locked_feature_title">으아앙...ㅠㅠ</string>
-    <string name="locked_feature_content">프리미엄 기능입니다.\n\n프리미엄 버전으로 업그레이드하면 광고가 사라지며, 모든 프리미엄 기능을 제한 없이 사용할 수 있어요.\n\n페이스북 친구들에게 딱 한번 앱을 소개하고 무료로 얻을수 있는 모든 기능을 사용할 수 있어요!</string>
-    <string name="locked_feature_buyPro">프리미엄 버전 업그레이드</string>
-    <string name="locked_feature_share">무료로 모든 기능 얻기</string>
+    <string name="locked_feature_shuffle_title">셔플 재생 기능</string>
+    <string name="locked_feature_lock_title">화면 잠금 기능</string>
+    <string name="locked_featrue_battery_title">베터리 절약 모드</string>
+    <string name="locked_feature_reward_content">프리미엄 기능입니다.\n\n프리미엄 버전으로 업그레이드하면 모든 광고 제거, 모든 프리미엄 기능 사용등 다양한 혜택이 있습니다.!</string>
+    <string name="locked_feature_share_content">프리미엄 기능입니다.\n\n프리미엄 버전으로 업그레이드하면 모든 광고 제거, 모든 프리미엄 기능 사용등 다양한 혜택이 있습니다.\n\n페이스북 친구들에게 딱 한번 앱을 소개하고 보상으로 잠금 기능을 무료로 얻으세요!</string>
+    <string name="locked_feature_buyPro">프리미엄 버전 혜택 보기</string>
+    <string name="locked_feature_share">무료로 기능 얻기</string>
+    <string name="locked_feature_reward">광고 시청하고 무료 이용</string>
     <string name="locked_feature_share_err">페북 친구들에게 앱을 소개하고 프리미엄 기능을 얻으세요!</string>
 
     <!-- unlock -->
-    <string name="unlocked_feature_title">짝짝짝짝!!</string>
-    <string name="unlocked_feature_content">다양한 프리미엄 기능들을 사용할 수 있게 되었습니다.</string>
+    <string name="unlocked_feature_title">와우!!</string>
+    <string name="unlocked_feature_content">다양한 기능들을 사용할 수 있게 되었습니다.</string>
 
     <!-- subFeature -->
     <string name="sub_feature_shuffle_empty">플레이리스트 목록이 비어있습니다.</string>
@@ -163,6 +167,19 @@
     <string name="prev_play_empty">이전 영상이 없습니다.</string>
     <string name="next_play_empty">다음 영상이 없습니다.</string>
 
+    <!-- premium message -->
+    <string name="premium_title">프리미엄 혜택</string>
+    <string name="premium_text">광고가 전혀 없는 쾌적한 사용 환경</string>
+    <string name="premium_text2">모든 기능 잠금 해제</string>
+    <string name="premium_text3">모든 프리미엄 버전 전용 기능 무제한 사용</string>
+    <string name="premium_text4">앞으로 업데이트 되는 프리미엄 버전 전용 기능들 </string>
+    <string name="premium_text5">프리미엄 업그레이드는 당신의 현명한 선택입니다.\n\n사랑합니다.</string>
+    <string name="premium_upgrade">프리미엄 업그레이드 하기</string>
+
+    <!-- buy result message -->
+    <string name="buy_success">축하합니다.\n프리미엄 버전으로 업그레이드 되었습니다.</string>
+    <string name="buy_cancel">구매를 취소하였습니다.</string>
+    <string name="buy_error">구매 오류가 발생하였습니다. 오류코드 : </string>
 
     <!-- 페이스북 디벨로퍼 AppId -->
     <string name="facebook_app_id">2346907598897007</string>

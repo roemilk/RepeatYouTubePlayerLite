@@ -15,7 +15,7 @@
     <string name="search_word_edittext_hint">検索用語を入力してください。</string>
 
     <string name="dialog_help_title">ヘルプ</string>
-    <string name="dialog_help_pro">今すぐ購入</string>
+    <string name="dialog_help_pro">Premium Upgrade</string>
     <string name="dialog_help_feedback">Send Feedback</string>
     <string name="dialog_help_devlog">Devlog</string>
     <string name="dialog_help_manual">ユーザーガイド</string>

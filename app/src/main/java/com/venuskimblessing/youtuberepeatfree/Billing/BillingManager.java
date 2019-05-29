@@ -22,17 +22,26 @@ import java.util.List;
 
 public class BillingManager implements PurchasesUpdatedListener {
     private final String TAG = "BillingManager";
-
-    private final String SKU_PREMIUM = "premium_version";
+    public static final String SKU_PREMIUM = "premium_version";
 
     private Activity mActivity = null;
-
-    //인앱결제
     private BillingClient mBillingClient = null;
     private SkuDetails mSkuDetails;
+    private OnBuyCompleteListener mOnBuyCompleteListener;
+
+    public interface OnBuyCompleteListener{
+        void onBuySuccess(List<Purchase> purchases);
+        void onBuyCancel(BillingResult billingResult);
+        void onBuyError(BillingResult billingResult);
+    }
+
 
     public BillingManager(Activity activity) {
         this.mActivity = activity;
+    }
+
+    public void setOnBuyCompleteListener(OnBuyCompleteListener listener){
+        this.mOnBuyCompleteListener = listener;
     }
 
     //인앱 초기화
@@ -42,14 +51,14 @@ public class BillingManager implements PurchasesUpdatedListener {
             @Override
             public void onBillingSetupFinished(BillingResult billingResult) {
                 if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-//                    Toast.makeText(SearchActivity.this, "Billing Setup Finished Success...", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "onBillingSetupFinished...");
                     queryInappProductDetails();
                 }
             }
 
             @Override
             public void onBillingServiceDisconnected() {
-
+                Log.d(TAG, "onBillingServiceDisconnected...");
             }
         });
     }
@@ -58,6 +67,8 @@ public class BillingManager implements PurchasesUpdatedListener {
      * 판매 상품 정보 조회
      */
     public void queryInappProductDetails() {
+        Log.d(TAG, "queryInappProductDetails...");
+
         List<String> skuList = new ArrayList<String>();
         skuList.add("premium_version");
         SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
@@ -67,7 +78,6 @@ public class BillingManager implements PurchasesUpdatedListener {
             public void onSkuDetailsResponse(BillingResult billingResult, List<SkuDetails> skuDetailsList) {
                 if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK && skuDetailsList != null) {
                     for (SkuDetails details : skuDetailsList) {
-                        Log.d(TAG, "test details : " + details.getSku());
                         mSkuDetails = details;
                     }
                     queryPurchases();
@@ -92,14 +102,11 @@ public class BillingManager implements PurchasesUpdatedListener {
     public void queryPurchases() {
         Purchase.PurchasesResult purchasesResult = mBillingClient.queryPurchases(BillingClient.SkuType.INAPP);
         List<Purchase> purchaseList = purchasesResult.getPurchasesList();
-
-        Log.d(TAG, "queryPurchases list size : " + purchaseList.size());
-
         boolean premiumState = false;
         for (Purchase purchase : purchaseList) {
             if(purchase.getSku().equals(SKU_PREMIUM)){
                 premiumState = true;
-                Toast.makeText(mActivity, "프리미엄 버전 사용자입니다. state code : " + purchase.getPurchaseState(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mActivity, "프리미엄 버전 사용자입니다.", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -123,9 +130,9 @@ public class BillingManager implements PurchasesUpdatedListener {
             @Override
             public void onConsumeResponse(BillingResult billingResult, String purchaseToken) {
                 if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-                    Toast.makeText(mActivity, "아이템 소모 완료", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mActivity, "Item Consume Success...", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(mActivity, "아이템 소모 실패", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mActivity, "Item Consume Failed...", Toast.LENGTH_SHORT).show();
                 }
             }
         };
@@ -135,17 +142,13 @@ public class BillingManager implements PurchasesUpdatedListener {
     @Override
     public void onPurchasesUpdated(BillingResult billingResult, @Nullable List<Purchase> purchases) {
         if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK && purchases != null) {
-            for (Purchase purchase : purchases) {
-//                handlePurchase(purchase);
-                String sku = purchase.getSku();
-                Log.d(TAG, "onPurchasesUpdated purchase sku.. : " + sku);
-            }
+            mOnBuyCompleteListener.onBuySuccess(purchases);
         } else if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.USER_CANCELED) {
             // Handle an error caused by a user cancelling the purchase flow.
-            Toast.makeText(mActivity, "onPurchasesUpdated 구매를 취소하였습니다.", Toast.LENGTH_SHORT).show();
+            mOnBuyCompleteListener.onBuyCancel(billingResult);
         } else {
-            Log.d(TAG, "onPurchasesUpdated Error : " + billingResult.getResponseCode());
             // Handle any other error codes.
+            mOnBuyCompleteListener.onBuyError(billingResult);
         }
     }
 }

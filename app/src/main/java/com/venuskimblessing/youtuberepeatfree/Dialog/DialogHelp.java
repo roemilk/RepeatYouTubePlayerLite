@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.venuskimblessing.youtuberepeatfree.BuyPremiumActivity;
 import com.venuskimblessing.youtuberepeatfree.GuideActivity;
 import com.venuskimblessing.youtuberepeatfree.R;
 import com.venuskimblessing.youtuberepeatfree.Utils.OSUtils;
@@ -27,7 +28,7 @@ public class DialogHelp extends Dialog implements View.OnClickListener {
     private Resources mRes = null;
     private LinearLayout mHelpMenuLay, mLicenseLay;
     private Button mProButton, mGuideButton, mLisenceButton, mFeedbackButton, mDevlogButton;
-    private TextView mVersionTextView, mVersionItemTextView;
+    private TextView mVersionTextView;
     private TextView mExpandableButton0, mExpandableButton1, mExpandableButton2, mExpandableVersionButton;
     private ExpandableLayout mExpandableLay0, mExpandableLay1, mExpandableLay2, mExpandableVersionLay;
 
@@ -60,7 +61,6 @@ public class DialogHelp extends Dialog implements View.OnClickListener {
         mGuideButton = (Button)findViewById(R.id.help_guide_button);
         mLisenceButton = (Button)findViewById(R.id.help_license_button);
         mVersionTextView = (TextView)findViewById(R.id.help_version_textView);
-        mVersionItemTextView = (TextView)findViewById(R.id.help_version_item_textView);
 
         mExpandableButton0 = (TextView)findViewById(R.id.dialog_license_expand_button_0);
         mExpandableLay0 = (ExpandableLayout)findViewById(R.id.dialog_license_expandable_layout_0);
@@ -89,14 +89,6 @@ public class DialogHelp extends Dialog implements View.OnClickListener {
         mLisenceButton.setOnClickListener(this);
 
         PackageInfo packageInfo = OSUtils.getPackageInfo(mContext);
-
-//        String itemString = null;
-//        if(CommonUserData.sUserItemState.equals(CommonUserData.ITEM_FREE)){
-//            itemString = mContext.getString(R.string.dialog_help_version_no_item);
-//        }else{
-//            itemString = mContext.getString(R.string.dialog_help_version_yes_item);
-//        }
-//        mVersionItemTextView.setText(itemString);
         mVersionTextView.setText("YouTubeRepeat Player Lite Version " + packageInfo.versionName + "-" + packageInfo.versionCode);
     }
 
@@ -113,8 +105,7 @@ public class DialogHelp extends Dialog implements View.OnClickListener {
                 mLicenseLay.setVisibility(View.VISIBLE);
                 break;
             case R.id.help_pro_button:
-                intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse("market://details?id=com.venuskimblessing.youtuberepeat"));
+                intent = new Intent(mContext, BuyPremiumActivity.class);
                 mContext.startActivity(intent);
                 break;
 

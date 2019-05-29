@@ -144,20 +144,13 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 //    private LinearLayout mBannerLay;
 //    private AdView mAdView;
 
-    //Inapp
-    private BillingManager mBillingManager;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        hideSoftKeyboard();
         setContentView(R.layout.activity_search);
         initRateThisApp();
         getShareIntentData(getIntent());
         MobileAds.initialize(this, CommonApiKey.KEY_ADMOB_APP_ID);
-
-        mBillingManager = new BillingManager(this);
-        mBillingManager.initBilling();
 
         mEmptyTextView = (TextView) findViewById(R.id.search_empty_textView);
 
@@ -216,15 +209,19 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     }
 
     @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if(hasFocus){
+            mSoftKeybordManager = new SoftKeybordManager(getWindow());
+            mSoftKeybordManager.hideSystemUI();
+        }
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         getDynamicLink();
         loadFullAd();
-    }
-
-    private void hideSoftKeyboard() {
-        mSoftKeybordManager = new SoftKeybordManager(getWindow());
-        mSoftKeybordManager.hideSoftKeyInvisible();
     }
 
     /**
@@ -840,9 +837,8 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 break;
 
             case R.id.search_coffee_button:
-//                DialogCoffee dialogCoffee = new DialogCoffee(this, R.style.custom_dialog_fullScreen);
-//                dialogCoffee.show();
-                mBillingManager.buyInapp();
+                Intent intent = new Intent(SearchActivity.this, BuyPremiumActivity.class);
+                startActivity(intent);
                 break;
 
             case R.id.search_playlist_button:
