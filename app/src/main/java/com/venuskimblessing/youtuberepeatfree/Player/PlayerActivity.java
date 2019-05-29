@@ -417,12 +417,20 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
     private void getExtraData() {
         Log.d(TAG, "리스트로부터 비디오 메타 데이터를 넘겨받습니다.");
-
         Intent intent = getIntent();
         if (intent != null) {
-            String videoId = intent.getStringExtra("videoId");
-            if (videoId != null && !videoId.equals("")) {
-                mPlayId = videoId;
+            String action = intent.getAction();
+            if(action != null){
+                if(action.equals(IntentAction.INTENT_ACTION_SEARCH_PLAY)){
+                    String videoId = intent.getStringExtra("videoId");
+                    if (videoId != null && !videoId.equals("")) {
+                        mPlayId = videoId;
+                    }
+                }else if(action.equals(IntentAction.INTENT_ACTION_SEARCH_PLAYLIST)){
+                    Log.d(TAG, "검색으로 받은 데이터");
+                    PlayListData data = (PlayListData)intent.getSerializableExtra("data");
+                    startPlayListPlay(data);
+                }
             }
         } else {
             Log.d(TAG, "Intent가 널입니다.");

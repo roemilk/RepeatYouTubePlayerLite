@@ -147,7 +147,7 @@
     <string name="locked_feature_shuffle_title">셔플 재생 기능</string>
     <string name="locked_feature_lock_title">화면 잠금 기능</string>
     <string name="locked_featrue_battery_title">베터리 절약 모드</string>
-    <string name="locked_feature_reward_content">프리미엄 기능입니다.\n\n프리미엄 버전으로 업그레이드하면 모든 광고 제거, 모든 프리미엄 기능 사용등 다양한 혜택이 있습니다.!</string>
+    <string name="locked_feature_reward_content">프리미엄 기능입니다.\n\n프리미엄 버전으로 업그레이드하면 모든 광고 제거, 모든 프리미엄 기능 사용등 다양한 혜택이 있습니다!</string>
     <string name="locked_feature_share_content">프리미엄 기능입니다.\n\n프리미엄 버전으로 업그레이드하면 모든 광고 제거, 모든 프리미엄 기능 사용등 다양한 혜택이 있습니다.\n\n페이스북 친구들에게 딱 한번 앱을 소개하고 보상으로 잠금 기능을 무료로 얻으세요!</string>
     <string name="locked_feature_buyPro">프리미엄 버전 혜택 보기</string>
     <string name="locked_feature_share">무료로 기능 얻기</string>
@@ -177,9 +177,9 @@
     <string name="premium_upgrade">프리미엄 업그레이드 하기</string>
 
     <!-- buy result message -->
-    <string name="buy_success">축하합니다.\n프리미엄 버전으로 업그레이드 되었습니다.</string>
+    <string name="buy_success">축하 합니다!\n프리미엄 버전으로 업그레이드 되었습니다.</string>
     <string name="buy_cancel">구매를 취소하였습니다.</string>
-    <string name="buy_error">구매 오류가 발생하였습니다. 오류코드 : </string>
+    <string name="buy_error">구매 오류가 발생하였습니다. 오류코드 </string>
 
     <!-- 페이스북 디벨로퍼 AppId -->
     <string name="facebook_app_id">2346907598897007</string>

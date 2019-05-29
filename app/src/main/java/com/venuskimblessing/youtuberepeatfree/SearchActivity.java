@@ -136,6 +136,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 
     //PlayList
     private DialogPlayList mDialogPlayList = null;
+    private PlayListData mPlayListData = null;
 
     //SoftKeyboard
     private SoftKeybordManager mSoftKeybordManager;
@@ -395,9 +396,15 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         Log.d(TAG, "startPlayerActivity...");
         Intent intent = new Intent(this, PlayerActivity.class);
         if (videoId != null) {
+            intent.setAction(IntentAction.INTENT_ACTION_SEARCH_PLAY);
             intent.putExtra("videoId", videoId);
-            startActivityForResult(intent, REQUEST_PLAYER_INVITE);
         }
+
+        if(mPlayListData != null){
+            intent.setAction(IntentAction.INTENT_ACTION_SEARCH_PLAYLIST);
+            intent.putExtra("data", mPlayListData);
+        }
+        startActivity(intent);
     }
 
     /**
@@ -846,12 +853,8 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 mDialogPlayList.setOnClickListener(new DialogPlayList.OnClickDialogPlayListListener() {
                     @Override
                     public void onPlay(PlayListData data) {
-//                        Intent intent = new Intent(SearchActivity.this, PlayerActivity.class);
-//                        intent.setAction(IntentAction.INTENT_ACTION_SEARCH_PLAYLIST);
-//                        intent.putExtra(IntentKey.INTENT_KEY_SEARCH_PLAYLIST, data);
-//                        startActivity(intent);
-                        String id = data.getVideoId();
-                        mVideoId = id;
+                        mVideoId = null;
+                        mPlayListData = data;
                         checkShowFullAd();
                     }
                 });
