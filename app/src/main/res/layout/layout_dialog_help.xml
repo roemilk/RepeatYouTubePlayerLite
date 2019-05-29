@@ -48,11 +48,6 @@
             android:text="@string/dialog_help_manual"
             android:textColor="#757575" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#BDBDBD"></View>
-
         <Button
             android:id="@+id/help_devlog_button"
             android:layout_width="match_parent"
@@ -74,8 +69,39 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="#FFFFFF"
+            android:visibility="gone"
             android:gravity="center"
             android:text="@string/dialog_help_feedback"
+            android:textColor="#757575" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:visibility="visible"
+            android:background="#BDBDBD"></View>
+
+        <Button
+            android:id="@+id/help_facebook_button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="@string/dialog_help_facebook"
+            android:textColor="#757575" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:visibility="visible"
+            android:background="#BDBDBD"></View>
+
+        <Button
+            android:id="@+id/help_instagram_button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="@string/dialog_help_instagram"
             android:textColor="#757575" />
 
         <View

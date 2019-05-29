@@ -110,6 +110,10 @@ public class BillingManager implements PurchasesUpdatedListener {
             }
         }
 
+        if(purchaseList.size() <= 0){
+            Toast.makeText(mActivity, "프리 버전 사용자입니다.", Toast.LENGTH_SHORT).show();
+        }
+
         if(premiumState){
             SharedPreferencesUtils.setBoolean(mActivity, SKU_PREMIUM, true);
         }else{

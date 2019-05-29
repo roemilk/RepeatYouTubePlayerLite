@@ -140,6 +140,10 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 
     //SoftKeyboard
     private SoftKeybordManager mSoftKeybordManager;
+
+    //Inapp
+    private BillingManager mBillingManager;
+
 //
 //    //배너광고
 //    private LinearLayout mBannerLay;
@@ -149,6 +153,9 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        mBillingManager = new BillingManager(this);
+        mBillingManager.initBilling();
+
         initRateThisApp();
         getShareIntentData(getIntent());
         MobileAds.initialize(this, CommonApiKey.KEY_ADMOB_APP_ID);
@@ -853,8 +860,6 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 mDialogPlayList.setOnClickListener(new DialogPlayList.OnClickDialogPlayListListener() {
                     @Override
                     public void onPlay(PlayListData data) {
-                        Toast.makeText(SearchActivity.this, "test " + data.getId(), Toast.LENGTH_SHORT).show();
-
                         mVideoId = null;
                         mPlayListData = data;
                         checkShowFullAd();

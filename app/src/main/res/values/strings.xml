@@ -91,8 +91,10 @@ It is your very smart choice.\n\nPRO benefits\n
     <string name="ending_dialog_confirm">Yes</string>
     <string name="ending_dialog_cancel">No</string>
 
-    <!-- Devlog -->
+    <!-- sns link url -->
     <string name="dialog_help_devlog_link">https://www.facebook.com/RepeatYouTubePlayer/</string>
+    <string name="dialog_help_sns_facebook">https://www.facebook.com/blessingvenushappy/</string>
+    <string name="dialog_help_sns_instagram">https://www.instagram.com/blessingvenushappy/</string>
 
     <!-- recommend -->
     <string name="dialog_recommend_title">Recommended repeat youtube videos</string>

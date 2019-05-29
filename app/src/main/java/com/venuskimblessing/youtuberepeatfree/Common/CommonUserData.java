@@ -22,5 +22,6 @@ public class CommonUserData {
     //친구초대 카운트
     public static final int INVITE_COUNT_COMPLETE = 10; //친구초대 완료 횟수 (사용하지 않음)
 
+    public static boolean sPremiumState = false;
     public static boolean sRewardUnlockedFeatureBatterSaving = false;
 }

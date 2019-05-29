@@ -43,11 +43,12 @@ public class LoadingActivity extends AppCompatActivity implements RewardedVideoA
         String type = intent.getStringExtra(TYPE_KEY);
         Log.d(TAG, "type : " + type);
 
+        mLoadingLay = (LinearLayout) findViewById(R.id.loading_lay);
+        mLoadingIndicator = (AVLoadingIndicatorView) findViewById(R.id.loading_pacman_indicator);
+        mLoadingIndicator.show();
+
         if(type.equals(TYPE_FULL_AD)){
             loadFullAd();
-            mLoadingLay = (LinearLayout) findViewById(R.id.loading_lay);
-            mLoadingIndicator = (AVLoadingIndicatorView) findViewById(R.id.loading_pacman_indicator);
-            mLoadingIndicator.show();
         }else if(type.equals(TYPE_REWARD_AD)){
             initRewardAd();
             loadRewardAd();
@@ -139,7 +140,7 @@ public class LoadingActivity extends AppCompatActivity implements RewardedVideoA
 
     @Override
     public void onRewardedVideoAdLoaded() {
-        Toast.makeText(this, "onRewardedVideoAdLoaded", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "onRewardedVideoAdLoaded...");
         if(mRewardedVideoAd.isLoaded()){
             mRewardedVideoAd.show();
         }
@@ -147,40 +148,44 @@ public class LoadingActivity extends AppCompatActivity implements RewardedVideoA
 
     @Override
     public void onRewardedVideoAdOpened() {
-        Toast.makeText(this, "onRewardedVideoAdOpened", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "onRewardedVideoAdOpened...");
+
     }
 
     @Override
     public void onRewardedVideoStarted() {
-        Toast.makeText(this, "onRewardedVideoStarted", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "onRewardedVideoStarted...");
+
     }
 
     @Override
     public void onRewardedVideoAdClosed() {
-        Toast.makeText(this, "onRewardedVideoAdClosed", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "onRewardedVideoAdClosed...");
+
         finishActivity();
     }
 
     @Override
     public void onRewarded(RewardItem rewardItem) {
-        Toast.makeText(this, "onRewarded! currency: " + rewardItem.getType() + "  amount: " +
-                rewardItem.getAmount(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.unlocked_feature_reward_batterysaving_success), Toast.LENGTH_SHORT).show();
         CommonUserData.sRewardUnlockedFeatureBatterSaving = true;
     }
 
     @Override
     public void onRewardedVideoAdLeftApplication() {
-        Toast.makeText(this, "onRewardedVideoAdLeftApplication",
-                Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "onRewardedVideoAdLeftApplication...");
+
     }
 
     @Override
     public void onRewardedVideoAdFailedToLoad(int i) {
-        Toast.makeText(this, "onRewardedVideoAdFailedToLoad", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "onRewardedVideoAdFailedToLoad...");
+
     }
 
     @Override
     public void onRewardedVideoCompleted() {
-        Toast.makeText(this, "onRewardedVideoCompleted", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "onRewardedVideoCompleted...");
+
     }
 }

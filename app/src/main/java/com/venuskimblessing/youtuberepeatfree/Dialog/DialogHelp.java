@@ -27,7 +27,7 @@ public class DialogHelp extends Dialog implements View.OnClickListener {
     private Context mContext = null;
     private Resources mRes = null;
     private LinearLayout mHelpMenuLay, mLicenseLay;
-    private Button mProButton, mGuideButton, mLisenceButton, mFeedbackButton, mDevlogButton;
+    private Button mProButton, mGuideButton, mLisenceButton, mFeedbackButton, mDevlogButton, mFacebookButton, mInstagramButton;
     private TextView mVersionTextView;
     private TextView mExpandableButton0, mExpandableButton1, mExpandableButton2, mExpandableVersionButton;
     private ExpandableLayout mExpandableLay0, mExpandableLay1, mExpandableLay2, mExpandableVersionLay;
@@ -84,6 +84,12 @@ public class DialogHelp extends Dialog implements View.OnClickListener {
         mDevlogButton = (Button)findViewById(R.id.help_devlog_button);
         mDevlogButton.setOnClickListener(this);
 
+        mFacebookButton = (Button)findViewById(R.id.help_facebook_button);
+        mFacebookButton.setOnClickListener(this);
+
+        mInstagramButton = (Button)findViewById(R.id.help_instagram_button);
+        mInstagramButton.setOnClickListener(this);
+
         mProButton.setOnClickListener(this);
         mGuideButton.setOnClickListener(this);
         mLisenceButton.setOnClickListener(this);
@@ -119,6 +125,16 @@ public class DialogHelp extends Dialog implements View.OnClickListener {
                     intent.setPackage("com.android.chrome");
                     mContext.startActivity(intent);
                 }
+                break;
+            case R.id.help_facebook_button:
+                String linkFacebook = mRes.getString(R.string.dialog_help_sns_facebook);
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(linkFacebook));
+                mContext.startActivity(intent);
+                break;
+            case R.id.help_instagram_button:
+                String linkInstagram = mRes.getString(R.string.dialog_help_sns_instagram);
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(linkInstagram));
+                mContext.startActivity(intent);
                 break;
         }
     }

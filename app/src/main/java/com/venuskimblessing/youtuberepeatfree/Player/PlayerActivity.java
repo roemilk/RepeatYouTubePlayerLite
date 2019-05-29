@@ -34,7 +34,6 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.common.Common;
-import com.facebook.share.Share;
 import com.facebook.share.Sharer;
 import com.facebook.share.model.ShareHashtag;
 import com.facebook.share.model.ShareLinkContent;
@@ -674,7 +673,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 break;
 
             case R.id.player_top_lock_button:
-                if(checkUnlockFeature()){
+                if(checkUnlockShareFeature()){
                     mLock = !mLock;
                     setLockButtonRes();
                     setLock();
@@ -766,7 +765,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 break;
 
             case R.id.player_feature_shuffle_button:
-                if(checkUnlockFeature()){
+                if(checkUnlockShareFeature()){
                     mShuffleButton.setSelected(!mShuffleButton.isSelected());
                     if(mShuffleButton.isSelected()){
                         mPlayListArray = mPlayListDataManager.loadPlayList();
@@ -827,7 +826,8 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 }
                 break;
             case R.id.player_top_batterySaving_button:
-                if(SharedPreferencesUtils.getBoolean(PlayerActivity.this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION)){
+                boolean premiumState = SharedPreferencesUtils.getBoolean(PlayerActivity.this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION);
+                if(premiumState == true || CommonUserData.sRewardUnlockedFeatureBatterSaving == true){
                     mDialogBatterySaving = new DialogBatterySaving(this, R.style.custom_dialog_fullScreen);
                     mDialogBatterySaving.show();
                     updateBatterSavingDialog();
@@ -1256,27 +1256,35 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
      * 이전 영상을 재생합니다.
      */
     private void prevSkipPlay() {
-        if(mPlayIndex <= 0){
-            Toast.makeText(PlayerActivity.this, getString(R.string.prev_play_empty), Toast.LENGTH_SHORT).show();
-            return;
+        if(mPlayType == TYPE_PLAYLIST){
+            if(mPlayIndex <= 0){
+                Toast.makeText(PlayerActivity.this, getString(R.string.prev_play_empty), Toast.LENGTH_SHORT).show();
+                return;
+            }else{
+                mPlayIndex--;
+                mCurrentPlayListData = mPlayListArray.get(mPlayIndex);
+                mPlayId = mCurrentPlayListData.getVideoId();
+                mStartTime = Integer.parseInt(mCurrentPlayListData.getStartTime());
+                mEndTime = Integer.parseInt(mCurrentPlayListData.getEndTime());
+                startAutoPlay(mPlayId);
+                refreshPlayListController();
+            }
         }else{
-            mPlayIndex--;
-            mCurrentPlayListData = mPlayListArray.get(mPlayIndex);
-            mPlayId = mCurrentPlayListData.getVideoId();
-            mStartTime = Integer.parseInt(mCurrentPlayListData.getStartTime());
-            mEndTime = Integer.parseInt(mCurrentPlayListData.getEndTime());
-            startAutoPlay(mPlayId);
-            refreshPlayListController();
+            Toast.makeText(PlayerActivity.this, getString(R.string.required_playlist_feature), Toast.LENGTH_SHORT).show();
         }
     }
 
     private void nextSkipPlay(){
-        mPlayType = getPlayType();
-        if (isNext()) {
-            nextPlay();
+        if(mPlayType == TYPE_PLAYLIST){
+            mPlayType = getPlayType();
+            if (isNext()) {
+                nextPlay();
+            }else{
+                Toast.makeText(PlayerActivity.this, getString(R.string.next_play_empty), Toast.LENGTH_SHORT).show();
+                return;
+            }
         }else{
-            Toast.makeText(PlayerActivity.this, getString(R.string.next_play_empty), Toast.LENGTH_SHORT).show();
-            return;
+            Toast.makeText(PlayerActivity.this, getString(R.string.required_playlist_feature), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -1589,10 +1597,10 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     }
 
     /**
-     * 잠금 해제된 기능인지 체크한다.
+     * 잠금 해제된 기능인지 체크한다.(공유로 잠금해제 가능한 기능)
      * @return
      */
-    private boolean checkUnlockFeature(){
+    private boolean checkUnlockShareFeature(){
         boolean premiumUnlock = SharedPreferencesUtils.getBoolean(this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION);
         boolean shareUnlock = SharedPreferencesUtils.getBoolean(this, CommonSharedPreferencesKey.KEY_FEATURE_SHARE_UNLOCK);
 

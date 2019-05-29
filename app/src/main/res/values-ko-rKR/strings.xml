@@ -20,6 +20,8 @@
     <string name="dialog_help_title">도움말</string>
     <string name="dialog_help_pro">프리미엄 업그레이드</string>
     <string name="dialog_help_feedback">Send Feedback</string>
+    <string name="dialog_help_facebook">페이스북 친구하기</string>
+    <string name="dialog_help_instagram">인스타그램 친구하기</string>
     <string name="dialog_help_devlog">업데이트 노트</string>
     <string name="dialog_help_manual">사용 설명서</string>
     <string name="dialog_help_opensource">오픈소스 라이선스</string>
@@ -94,7 +96,7 @@
     <string name="ending_dialog_confirm">종료</string>
     <string name="ending_dialog_cancel">취소</string>
 
-    <!-- Devlog -->
+    <!-- sns link url -->
     <string name="dialog_help_devlog_link">http://roemilk.tistory.com/category/%EC%9C%A0%ED%8A%9C%EB%B8%8C%20%EB%B0%98%EB%B3%B5%ED%95%B4%EC%A4%98%20Dev%20Log</string>
 
     <!-- recommend -->
@@ -156,7 +158,8 @@
 
     <!-- unlock -->
     <string name="unlocked_feature_title">와우!!</string>
-    <string name="unlocked_feature_content">다양한 기능들을 사용할 수 있게 되었습니다.</string>
+    <string name="unlocked_feature_content">다양한 기능들을 사용할 수 있게 되었습니다.</string>support
+    <string name="unlocked_feature_reward_batterysaving_success">감사합니다.\n앱 종료시까지 무제한 사용 가능합니다.</string>
 
     <!-- subFeature -->
     <string name="sub_feature_shuffle_empty">플레이리스트 목록이 비어있습니다.</string>
@@ -166,13 +169,14 @@
     <!-- prev play -->
     <string name="prev_play_empty">이전 영상이 없습니다.</string>
     <string name="next_play_empty">다음 영상이 없습니다.</string>
+    <string name="required_playlist_feature">플레이리스트 영상을 재생할때 사용할 수 있는 기능입니다.</string>
 
     <!-- premium message -->
     <string name="premium_title">프리미엄 혜택</string>
     <string name="premium_text">광고가 전혀 없는 쾌적한 사용 환경</string>
     <string name="premium_text2">모든 기능 잠금 해제</string>
     <string name="premium_text3">모든 프리미엄 버전 전용 기능 무제한 사용</string>
-    <string name="premium_text4">앞으로 업데이트 되는 프리미엄 버전 전용 기능들 </string>
+    <string name="premium_text4">계속계속 업데이트되는 강력한 프리미엄 전용 기능</string>
     <string name="premium_text5">프리미엄 업그레이드는 당신의 현명한 선택입니다.\n\n사랑합니다.</string>
     <string name="premium_upgrade">프리미엄 업그레이드 하기</string>
 
