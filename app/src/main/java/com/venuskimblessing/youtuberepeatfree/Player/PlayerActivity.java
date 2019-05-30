@@ -30,10 +30,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.common.Common;
 import com.facebook.share.Sharer;
 import com.facebook.share.model.ShareHashtag;
 import com.facebook.share.model.ShareLinkContent;
@@ -73,12 +73,16 @@ import com.venuskimblessing.youtuberepeatfree.Utils.MediaUtils;
 import com.venuskimblessing.youtuberepeatfree.Utils.SharedPreferencesUtils;
 import com.venuskimblessing.youtuberepeatfree.Utils.SoftKeybordManager;
 import com.venuskimblessing.youtuberepeatfree.Utils.UIConvertUtils;
+
 import net.cachapa.expandablelayout.ExpandableLayout;
+
 import org.florescu.android.rangeseekbar.RangeSeekBar;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -252,25 +256,25 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         mShareButton.setOnClickListener(this);
 
         //Feature
-        mShuffleButton = (Button)findViewById(R.id.player_feature_shuffle_button);
+        mShuffleButton = (Button) findViewById(R.id.player_feature_shuffle_button);
         mShuffleButton.setOnClickListener(this);
 
-        mPrevPlayButton = (Button)findViewById(R.id.player_feature_prev_button);
+        mPrevPlayButton = (Button) findViewById(R.id.player_feature_prev_button);
         mPrevPlayButton.setOnClickListener(this);
 
-        mNextPlayButton = (Button)findViewById(R.id.player_feature_next_button);
+        mNextPlayButton = (Button) findViewById(R.id.player_feature_next_button);
         mNextPlayButton.setOnClickListener(this);
 
         mPlayButton = (Button) findViewById(R.id.player_feature_play_button);
         mPlayButton.setOnClickListener(this);
 
-        mReplayButton = (Button)findViewById(R.id.player_feature_replay_5_button);
+        mReplayButton = (Button) findViewById(R.id.player_feature_replay_5_button);
         mReplayButton.setOnClickListener(this);
 
-        mForwadButton = (Button)findViewById(R.id.player_feature_forward_5_button);
+        mForwadButton = (Button) findViewById(R.id.player_feature_forward_5_button);
         mForwadButton.setOnClickListener(this);
 
-        mBatterSavingButton = (Button)findViewById(R.id.player_top_batterySaving_button);
+        mBatterSavingButton = (Button) findViewById(R.id.player_top_batterySaving_button);
         mBatterSavingButton.setOnClickListener(this);
 
         initRangeSeekBar();
@@ -281,7 +285,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if(hasFocus){
+        if (hasFocus) {
             mSoftKeybordManager = new SoftKeybordManager(getWindow());
             mSoftKeybordManager.hideSystemUI();
         }
@@ -305,7 +309,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         Log.d(TAG_ACTIVITY, "onResume...");
         getShareIntentData();
         startPlay(mPlayId);
-        loadVideos(mPlayId);
+        loadVideosDetails(mPlayId);
     }
 
     @Override
@@ -331,16 +335,16 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 showPopupFlaotingWindow();
                 return;
             }
-        }else if(requestCode == REQ_CODE_REWARD_FINISH_BATTERYSAVING){
-            if(resultCode == RESULT_OK){
-                if(CommonUserData.sRewardUnlockedFeatureBatterSaving){
+        } else if (requestCode == REQ_CODE_REWARD_FINISH_BATTERYSAVING) {
+            if (resultCode == RESULT_OK) {
+                if (CommonUserData.sRewardUnlockedFeatureBatterSaving) {
                     mDialogBatterySaving = new DialogBatterySaving(this, R.style.custom_dialog_fullScreen);
                     mDialogBatterySaving.show();
                     updateBatterSavingDialog();
                 }
             }
         }
-        if(mCallbackManager != null){ //Facebook callback manager
+        if (mCallbackManager != null) { //Facebook callback manager
             mCallbackManager.onActivityResult(requestCode, resultCode, data);
         }
     }
@@ -386,16 +390,19 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
         if (Intent.ACTION_SEND.equals(action) && type != null) {
             if (TYPE_MIME.equals(type)) {
+                mPlayType = TYPE_NORMAL;
                 String shareText = intent.getStringExtra(Intent.EXTRA_TEXT);
                 Log.d(TAG, "ShareText : " + shareText);
 
                 mPlayId = shareText.substring(17);
                 Log.d(TAG, "mPlayId : " + mPlayId);
             }
-        }else if(IntentAction.INTENT_ACTION_SEARCH_PLAYLIST.equals(action)){
-            PlayListData data = (PlayListData)intent.getSerializableExtra("data");
+        } else if (IntentAction.INTENT_ACTION_SEARCH_PLAYLIST.equals(action)) {
+            mPlayType = TYPE_PLAYLIST;
+            PlayListData data = (PlayListData) intent.getSerializableExtra("data");
             startPlayListPlay(data);
-        }else if(IntentAction.INTENT_ACTION_SHARE_VIDEO.equals(action)){
+        } else if (IntentAction.INTENT_ACTION_SHARE_VIDEO.equals(action)) {
+            mPlayType = TYPE_NORMAL;
             String id = intent.getStringExtra(IntentKey.INTENT_KEY_ID);
             String startTime = intent.getStringExtra(IntentKey.INTENT_KEY_START);
             String endTime = intent.getStringExtra(IntentKey.INTENT_KEY_END);
@@ -408,7 +415,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
             String prefixString = getString(R.string.range_share_prefix);
             Toast.makeText(this, prefixString + "\n\n" + convertStartTime + " - " + convertEndTime, Toast.LENGTH_LONG).show();
 
-            if(!mExpandableLayout_0.isExpanded()){
+            if (!mExpandableLayout_0.isExpanded()) {
                 mExpandableLayout_0.expand(true);
             }
         }
@@ -419,8 +426,9 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         Intent intent = getIntent();
         if (intent != null) {
             String action = intent.getAction();
-            if(action != null){
-                if(action.equals(IntentAction.INTENT_ACTION_SEARCH_PLAY)){
+            if (action != null) {
+                if (action.equals(IntentAction.INTENT_ACTION_SEARCH_PLAY)) {
+                    mPlayType = TYPE_NORMAL;
                     String videoId = intent.getStringExtra("videoId");
                     if (videoId != null && !videoId.equals("")) {
                         mPlayId = videoId;
@@ -553,19 +561,19 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
     /**
      * 플레이리스트 재생 처리
+     *
      * @param data
      */
-    private void startPlayListPlay(PlayListData data){
+    private void startPlayListPlay(PlayListData data) {
         Log.d(TAG, "startPlayListPlay...");
-
+        getPlayListArray();
         mCurrentPlayListData = data;
         int id = data.getId();
         mPlayId = data.getVideoId();
-        mPlayType = getPlayType();
         mPlayIndex = getPlayIndex(id);
         mStartTime = Integer.parseInt(data.getStartTime());
         mEndTime = Integer.parseInt(data.getEndTime());
-        loadVideos(mPlayId);
+        loadVideosDetails(mPlayId);
         if (SharedPreferencesUtils.getBoolean(PlayerActivity.this, CommonSharedPreferencesKey.KEY_AUTOPLAY)) {
             startAutoPlay(mPlayId);
         } else {
@@ -667,17 +675,17 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
 //                showUnLockSuccessDialog();
 
-                if(mYouTubePlayer != null){
+                if (mYouTubePlayer != null) {
                     mYouTubePlayer.setFullscreen(true);
                 }
                 break;
 
             case R.id.player_top_lock_button:
-                if(checkUnlockShareFeature()){
+                if (checkUnlockShareFeature()) {
                     mLock = !mLock;
                     setLockButtonRes();
                     setLock();
-                }else{
+                } else {
                     showShareLockedFeatureDialog(getString(R.string.locked_feature_lock_title));
                 }
                 break;
@@ -716,8 +724,8 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 if (mSnippet != null) {
                     mPlayListArray = mPlayListDataManager.loadPlayList();
 
-                    if(mPlayListArray != null){
-                        if(mPlayListArray.size() >= CommonUserData.PLAYLIST_LIMIT_COUNT){
+                    if (mPlayListArray != null) {
+                        if (mPlayListArray.size() >= CommonUserData.PLAYLIST_LIMIT_COUNT) {
                             //제한 5회 다이얼로그 출력 프로버전 유도
                             showProDialog();
                             return;
@@ -749,9 +757,9 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                         && !Settings.canDrawOverlays(this)) {
                     onObtainingPermissionOverlayWindow();
                 } else {
-                    if(CommonUserData.sPremiumState){
+                    if (CommonUserData.sPremiumState) {
                         showPopupFlaotingWindow();
-                    }else{
+                    } else {
                         intent = new Intent(this, LoadingActivity.class);
                         intent.putExtra(LoadingActivity.TYPE_KEY, LoadingActivity.TYPE_FULL_AD);
                         startActivityForResult(intent, REQ_CODE_AD_FINISH_FLOATINGWINDOW);
@@ -761,7 +769,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
             case R.id.player_setting_share_button:
                 String title = "empty";
-                if(mSnippet != null){
+                if (mSnippet != null) {
                     title = mSnippet.title;
                 }
                 mDynamicLinkManager.createShortDynamicLink(title, mPlayId, String.valueOf(mStartTime), String.valueOf(mEndTime));
@@ -769,27 +777,27 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 break;
 
             case R.id.player_feature_shuffle_button:
-                if(checkUnlockShareFeature()){
+                if (checkUnlockShareFeature()) {
                     mShuffleButton.setSelected(!mShuffleButton.isSelected());
-                    if(mShuffleButton.isSelected()){
+                    if (mShuffleButton.isSelected()) {
                         mPlayListArray = mPlayListDataManager.loadPlayList();
-                        if(mPlayListArray != null){
-                            if(mPlayListArray.size() <= 1) {
+                        if (mPlayListArray != null) {
+                            if (mPlayListArray.size() <= 1) {
                                 Toast.makeText(PlayerActivity.this, getString(R.string.sub_feature_shuffle_empty), Toast.LENGTH_SHORT).show();
                                 mShuffleButton.setSelected(false);
                                 return;
-                            }else{
+                            } else {
                                 SharedPreferencesUtils.setBoolean(PlayerActivity.this, CommonSharedPreferencesKey.KEY_AUTOPLAY, true);
                                 mShuffle = true;
                                 startPlayListPlay(mPlayListArray.get(0));
                                 Toast.makeText(PlayerActivity.this, getString(R.string.sub_feature_shuffle_start), Toast.LENGTH_SHORT).show();
                             }
                         }
-                    }else{
+                    } else {
                         mShuffle = false;
                         Toast.makeText(PlayerActivity.this, getString(R.string.sub_feature_shuffle_cancel), Toast.LENGTH_SHORT).show();
                     }
-                }else{
+                } else {
                     showShareLockedFeatureDialog(getString(R.string.locked_feature_shuffle_title));
                 }
                 break;
@@ -801,10 +809,10 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 nextSkipPlay();
                 break;
             case R.id.player_feature_play_button:
-                if(mYouTubePlayer.isPlaying()){
+                if (mYouTubePlayer.isPlaying()) {
                     mYouTubePlayer.pause();
                     mPlayButton.setBackgroundResource(R.drawable.ic_play_arrow_24dp);
-                }else{
+                } else {
                     mYouTubePlayer.play();
                     mPlayButton.setBackgroundResource(R.drawable.ic_pause_24dp);
                 }
@@ -812,9 +820,9 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
             case R.id.player_feature_replay_5_button:
                 long replayCurrentMills = mYouTubePlayer.getCurrentTimeMillis();
                 replayCurrentMills = replayCurrentMills - 5000;
-                if(replayCurrentMills <= 0){
+                if (replayCurrentMills <= 0) {
                     mYouTubePlayer.seekToMillis(0);
-                }else{
+                } else {
                     mYouTubePlayer.seekToMillis((int) replayCurrentMills);
                 }
                 break;
@@ -823,18 +831,18 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 long durationMills = mYouTubePlayer.getDurationMillis();
                 durationMills = durationMills - 1000;
                 currentForwardMills = currentForwardMills + 5000;
-                if(currentForwardMills >= durationMills){
+                if (currentForwardMills >= durationMills) {
                     return;
-                }else{
+                } else {
                     mYouTubePlayer.seekToMillis((int) currentForwardMills);
                 }
                 break;
             case R.id.player_top_batterySaving_button:
-                if(CommonUserData.sPremiumState == true || CommonUserData.sRewardUnlockedFeatureBatterSaving == true){
+                if (CommonUserData.sPremiumState == true || CommonUserData.sRewardUnlockedFeatureBatterSaving == true) {
                     mDialogBatterySaving = new DialogBatterySaving(this, R.style.custom_dialog_fullScreen);
                     mDialogBatterySaving.show();
                     updateBatterSavingDialog();
-                }else{
+                } else {
                     showRewardLockedFeatureDialog();
                 }
                 break;
@@ -845,12 +853,12 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         @Override
         public void onSelectedValue(int value) {
             mRepeatCount = value;
-            if(value <= 0){
+            if (value <= 0) {
                 mRepeatCount = 0;
                 mRepeatInfinite = true;
                 String infiniteString = getResources().getString(R.string.dialog_numberpick_infinite);
                 mExpandableCountTextView.setText(infiniteString);
-            }else{
+            } else {
                 mRepeatCount = value;
                 mRepeatInfinite = false;
                 mExpandableCountTextView.setText(String.valueOf(mRepeatCount));
@@ -885,14 +893,12 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         mTimerTask = new TimerTask() {
             @Override
             public void run() {
-//                Log.d(TAG, "timer detected...");
-
                 long currentTime = mYouTubePlayer.getCurrentTimeMillis();
                 repeatPlayRange(currentTime);
             }
         };
         mTimer = new Timer();
-        mTimer.schedule(mTimerTask, 1, 10);
+        mTimer.schedule(mTimerTask, 0, 10);
     }
 
     private void stopTimer() {
@@ -930,7 +936,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     private void repeatPlayRange(long currentTime) {
 //        Log.d(TAG, "currentTime : " + currentTime + " endTime : " + mEndTime);
 
-        if(mRepeatInfinite){ //무한 반복
+        if (mRepeatInfinite) { //무한 반복
             if (currentTime >= mEndTime - 500) {
                 mYouTubePlayer.seekToMillis(mStartTime);
                 mYouTubePlayer.play();
@@ -956,56 +962,38 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 if (mRepeatCount > 0) { //영상을 유튜브플레이버튼을 눌러서 시작하는 경우는 타이머의 조건에 포함되지 않아 최초플레이의 경우 RepeatCount 한개가 감소되지 않고 시작하는 문제가 있어 RepeatCount를 표시하는 텍스트뷰와 싱크를 맞추기 위해 마지막 부분에서 감소처리하여 싱크를 맞춘다.
                     mRepeatCount--;
                 }
+
                 mYouTubePlayer.pause();
-                mYouTubePlayer.seekToMillis(mStartTime);
+                mYouTubePlayer.seekToMillis(0);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         mExpandableCountTextView.setText(String.valueOf(mRepeatCount));
-//                        mRepeatCountEditText.setText(String.valueOf(mRepeatCount));
                         mTopCountTextView.setText(String.valueOf(mRepeatCount));
-
-                        boolean autuplayState = SharedPreferencesUtils.getBoolean(PlayerActivity.this, CommonSharedPreferencesKey.KEY_AUTOPLAY);
-                        if (autuplayState) {
-                            Log.d(TAG, "자동 플레이가 설정되어 있습니다.");
-
-                            mPlayType = getPlayType();
-                            if (isNext()) {
-                                Log.d(TAG, "다음 영상이 존재합니다.");
-                                nextPlay();
-                                updateBatterSavingDialog();
-                            } else {
-                                Log.d(TAG, "다음 영상이 존재하지 않습니다. 다시 처음부터 재생합니다.");
-                                //전체 반복 설정시 처음부터 다시 반복
-//                                boolean allRepeatState = SharedPreferencesUtils.getBoolean(PlayerActivity.this, CommonSharedPreferencesKey.KEY_ALLREPEAT);
-//                                if(allRepeatState){
-
-                                if (mPlayListArray.size() != 0) {
-                                    mPlayType = TYPE_NORMAL;
+                        if(mPlayType == TYPE_PLAYLIST){
+                            boolean autuplayState = SharedPreferencesUtils.getBoolean(PlayerActivity.this, CommonSharedPreferencesKey.KEY_AUTOPLAY);
+                            if (autuplayState) {
+                                Log.d(TAG, "자동 플레이가 설정되어 있습니다.");
+                                if (isNext()) {
+                                    Log.d(TAG, "다음 영상이 존재합니다.");
                                     nextPlay();
                                     updateBatterSavingDialog();
+                                } else {
+                                    Log.d(TAG, "다음 영상이 존재하지 않습니다. 다시 처음부터 재생합니다.");
+                                    if (mPlayListArray.size() != 0) {
+                                        mPlayIndex = 0;
+                                        PlayListData data = mPlayListArray.get(mPlayIndex);
+                                        startPlayListPlay(data);
+                                        updateBatterSavingDialog();
+                                    }
                                 }
-//                                }else{
-//                                    refreshPlayListController();
-//                                }
+                            } else {
+                                Log.d(TAG, "자동 플레이가 지정되어 있지 않습니다.");
                             }
-                        } else {
-                            Log.d(TAG, "자동 플레이가 지정되어 있지 않습니다.");
                         }
                     }
                 });
             }
-        }
-    }
-
-    /**
-     * 전체영상 반복재생 (full repeat play)
-     */
-    private void repeatPlayFull() {
-        if (mYouTubePlayer != null) {
-            mYouTubePlayer.pause();
-            mYouTubePlayer.seekToMillis(1000);
-            mYouTubePlayer.play();
         }
     }
 
@@ -1016,11 +1004,10 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     public void onPlaying() {
         Log.d(TAG, "onPlaying...");
         mPlayButton.setBackgroundResource(R.drawable.ic_pause_24dp);
-        if (mStartTime == mEndTime) {
+        if (mStartTime == mEndTime || mStartTime >= mEndTime) {
             mYouTubePlayer.pause();
             return;
         }
-        savePlayingData();
         stopTimer();
         startTimer();
     }
@@ -1055,13 +1042,13 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
     @Override
     public void onBackPressed() {
-        if(mLock){ //잠금 상태면 무시
+        if (mLock) { //잠금 상태면 무시
             return;
         }
 
-        if(mFullScreenFlag){ //풀스크린일때는 풀스크린 해제
+        if (mFullScreenFlag) { //풀스크린일때는 풀스크린 해제
             mYouTubePlayer.setFullscreen(false);
-        }else{
+        } else {
             finish();
         }
     }
@@ -1142,49 +1129,30 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     /**
      * 비디오의 상세 정보를 가져온다.
      */
-    private void loadVideos(String id) {
+    private void loadVideosDetails(String id) {
         mCallVideos = mService.getYoutubeVideos("snippet,contentDetails,statistics", id, CommonApiKey.KEY_API_YOUTUBE);
         mCallVideos.enqueue(callback);
     }
 
-    /**
-     * 친구초대 유무를 확인하고 그에 맞는 최대 반복 횟수를 세팅한다.
-     */
-    private void initInviteItem() {
-        mInvitationState = SharedPreferencesUtils.getBoolean(this, CommonSharedPreferencesKey.KEY_INVITATION);
-
-        if (mInvitationState) {
-            CommonUserData.sMaxRepeatCount = CommonUserData.COUNT_MAX;
-        } else {
-            CommonUserData.sMaxRepeatCount = CommonUserData.COUNT_DEFAULT;
-        }
-    }
-
-    //PlayList Play
-    private int getPlayType() {
+    //getPlayListArray
+    private void getPlayListArray() {
         mPlayListArray = mPlayListDataManager.loadPlayList();
-        int id = mCurrentPlayListData.getId();
-        int index = getPlayIndex(id);
-
-        if (index == -1) {
-            return TYPE_NORMAL;
-        } else {
-            return TYPE_PLAYLIST;
-        }
     }
 
     private boolean isNext() {
         mPlayListArray = mPlayListDataManager.loadPlayList();
 
-        if(mShuffle){ //무작위 재생
+        if (mShuffle) { //무작위 재생
 //            mPlayIndex = shufflePlayIndex();
+            Log.d(TAG, "Shuffle 재생입니다.");
             shufflePlayIndex();
             mPlayIndex = mShffleIndex;
             return true;
-        }else{
+        } else {
             int id = mCurrentPlayListData.getId();
             mPlayIndex = getPlayIndex(id);
         }
+
         if (mPlayType == TYPE_NORMAL) {
             if (mPlayListArray.size() != 0) {
                 return true;
@@ -1198,8 +1166,6 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 return false;
             }
         }
-
-        Log.d(TAG, "isNext : 그 어떤 조건도 찾지 못했습니다.");
         return false;
     }
 
@@ -1208,24 +1174,12 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
      */
     private void nextPlay() {
         Log.d(TAG, "다음 영상을 재생합니다.");
-        if (mPlayType == TYPE_NORMAL) {
-            mPlayType = TYPE_PLAYLIST;
-            mCurrentPlayListData = mPlayListArray.get(0);
-            mPlayId = mCurrentPlayListData.getVideoId();
-            mStartTime = Integer.parseInt(mCurrentPlayListData.getStartTime());
-            mEndTime = Integer.parseInt(mCurrentPlayListData.getEndTime());
-            //            mRepeatCount = Integer.parseInt(mCurrentPlayListData.getRepeat()); //개별반복재생 다음버전에서 개발... 고민 필요
-            startAutoPlay(mPlayId);
-            refreshPlayListController();
-        } else if (mPlayType == TYPE_PLAYLIST) {
-            int playIndex = 0;
-
-            if(mShuffle){ //무작위 재생
-                playIndex = mPlayIndex;
-            }else{ //기본 다음 영상 재생
-                playIndex = mPlayIndex + 1;
+        if (mPlayType == TYPE_PLAYLIST) {
+            if (!mShuffle) {
+                mPlayIndex++;
             }
-            mCurrentPlayListData = mPlayListArray.get(playIndex);
+
+            mCurrentPlayListData = mPlayListArray.get(mPlayIndex);
             mPlayId = mCurrentPlayListData.getVideoId();
             mStartTime = Integer.parseInt(mCurrentPlayListData.getStartTime());
             mEndTime = Integer.parseInt(mCurrentPlayListData.getEndTime());
@@ -1239,16 +1193,16 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     /**
      * 인덱스 셔플
      */
-    private void shufflePlayIndex(){
+    private void shufflePlayIndex() {
         int allIndex = mPlayListArray.size();
 //        Log.d(TAG, "shuffle allIndex >> " + allIndex);
 
         int shuffleIndex = mRandom.nextInt(allIndex);
-        if(shuffleIndex == mShffleIndex){
+        if (shuffleIndex == mShffleIndex) {
             Log.d(TAG, "shuffleIndex and prev shuffle is euqal.. re try random. " + shuffleIndex + " " + mShffleIndex);
             shufflePlayIndex();
             return;
-        }else {
+        } else {
             Log.d(TAG, "shuffleIndex and prev shuffle is not euqal.. success " + shuffleIndex);
             mShffleIndex = shuffleIndex;
             return;
@@ -1259,11 +1213,11 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
      * 이전 영상을 재생합니다.
      */
     private void prevSkipPlay() {
-        if(mPlayType == TYPE_PLAYLIST){
-            if(mPlayIndex <= 0){
+        if (mPlayType == TYPE_PLAYLIST) {
+            if (mPlayIndex <= 0) {
                 Toast.makeText(PlayerActivity.this, getString(R.string.prev_play_empty), Toast.LENGTH_SHORT).show();
                 return;
-            }else{
+            } else {
                 mPlayIndex--;
                 mCurrentPlayListData = mPlayListArray.get(mPlayIndex);
                 mPlayId = mCurrentPlayListData.getVideoId();
@@ -1272,21 +1226,20 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 startAutoPlay(mPlayId);
                 refreshPlayListController();
             }
-        }else{
+        } else {
             Toast.makeText(PlayerActivity.this, getString(R.string.required_playlist_feature), Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void nextSkipPlay(){
-        if(mPlayType == TYPE_PLAYLIST){
-            mPlayType = getPlayType();
+    private void nextSkipPlay() {
+        if (mPlayType == TYPE_PLAYLIST) {
             if (isNext()) {
                 nextPlay();
-            }else{
+            } else {
                 Toast.makeText(PlayerActivity.this, getString(R.string.next_play_empty), Toast.LENGTH_SHORT).show();
                 return;
             }
-        }else{
+        } else {
             Toast.makeText(PlayerActivity.this, getString(R.string.required_playlist_feature), Toast.LENGTH_SHORT).show();
         }
     }
@@ -1303,7 +1256,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 break;
             }
         }
-        Log.d(TAG, "Index Search Detected : " + index);
+        Log.d(TAG, "getPlayIndex Index Search Detected : " + index + " title : " + mPlayListArray.get(index).getTitle());
         return index;
     }
 
@@ -1475,7 +1428,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     }
 
     //FaceBook 공유
-    private void shareFacebook(){
+    private void shareFacebook() {
         mCallbackManager = CallbackManager.Factory.create();
         mShareDialog = new ShareDialog(this);
         mShareDialog.registerCallback(mCallbackManager, new FacebookCallback<Sharer.Result>() {
@@ -1512,7 +1465,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
      * Locked Feature Dialog
      * 잠금이 걸려 있으나 페이스북 공유로 언락할 수 있는 기능(잠금기능)
      */
-    private void showShareLockedFeatureDialog(String title){
+    private void showShareLockedFeatureDialog(String title) {
         final DialogCommon dialogCommonLockedFeature = new DialogCommon(this, R.style.custom_dialog_fullScreen);
         dialogCommonLockedFeature.setTitle(title);
         dialogCommonLockedFeature.setContent(getString(R.string.locked_feature_share_content));
@@ -1522,7 +1475,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         dialogCommonLockedFeature.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (v.getId()){
+                switch (v.getId()) {
                     case R.id.dialog_common_one_button:
                         Intent intent = new Intent(PlayerActivity.this, BuyPremiumActivity.class);
                         startActivity(intent);
@@ -1541,7 +1494,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
      * Locked Feature Dialog
      * 잠금이 걸려 있으나 리워드 감상으로 언락할 수 있는 기능(배터리)
      */
-    private void showRewardLockedFeatureDialog(){
+    private void showRewardLockedFeatureDialog() {
         final DialogCommon dialogCommonLockedFeature = new DialogCommon(this, R.style.custom_dialog_fullScreen);
         dialogCommonLockedFeature.setTitle(getString(R.string.locked_featrue_battery_title));
         dialogCommonLockedFeature.setContent(getString(R.string.locked_feature_reward_content));
@@ -1552,7 +1505,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
             @Override
             public void onClick(View v) {
                 Intent intent;
-                switch (v.getId()){
+                switch (v.getId()) {
                     case R.id.dialog_common_one_button:
                         intent = new Intent(PlayerActivity.this, BuyPremiumActivity.class);
                         startActivity(intent);
@@ -1570,7 +1523,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         dialogCommonLockedFeature.show();
     }
 
-    private void showUnLockSuccessDialog(){
+    private void showUnLockSuccessDialog() {
         DialogCommon dialogCommonUnlockSuccess = new DialogCommon(this, R.style.custom_dialog_fullScreen);
         dialogCommonUnlockSuccess.setTitle(getString(R.string.unlocked_feature_title));
         dialogCommonUnlockSuccess.setContent(getString(R.string.unlocked_feature_content));
@@ -1581,13 +1534,13 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     /**
      * 베터리세이빙 다이얼로그 업데이트
      */
-    private void updateBatterSavingDialog(){
-        if(mDialogBatterySaving != null){
-            if(mDialogBatterySaving.isShowing()){
+    private void updateBatterSavingDialog() {
+        if (mDialogBatterySaving != null) {
+            if (mDialogBatterySaving.isShowing()) {
                 String currentTitle = "";
-                if(mPlayType == TYPE_NORMAL){
+                if (mPlayType == TYPE_NORMAL) {
                     currentTitle = mSnippet.title;
-                }else if(mPlayType == TYPE_PLAYLIST){
+                } else if (mPlayType == TYPE_PLAYLIST) {
                     currentTitle = mCurrentPlayListData.getTitle();
                 }
                 String convertStartTime = MediaUtils.getMillSecToHMS(mStartTime);
@@ -1601,14 +1554,15 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
     /**
      * 잠금 해제된 기능인지 체크한다.(공유로 잠금해제 가능한 기능)
+     *
      * @return
      */
-    private boolean checkUnlockShareFeature(){
+    private boolean checkUnlockShareFeature() {
         boolean shareUnlock = SharedPreferencesUtils.getBoolean(this, CommonSharedPreferencesKey.KEY_FEATURE_SHARE_UNLOCK);
 
-        if(CommonUserData.sPremiumState == true || shareUnlock == true){
+        if (CommonUserData.sPremiumState == true || shareUnlock == true) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
