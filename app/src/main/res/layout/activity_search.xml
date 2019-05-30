@@ -111,9 +111,7 @@
         android:id="@+id/player_banner_lay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
-        android:background="#ffffff"
+        android:background="#4CAF50"
         android:visibility="visible"
         android:layout_alignParentBottom="true">
 
@@ -121,6 +119,8 @@
             android:id="@+id/adView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
             ads:adSize="SMART_BANNER"
             ads:adUnitId="ca-app-pub-3940256099942544/6300978111"></com.google.android.gms.ads.AdView>
     </LinearLayout>
