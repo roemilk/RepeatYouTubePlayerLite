@@ -16,7 +16,7 @@ import com.venuskimblessing.youtuberepeatfree.Utils.SoftKeybordManager;
 
 import java.util.List;
 
-public class BuyPremiumActivity extends Activity implements View.OnClickListener, BillingManager.OnBuyCompleteListener {
+public class BuyPremiumActivity extends Activity implements View.OnClickListener, BillingManager.OnBuyCompleteListener, BillingManager.OnQueryInventoryItemListener {
     private final String TAG = "BuyPremiumActivity";
 
     private RippleView mBuyRippleView;
@@ -29,6 +29,7 @@ public class BuyPremiumActivity extends Activity implements View.OnClickListener
 
         mBillingManager = new BillingManager(this);
         mBillingManager.setOnBuyCompleteListener(this);
+        mBillingManager.setOnQueryInventoryItemListener(this);
         mBillingManager.initBillingQueryInventoryItem();
 
         mBuyRippleView = (RippleView)findViewById(R.id.premium_buyRippleView_buy_button);
@@ -47,7 +48,14 @@ public class BuyPremiumActivity extends Activity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        mBillingManager.buyInapp();
+        if(CommonUserData.sPremiumState){
+            Toast.makeText(this, getString(R.string.buy_already_have_premium), Toast.LENGTH_SHORT).show();
+            //테스트 소모 코드
+            mBillingManager.consumeItem(mBillingManager.getPremiumPurchase().getPurchaseToken());
+            return;
+        }else{
+            mBillingManager.buyInapp();
+        }
     }
 
     @Override
@@ -58,6 +66,8 @@ public class BuyPremiumActivity extends Activity implements View.OnClickListener
                 if(sku.equals(BillingManager.SKU_PREMIUM)){
                     Toast.makeText(this, getString(R.string.buy_success), Toast.LENGTH_SHORT).show();
                     CommonUserData.sPremiumState = true;
+                    SharedPreferencesUtils.setBoolean(this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION, true);
+                    finish();
                 }
             }
         }
@@ -74,5 +84,17 @@ public class BuyPremiumActivity extends Activity implements View.OnClickListener
             int errCode = billingResult.getResponseCode();
             Toast.makeText(this, getString(R.string.buy_error) + errCode, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onPremiumVersionUser() {
+        CommonUserData.sPremiumState = true;
+        SharedPreferencesUtils.setBoolean(this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION, true);
+    }
+
+    @Override
+    public void onFreeVersionUser() {
+        CommonUserData.sPremiumState = false;
+        SharedPreferencesUtils.setBoolean(this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION, false);
     }
 }

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">YouTube 繰り返し Free</string>
+    <string name="app_name">Tube Repeat Free</string>
+    <string name="app_name_premium">Tube Repeat Premium</string>
 
     <string name = "introduce1"> 検索で目的のビデオを見つけることができます。</string>
          <string name = "introduce2"> さまざまな機能を利用することができます。 </string>

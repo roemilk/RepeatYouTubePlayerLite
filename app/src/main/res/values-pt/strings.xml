@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-        <string name="app_name">YouTube Repeat Free</string>
+        <string name="app_name">Tube Repeat Free</string>
+    <string name="app_name_premium">Tube Repeat Premium</string>
 
     <string name = "introduce1"> Quickly find the YouTube video you want in your search. </string>
          <string name = "introduce2"> You can use various Feature.</string>

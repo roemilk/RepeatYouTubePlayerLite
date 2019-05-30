@@ -86,7 +86,8 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
         holder.title.setSelected(true);
         holder.time.setText(duration);
         holder.channelTitle.setText(channelTitle);
-        holder.viewCount.setText(FormatUtils.parseNumberFormat(viewCount));
+        holder.channelTitle.setSelected(true);
+        holder.viewCount.setText(FormatUtils.parseNumberFormat(viewCount) + " view");
     }
 
     @Override

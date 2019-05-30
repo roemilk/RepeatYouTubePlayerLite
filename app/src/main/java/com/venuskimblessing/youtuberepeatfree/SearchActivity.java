@@ -229,6 +229,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         super.onResume();
         getDynamicLink();
         loadFullAd();
+        checkShowPremiumBanner();
     }
 
     /**
@@ -883,31 +884,45 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
      */
     private void loadFullAd() {
         Log.d(TAG, "전면 광고 로드..");
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(CommonApiKey.KEY_ADMOB_FULL_UNIT);
-        mInterstitialAd.setAdListener(adListener);
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        boolean premium = SharedPreferencesUtils.getBoolean(this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION);
+        if(premium){
+            return;
+        }else{
+            mInterstitialAd = new InterstitialAd(this);
+            mInterstitialAd.setAdUnitId(CommonApiKey.KEY_ADMOB_FULL_UNIT);
+            mInterstitialAd.setAdListener(adListener);
+            mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        }
     }
 
     private void checkShowFullAd() {
-        int adCount = CommonUserData.sAdCount;
-        int delayCount = CommonUserData.AD_DEALY_COUNT;
-        if (adCount == 0 || adCount >= delayCount) {
-            Log.d(TAG, "show full ad...");
-            showFullAd();
-        } else {
-            Log.d(TAG, "not show full ad...");
+        boolean premium = SharedPreferencesUtils.getBoolean(this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION);
+        if(premium){
+            Log.d(TAG, "not show full ad... premium");
             startPlayerActivity(mVideoId);
+        }else{
+            int adCount = CommonUserData.sAdCount;
+            int delayCount = CommonUserData.AD_DEALY_COUNT;
+            if (adCount == 0 || adCount >= delayCount) {
+                Log.d(TAG, "show full ad...");
+                showFullAd();
+            } else {
+                Log.d(TAG, "not show full ad...");
+                startPlayerActivity(mVideoId);
+            }
+            CommonUserData.sAdCount++;
         }
-        CommonUserData.sAdCount++;
     }
 
     private void showFullAd() {
-        if (mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
-            CommonUserData.sAdCount = 0;
-        } else {
-            Log.d(TAG, "showFullAd 광고 로드 실패 재호출");
+        if(mInterstitialAd != null){
+            if (mInterstitialAd.isLoaded()) {
+                mInterstitialAd.show();
+                CommonUserData.sAdCount = 0;
+            } else {
+                startPlayerActivity(mVideoId);
+            }
+        }else{
             startPlayerActivity(mVideoId);
         }
     }
@@ -973,18 +988,30 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         });
     }
 
+    private void checkShowPremiumBanner(){
+        if(CommonUserData.sPremiumState){
+            mBannerLay.setVisibility(View.GONE);
+        }else{
+            mBannerLay.setVisibility(View.VISIBLE);
+        }
+    }
+
     //인앱
     private void initQueryBilling(){
         mBillingManager = new BillingManager(this);
         mBillingManager.setOnQueryInventoryItemListener(new BillingManager.OnQueryInventoryItemListener() {
             @Override
             public void onPremiumVersionUser() {
-                mBannerLay.setVisibility(View.GONE);
+                CommonUserData.sPremiumState = true;
+                SharedPreferencesUtils.setBoolean(SearchActivity.this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION, true);
+                checkShowPremiumBanner();
             }
 
             @Override
             public void onFreeVersionUser() {
-                mBannerLay.setVisibility(View.VISIBLE);
+                CommonUserData.sPremiumState = false;
+                SharedPreferencesUtils.setBoolean(SearchActivity.this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION, false);
+                checkShowPremiumBanner();
                 loadBanner();
             }
         });

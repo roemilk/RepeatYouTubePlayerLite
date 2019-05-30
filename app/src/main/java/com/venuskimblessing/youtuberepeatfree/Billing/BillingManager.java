@@ -30,6 +30,7 @@ public class BillingManager implements PurchasesUpdatedListener {
     private SkuDetails mSkuDetails;
     private OnBuyCompleteListener mOnBuyCompleteListener;
     private OnQueryInventoryItemListener mOnQueryInventoryItemListener;
+    private Purchase mPurchase;
 
     public interface OnBuyCompleteListener{
         void onBuySuccess(List<Purchase> purchases);
@@ -115,17 +116,19 @@ public class BillingManager implements PurchasesUpdatedListener {
         List<Purchase> purchaseList = purchasesResult.getPurchasesList();
         for (Purchase purchase : purchaseList) {
             if(purchase.getSku().equals(SKU_PREMIUM)){
-                CommonUserData.sPremiumState = true;
+                mPurchase = purchase;
                 mOnQueryInventoryItemListener.onPremiumVersionUser();
-                Toast.makeText(mActivity, "프리미엄 사용자입니다.", Toast.LENGTH_SHORT).show();
             }
         }
 
         if(purchaseList.size() <= 0){
             Log.d(TAG, "프리버전 사용자입니다.");
-            CommonUserData.sPremiumState = false;
             mOnQueryInventoryItemListener.onFreeVersionUser();
         }
+    }
+
+    public Purchase getPremiumPurchase(){
+        return mPurchase;
     }
 
     /**
@@ -149,6 +152,8 @@ public class BillingManager implements PurchasesUpdatedListener {
         };
         mBillingClient.consumeAsync(consumeParams, consumeResponseListener);
     }
+
+
 
     @Override
     public void onPurchasesUpdated(BillingResult billingResult, @Nullable List<Purchase> purchases) {

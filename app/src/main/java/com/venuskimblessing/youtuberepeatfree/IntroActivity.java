@@ -58,7 +58,7 @@ public class IntroActivity extends AppCompatActivity {
         getHashKey();
 //        getFCMToken();
         mLineTextView = (FadeTextView) findViewById(R.id.intro_textView);
-        mLineTextView.animateText(getResources().getString(R.string.app_name));
+        initIntroTitle();
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -211,6 +211,15 @@ public class IntroActivity extends AppCompatActivity {
             } catch (NoSuchAlgorithmException e) {
                 Log.e("KeyHash", "Unable to get MessageDigest. signature=" + signature, e);
             }
+        }
+    }
+
+    private void initIntroTitle(){
+        boolean premiumState = SharedPreferencesUtils.getBoolean(this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION);
+        if(premiumState){
+            mLineTextView.animateText(getResources().getString(R.string.app_name_premium));
+        }else{
+            mLineTextView.animateText(getResources().getString(R.string.app_name));
         }
     }
 }

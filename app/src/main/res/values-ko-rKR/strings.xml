@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">유튜브 반복해줘 Free</string>
+    <string name="app_name_premium">유튜브 반복해줘 Premium</string>
 
     <!-- 사용 설명 가이드 -->
     <string name="introduce1">검색에서 원하는 유튜브 영상을 빠르게 찾을 수 있습니다.</string>
@@ -150,7 +151,7 @@
     <string name="locked_feature_lock_title">화면 잠금 기능</string>
     <string name="locked_featrue_battery_title">베터리 절약 모드</string>
     <string name="locked_feature_reward_content">프리미엄 기능입니다.\n\n프리미엄 버전으로 업그레이드하면 모든 광고 제거, 모든 프리미엄 기능 사용등 다양한 혜택이 있습니다!</string>
-    <string name="locked_feature_share_content">프리미엄 기능입니다.\n\n프리미엄 버전으로 업그레이드하면 모든 광고 제거, 모든 프리미엄 기능 사용등 다양한 혜택이 있습니다.\n\n페이스북 친구들에게 딱 한번 앱을 소개하고 보상으로 잠금 기능을 무료로 얻으세요!</string>
+    <string name="locked_feature_share_content">프리미엄 기능입니다.\n\n프리미엄 버전으로 업그레이드하면 모든 광고 제거, 모든 프리미엄 기능 사용등 다양한 혜택이 있습니다.\n\n페이스북 친구들에게 딱 한번 앱을 소개하고 보상으로 프리미엄 기능을 무료로 얻으세요!</string>
     <string name="locked_feature_buyPro">프리미엄 버전 혜택 보기</string>
     <string name="locked_feature_share">무료로 기능 얻기</string>
     <string name="locked_feature_reward">광고 시청하고 무료 이용</string>
@@ -176,14 +177,15 @@
     <string name="premium_text">광고가 전혀 없는 쾌적한 사용 환경</string>
     <string name="premium_text2">모든 프리미엄 기능 무제한 사용 가능</string>
     <string name="premium_text3">플레이리스트 등록 개수 제한 해제</string>
-    <string name="premium_text4">계속계속 업데이트되는 강력한 프리미엄 전용 기능들</string>
-    <string name="premium_text5">프리미엄 업그레이드는 당신의 현명한 선택입니다.\n\n사랑합니다.</string>
-    <string name="premium_upgrade">프리미엄 업그레이드 하기</string>
+    <string name="premium_text4">끝없이 추가되는 강력한 프리미엄 기능들</string>
+    <string name="premium_text5">프리미엄 업그레이드는\n당신의 현명한 선택입니다.\n\n사랑합니다.</string>
+    <string name="premium_upgrade">프리미엄 업그레이드</string>
 
     <!-- buy result message -->
     <string name="buy_success">축하 합니다!\n프리미엄 버전으로 업그레이드 되었습니다.</string>
     <string name="buy_cancel">구매를 취소하였습니다.</string>
     <string name="buy_error">구매 오류가 발생하였습니다. 오류코드 </string>
+    <string name="buy_already_have_premium">이미 프리미엄 버전의 사용자입니다.\n감사합니다.</string>
 
     <!-- reward error -->
     <string name="reward_failed">광고 로드에 실패하였습니다.\n광고를 최대 3회 재로드합니다.\n이후에도 실패할 경우 성공 여부 상관없이 보상을 지급합니다.</string>

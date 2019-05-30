@@ -749,9 +749,13 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                         && !Settings.canDrawOverlays(this)) {
                     onObtainingPermissionOverlayWindow();
                 } else {
-                    intent = new Intent(this, LoadingActivity.class);
-                    intent.putExtra(LoadingActivity.TYPE_KEY, LoadingActivity.TYPE_FULL_AD);
-                    startActivityForResult(intent, REQ_CODE_AD_FINISH_FLOATINGWINDOW);
+                    if(CommonUserData.sPremiumState){
+                        showPopupFlaotingWindow();
+                    }else{
+                        intent = new Intent(this, LoadingActivity.class);
+                        intent.putExtra(LoadingActivity.TYPE_KEY, LoadingActivity.TYPE_FULL_AD);
+                        startActivityForResult(intent, REQ_CODE_AD_FINISH_FLOATINGWINDOW);
+                    }
                 }
                 break;
 
