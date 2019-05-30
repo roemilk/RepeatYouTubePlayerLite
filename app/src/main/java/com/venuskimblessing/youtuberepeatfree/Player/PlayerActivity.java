@@ -696,6 +696,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                     @Override
                     public void onPlay(PlayListData data) {
                         mDialogPlayList.dismiss();
+                        mPlayType = TYPE_PLAYLIST;
                         startPlayListPlay(data);
                     }
                 });
@@ -898,7 +899,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
             }
         };
         mTimer = new Timer();
-        mTimer.schedule(mTimerTask, 0, 10);
+        mTimer.schedule(mTimerTask, 2000, 10);
     }
 
     private void stopTimer() {
