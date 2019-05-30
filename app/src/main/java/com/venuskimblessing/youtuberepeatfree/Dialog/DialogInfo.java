@@ -16,6 +16,7 @@ import com.venuskimblessing.youtuberepeatfree.Json.Videos;
 import com.venuskimblessing.youtuberepeatfree.R;
 import com.venuskimblessing.youtuberepeatfree.Utils.FormatUtils;
 import com.venuskimblessing.youtuberepeatfree.Utils.MediaUtils;
+import com.venuskimblessing.youtuberepeatfree.Utils.SoftKeybordManager;
 
 public class DialogInfo extends Dialog implements View.OnClickListener {
     public static final String TAG = "DialogInfo";
@@ -25,6 +26,7 @@ public class DialogInfo extends Dialog implements View.OnClickListener {
     private TextView mTitleTextView, mDescriptionTextView, mDurationTextView, mViewCountTextView, mChannelTitleTextView;;
     private Button mPlayButton;
 
+    private SoftKeybordManager mSoftKeybordManager;
     private Context mContext;
     private String id;
 
@@ -46,6 +48,15 @@ public class DialogInfo extends Dialog implements View.OnClickListener {
         super(context, cancelable, cancelListener);
         this.mContext = context;
         init();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if(hasFocus){
+            mSoftKeybordManager = new SoftKeybordManager(getWindow());
+            mSoftKeybordManager.hideSystemUI();
+        }
     }
 
     private void init(){

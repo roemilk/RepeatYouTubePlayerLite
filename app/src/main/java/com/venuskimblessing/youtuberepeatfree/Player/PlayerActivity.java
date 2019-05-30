@@ -826,8 +826,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 }
                 break;
             case R.id.player_top_batterySaving_button:
-                boolean premiumState = SharedPreferencesUtils.getBoolean(PlayerActivity.this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION);
-                if(premiumState == true || CommonUserData.sRewardUnlockedFeatureBatterSaving == true){
+                if(CommonUserData.sPremiumState == true || CommonUserData.sRewardUnlockedFeatureBatterSaving == true){
                     mDialogBatterySaving = new DialogBatterySaving(this, R.style.custom_dialog_fullScreen);
                     mDialogBatterySaving.show();
                     updateBatterSavingDialog();
@@ -1601,10 +1600,9 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
      * @return
      */
     private boolean checkUnlockShareFeature(){
-        boolean premiumUnlock = SharedPreferencesUtils.getBoolean(this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION);
         boolean shareUnlock = SharedPreferencesUtils.getBoolean(this, CommonSharedPreferencesKey.KEY_FEATURE_SHARE_UNLOCK);
 
-        if(premiumUnlock == true || shareUnlock == true){
+        if(CommonUserData.sPremiumState == true || shareUnlock == true){
             return true;
         }else{
             return false;

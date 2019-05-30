@@ -17,11 +17,13 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.github.florent37.materialtextfield.MaterialTextField;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.appinvite.AppInviteInvitation;
@@ -40,8 +42,6 @@ import com.venuskimblessing.youtuberepeatfree.Common.CommonSharedPreferencesKey;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonUserData;
 import com.venuskimblessing.youtuberepeatfree.Common.IntentAction;
 import com.venuskimblessing.youtuberepeatfree.Common.IntentKey;
-import com.venuskimblessing.youtuberepeatfree.Dialog.DialogChat;
-import com.venuskimblessing.youtuberepeatfree.Dialog.DialogCoffee;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogEnding;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogInfo;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogPlayList;
@@ -63,7 +63,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -144,21 +143,21 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     //Inapp
     private BillingManager mBillingManager;
 
-//
-//    //배너광고
-//    private LinearLayout mBannerLay;
-//    private AdView mAdView;
+
+    //배너광고
+    private LinearLayout mBannerLay;
+    private AdView mAdView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        mBillingManager = new BillingManager(this);
-        mBillingManager.initBilling();
-
         initRateThisApp();
         getShareIntentData(getIntent());
         MobileAds.initialize(this, CommonApiKey.KEY_ADMOB_APP_ID);
+
+        mBannerLay = (LinearLayout)findViewById(R.id.player_banner_lay);
+        initQueryBilling();
 
         mEmptyTextView = (TextView) findViewById(R.id.search_empty_textView);
 
@@ -959,8 +958,36 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         }
     };
 
-    private void showChat() {
-        DialogChat dialogChat = new DialogChat(this, R.style.custom_dialog_fullScreen);
-        dialogChat.show();
+
+    //배너 광고 로드
+    private void loadBanner(){
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        mAdView.setAdListener(new AdListener(){
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+                mBannerLay.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    //인앱
+    private void initQueryBilling(){
+        mBillingManager = new BillingManager(this);
+        mBillingManager.setOnQueryInventoryItemListener(new BillingManager.OnQueryInventoryItemListener() {
+            @Override
+            public void onPremiumVersionUser() {
+                mBannerLay.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFreeVersionUser() {
+                mBannerLay.setVisibility(View.VISIBLE);
+                loadBanner();
+            }
+        });
+        mBillingManager.initBillingQueryInventoryItem();
     }
 }

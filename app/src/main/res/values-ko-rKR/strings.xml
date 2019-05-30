@@ -159,7 +159,7 @@
     <!-- unlock -->
     <string name="unlocked_feature_title">와우!!</string>
     <string name="unlocked_feature_content">다양한 기능들을 사용할 수 있게 되었습니다.</string>support
-    <string name="unlocked_feature_reward_batterysaving_success">감사합니다.\n앱 종료시까지 무제한 사용 가능합니다.</string>
+    <string name="unlocked_feature_reward_batterysaving_success">감사합니다.\n앱 종료시까지 베터리 절약 모드를 무제한 사용 가능합니다.</string>
 
     <!-- subFeature -->
     <string name="sub_feature_shuffle_empty">플레이리스트 목록이 비어있습니다.</string>
@@ -174,9 +174,9 @@
     <!-- premium message -->
     <string name="premium_title">프리미엄 혜택</string>
     <string name="premium_text">광고가 전혀 없는 쾌적한 사용 환경</string>
-    <string name="premium_text2">모든 기능 잠금 해제</string>
-    <string name="premium_text3">모든 프리미엄 버전 전용 기능 무제한 사용</string>
-    <string name="premium_text4">계속계속 업데이트되는 강력한 프리미엄 전용 기능</string>
+    <string name="premium_text2">모든 프리미엄 기능 무제한 사용 가능</string>
+    <string name="premium_text3">플레이리스트 등록 개수 제한 해제</string>
+    <string name="premium_text4">계속계속 업데이트되는 강력한 프리미엄 전용 기능들</string>
     <string name="premium_text5">프리미엄 업그레이드는 당신의 현명한 선택입니다.\n\n사랑합니다.</string>
     <string name="premium_upgrade">프리미엄 업그레이드 하기</string>
 
@@ -184,6 +184,9 @@
     <string name="buy_success">축하 합니다!\n프리미엄 버전으로 업그레이드 되었습니다.</string>
     <string name="buy_cancel">구매를 취소하였습니다.</string>
     <string name="buy_error">구매 오류가 발생하였습니다. 오류코드 </string>
+
+    <!-- reward error -->
+    <string name="reward_failed">광고 로드에 실패하였습니다.\n광고를 최대 3회 재로드합니다.\n이후에도 실패할 경우 성공 여부 상관없이 보상을 지급합니다.</string>
 
     <!-- 페이스북 디벨로퍼 AppId -->
     <string name="facebook_app_id">2346907598897007</string>

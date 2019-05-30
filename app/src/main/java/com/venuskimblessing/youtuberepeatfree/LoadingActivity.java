@@ -26,14 +26,16 @@ public class LoadingActivity extends AppCompatActivity implements RewardedVideoA
     public static final String TYPE_FULL_AD = "full_ad";
     public static final String TYPE_REWARD_AD = "reward_ad";
 
-    //전면광고
+    //보상형광고
+    private int MAX_FAILED_COUNT = 3;
     private RewardedVideoAd mRewardedVideoAd;
+    private int mFailedRewardCount = 0;
+
+    //전면광고
     private InterstitialAd mInterstitialAd = null;
 
     private LinearLayout mLoadingLay;
     private AVLoadingIndicatorView mLoadingIndicator;
-
-    private String mPlayId = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,7 +43,6 @@ public class LoadingActivity extends AppCompatActivity implements RewardedVideoA
         setContentView(R.layout.activity_loading);
         Intent intent = getIntent();
         String type = intent.getStringExtra(TYPE_KEY);
-        Log.d(TAG, "type : " + type);
 
         mLoadingLay = (LinearLayout) findViewById(R.id.loading_lay);
         mLoadingIndicator = (AVLoadingIndicatorView) findViewById(R.id.loading_pacman_indicator);
@@ -58,11 +59,6 @@ public class LoadingActivity extends AppCompatActivity implements RewardedVideoA
     @Override
     protected void onResume() {
         super.onResume();
-    }
-
-    @Override
-    public void onBackPressed() {
-        Log.d(TAG, "onBackPressed pass..");
     }
 
     private void initRewardAd(){
@@ -137,7 +133,6 @@ public class LoadingActivity extends AppCompatActivity implements RewardedVideoA
     }
 
     //보상형 광고 callback
-
     @Override
     public void onRewardedVideoAdLoaded() {
         Log.d(TAG, "onRewardedVideoAdLoaded...");
@@ -161,7 +156,6 @@ public class LoadingActivity extends AppCompatActivity implements RewardedVideoA
     @Override
     public void onRewardedVideoAdClosed() {
         Log.d(TAG, "onRewardedVideoAdClosed...");
-
         finishActivity();
     }
 
@@ -180,7 +174,12 @@ public class LoadingActivity extends AppCompatActivity implements RewardedVideoA
     @Override
     public void onRewardedVideoAdFailedToLoad(int i) {
         Log.d(TAG, "onRewardedVideoAdFailedToLoad...");
-
+        if(mFailedRewardCount >= MAX_FAILED_COUNT){ //실패 재시도 최대 3회
+            CommonUserData.sRewardUnlockedFeatureBatterSaving = true;
+        }else{
+            loadRewardAd();
+        }
+        mFailedRewardCount++;
     }
 
     @Override

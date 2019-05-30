@@ -15,6 +15,7 @@ import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
 import com.android.billingclient.api.SkuDetailsResponseListener;
+import com.venuskimblessing.youtuberepeatfree.Common.CommonUserData;
 import com.venuskimblessing.youtuberepeatfree.Utils.SharedPreferencesUtils;
 
 import java.util.ArrayList;
@@ -28,11 +29,17 @@ public class BillingManager implements PurchasesUpdatedListener {
     private BillingClient mBillingClient = null;
     private SkuDetails mSkuDetails;
     private OnBuyCompleteListener mOnBuyCompleteListener;
+    private OnQueryInventoryItemListener mOnQueryInventoryItemListener;
 
     public interface OnBuyCompleteListener{
         void onBuySuccess(List<Purchase> purchases);
         void onBuyCancel(BillingResult billingResult);
         void onBuyError(BillingResult billingResult);
+    }
+
+    public interface OnQueryInventoryItemListener{
+        void onPremiumVersionUser();
+        void onFreeVersionUser();
     }
 
 
@@ -44,14 +51,19 @@ public class BillingManager implements PurchasesUpdatedListener {
         this.mOnBuyCompleteListener = listener;
     }
 
+    public void setOnQueryInventoryItemListener(OnQueryInventoryItemListener listener){
+        this.mOnQueryInventoryItemListener = listener;
+    }
+
     //인앱 초기화
-    public void initBilling() {
+    public void initBillingQueryInventoryItem() {
         mBillingClient = BillingClient.newBuilder(mActivity).setListener(this).enablePendingPurchases().build();
         mBillingClient.startConnection(new BillingClientStateListener() {
             @Override
             public void onBillingSetupFinished(BillingResult billingResult) {
                 if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
                     Log.d(TAG, "onBillingSetupFinished...");
+                    queryInventoryPurchases();
                     queryInappProductDetails();
                 }
             }
@@ -80,7 +92,6 @@ public class BillingManager implements PurchasesUpdatedListener {
                     for (SkuDetails details : skuDetailsList) {
                         mSkuDetails = details;
                     }
-                    queryPurchases();
                 }
             }
         });
@@ -97,27 +108,23 @@ public class BillingManager implements PurchasesUpdatedListener {
     }
 
     /**
-     * 보유 아이템 조회
+     * 보유한 아이템 조회
      */
-    public void queryPurchases() {
+    public void queryInventoryPurchases() {
         Purchase.PurchasesResult purchasesResult = mBillingClient.queryPurchases(BillingClient.SkuType.INAPP);
         List<Purchase> purchaseList = purchasesResult.getPurchasesList();
-        boolean premiumState = false;
         for (Purchase purchase : purchaseList) {
             if(purchase.getSku().equals(SKU_PREMIUM)){
-                premiumState = true;
-                Toast.makeText(mActivity, "프리미엄 버전 사용자입니다.", Toast.LENGTH_SHORT).show();
+                CommonUserData.sPremiumState = true;
+                mOnQueryInventoryItemListener.onPremiumVersionUser();
+                Toast.makeText(mActivity, "프리미엄 사용자입니다.", Toast.LENGTH_SHORT).show();
             }
         }
 
         if(purchaseList.size() <= 0){
-            Toast.makeText(mActivity, "프리 버전 사용자입니다.", Toast.LENGTH_SHORT).show();
-        }
-
-        if(premiumState){
-            SharedPreferencesUtils.setBoolean(mActivity, SKU_PREMIUM, true);
-        }else{
-            SharedPreferencesUtils.setBoolean(mActivity, SKU_PREMIUM, false);
+            Log.d(TAG, "프리버전 사용자입니다.");
+            CommonUserData.sPremiumState = false;
+            mOnQueryInventoryItemListener.onFreeVersionUser();
         }
     }
 
@@ -134,9 +141,9 @@ public class BillingManager implements PurchasesUpdatedListener {
             @Override
             public void onConsumeResponse(BillingResult billingResult, String purchaseToken) {
                 if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-                    Toast.makeText(mActivity, "Item Consume Success...", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "Item Consume Success...");
                 } else {
-                    Toast.makeText(mActivity, "Item Consume Failed...", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "Item Consume Failed...");
                 }
             }
         };

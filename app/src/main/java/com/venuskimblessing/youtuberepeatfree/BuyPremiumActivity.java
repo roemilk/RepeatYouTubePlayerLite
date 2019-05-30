@@ -10,6 +10,7 @@ import com.android.billingclient.api.BillingResult;
 import com.android.billingclient.api.Purchase;
 import com.venuskimblessing.youtuberepeatfree.Billing.BillingManager;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonSharedPreferencesKey;
+import com.venuskimblessing.youtuberepeatfree.Common.CommonUserData;
 import com.venuskimblessing.youtuberepeatfree.Utils.SharedPreferencesUtils;
 import com.venuskimblessing.youtuberepeatfree.Utils.SoftKeybordManager;
 
@@ -28,7 +29,7 @@ public class BuyPremiumActivity extends Activity implements View.OnClickListener
 
         mBillingManager = new BillingManager(this);
         mBillingManager.setOnBuyCompleteListener(this);
-        mBillingManager.initBilling();
+        mBillingManager.initBillingQueryInventoryItem();
 
         mBuyRippleView = (RippleView)findViewById(R.id.premium_buyRippleView_buy_button);
         mBuyRippleView.setOnClickListener(this);
@@ -56,7 +57,7 @@ public class BuyPremiumActivity extends Activity implements View.OnClickListener
             if(sku != null){
                 if(sku.equals(BillingManager.SKU_PREMIUM)){
                     Toast.makeText(this, getString(R.string.buy_success), Toast.LENGTH_SHORT).show();
-                    SharedPreferencesUtils.setBoolean(this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION, true);
+                    CommonUserData.sPremiumState = true;
                 }
             }
         }
