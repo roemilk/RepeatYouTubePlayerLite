@@ -48,7 +48,7 @@ public class DynamicLinkManager {
         mLoadingIndicator.startLoadingView();
 
         StringBuffer sb = new StringBuffer();
-        sb.append("https://youtubeplayerfree.com?");
+        sb.append("http://blessingvenus.com?");
         sb.append("id=" + id);
         sb.append("&");
         sb.append("starttime=" + startTime);
@@ -103,21 +103,30 @@ public class DynamicLinkManager {
         String shareText = mActivity.getString(R.string.range_share_text);
         String shareResultText = shareText + "\n\n" + title + "\n\n" + convertStartTime + " - " + convertEndTime + "\n\n" + dynamicLinkUrl;
 
-        Intent reciver = new Intent(mActivity, ShareAppReciver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(mActivity, 0, reciver, PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+//        intent.putExtra(Intent.EXTRA_SUBJECT, title);
+        intent.putExtra(Intent.EXTRA_TEXT, shareResultText);
 
-        List<Intent> targetList = getTargetList(shareResultText);
-        Intent chooser = null;
+        Intent chooser = Intent.createChooser(intent, shareHint);
+        mActivity.startActivity(chooser);
+
+//        Intent reciver = new Intent(mActivity, ShareAppReciver.class);
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(mActivity, 0, reciver, PendingIntent.FLAG_UPDATE_CURRENT);
+
+//        List<Intent> targetList = getTargetList(shareResultText);
+//        Intent chooser = null;
 //        if (Build.VERSION.SDK_INT >= 22) {
 //            chooser = Intent.createChooser(intent, shareHint, pendingIntent.getIntentSender());
 //        } else {
-            chooser = Intent.createChooser(targetList.remove(0), shareHint);
+//            chooser = Intent.createChooser(targetList.remove(0), shareHint);
 //        }
 
-        Log.d(TAG, "targetList : " + targetList);
-
-        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetList.toArray(new Parcelable[]{}));
-        mActivity.startActivity(chooser);
+//        Log.d(TAG, "targetList : " + targetList);
+//
+//        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetList.toArray(new Parcelable[]{}));
+//        mActivity.startActivity(chooser);
         mLoadingIndicator.stopLoadingView();
     }
 

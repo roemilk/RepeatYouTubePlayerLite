@@ -55,7 +55,7 @@ public class IntroActivity extends AppCompatActivity {
 //        getDynamicLink();
 //        OSUtils.printKeyHash(this);
 //        getShareIntentData();
-        getHashKey();
+//        getHashKey();
 //        getFCMToken();
         mLineTextView = (FadeTextView) findViewById(R.id.intro_textView);
         initIntroTitle();

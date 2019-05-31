@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">유튜브 반복해줘 Free</string>
+    <string name="app_name">유튜브\n반복해줘 Free</string>
     <string name="app_name_premium">유튜브 반복해줘 Premium</string>
 
     <!-- 사용 설명 가이드 -->
@@ -150,17 +150,17 @@
     <string name="locked_feature_shuffle_title">셔플 재생 기능</string>
     <string name="locked_feature_lock_title">화면 잠금 기능</string>
     <string name="locked_featrue_battery_title">베터리 절약 모드</string>
-    <string name="locked_feature_reward_content">프리미엄 기능입니다.\n\n프리미엄 버전으로 업그레이드하면 모든 광고 제거, 모든 프리미엄 기능 사용등 다양한 혜택이 있습니다!</string>
-    <string name="locked_feature_share_content">프리미엄 기능입니다.\n\n프리미엄 버전으로 업그레이드하면 모든 광고 제거, 모든 프리미엄 기능 사용등 다양한 혜택이 있습니다.\n\n페이스북 친구들에게 딱 한번 앱을 소개하고 보상으로 프리미엄 기능을 무료로 얻으세요!</string>
+    <string name="locked_feature_reward_content">프리미엄 기능입니다.\n\n프리미엄 버전으로 업그레이드하면 모든 광고 제거, 모든 프리미엄 기능 사용 등 다양한 혜택이 있습니다!</string>
+    <string name="locked_feature_share_content">프리미엄 기능입니다.\n\n프리미엄 버전으로 업그레이드하면 모든 광고 제거, 모든 프리미엄 기능 사용 등 다양한 혜택이 있습니다.\n\n페이스북 친구들에게 딱 한번 앱을 소개하고 보상으로 프리미엄 기능을 무료로 얻으세요!</string>
     <string name="locked_feature_buyPro">프리미엄 버전 혜택 보기</string>
     <string name="locked_feature_share">무료로 기능 얻기</string>
     <string name="locked_feature_reward">광고 시청하고 무료 이용</string>
-    <string name="locked_feature_share_err">페북 친구들에게 앱을 소개하고 프리미엄 기능을 얻으세요!</string>
+    <string name="locked_feature_share_err">페이스북 친구들에게 앱을 소개하고 프리미엄 기능을 얻으세요!</string>
 
     <!-- unlock -->
     <string name="unlocked_feature_title">와우!!</string>
     <string name="unlocked_feature_content">다양한 기능들을 사용할 수 있게 되었습니다.</string>support
-    <string name="unlocked_feature_reward_batterysaving_success">감사합니다.\n앱 종료시까지 베터리 절약 모드를 무제한 사용 가능합니다.</string>
+    <string name="unlocked_feature_reward_batterysaving_success">감사합니다.\n앱 종료 시까지 베터리 절약 모드를 무제한 사용 가능합니다.</string>
 
     <!-- subFeature -->
     <string name="sub_feature_shuffle_empty">플레이리스트 목록이 비어있습니다.</string>
@@ -170,7 +170,7 @@
     <!-- prev play -->
     <string name="prev_play_empty">이전 영상이 없습니다.</string>
     <string name="next_play_empty">다음 영상이 없습니다.</string>
-    <string name="required_playlist_feature">플레이리스트 영상을 재생할때 사용할 수 있는 기능입니다.</string>
+    <string name="required_playlist_feature">플레이리스트 영상을 재생할 때 사용할 수 있는 기능입니다.</string>
 
     <!-- premium message -->
     <string name="premium_title">프리미엄 혜택</string>
@@ -182,13 +182,13 @@
     <string name="premium_upgrade">프리미엄 업그레이드</string>
 
     <!-- buy result message -->
-    <string name="buy_success">축하 합니다!\n프리미엄 버전으로 업그레이드 되었습니다.</string>
+    <string name="buy_success">축하 합니다!\n프리미엄 버전으로 업그레이드되었습니다.</string>
     <string name="buy_cancel">구매를 취소하였습니다.</string>
     <string name="buy_error">구매 오류가 발생하였습니다. 오류코드 </string>
     <string name="buy_already_have_premium">이미 프리미엄 버전의 사용자입니다.\n감사합니다.</string>
 
     <!-- reward error -->
-    <string name="reward_failed">광고 로드에 실패하였습니다.\n광고를 최대 3회 재로드합니다.\n이후에도 실패할 경우 성공 여부 상관없이 보상을 지급합니다.</string>
+    <string name="reward_failed">광고 로드에 실패하였습니다.\n광고를 최대 3회 다시 불러옵니다.\n계속 실패할 경우 성공 여부 상관없이 보상을 지급합니다.</string>
 
     <!-- 페이스북 디벨로퍼 AppId -->
     <string name="facebook_app_id">2346907598897007</string>
