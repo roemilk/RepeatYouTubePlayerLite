@@ -247,6 +247,12 @@ public class FloatingView extends RelativeLayout {
         mExitImageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(mYouTubePlayer != null){
+                    mYouTubePlayer.pause();
+                }
+                if(mYouTubePlayerView != null){
+                    mYouTubePlayerView.release();
+                }
                 unRegister();
                 Intent intent = new Intent(mContext, SearchActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -410,10 +416,12 @@ public class FloatingView extends RelativeLayout {
 
     //BroadcastReciver
     public void register() {
+        Log.d(TAG, "register...");
         mContext.registerReceiver(mScreenOffOnReciver, mFilterScreenOff);
     }
 
     public void unRegister() {
+        Log.d(TAG, "unRegister...");
         try {
             mContext.unregisterReceiver(mScreenOffOnReciver);
         } catch (IllegalArgumentException e) {

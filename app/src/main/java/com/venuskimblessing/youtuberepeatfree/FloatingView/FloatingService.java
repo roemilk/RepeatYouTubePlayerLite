@@ -83,8 +83,16 @@ public class FloatingService extends Service {
     }
 
     @Override
+    public boolean onUnbind(Intent intent) {
+        Log.d(TAG, "Service onUnbind...");
+
+        return super.onUnbind(intent);
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.d(TAG, "Service onDestroy...");
         if (floatingView != null) {
             ((WindowManager) getSystemService(WINDOW_SERVICE)).removeView(floatingView);
             floatingView = null;

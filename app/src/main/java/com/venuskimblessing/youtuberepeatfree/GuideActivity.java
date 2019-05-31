@@ -17,6 +17,7 @@ import com.venuskimblessing.youtuberepeatfree.Common.CommonSharedPreferencesKey;
 import com.venuskimblessing.youtuberepeatfree.Guide.GuideData;
 import com.venuskimblessing.youtuberepeatfree.Guide.GuideFragmentStatePagerAdapter;
 import com.venuskimblessing.youtuberepeatfree.Utils.SharedPreferencesUtils;
+import com.venuskimblessing.youtuberepeatfree.Utils.SoftKeybordManager;
 import com.venuskimblessing.youtuberepeatfree.Utils.UIConvertUtils;
 
 import java.util.ArrayList;
@@ -28,6 +29,9 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
     private GuideFragmentStatePagerAdapter mGuideFragmentStatePagerAdapter = null;
     private PageIndicatorView mPageIndicatorView = null;
     private ArrayList<GuideData> mResourceList = new ArrayList<>();
+
+    //SoftKeyboard
+    private SoftKeybordManager mSoftKeybordManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +49,15 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
         mPageIndicatorView.setAnimationType(AnimationType.DROP);
         mPageIndicatorView.setCount(mResourceList.size()); // specify total count of indicators
         mPageIndicatorView.setSelection(0);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if(hasFocus){
+            mSoftKeybordManager = new SoftKeybordManager(getWindow());
+            mSoftKeybordManager.hideSystemUI();
+        }
     }
 
     private void setResourceData(){

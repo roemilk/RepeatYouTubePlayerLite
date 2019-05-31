@@ -30,6 +30,7 @@ import com.hanks.htextview.fade.FadeTextView;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonConfig;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonSharedPreferencesKey;
 import com.venuskimblessing.youtuberepeatfree.Utils.SharedPreferencesUtils;
+import com.venuskimblessing.youtuberepeatfree.Utils.SoftKeybordManager;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -46,6 +47,9 @@ public class IntroActivity extends AppCompatActivity {
 
     //RemoteConfig
     FirebaseRemoteConfig mFirebaseRemoteConfig;
+
+    //SoftKeyboard
+    private SoftKeybordManager mSoftKeybordManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,6 +72,15 @@ public class IntroActivity extends AppCompatActivity {
             }
         }, 1500);
 //        initRemoteConfig();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if(hasFocus){
+            mSoftKeybordManager = new SoftKeybordManager(getWindow());
+            mSoftKeybordManager.hideSystemUI();
+        }
     }
 
     @Override

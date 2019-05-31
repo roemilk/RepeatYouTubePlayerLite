@@ -865,7 +865,9 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                         checkShowFullAd();
                     }
                 });
-                mDialogPlayList.show();
+                if(!mDialogPlayList.isShowing()){
+                    mDialogPlayList.show();
+                }
                 mDialogPlayList.hideController();
                 break;
         }
