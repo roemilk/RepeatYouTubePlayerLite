@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">유튜브\n반복해줘 Free</string>
-    <string name="app_name_premium">유튜브 반복해줘 Premium</string>
+    <string name="app_name_premium">유튜브\n반복해줘 Premium</string>
 
     <!-- 사용 설명 가이드 -->
     <string name="introduce1">원하시는 유튜브 영상을 빠르게 검색할 수 있습니다.</string>

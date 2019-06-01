@@ -285,10 +285,8 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
-            mSoftKeybordManager = new SoftKeybordManager(getWindow());
-            mSoftKeybordManager.hideSystemUI();
-        }
+        mSoftKeybordManager = new SoftKeybordManager(getWindow());
+        mSoftKeybordManager.hideSystemUI();
     }
 
     @Override
@@ -974,7 +972,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                     public void run() {
                         mExpandableCountTextView.setText(String.valueOf(mRepeatCount));
                         mTopCountTextView.setText(String.valueOf(mRepeatCount));
-                        if(mPlayType == TYPE_PLAYLIST){
+                        if (mPlayType == TYPE_PLAYLIST) {
                             boolean autuplayState = SharedPreferencesUtils.getBoolean(PlayerActivity.this, CommonSharedPreferencesKey.KEY_AUTOPLAY);
                             if (autuplayState) {
                                 Log.d(TAG, "자동 플레이가 설정되어 있습니다.");

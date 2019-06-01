@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Tube Repeat Free</string>
-    <string name="app_name_premium">Tube Repeat Premium</string>
+    <string name="app_name">Tube\nRepeat Free</string>
+    <string name="app_name_premium">Tube\nRepeat Premium</string>
 
     <!-- 사용 설명 가이드 -->
-    <string name = "introduce1"> Quickly find the YouTube video you want in your search. </string>
-         <string name = "introduce2"> You can use various Feature.</string>
-         <string name = "introduce3"> You can keep a scene you want to keep in your playlist. </string>
-         <string name = "introduce4"> You can watch the video while doing other work with the floating window function. </string>
-         <string name = "introduce5"> Choose the best scene and share it with your friends!!! </string>
-         <string name = "introduce6"> test!!! </string>
+    <string name="introduce1">You can search your favorite YouTube videos quickly.</string>
+    <string name="introduce2">You can use various convenient functions.</string>
+    <string name="introduce3">You can put scenes you want to keep in the playlist.</string>
+    <string name="introduce4">The floating window (PIP) function allows you to do other things and watch YouTube videos at the same time.</string>
+    <string name="introduce5">Share your best scenes with your friends!</string>
+    <string name="introduce6">The powerful battery saving mode is optimized for listening to music!</string>
     <string name="guidelast">Click the Start button.</string>
-    <string name="guidelast_content">Are there any scenes you would like to keep seeing over and over again?\nDo you have any part of the song you want to keep listening to?\n\nExperience the most convenient and easy YouTube iterations app!</string>
-    <string name="guidelast_start">Getting Start</string>
+    <string name="guidelast_content">Want to see the best scenes repeatedly?\nAre you studying a language?\nDo you have a song you want to repeat?\n\nExperience the fastest and easiest repeat play app!</string>
+    <string name="guidelast_start">Getting Started!</string>
 
     <!-- 검색하기 -->
     <string name="search_word_edittext_hint">Please click here and search.</string>

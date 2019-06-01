@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.github.florent37.materialtextfield.MaterialTextField;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -162,7 +163,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         getShareIntentData(getIntent());
         MobileAds.initialize(this, CommonApiKey.KEY_ADMOB_APP_ID);
 
-        mBannerLay = (LinearLayout)findViewById(R.id.player_banner_lay);
+        mBannerLay = (LinearLayout) findViewById(R.id.player_banner_lay);
         initQueryBilling();
 
         mEmptyTextView = (TextView) findViewById(R.id.search_empty_textView);
@@ -224,10 +225,8 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if(hasFocus){
-            mSoftKeybordManager = new SoftKeybordManager(getWindow());
-            mSoftKeybordManager.hideSystemUI();
-        }
+        mSoftKeybordManager = new SoftKeybordManager(getWindow());
+        mSoftKeybordManager.hideSystemUI();
     }
 
     @Override
@@ -239,10 +238,9 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     }
 
     /**
-     * Invite DynamicLink를 수신합니다.
+     * DynamicLink를 수신합니다.
      */
     private void getDynamicLink() {
-        //Invite 수신 기록
         FirebaseDynamicLinks.getInstance().getDynamicLink(getIntent())
                 .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
                     @Override
@@ -262,6 +260,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                         mDynamicLinkEndTime = deepLink.getQueryParameter("endtime");
 
                         mDynamicLinkFlag = true;
+                        CommonUserData.sAdCount = 0;
                         mBannerLay.setVisibility(View.GONE);
                     }
                 })
@@ -415,7 +414,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
             return;
         }
 
-        if(mPlayListData != null){
+        if (mPlayListData != null) {
             intent.setAction(IntentAction.INTENT_ACTION_SEARCH_PLAYLIST);
             intent.putExtra("data", mPlayListData);
             startActivity(intent);
@@ -425,10 +424,6 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 
     /**
      * 공유 받은 데이터에 대한 영상 재생
-     *
-     * @param id           video id
-     * @param startTime    시작시간
-     * @param startEndTime 끝시간
      */
     private void startSharePlayerActivity() {
         Intent intent = new Intent(this, PlayerActivity.class);
@@ -875,7 +870,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                         checkShowFullAd();
                     }
                 });
-                if(!mDialogPlayList.isShowing()){
+                if (!mDialogPlayList.isShowing()) {
                     mDialogPlayList.show();
                 }
                 mDialogPlayList.hideController();
@@ -897,9 +892,9 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     private void loadFullAd() {
         Log.d(TAG, "전면 광고 로드..");
         boolean premium = SharedPreferencesUtils.getBoolean(this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION);
-        if(premium){
+        if (premium) {
             return;
-        }else{
+        } else {
             mInterstitialAd = new InterstitialAd(this);
             mInterstitialAd.setAdUnitId(CommonApiKey.KEY_ADMOB_FULL_UNIT);
             mInterstitialAd.setAdListener(adListener);
@@ -909,10 +904,10 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 
     private void checkShowFullAd() {
         boolean premium = SharedPreferencesUtils.getBoolean(this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION);
-        if(premium){
+        if (premium) {
             Log.d(TAG, "not show full ad... premium");
             startPlayerActivity(mVideoId);
-        }else{
+        } else {
             int adCount = CommonUserData.sAdCount;
             int delayCount = CommonUserData.AD_DEALY_COUNT;
             if (adCount == 0 || adCount >= delayCount) {
@@ -927,14 +922,14 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     }
 
     private void showFullAd() {
-        if(mInterstitialAd != null){
+        if (mInterstitialAd != null) {
             if (mInterstitialAd.isLoaded()) {
                 mInterstitialAd.show();
                 CommonUserData.sAdCount = 0;
             } else {
                 startPlayerActivity(mVideoId);
             }
-        }else{
+        } else {
             startPlayerActivity(mVideoId);
         }
     }
@@ -942,7 +937,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     /**
      * 친구 공유 또는 유튜브 공유의 경우 진입하고 1초 뒤에 광고를 표시한다.
      */
-    private void showFullAdDealy(){
+    private void showFullAdDealy() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -956,10 +951,10 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         public void onAdClosed() {
             super.onAdClosed();
             Log.d(TAG, "onAdClosed");
-            if(mDynamicLinkFlag){
+            if (mDynamicLinkFlag) {
                 mDynamicLinkFlag = false;
                 startSharePlayerActivity();
-            }else{
+            } else {
                 startPlayerActivity(mVideoId);
             }
         }
@@ -987,7 +982,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 Log.d(TAG, "유튜브 전용 로직");
                 showFullAdDealy();
                 mShareYouTubeFlag = false;
-            }else if (mDynamicLinkFlag){
+            } else if (mDynamicLinkFlag) {
                 showFullAdDealy();
             }
             Log.d(TAG, "onAdLoaded...");
@@ -1006,11 +1001,11 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 
 
     //배너 광고 로드
-    private void loadBanner(){
+    private void loadBanner() {
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-        mAdView.setAdListener(new AdListener(){
+        mAdView.setAdListener(new AdListener() {
             @Override
             public void onAdFailedToLoad(int i) {
                 super.onAdFailedToLoad(i);
@@ -1019,16 +1014,16 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         });
     }
 
-    private void checkShowPremiumBanner(){
-        if(CommonUserData.sPremiumState){
+    private void checkShowPremiumBanner() {
+        if (CommonUserData.sPremiumState) {
             mBannerLay.setVisibility(View.GONE);
-        }else{
+        } else {
             mBannerLay.setVisibility(View.VISIBLE);
         }
     }
 
     //인앱
-    private void initQueryBilling(){
+    private void initQueryBilling() {
         mBillingManager = new BillingManager(this);
         mBillingManager.setOnQueryInventoryItemListener(new BillingManager.OnQueryInventoryItemListener() {
             @Override

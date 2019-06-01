@@ -50,8 +50,10 @@ public class BuyPremiumActivity extends Activity implements View.OnClickListener
     public void onClick(View v) {
         if(CommonUserData.sPremiumState){
             Toast.makeText(this, getString(R.string.buy_already_have_premium), Toast.LENGTH_SHORT).show();
-            //테스트 소모 코드
-            mBillingManager.consumeItem(mBillingManager.getPremiumPurchase().getPurchaseToken());
+
+//            //테스트 소모 코드
+//            mBillingManager.consumeItem(mBillingManager.getPremiumPurchase().getPurchaseToken());
+
             return;
         }else{
             mBillingManager.buyInapp();
