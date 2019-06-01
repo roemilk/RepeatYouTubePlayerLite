@@ -1405,19 +1405,26 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
     private void showPopupFlaotingWindow() {
         mFirebaseAnalytics.logEvent("FloatingPopupWindow", null);
-
-        mPlayListArray = mPlayListDataManager.loadPlayList();
 //        PlayListData currentData = createPlayListData();
 //        mPlayListArray.add(0, currentData);
-
         Intent intent = new Intent(this, FloatingService.class);
-        boolean autoPlay = SharedPreferencesUtils.getBoolean(PlayerActivity.this, CommonSharedPreferencesKey.KEY_AUTOPLAY);
-        if (autoPlay && mPlayListArray.size() > 0) {
-            Log.d(TAG, "autoplay...");
-            intent.putExtra("type", FloatingManager.TYPE_INTENT_LIST);
-            intent.putExtra("list", mPlayListArray);
-            intent.putExtra("index", mPlayIndex);
-        } else {
+        if(mPlayType == TYPE_PLAYLIST){
+            mPlayListArray = mPlayListDataManager.loadPlayList();
+            boolean autoPlay = SharedPreferencesUtils.getBoolean(PlayerActivity.this, CommonSharedPreferencesKey.KEY_AUTOPLAY);
+            if (autoPlay && mPlayListArray.size() > 0) {
+                Log.d(TAG, "autoplay...");
+                intent.putExtra("type", FloatingManager.TYPE_INTENT_LIST);
+                intent.putExtra("list", mPlayListArray);
+                intent.putExtra("index", mPlayIndex);
+            } else {
+                Log.d(TAG, "not autoplay...");
+                intent.putExtra("type", FloatingManager.TYPE_INTENT_DATA);
+                PlayListData data = createPlayListData();
+                intent.putExtra("data", data);
+                intent.putExtra("repeatcount", mRepeatCount);
+                intent.putExtra("infinite", mRepeatInfinite);
+            }
+        }else{
             Log.d(TAG, "not autoplay...");
             intent.putExtra("type", FloatingManager.TYPE_INTENT_DATA);
             PlayListData data = createPlayListData();

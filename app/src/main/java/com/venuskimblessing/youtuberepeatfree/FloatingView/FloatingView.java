@@ -47,6 +47,7 @@ public class FloatingView extends RelativeLayout {
     private PlayerUIController mPlayerUIController;
 
     //Repeat
+    private int mType = 0;
     private boolean mAutoPlay = false;
     private int mCurrentTime = 0;
     private int mStartTime = 0; //시작시간
@@ -71,10 +72,11 @@ public class FloatingView extends RelativeLayout {
     private ScreenOffOnReciver mScreenOffOnReciver = new ScreenOffOnReciver();
     private IntentFilter mFilterScreenOff = new IntentFilter(Intent.ACTION_SCREEN_OFF);
 
-    public FloatingView(Context context, OnTouchListener mViewTouchListener) {
+    public FloatingView(Context context, OnTouchListener mViewTouchListener, int type) {
         super(context);
         this.mContext = context;
         mListener = mViewTouchListener;
+        this.mType = type;
         init();
     }
 
@@ -116,9 +118,15 @@ public class FloatingView extends RelativeLayout {
                         mYouTubePlayer.addListener(youTubePlayerListener);
                         customMenu();
 
-                        if (mAutoPlay) {
-                            startPlayList(mPlayIndex);
-                        } else {
+                        if(mType == FloatingManager.TYPE_INTENT_LIST){ //플레이리스트 영상
+                            if (mAutoPlay) {
+                                startPlayList(mPlayIndex);
+                            } else {
+                                startPlay(mPlayListData);
+                            }
+                        }else if(mType == FloatingManager.TYPE_INTENT_DATA){ //단일 영상
+                            startPlay(mPlayListData);
+                        }else{
                             startPlay(mPlayListData);
                         }
                     }
@@ -363,16 +371,21 @@ public class FloatingView extends RelativeLayout {
     }
 
     private void play() {
-        if (mAutoPlay) {
-            if (checkPlayPossiblePlayIndex()) {
-                startPlayList(mPlayIndex);
+        if(mType == FloatingManager.TYPE_INTENT_LIST){
+            if (mAutoPlay) {
+                if (checkPlayPossiblePlayIndex()) {
+                    startPlayList(mPlayIndex);
+                } else {
+                    mPlayIndex = 0;
+                    startPlayList(mPlayIndex);
+                }
             } else {
-                mPlayIndex = 0;
-                startPlayList(mPlayIndex);
+                Log.d(TAG, "자동 플레이가 지정되어 있지 않습니다.");
+                return;
             }
-        } else {
-            Log.d(TAG, "자동 플레이가 지정되어 있지 않습니다.");
-            return;
+        }else if(mType == FloatingManager.TYPE_INTENT_DATA){
+            mPlayIndex = 0;
+            startPlay(mPlayListData);
         }
     }
 
@@ -407,10 +420,14 @@ public class FloatingView extends RelativeLayout {
      * @return
      */
     private boolean checkPlayPossiblePlayIndex() {
-        if (mPlayIndex < mPlayListDataArrayList.size()) {
-            return true; //재생 가능 Index 범위
-        } else {
-            return false; //재생 불가능 Index 범위
+        if(mPlayListDataArrayList != null){
+            if (mPlayIndex < mPlayListDataArrayList.size()) {
+                return true; //재생 가능 Index 범위
+            } else {
+                return false; //재생 불가능 Index 범위
+            }
+        }else{
+            return false;
         }
     }
 

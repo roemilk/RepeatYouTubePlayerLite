@@ -34,13 +34,13 @@ public class FloatingService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        initFloatingWindow();
         int type = 0;
         try{
             type = intent.getIntExtra("type", 0);
         }catch(Exception e){
             exceptionCatch();
         }
+        initFloatingWindow(type);
         switch (type) {
             case FloatingManager.TYPE_INTENT_DATA:
                 Log.d(TAG, "TYPE_INTENT_DATA...");
@@ -65,7 +65,6 @@ public class FloatingService extends Service {
                 int index = intent.getIntExtra("index", 0);
                 floatingView.setPlayListData(mPlayListDataArray, index);
                 break;
-
         }
         return super.onStartCommand(intent, flags, startId);
     }
@@ -99,8 +98,8 @@ public class FloatingService extends Service {
         }
     }
 
-    private void initFloatingWindow() {
-        floatingView = new FloatingView(this, mViewTouchListener);
+    private void initFloatingWindow(int type) {
+        floatingView = new FloatingView(this, mViewTouchListener, type);
 
         int LAYOUT_FLAG;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
