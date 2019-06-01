@@ -426,11 +426,14 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         Intent intent = getIntent();
         if (intent != null) {
             String action = intent.getAction();
+            Log.d(TAG, "getExtraData action >> " + action);
+
             if (action != null) {
                 if (action.equals(IntentAction.INTENT_ACTION_SEARCH_PLAY)) {
                     mPlayType = TYPE_NORMAL;
                     String videoId = intent.getStringExtra("videoId");
                     if (videoId != null && !videoId.equals("")) {
+                        Log.d(TAG, "getExtraData videoid : " + videoId);
                         mPlayId = videoId;
                     }
                 }

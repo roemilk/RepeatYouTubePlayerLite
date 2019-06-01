@@ -193,6 +193,10 @@
     <!-- reward error -->
     <string name="reward_failed">광고 로드에 실패하였습니다.\n광고를 최대 3회 다시 불러옵니다.\n계속 실패할 경우 성공 여부 상관없이 보상을 지급합니다.</string>
 
+    <!-- battery -->
+    <string name="battery_top_hint">베터리 절약 모드 동작중...</string>
+    <string name="battery_top_unlock_hint">밀어서 잠금 해제</string>
+
     <!-- 페이스북 디벨로퍼 AppId -->
     <string name="facebook_app_id">2346907598897007</string>
 </resources>

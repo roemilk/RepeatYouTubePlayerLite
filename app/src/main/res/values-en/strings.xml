@@ -10,6 +10,7 @@
          <string name = "introduce3"> You can keep a scene you want to keep in your playlist. </string>
          <string name = "introduce4"> You can watch the video while doing other work with the floating window function. </string>
          <string name = "introduce5"> Choose the best scene and share it with your friends!!! </string>
+         <string name = "introduce6"> test!!! </string>
     <string name="guidelast">Click the Start button.</string>
     <string name="guidelast_content">Are there any scenes you would like to keep seeing over and over again?\nDo you have any part of the song you want to keep listening to?\n\nExperience the most convenient and easy YouTube iterations app!</string>
     <string name="guidelast_start">Getting Start</string>
@@ -183,6 +184,10 @@ It is your very smart choice.\n\nPRO benefits \n
     <string name="buy_cancel">Your purchase has been canceled.</string>
     <string name="buy_error">A purchase error occurred. Error code </string>
     <string name="buy_already_have_premium">You are already a premium version user.\n\nThank you.</string>
+
+    <!-- battery -->
+    <string name="battery_top_hint">Activating battery saving mode...</string>
+    <string name="battery_top_unlock_hint">slide to unlock</string>
 
     <!-- reward error -->
     <string name="reward_failed">Failed to load an ad.\nAds will be reloaded up to three times.\nIf it continues to fail, a reward will be provided regardless of success.</string>

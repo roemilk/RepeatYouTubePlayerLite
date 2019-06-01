@@ -410,13 +410,17 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         if (videoId != null) {
             intent.setAction(IntentAction.INTENT_ACTION_SEARCH_PLAY);
             intent.putExtra("videoId", videoId);
+            startActivity(intent);
+            mVideoId = null;
+            return;
         }
 
         if(mPlayListData != null){
             intent.setAction(IntentAction.INTENT_ACTION_SEARCH_PLAYLIST);
             intent.putExtra("data", mPlayListData);
+            startActivity(intent);
+            return;
         }
-        startActivity(intent);
     }
 
     /**
