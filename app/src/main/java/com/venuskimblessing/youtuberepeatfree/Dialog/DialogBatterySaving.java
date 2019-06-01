@@ -9,11 +9,10 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.annotations.NotNull;
 import com.ncorti.slidetoact.SlideToActView;
 import com.venuskimblessing.youtuberepeatfree.R;
 import com.venuskimblessing.youtuberepeatfree.Utils.SoftKeybordManager;
-
-import org.jetbrains.annotations.NotNull;
 
 public class DialogBatterySaving extends Dialog {
     public static final String TAG = "DialogPickerCount";

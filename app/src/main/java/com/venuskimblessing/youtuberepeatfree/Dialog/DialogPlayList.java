@@ -144,7 +144,6 @@ public class DialogPlayList extends Dialog implements View.OnClickListener, Play
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         MenuInflater menuInflater = ((PlayerActivity) mActivity).getMenuInflater();
-        menuInflater.inflate(R.menu.playlist_menu, menu);
         return true;
     }
 

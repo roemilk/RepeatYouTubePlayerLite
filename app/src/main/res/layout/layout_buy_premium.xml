@@ -15,6 +15,8 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
             android:id="@+id/premium_lay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

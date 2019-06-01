@@ -225,8 +225,10 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        mSoftKeybordManager = new SoftKeybordManager(getWindow());
-        mSoftKeybordManager.hideSystemUI();
+//        if(hasFocus){
+//            mSoftKeybordManager = new SoftKeybordManager(getWindow());
+//            mSoftKeybordManager.hideSystemUI();
+//        }
     }
 
     @Override

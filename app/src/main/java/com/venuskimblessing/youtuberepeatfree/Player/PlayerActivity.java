@@ -285,8 +285,8 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        mSoftKeybordManager = new SoftKeybordManager(getWindow());
-        mSoftKeybordManager.hideSystemUI();
+//        mSoftKeybordManager = new SoftKeybordManager(getWindow()); //한번 소프트키보드가 보여지면 다시 안내려가는 이슈로 일단 보류...
+//        mSoftKeybordManager.hideSystemUI();
     }
 
     @Override
