@@ -28,6 +28,8 @@
     <string name="dialog_help_version">Version</string>
     <string name="dialog_help_version_no_item">You are using the free version.</string>
     <string name="dialog_help_version_yes_item">You are using the premium version.</string>
+    <string name="dialog_help_facebook">Friend me on Facebook</string>
+    <string name="dialog_help_instagram">Friend me on Instagram</string>
 
     <!-- 플레이어 -->
     <!--<string name="player_numberpick">How many count will you repeat?\nThe Lite version is limited to a maximum of 6 repeat.\n\nIf you invite ten of your friends, you will be able to unlock all locked premium features.</string>-->
@@ -92,6 +94,8 @@ It is your very smart choice.\n\nPRO benefits \n
 
     <!-- Devlog -->
     <string name="dialog_help_devlog_link">https://www.facebook.com/RepeatYouTubePlayer/</string>
+    <string name="dialog_help_sns_facebook">https://www.facebook.com/blessingvenushappy/</string>
+    <string name="dialog_help_sns_instagram">https://www.instagram.com/blessingvenushappy/</string>
 
     <!-- recommend -->
     <string name="dialog_recommend_title">Recommended repeat youtube videos</string>
@@ -138,6 +142,50 @@ It is your very smart choice.\n\nPRO benefits \n
     <string name="range_share_text">You should check out this!!</string>
     <string name="range_share_text2">Touch to watch video!</string>
     <string name="range_share_prefix">This is the best scene my friend recommended.</string>
+
+    <!-- lock -->
+    <string name="locked_feature_shuffle_title">Shuffle Play Feature</string>
+    <string name="locked_feature_lock_title">Screen Lock Feature</string>
+    <string name="locked_featrue_battery_title">Battery Saving Mode</string>
+    <string name="locked_feature_reward_content">It is a premium feature.\n\nUpgrade to a premium version to enjoy various benefits of removing all ads and using all the premium features!</string>
+    <string name="locked_feature_share_content">It is a premium feature.\n\nUpgrade to a premium version to enjoy various benefits of removing all ads and using all the premium features!\n\nIntroduce this app to your Facebook friends just once get rewarded with premium features for free!</string>
+    <string name="locked_feature_buyPro">See the benefits of the premium version</string>
+    <string name="locked_feature_share">Get features for free</string>
+    <string name="locked_feature_reward">Watch ads and enjoy the service for free of charge</string>
+    <string name="locked_feature_share_err">Introduce this app to your Facebook friends and get premium features!</string>
+
+    <!-- unlock -->
+    <string name="unlocked_feature_title">Wow!!</string>
+    <string name="unlocked_feature_content">Various features are now available.</string>support
+    <string name="unlocked_feature_reward_batterysaving_success">Thank you.\nUnlimited use of the battery saving mode is available until the app is turned off.</string>
+
+    <!-- subFeature -->
+    <string name="sub_feature_shuffle_empty">The playlist is empty.</string>
+    <string name="sub_feature_shuffle_start">The playlist shuffle is on.</string>
+    <string name="sub_feature_shuffle_cancel">The playlist shuffle is off.</string>
+
+    <!-- prev play -->
+    <string name="prev_play_empty">No previous video</string>
+    <string name="next_play_empty">No next video</string>
+    <string name="required_playlist_feature">This feature is available to play a video from the playlist.</string>
+
+    <!-- premium message -->
+    <string name="premium_title">Premium Benefits</string>
+    <string name="premium_text">Pleasant user environment without any ads</string>
+    <string name="premium_text2">Unlimited use of all the premium features is available.</string>
+    <string name="premium_text3">Limitation of numbers is unlocked to add in the playlist</string>
+    <string name="premium_text4">Powerful premium features are endlessly added.</string>
+    <string name="premium_text5">Premium upgrade is\nyour smart choice. \n\nWe love you.</string>
+    <string name="premium_upgrade">Premium upgrade</string>
+
+    <!-- buy result message -->
+    <string name="buy_success">Congratulations!\n\nNow upgraded to the premium version.</string>
+    <string name="buy_cancel">Your purchase has been canceled.</string>
+    <string name="buy_error">A purchase error occurred. Error code </string>
+    <string name="buy_already_have_premium">You are already a premium version user.\n\nThank you.</string>
+
+    <!-- reward error -->
+    <string name="reward_failed">Failed to load an ad.\nAds will be reloaded up to three times.\nIf it continues to fail, a reward will be provided regardless of success.</string>
 
     <string name="facebook_app_id">2346907598897007</string>
 </resources>

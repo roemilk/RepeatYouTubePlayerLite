@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -129,6 +130,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     //전면광고
     private InterstitialAd mInterstitialAd = null;
     private boolean mShareYouTubeFlag = false;
+    private boolean mDynamicLinkFlag = false;
 
     //Video
     private String mVideoId = "";
@@ -143,10 +145,14 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     //Inapp
     private BillingManager mBillingManager;
 
-
     //배너광고
     private LinearLayout mBannerLay;
     private AdView mAdView;
+
+    //dynamic link
+    private String mDynamicLinkVideoId;
+    private String mDynamicLinkStartTime;
+    private String mDynamicLinkEndTime;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -251,13 +257,12 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                         Uri deepLink = data.getLink();
                         Log.d(TAG, "deeplink : " + deepLink);
 
-                        String id = deepLink.getQueryParameter("id");
-                        String startTime = deepLink.getQueryParameter("starttime");
-                        String endTime = deepLink.getQueryParameter("endtime");
+                        mDynamicLinkVideoId = deepLink.getQueryParameter("id");
+                        mDynamicLinkStartTime = deepLink.getQueryParameter("starttime");
+                        mDynamicLinkEndTime = deepLink.getQueryParameter("endtime");
 
-                        Log.d(TAG, "deeplink value >> " + id + "   " + startTime + "   " + endTime);
-
-                        startSharePlayerActivity(id, startTime, endTime);
+                        mDynamicLinkFlag = true;
+                        mBannerLay.setVisibility(View.GONE);
                     }
                 })
                 .addOnFailureListener(this, new OnFailureListener() {
@@ -421,12 +426,12 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
      * @param startTime    시작시간
      * @param startEndTime 끝시간
      */
-    private void startSharePlayerActivity(String id, String startTime, String startEndTime) {
+    private void startSharePlayerActivity() {
         Intent intent = new Intent(this, PlayerActivity.class);
         intent.setAction(IntentAction.INTENT_ACTION_SHARE_VIDEO);
-        intent.putExtra(IntentKey.INTENT_KEY_ID, id);
-        intent.putExtra(IntentKey.INTENT_KEY_START, startTime);
-        intent.putExtra(IntentKey.INTENT_KEY_END, startEndTime);
+        intent.putExtra(IntentKey.INTENT_KEY_ID, mDynamicLinkVideoId);
+        intent.putExtra(IntentKey.INTENT_KEY_START, mDynamicLinkStartTime);
+        intent.putExtra(IntentKey.INTENT_KEY_END, mDynamicLinkEndTime);
         startActivity(intent);
     }
 
@@ -545,6 +550,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 Log.d(TAG, "videoId : " + mVideoId);
 
                 mShareYouTubeFlag = true;
+                mBannerLay.setVisibility(View.GONE);
                 CommonUserData.sAdCount = 0;
             }
         }
@@ -929,12 +935,29 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         }
     }
 
+    /**
+     * 친구 공유 또는 유튜브 공유의 경우 진입하고 1초 뒤에 광고를 표시한다.
+     */
+    private void showFullAdDealy(){
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                showFullAd();
+            }
+        }, 1000);
+    }
+
     private AdListener adListener = new AdListener() {
         @Override
         public void onAdClosed() {
             super.onAdClosed();
             Log.d(TAG, "onAdClosed");
-            startPlayerActivity(mVideoId);
+            if(mDynamicLinkFlag){
+                mDynamicLinkFlag = false;
+                startSharePlayerActivity();
+            }else{
+                startPlayerActivity(mVideoId);
+            }
         }
 
         @Override
@@ -958,8 +981,10 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
             super.onAdLoaded();
             if (mShareYouTubeFlag) {
                 Log.d(TAG, "유튜브 전용 로직");
-                showFullAd();
+                showFullAdDealy();
                 mShareYouTubeFlag = false;
+            }else if (mDynamicLinkFlag){
+                showFullAdDealy();
             }
             Log.d(TAG, "onAdLoaded...");
         }

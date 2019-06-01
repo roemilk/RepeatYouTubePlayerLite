@@ -19,6 +19,7 @@ import com.venuskimblessing.youtuberepeatfree.BroadcastReceiver.ShareAppReciver;
 import com.venuskimblessing.youtuberepeatfree.Dialog.LoadingIndicator;
 import com.venuskimblessing.youtuberepeatfree.R;
 import com.venuskimblessing.youtuberepeatfree.Utils.MediaUtils;
+import com.venuskimblessing.youtuberepeatfree.Utils.OSUtils;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
@@ -26,6 +27,12 @@ import java.util.List;
 
 public class DynamicLinkManager {
     private final String TAG = "DynamicLinkManager";
+
+    private static final String LANGUAGE_EN = "en";
+    private static final String LANGUAGE_KR = "kr";
+    private static final String DOMAIN_MAIN_KR = "http://blessingvenus.com/link_kr.php?";
+    private static final String DOMAIN_MAIN_EN = "http://blessingvenus.com/link_en.php?";
+
 
     private Activity mActivity;
     private LoadingIndicator mLoadingIndicator;
@@ -47,8 +54,20 @@ public class DynamicLinkManager {
         mLoadingIndicator = new LoadingIndicator(mActivity, R.style.custom_dialog_fullScreen);
         mLoadingIndicator.startLoadingView();
 
+        String domain = DOMAIN_MAIN_EN;
+        String language = OSUtils.getLocaleLanguage(mActivity);
+        if(language.equals(LANGUAGE_EN)){
+            domain = DOMAIN_MAIN_EN;
+        }else if(language.equals(LANGUAGE_KR)){
+            domain = DOMAIN_MAIN_KR;
+        }else{
+            domain = DOMAIN_MAIN_EN;
+        }
+
+        Log.d(TAG, "domain language result : " + domain);
+
         StringBuffer sb = new StringBuffer();
-        sb.append("http://blessingvenus.com?");
+        sb.append(domain);
         sb.append("id=" + id);
         sb.append("&");
         sb.append("starttime=" + startTime);

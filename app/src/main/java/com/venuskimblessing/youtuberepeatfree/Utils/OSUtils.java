@@ -9,20 +9,22 @@ import android.util.Log;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Locale;
 
 public class OSUtils {
     public static final String TAG = "OSUtils";
 
     /**
      * 패키지 정보를 반환합니다.
+     *
      * @param context
      * @return
      */
-    public static PackageInfo getPackageInfo(Context context){
+    public static PackageInfo getPackageInfo(Context context) {
         PackageInfo pi = null;
-        try{
+        try {
             pi = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-        }catch(PackageManager.NameNotFoundException e){
+        } catch (PackageManager.NameNotFoundException e) {
             Log.d(TAG, "패키지 정보를 불러오지 못하였습니다.");
         }
         return pi;
@@ -51,13 +53,23 @@ public class OSUtils {
             }
         } catch (PackageManager.NameNotFoundException e1) {
             Log.e("Name not found", e1.toString());
-        }
-        catch (NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException e) {
             Log.e("No such an algorithm", e.toString());
         } catch (Exception e) {
             Log.e("Exception", e.toString());
         }
 
         return key;
+    }
+
+    /**
+     * 기기의 디바이스 언어 세팅을 가져온다.
+     * @return
+     */
+    public static String getLocaleLanguage(Context context) {
+        Locale locale = context.getResources().getConfiguration().locale;
+        String language = locale.getLanguage();
+
+        return language;
     }
 }

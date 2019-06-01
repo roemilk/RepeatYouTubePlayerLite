@@ -34,6 +34,7 @@ import com.venuskimblessing.youtuberepeatfree.Utils.SoftKeybordManager;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Locale;
 
 public class IntroActivity extends AppCompatActivity {
     public static final String TAG = "IntroActivity";
