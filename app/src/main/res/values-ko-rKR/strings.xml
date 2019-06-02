@@ -10,7 +10,7 @@
     <string name="introduce3">간직하고 싶은 장면을 플레이리스트에 담아둘 수 있습니다.</string>
     <string name="introduce4">플로팅 윈도우(PIP) 기능으로 다른 일을 하며 동시에 유튜브 영상을 감상할 수 있습니다.</string>
     <string name="introduce5">최고의 장면을 친구에게 공유할 수 있습니다!</string>
-    <string name="introduce6">강력한 베터리 절약 모드는 음악 감상에 최적화 되어 있습니다!</string>
+    <string name="introduce6">강력한 음악 감상 모드는 음악 감상과 베터리 절약에 최적화 되어 있습니다!</string>
     <string name="guidelast">시작버튼을 눌러주세요.</string>
     <string name="guidelast_content">최고의 장면을 반복해서 보고 싶은가요?\n어학 공부를 하고 계신가요?\n반복해서 듣고 싶은 노래가 있으신가요?\n\n가장 빠르고 쉬운 반복 재생 앱을 경험하세요!</string>
     <string name="guidelast_start">시작하기</string>
@@ -152,7 +152,7 @@
     <!-- lock -->
     <string name="locked_feature_shuffle_title">셔플 재생 기능</string>
     <string name="locked_feature_lock_title">화면 잠금 기능</string>
-    <string name="locked_featrue_battery_title">베터리 절약 모드</string>
+    <string name="locked_featrue_battery_title">음악 감상 모드</string>
     <string name="locked_feature_reward_content">프리미엄 기능입니다.\n\n프리미엄 버전으로 업그레이드하면 모든 광고 제거, 모든 프리미엄 기능 사용 등 다양한 혜택이 있습니다!</string>
     <string name="locked_feature_share_content">프리미엄 기능입니다.\n\n프리미엄 버전으로 업그레이드하면 모든 광고 제거, 모든 프리미엄 기능 사용 등 다양한 혜택이 있습니다.\n\n페이스북 친구들에게 딱 한번 앱을 소개하고 보상으로 프리미엄 기능을 무료로 얻으세요!</string>
     <string name="locked_feature_buyPro">프리미엄 버전 혜택 보기</string>
@@ -163,7 +163,7 @@
     <!-- unlock -->
     <string name="unlocked_feature_title">와우!!</string>
     <string name="unlocked_feature_content">다양한 기능들을 사용할 수 있게 되었습니다.</string>support
-    <string name="unlocked_feature_reward_batterysaving_success">감사합니다.\n앱 종료 시까지 베터리 절약 모드를 무제한 사용 가능합니다.</string>
+    <string name="unlocked_feature_reward_batterysaving_success">감사합니다.\n앱 종료 시까지 음악 감상 모드를 무제한 사용 가능합니다.</string>
 
     <!-- subFeature -->
     <string name="sub_feature_shuffle_empty">플레이리스트 목록이 비어있습니다.</string>

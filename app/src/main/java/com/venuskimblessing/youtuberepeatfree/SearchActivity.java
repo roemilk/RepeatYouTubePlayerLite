@@ -262,8 +262,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                         mDynamicLinkEndTime = deepLink.getQueryParameter("endtime");
 
                         mDynamicLinkFlag = true;
-                        CommonUserData.sAdCount = 0;
-                        mBannerLay.setVisibility(View.GONE);
+                        CommonUserData.sAdCount = 2;
                     }
                 })
                 .addOnFailureListener(this, new OnFailureListener() {
@@ -551,8 +550,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 Log.d(TAG, "videoId : " + mVideoId);
 
                 mShareYouTubeFlag = true;
-                mBannerLay.setVisibility(View.GONE);
-                CommonUserData.sAdCount = 0;
+                CommonUserData.sAdCount = 2;
             }
         }
     }
@@ -912,7 +910,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         } else {
             int adCount = CommonUserData.sAdCount;
             int delayCount = CommonUserData.AD_DEALY_COUNT;
-            if (adCount == 0 || adCount >= delayCount) {
+            if (adCount >= delayCount) {
                 Log.d(TAG, "show full ad...");
                 showFullAd();
             } else {
@@ -943,6 +941,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                mBannerLay.setVisibility(View.GONE);
                 showFullAd();
             }
         }, 1000);

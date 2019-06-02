@@ -10,8 +10,8 @@
     <string name="introduce3">You can store your favorite scenes in your playlist.</string>
     <string name="introduce4">You can watch YouTube videos while working on other tasks using the Floating Window (PIP) Feature.</string>
     <string name="introduce5">You can share your favorite moments and scenes with your friends.</string>
-    <string name="introduce6">Powerful ‘Battery-Saving Mode’ is optimized for listening to music!</string>
-    <string name="guidelast">Press the ‘Start’ button.</string>
+    <string name="introduce6">Powerful Music Listening Mode are optimized for music listening and battery saving!</string>
+    <string name="guidelast">Press the Start button.</string>
     <string name="guidelast_content">Do you want to watch your favorite scenes over and over again? Do you want to learn a different lannguage? Do you have a song that you would like to listen to repetitively? Do not worry, this app will give you the fastest and easiest solution!</string>
     <string name="guidelast_start">Start</string>
 
@@ -153,7 +153,7 @@ It is your very smart choice.\n\nPRO benefits\n
     <!-- lock -->
     <string name="locked_feature_shuffle_title">Shuffle Play Feature</string>
     <string name="locked_feature_lock_title">Screen Lock Feature</string>
-    <string name="locked_featrue_battery_title">Battery Saving Mode</string>
+    <string name="locked_featrue_battery_title">Music Listening Mode</string>
     <string name="locked_feature_reward_content">It is a premium feature.\n\nUpgrade to a premium version to enjoy various benefits of removing all ads and using all the premium features!</string>
     <string name="locked_feature_share_content">It is a premium feature.\n\nUpgrade to a premium version to enjoy various benefits of removing all ads and using all the premium features!\n\nIntroduce this app to your Facebook friends just once get rewarded with premium features for free!</string>
     <string name="locked_feature_buyPro">See the benefits of the premium version</string>
@@ -164,7 +164,7 @@ It is your very smart choice.\n\nPRO benefits\n
     <!-- unlock -->
     <string name="unlocked_feature_title">Wow!!</string>
     <string name="unlocked_feature_content">Various features are now available.</string>support
-    <string name="unlocked_feature_reward_batterysaving_success">Thank you.\nUnlimited use of the battery saving mode is available until the app is turned off.</string>
+    <string name="unlocked_feature_reward_batterysaving_success">Thank you.\nYou can use unlimited music listening mode until the app is closed.</string>
 
     <!-- subFeature -->
     <string name="sub_feature_shuffle_empty">The playlist is empty.</string>

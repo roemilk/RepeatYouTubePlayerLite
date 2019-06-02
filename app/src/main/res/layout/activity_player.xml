@@ -42,7 +42,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/player_top_popup_button"
-            android:background="@drawable/ic_battery_saving_24dp" />
+            android:background="@drawable/ic_music_note_24dp" />
 
         <Button
             android:id="@+id/player_top_popup_button"
