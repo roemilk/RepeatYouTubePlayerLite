@@ -15,8 +15,10 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonApiKey;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonUserData;
+import com.venuskimblessing.youtuberepeatfree.FirebaseUtils.LogUtils;
 import com.wang.avi.AVLoadingIndicatorView;
 
 public class LoadingActivity extends AppCompatActivity implements RewardedVideoAdListener {
@@ -92,6 +94,9 @@ public class LoadingActivity extends AppCompatActivity implements RewardedVideoA
         public void onAdFailedToLoad(int i) {
             super.onAdFailedToLoad(i);
             Log.d(TAG, "onAdFailedToLoad");
+            Bundle bundle = new Bundle();
+            bundle.putInt(FirebaseAnalytics.Param.VALUE, i);
+            LogUtils.logEvent(LoadingActivity.this, "FullAd_onFailed", bundle);
             finishActivity();
         }
 
@@ -161,6 +166,7 @@ public class LoadingActivity extends AppCompatActivity implements RewardedVideoA
 
     @Override
     public void onRewarded(RewardItem rewardItem) {
+        LogUtils.logEvent(this, "reward_onRewarded", null);
         Toast.makeText(this, getString(R.string.unlocked_feature_reward_batterysaving_success), Toast.LENGTH_SHORT).show();
         CommonUserData.sRewardUnlockedFeatureBatterSaving = true;
     }
@@ -173,6 +179,9 @@ public class LoadingActivity extends AppCompatActivity implements RewardedVideoA
 
     @Override
     public void onRewardedVideoAdFailedToLoad(int i) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(FirebaseAnalytics.Param.VALUE, i);
+        LogUtils.logEvent(this, "reward_onFailed", bundle);
         Log.d(TAG, "onRewardedVideoAdFailedToLoad...");
         if(mFailedRewardCount >= MAX_FAILED_COUNT){ //실패 재시도 최대 3회
             CommonUserData.sRewardUnlockedFeatureBatterSaving = true;

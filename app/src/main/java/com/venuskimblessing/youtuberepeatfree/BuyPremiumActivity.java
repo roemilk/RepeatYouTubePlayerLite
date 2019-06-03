@@ -8,9 +8,11 @@ import android.widget.Toast;
 import com.andexert.library.RippleView;
 import com.android.billingclient.api.BillingResult;
 import com.android.billingclient.api.Purchase;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.venuskimblessing.youtuberepeatfree.Billing.BillingManager;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonSharedPreferencesKey;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonUserData;
+import com.venuskimblessing.youtuberepeatfree.FirebaseUtils.LogUtils;
 import com.venuskimblessing.youtuberepeatfree.Utils.SharedPreferencesUtils;
 import com.venuskimblessing.youtuberepeatfree.Utils.SoftKeybordManager;
 
@@ -26,6 +28,10 @@ public class BuyPremiumActivity extends Activity implements View.OnClickListener
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_buy_premium);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.CONTENT, "PlayerActivity");
+        LogUtils.logEvent(this, FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
         mBillingManager = new BillingManager(this);
         mBillingManager.setOnBuyCompleteListener(this);
@@ -48,6 +54,7 @@ public class BuyPremiumActivity extends Activity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
+        LogUtils.logEvent(this, "buy_premium", null);
         if(CommonUserData.sPremiumState){
             Toast.makeText(this, getString(R.string.buy_already_have_premium), Toast.LENGTH_SHORT).show();
 

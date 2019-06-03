@@ -57,6 +57,7 @@ import com.venuskimblessing.youtuberepeatfree.Dialog.DialogPickerTime;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogPlayList;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogPro;
 import com.venuskimblessing.youtuberepeatfree.DynamicLink.DynamicLinkManager;
+import com.venuskimblessing.youtuberepeatfree.FirebaseUtils.LogUtils;
 import com.venuskimblessing.youtuberepeatfree.FloatingView.FloatingManager;
 import com.venuskimblessing.youtuberepeatfree.FloatingView.FloatingService;
 import com.venuskimblessing.youtuberepeatfree.Json.PlayingData;
@@ -141,9 +142,6 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     private boolean mLock = false;
     private boolean mRepeatInfinite = false; //무한반복
 
-    //Firebase
-    private FirebaseAnalytics mFirebaseAnalytics;
-
     //TimeDialog
     DialogPickerTime mDialogPickerTime = null;
 
@@ -199,10 +197,9 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         initRetrofit();
 
         mDynamicLinkManager = new DynamicLinkManager(this);
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.CONTENT, "PlayerActivity");
-        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+        LogUtils.logEvent(this, FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
         mHelpButton = (Button) findViewById(R.id.player_help_button);
         mHelpButton.setOnClickListener(this);
@@ -646,11 +643,13 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 mDialogPickerTime.show();
                 break;
             case R.id.player_help_button:
+                LogUtils.logEvent(this, "feature_help", null);
                 mYouTubePlayer.pause();
                 DialogHelp dialogHelp = new DialogHelp(this, R.style.custom_dialog_fullScreen);
                 dialogHelp.show();
                 break;
             case R.id.player_search_button:
+                LogUtils.logEvent(this, "feature_search", null);
                 finish();
                 Intent intent = new Intent(this, SearchActivity.class);
                 startActivity(intent);
@@ -659,6 +658,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 finish();
                 break;
             case R.id.player_fullscreen_button:
+                LogUtils.logEvent(this, "feature_fullscreen", null);
 //                if (!mInvitationState) {
 //                    showProDialog();
 //                    return;
@@ -682,6 +682,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 break;
 
             case R.id.player_top_lock_button:
+                LogUtils.logEvent(this, "feature_lock", null);
                 if (checkUnlockShareFeature()) {
                     mLock = !mLock;
                     setLockButtonRes();
@@ -692,6 +693,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 break;
 
             case R.id.player_top_playlist_button:
+                LogUtils.logEvent(this, "feature_playlist_show", null);
                 mDialogPlayList = new DialogPlayList(this, R.style.custom_dialog_fullScreen);
                 mDialogPlayList.setOnClickListener(new DialogPlayList.OnClickDialogPlayListListener() {
                     @Override
@@ -718,11 +720,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 break;
 
             case R.id.player_setting_playlist_button:
-//                if (!mInvitationState) {
-//                    showProDialog();
-//                    return;
-//                }
-
+                LogUtils.logEvent(this, "feature_playlist_add", null);
                 if (mSnippet != null) {
                     mPlayListArray = mPlayListDataManager.loadPlayList();
 
@@ -744,6 +742,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 break;
 
             case R.id.player_setting_repeat_button:
+                LogUtils.logEvent(this, "feature_repeat", null);
                 DialogPickerCount dialogPickerCount = new DialogPickerCount(this, R.style.custom_dialog_fullScreen);
                 dialogPickerCount.setOnSelectedNumberPickerListener(onSelectedNumberPickerListener);
                 dialogPickerCount.show();
@@ -770,15 +769,16 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 break;
 
             case R.id.player_setting_share_button:
+                LogUtils.logEvent(this, "feature_dynamic_link_send", null);
                 String title = "empty";
                 if (mSnippet != null) {
                     title = mSnippet.title;
                 }
                 mDynamicLinkManager.createShortDynamicLink(title, mPlayId, String.valueOf(mStartTime), String.valueOf(mEndTime));
-                mFirebaseAnalytics.logEvent("dynamic_link_send", null);
                 break;
 
             case R.id.player_feature_shuffle_button:
+                LogUtils.logEvent(this, "feature_shuffle", null);
                 if (checkUnlockShareFeature()) {
                     mShuffleButton.setSelected(!mShuffleButton.isSelected());
                     if (mShuffleButton.isSelected()) {
@@ -820,6 +820,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 }
                 break;
             case R.id.player_feature_replay_5_button:
+                LogUtils.logEvent(this, "feature_replay_5sec", null);
                 long replayCurrentMills = mYouTubePlayer.getCurrentTimeMillis();
                 replayCurrentMills = replayCurrentMills - 5000;
                 if (replayCurrentMills <= 0) {
@@ -829,6 +830,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 }
                 break;
             case R.id.player_feature_forward_5_button:
+                LogUtils.logEvent(this, "feature_forward_5sec", null);
                 long currentForwardMills = mYouTubePlayer.getCurrentTimeMillis();
                 long durationMills = mYouTubePlayer.getDurationMillis();
                 durationMills = durationMills - 1000;
@@ -840,6 +842,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 }
                 break;
             case R.id.player_top_batterySaving_button:
+                LogUtils.logEvent(this, "feature_battery_mode", null);
                 if (CommonUserData.sPremiumState == true || CommonUserData.sRewardUnlockedFeatureBatterSaving == true) {
                     mDialogBatterySaving = new DialogBatterySaving(this, R.style.custom_dialog_fullScreen);
                     mDialogBatterySaving.show();
@@ -1404,7 +1407,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     }
 
     private void showPopupFlaotingWindow() {
-        mFirebaseAnalytics.logEvent("FloatingPopupWindow", null);
+        LogUtils.logEvent(this, "feature_floating", null);
 //        PlayListData currentData = createPlayListData();
 //        mPlayListArray.add(0, currentData);
         Intent intent = new Intent(this, FloatingService.class);
@@ -1444,6 +1447,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
             @Override
             public void onSuccess(Sharer.Result result) {
                 Log.d("facebookcallback", "facebookcallback onSuccess..");
+                LogUtils.logEvent(PlayerActivity.this, "feature_facebook_share_success", null);
                 SharedPreferencesUtils.setBoolean(PlayerActivity.this, CommonSharedPreferencesKey.KEY_FEATURE_SHARE_UNLOCK, true);
                 showUnLockSuccessDialog();
             }
@@ -1521,6 +1525,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                         break;
                     case R.id.dialog_common_two_button:
                         //리워드 광고
+                        LogUtils.logEvent(PlayerActivity.this, "feature_reward_button", null);
                         intent = new Intent(PlayerActivity.this, LoadingActivity.class);
                         intent.putExtra(LoadingActivity.TYPE_KEY, LoadingActivity.TYPE_REWARD_AD);
                         startActivityForResult(intent, REQ_CODE_REWARD_FINISH_BATTERYSAVING);

@@ -4,37 +4,38 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
-import android.widget.Toast;
 
+import com.facebook.ads.AudienceNetworkAds;
+import com.facebook.common.Common;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.google.firebase.appinvite.FirebaseAppInvite;
-import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
-import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
+import com.hanks.htextview.base.AnimationListener;
+import com.hanks.htextview.base.HTextView;
 import com.hanks.htextview.fade.FadeTextView;
+import com.venuskimblessing.youtuberepeatfree.Billing.BillingManager;
+import com.venuskimblessing.youtuberepeatfree.Common.CommonApiKey;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonConfig;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonSharedPreferencesKey;
+import com.venuskimblessing.youtuberepeatfree.Common.CommonUserData;
 import com.venuskimblessing.youtuberepeatfree.Utils.SharedPreferencesUtils;
 import com.venuskimblessing.youtuberepeatfree.Utils.SoftKeybordManager;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Locale;
 
 public class IntroActivity extends AppCompatActivity {
     public static final String TAG = "IntroActivity";
@@ -52,33 +53,23 @@ public class IntroActivity extends AppCompatActivity {
     //SoftKeyboard
     private SoftKeybordManager mSoftKeybordManager;
 
+    //Inapp
+    private BillingManager mBillingManager;
+
+    private InterstitialAd mInterstitialAd = null;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
-//        getFCMToken();
-//        getDynamicLink();
-//        OSUtils.printKeyHash(this);
-//        getShareIntentData();
-//        getHashKey();
-//        getFCMToken();
         mLineTextView = (FadeTextView) findViewById(R.id.intro_textView);
-        initIntroTitle();
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity();
-                finish();
-            }
-        }, 1500);
-//        initRemoteConfig();
+        initQueryBilling();
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if(hasFocus){
+        if (hasFocus) {
             mSoftKeybordManager = new SoftKeybordManager(getWindow());
             mSoftKeybordManager.hideSystemUI();
         }
@@ -119,6 +110,7 @@ public class IntroActivity extends AppCompatActivity {
 //            intent.putExtra("videoId", mPlayId);
 //        }
         startActivity(intent);
+        finish();
     }
 
     /**
@@ -228,12 +220,107 @@ public class IntroActivity extends AppCompatActivity {
         }
     }
 
-    private void initIntroTitle(){
+    private void startAnimationTextView() {
         boolean premiumState = SharedPreferencesUtils.getBoolean(this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION);
-        if(premiumState){
+        if (premiumState) {
             mLineTextView.animateText(getResources().getString(R.string.app_name_premium));
-        }else{
+        } else {
             mLineTextView.animateText(getResources().getString(R.string.app_name));
         }
+        mLineTextView.setAnimationListener(new AnimationListener() {
+            @Override
+            public void onAnimationEnd(HTextView hTextView) {
+                if(CommonUserData.sPremiumState){
+                    startActivity();
+                }else{
+                    loadFullAd();
+                }
+            }
+        });
     }
+
+    //인앱
+    private void initQueryBilling() {
+        mBillingManager = new BillingManager(this);
+        mBillingManager.setOnQueryInventoryItemListener(new BillingManager.OnQueryInventoryItemListener() {
+            @Override
+            public void onPremiumVersionUser() {
+                CommonUserData.sPremiumState = true;
+                SharedPreferencesUtils.setBoolean(IntroActivity.this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION, true);
+                startAnimationTextView();
+            }
+
+            @Override
+            public void onFreeVersionUser() {
+                CommonUserData.sPremiumState = false;
+                SharedPreferencesUtils.setBoolean(IntroActivity.this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION, false);
+                startAnimationTextView();
+            }
+        });
+        mBillingManager.initBillingQueryInventoryItem();
+    }
+
+    /**
+     * 전면 광고 노출
+     */
+    private void loadFullAd() {
+        Log.d(TAG, "전면 광고 로드..");
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(CommonApiKey.KEY_ADMOB_FULL_UNIT);
+        mInterstitialAd.setAdListener(adListener);
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+    }
+
+    private void showFullAd() {
+        if (mInterstitialAd != null) {
+            if (mInterstitialAd.isLoaded()) {
+                mInterstitialAd.show();
+            } else {
+                startActivity();
+            }
+        } else {
+            startActivity();
+        }
+    }
+
+    private AdListener adListener = new AdListener() {
+        @Override
+        public void onAdClosed() {
+            Log.d(TAG, "onAdClosed");
+            super.onAdClosed();
+            startActivity();
+        }
+
+        @Override
+        public void onAdFailedToLoad(int i) {
+            super.onAdFailedToLoad(i);
+            Log.d(TAG, "onAdFailedToLoad");
+        }
+
+        @Override
+        public void onAdLeftApplication() {
+            super.onAdLeftApplication();
+        }
+
+        @Override
+        public void onAdOpened() {
+            super.onAdOpened();
+        }
+
+        @Override
+        public void onAdLoaded() {
+            super.onAdLoaded();
+            showFullAd();
+        }
+
+        @Override
+        public void onAdClicked() {
+            super.onAdClicked();
+        }
+
+        @Override
+        public void onAdImpression() {
+            super.onAdImpression();
+        }
+    };
 }

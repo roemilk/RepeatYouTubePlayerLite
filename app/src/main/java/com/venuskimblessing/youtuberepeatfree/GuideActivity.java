@@ -11,9 +11,11 @@ import android.util.Log;
 import android.view.View;
 
 import com.dd.morphingbutton.MorphingButton;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.rd.PageIndicatorView;
 import com.rd.animation.type.AnimationType;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonSharedPreferencesKey;
+import com.venuskimblessing.youtuberepeatfree.FirebaseUtils.LogUtils;
 import com.venuskimblessing.youtuberepeatfree.Guide.GuideData;
 import com.venuskimblessing.youtuberepeatfree.Guide.GuideFragmentStatePagerAdapter;
 import com.venuskimblessing.youtuberepeatfree.Utils.SharedPreferencesUtils;
@@ -37,6 +39,11 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.CONTENT, "PlayerActivity");
+        LogUtils.logEvent(this, FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
         setResourceData();
 
         mViewPager = (ViewPager)findViewById(R.id.guide_viewpager);

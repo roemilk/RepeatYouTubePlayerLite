@@ -12,6 +12,7 @@
         app:srcCompat="@drawable/bg2" />
 
     <LinearLayout
+        android:id="@+id/intro_animation_lay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -36,5 +37,31 @@
             android:textColor="#ffffff"
             android:textSize="30sp"
             app:animationDuration="2000"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/intro_loading_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/intro_animation_lay"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/intro_loading_pacman_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:indicatorName="PacmanIndicator" />
+
+        <TextView
+            android:id="@+id/intro_loading_pacman_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/loading_pacman_text"
+            android:textColor="#FFFFFF"
+            android:textSize="14dp" />
     </LinearLayout>
 </RelativeLayout>

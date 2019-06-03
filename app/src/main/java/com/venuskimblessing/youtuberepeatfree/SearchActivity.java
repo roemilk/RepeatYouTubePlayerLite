@@ -144,7 +144,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     private SoftKeybordManager mSoftKeybordManager;
 
     //Inapp
-    private BillingManager mBillingManager;
+//    private BillingManager mBillingManager;
 
     //배너광고
     private LinearLayout mBannerLay;
@@ -159,37 +159,33 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        MobileAds.initialize(this, CommonApiKey.KEY_ADMOB_APP_ID);
+        initView();
+        loadBanner();
         initRateThisApp();
         getShareIntentData(getIntent());
-        MobileAds.initialize(this, CommonApiKey.KEY_ADMOB_APP_ID);
+        initRetrofit();
+        loadPopularContentsList();
+    }
 
+    private void initView(){
         mBannerLay = (LinearLayout) findViewById(R.id.player_banner_lay);
-        initQueryBilling();
-
         mEmptyTextView = (TextView) findViewById(R.id.search_empty_textView);
-
         mInviteButton = (Button) findViewById(R.id.search_invite_button);
         mInviteButton.setOnClickListener(this);
-
         mMaterialTextField = (MaterialTextField) findViewById(R.id.search_top_materialTextField);
         mMaterialTextField.getEditText().setBackgroundColor(Color.WHITE);
         mMaterialTextField.getCard().setBackgroundColor(Color.WHITE);
-
         mEditTextSearchWord = (EditText) findViewById(R.id.search_top_searchWord_editText);
         mEditTextSearchWord.setOnEditorActionListener(onEditorActionListener);
-
         mSortButton = (Button) findViewById(R.id.search_sort_button);
         mSortButton.setOnClickListener(this);
-
         mRecommentButton = (Button) findViewById(R.id.search_recomment_button);
         mRecommentButton.setOnClickListener(this);
-
         mCoffeeButton = (Button) findViewById(R.id.search_coffee_button);
         mCoffeeButton.setOnClickListener(this);
-
         mPlaylistButton = (Button) findViewById(R.id.search_playlist_button);
         mPlaylistButton.setOnClickListener(this);
-
         mRecyclerView = (RecyclerView) findViewById(R.id.search_recyclerview);
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -218,8 +214,6 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
             }
         });
 
-        initRetrofit();
-        loadPopularContentsList();
     }
 
     @Override
@@ -234,9 +228,9 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     @Override
     protected void onResume() {
         super.onResume();
+        checkShowPremiumBanner();
         getDynamicLink();
         loadFullAd();
-        checkShowPremiumBanner();
     }
 
     /**
@@ -247,7 +241,6 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
                     @Override
                     public void onSuccess(PendingDynamicLinkData data) {
-
                         if (data == null) {
                             Log.d(TAG, "dynamiclink : no data");
                             return;
@@ -262,7 +255,6 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                         mDynamicLinkEndTime = deepLink.getQueryParameter("endtime");
 
                         mDynamicLinkFlag = true;
-                        CommonUserData.sAdCount = 2;
                     }
                 })
                 .addOnFailureListener(this, new OnFailureListener() {
@@ -941,7 +933,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                mBannerLay.setVisibility(View.GONE);
+//                mBannerLay.setVisibility(View.GONE);
                 showFullAd();
             }
         }, 1000);
@@ -1023,25 +1015,25 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         }
     }
 
-    //인앱
-    private void initQueryBilling() {
-        mBillingManager = new BillingManager(this);
-        mBillingManager.setOnQueryInventoryItemListener(new BillingManager.OnQueryInventoryItemListener() {
-            @Override
-            public void onPremiumVersionUser() {
-                CommonUserData.sPremiumState = true;
-                SharedPreferencesUtils.setBoolean(SearchActivity.this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION, true);
-                checkShowPremiumBanner();
-            }
-
-            @Override
-            public void onFreeVersionUser() {
-                CommonUserData.sPremiumState = false;
-                SharedPreferencesUtils.setBoolean(SearchActivity.this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION, false);
-                checkShowPremiumBanner();
-                loadBanner();
-            }
-        });
-        mBillingManager.initBillingQueryInventoryItem();
-    }
+//    //인앱
+//    private void initQueryBilling() {
+//        mBillingManager = new BillingManager(this);
+//        mBillingManager.setOnQueryInventoryItemListener(new BillingManager.OnQueryInventoryItemListener() {
+//            @Override
+//            public void onPremiumVersionUser() {
+//                CommonUserData.sPremiumState = true;
+//                SharedPreferencesUtils.setBoolean(SearchActivity.this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION, true);
+////                checkShowPremiumBanner();
+//            }
+//
+//            @Override
+//            public void onFreeVersionUser() {
+//                CommonUserData.sPremiumState = false;
+//                SharedPreferencesUtils.setBoolean(SearchActivity.this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION, false);
+////                checkShowPremiumBanner();
+////                loadBanner();
+//            }
+//        });
+//        mBillingManager.initBillingQueryInventoryItem();
+//    }
 }

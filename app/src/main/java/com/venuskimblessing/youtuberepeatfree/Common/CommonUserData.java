@@ -24,4 +24,8 @@ public class CommonUserData {
 
     public static boolean sPremiumState = false;
     public static boolean sRewardUnlockedFeatureBatterSaving = false;
+
+    //기능 부분 일시적 잠금해제
+    public static final int MUSIC_MODE_LIMITED_COUNT = 10;
+    public static final int SHUFFLE_MODE_LIMITED_COUNT = 10;
 }
