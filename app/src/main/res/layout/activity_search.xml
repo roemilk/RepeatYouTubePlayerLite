@@ -107,6 +107,13 @@
             android:visibility="gone" />
     </RelativeLayout>
 
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/search_snackBar_lay"
+        android:layout_above="@+id/player_banner_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.design.widget.CoordinatorLayout>
+
     <LinearLayout
         android:id="@+id/player_banner_lay"
         android:layout_width="match_parent"

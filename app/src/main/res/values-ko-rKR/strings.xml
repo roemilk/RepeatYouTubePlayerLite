@@ -153,7 +153,7 @@
     <string name="locked_feature_shuffle_title">셔플 재생 기능</string>
     <string name="locked_feature_lock_title">화면 잠금 기능</string>
     <string name="locked_featrue_battery_title">음악 감상 모드</string>
-    <string name="locked_feature_reward_content">프리미엄 기능입니다.\n\n프리미엄 버전으로 업그레이드하면 모든 광고 제거, 모든 프리미엄 기능 사용 등 다양한 혜택이 있습니다!</string>
+    <string name="locked_feature_reward_content">음악 감상 모드 체험이 끝났습니다.\n\n프리미엄 버전으로 업그레이드하면 모든 광고 제거, 모든 프리미엄 기능 사용 등 다양한 혜택이 있습니다!</string>
     <string name="locked_feature_share_content">프리미엄 기능입니다.\n\n프리미엄 버전으로 업그레이드하면 모든 광고 제거, 모든 프리미엄 기능 사용 등 다양한 혜택이 있습니다.\n\n페이스북 친구들에게 딱 한번 앱을 소개하고 보상으로 프리미엄 기능을 무료로 얻으세요!</string>
     <string name="locked_feature_buyPro">프리미엄 버전 혜택 보기</string>
     <string name="locked_feature_share">무료로 기능 얻기</string>
@@ -196,6 +196,12 @@
     <!-- battery -->
     <string name="battery_top_hint">베터리 절약 모드 동작중...</string>
     <string name="battery_top_unlock_hint">밀어서 잠금 해제</string>
+
+    <!-- reward allpass ad -->
+    <string name="reward_allRemoveAd_hint">앱 종료 전까지 모든 광고를 제거할 수 있습니다.</string>
+    <string name="reward_allRemoveAd_success">앱 종료 전까지 모든 광고가 제거됩니다.</string>
+    <string name="reward_allRemoveAd_loading">새로운 광고를 불러오고 있습니다.\n잠시 뒤에 시도해 주세요.</string>
+    <string name="reward_allRemoveAd_close">광고 영상을 끝까지 시청하시면 모든 광고가 제거됩니다.</string>
 
     <!-- 페이스북 디벨로퍼 AppId -->
     <string name="facebook_app_id">2346907598897007</string>

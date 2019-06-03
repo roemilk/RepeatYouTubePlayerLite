@@ -758,7 +758,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                         && !Settings.canDrawOverlays(this)) {
                     onObtainingPermissionOverlayWindow();
                 } else {
-                    if (CommonUserData.sPremiumState) {
+                    if (CommonUserData.sPremiumState || CommonUserData.sRemoveAllAd) {
                         showPopupFlaotingWindow();
                     } else {
                         intent = new Intent(this, LoadingActivity.class);
@@ -843,7 +843,17 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 break;
             case R.id.player_top_batterySaving_button:
                 LogUtils.logEvent(this, "feature_battery_mode", null);
-                if (CommonUserData.sPremiumState == true || CommonUserData.sRewardUnlockedFeatureBatterSaving == true) {
+                int musicModeLimitCount = SharedPreferencesUtils.getInt(PlayerActivity.this, CommonSharedPreferencesKey.KEY_FEATURE_REWARD_UNLOCK_MUSIC_MODE_COUNT);
+                boolean overLimitCount = true;
+                if(musicModeLimitCount >= CommonUserData.MUSIC_MODE_LIMITED_COUNT){ //체험 제한 횟수 초과 여부 체크
+                    overLimitCount = false;
+                }
+
+                if (CommonUserData.sPremiumState == true || CommonUserData.sRewardUnlockedFeatureBatterSaving == true || overLimitCount == true) {
+                    if(overLimitCount){
+                        musicModeLimitCount++;
+                        SharedPreferencesUtils.setInt(PlayerActivity.this, CommonSharedPreferencesKey.KEY_FEATURE_REWARD_UNLOCK_MUSIC_MODE_COUNT, musicModeLimitCount);
+                    }
                     mDialogBatterySaving = new DialogBatterySaving(this, R.style.custom_dialog_fullScreen);
                     mDialogBatterySaving.show();
                     updateBatterSavingDialog();
@@ -1505,7 +1515,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
     /**
      * Locked Feature Dialog
-     * 잠금이 걸려 있으나 리워드 감상으로 언락할 수 있는 기능(배터리)
+     * 잠금이 걸려 있으나 리워드 감상으로 언락할 수 있는 기능(뮤직 모드)
      */
     private void showRewardLockedFeatureDialog() {
         final DialogCommon dialogCommonLockedFeature = new DialogCommon(this, R.style.custom_dialog_fullScreen);

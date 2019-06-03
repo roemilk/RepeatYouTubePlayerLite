@@ -13,4 +13,5 @@ public class CommonSharedPreferencesKey {
     //일부 보상형 기능 잠금해제
     public static final String KEY_FEATURE_SHARE_UNLOCK = "feature_unlock"; // 페이스북 앱 소개로 잠금 해제
     public static final String KEY_FEATURE_REWARD_UNLOCK = "reward_unlock"; // 보상형 광고 시청으로 잠금 해제
+    public static final String KEY_FEATURE_REWARD_UNLOCK_MUSIC_MODE_COUNT = "MUSIC_COUNT";
 }

@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.facebook.ads.AudienceNetworkAds;
 import com.facebook.common.Common;
@@ -31,6 +32,7 @@ import com.venuskimblessing.youtuberepeatfree.Common.CommonApiKey;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonConfig;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonSharedPreferencesKey;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonUserData;
+import com.venuskimblessing.youtuberepeatfree.FirebaseUtils.LogUtils;
 import com.venuskimblessing.youtuberepeatfree.Utils.SharedPreferencesUtils;
 import com.venuskimblessing.youtuberepeatfree.Utils.SoftKeybordManager;
 
@@ -63,6 +65,8 @@ public class IntroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
         mLineTextView = (FadeTextView) findViewById(R.id.intro_textView);
+        initRemoteConfig();
+        fetch();
         initQueryBilling();
     }
 
@@ -138,48 +142,41 @@ public class IntroActivity extends AppCompatActivity {
         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
         FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
 //                .setDeveloperModeEnabled(BuildConfig.DEBUG)
+                .setMinimumFetchIntervalInSeconds(10)
                 .build();
         mFirebaseRemoteConfig.setConfigSettings(configSettings);
-//        mFirebaseRemoteConfig.setDefaults(R.xml.remote_config_defaults);
-        fetch();
     }
 
+    /**
+     * RemoteConfig fetch
+     */
     private void fetch() {
-        long cacheExpiration = 3600; // 1 hour in seconds.
-        // If your app is using developer mode, cacheExpiration is set to 0, so each fetch will
-        // retrieve values from the service.
-        if (mFirebaseRemoteConfig.getInfo().getConfigSettings().isDeveloperModeEnabled()) {
-            cacheExpiration = 0;
-        }
-
-        mFirebaseRemoteConfig.fetch(cacheExpiration)
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+        mFirebaseRemoteConfig.fetchAndActivate()
+                .addOnCompleteListener(this, new OnCompleteListener<Boolean>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
+                    public void onComplete(@NonNull Task<Boolean> task) {
                         if (task.isSuccessful()) {
-                            Log.d(TAG, "Fetch Succeeded");
-
-//                            Toast.makeText(IntroActivity.this, "Fetch Succeeded",
+                            boolean updated = task.getResult();
+                            Log.d(TAG, "Config params updated: " + updated);
+//                            Toast.makeText(IntroActivity.this, "Fetch and activate succeeded",
 //                                    Toast.LENGTH_SHORT).show();
 
-                            // After config data is successfully fetched, it must be activated before newly fetched
-                            // values are returned.
-                            mFirebaseRemoteConfig.activateFetched();
                         } else {
-                            Log.d(TAG, "Fetch Failed");
-
-//                            Toast.makeText(IntroActivity.this, "Fetch Failed",
+                            Log.d(TAG, "Fetch failed...");
+//                            Toast.makeText(IntroActivity.this, "Fetch failed",
 //                                    Toast.LENGTH_SHORT).show();
                         }
-
                         setConfig();
                     }
                 });
     }
 
+    /**
+     * RemoteConfig Variable setting
+     */
     private void setConfig() {
-        String chatEnable = mFirebaseRemoteConfig.getString("chat_enable");
-        CommonConfig.sChatEnable = Boolean.valueOf(chatEnable);
+        CommonConfig.sConfigRewardRemoveAllAdSate = mFirebaseRemoteConfig.getBoolean(CommonConfig.KEY_REWARD_REMOVEALLAD);
+        Log.d(TAG, "setConfig : " + CommonConfig.sConfigRewardRemoveAllAdSate);
     }
 
     private void getFCMToken() {
@@ -294,7 +291,9 @@ public class IntroActivity extends AppCompatActivity {
         @Override
         public void onAdFailedToLoad(int i) {
             super.onAdFailedToLoad(i);
+            LogUtils.logEvent(IntroActivity.this, "IntroActivity onAdFailedToLoad", null);
             Log.d(TAG, "onAdFailedToLoad");
+            startActivity();
         }
 
         @Override

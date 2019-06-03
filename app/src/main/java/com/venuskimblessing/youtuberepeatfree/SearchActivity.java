@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,12 +24,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.common.Common;
 import com.github.florent37.materialtextfield.MaterialTextField;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -38,8 +44,8 @@ import com.google.gson.Gson;
 import com.kobakei.ratethisapp.RateThisApp;
 import com.venuskimblessing.youtuberepeatfree.Adapter.SearchDecoration;
 import com.venuskimblessing.youtuberepeatfree.Adapter.SearchRecyclerViewAdapter;
-import com.venuskimblessing.youtuberepeatfree.Billing.BillingManager;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonApiKey;
+import com.venuskimblessing.youtuberepeatfree.Common.CommonConfig;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonSharedPreferencesKey;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonUserData;
 import com.venuskimblessing.youtuberepeatfree.Common.IntentAction;
@@ -49,6 +55,7 @@ import com.venuskimblessing.youtuberepeatfree.Dialog.DialogInfo;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogPlayList;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogRecommend;
 import com.venuskimblessing.youtuberepeatfree.Dialog.DialogSort;
+import com.venuskimblessing.youtuberepeatfree.FirebaseUtils.LogUtils;
 import com.venuskimblessing.youtuberepeatfree.Json.SearchList;
 import com.venuskimblessing.youtuberepeatfree.Json.Videos;
 import com.venuskimblessing.youtuberepeatfree.PlayList.PlayListData;
@@ -74,6 +81,7 @@ import retrofit2.Retrofit;
 
 public class SearchActivity extends AppCompatActivity implements SearchRecyclerViewAdapter.OnClickRecyclerViewItemListener, View.OnClickListener {
     public static final String TAG = "SearchActivity";
+    public static final String TAG_REWARD = "RewardRemoveAllAd";
 
     public static final String DEFAULT_WORD = "";
 
@@ -133,6 +141,9 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     private boolean mShareYouTubeFlag = false;
     private boolean mDynamicLinkFlag = false;
 
+    //보상형 광고
+    private RewardedVideoAd mRewardedVideoAd;
+
     //Video
     private String mVideoId = "";
 
@@ -155,6 +166,13 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     private String mDynamicLinkStartTime;
     private String mDynamicLinkEndTime;
 
+    //RecyclerView Position
+    private int mOverallXScroll = 0;
+
+    //Snackbar
+    private CoordinatorLayout mSnackBarLay;
+    private Snackbar mSnackBar = null;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -162,6 +180,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         MobileAds.initialize(this, CommonApiKey.KEY_ADMOB_APP_ID);
         initView();
         loadBanner();
+        initRewardAd();
         initRateThisApp();
         getShareIntentData(getIntent());
         initRetrofit();
@@ -169,6 +188,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     }
 
     private void initView(){
+        mSnackBarLay = (CoordinatorLayout)findViewById(R.id.search_snackBar_lay);
         mBannerLay = (LinearLayout) findViewById(R.id.player_banner_lay);
         mEmptyTextView = (TextView) findViewById(R.id.search_empty_textView);
         mInviteButton = (Button) findViewById(R.id.search_invite_button);
@@ -191,6 +211,34 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+
+                mOverallXScroll = mOverallXScroll + dy;
+//                Log.d(TAG, "scroll position : " + mOverallXScroll);
+
+                if(CommonConfig.sConfigRewardRemoveAllAdSate){ //SnackBar는 Remote Config의 설정이 true일때만 노출된다.
+                    if(CommonUserData.sPremiumState == false && CommonUserData.sRemoveAllAd == false){
+                        if(mOverallXScroll <= 0){
+                            if(mSnackBar != null){
+                                mSnackBar.dismiss();
+                            }
+                        }else{
+                            if(mSnackBar != null){
+                                if(!mSnackBar.isShown()){
+                                    mSnackBar.show();
+                                }
+                            }else{
+                                mSnackBar = Snackbar.make(mSnackBarLay, "앱 종료까지 모든 광고를 제거할 수 있습니다.", Snackbar.LENGTH_INDEFINITE);
+                                mSnackBar.setAction("제거하기", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        showReward();
+                                    }
+                                });
+                                mSnackBar.show();
+                            }
+                        }
+                    }
+                }
 
                 int lastVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
                 int itemTotalCount = recyclerView.getAdapter().getItemCount() - 6;
@@ -884,7 +932,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     private void loadFullAd() {
         Log.d(TAG, "전면 광고 로드..");
         boolean premium = SharedPreferencesUtils.getBoolean(this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION);
-        if (premium) {
+        if (premium || CommonUserData.sRemoveAllAd) {
             return;
         } else {
             mInterstitialAd = new InterstitialAd(this);
@@ -1008,11 +1056,86 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     }
 
     private void checkShowPremiumBanner() {
-        if (CommonUserData.sPremiumState) {
+        if (CommonUserData.sPremiumState || CommonUserData.sRemoveAllAd) {
             mBannerLay.setVisibility(View.GONE);
         } else {
             mBannerLay.setVisibility(View.VISIBLE);
         }
+    }
+
+
+    //보상형 광고 (광고 제거)
+    private void showReward(){
+        if(mRewardedVideoAd.isLoaded()){
+            mRewardedVideoAd.show();
+        }else{
+            Log.d(TAG, "showReward ad not loaded..");
+            Toast.makeText(this, R.string.reward_allRemoveAd_loading, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void initRewardAd(){
+        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
+        mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
+            @Override
+            public void onRewardedVideoAdLoaded() {
+                Log.d(TAG_REWARD, "onRewardedVideoAdLoaded..");
+
+            }
+
+            @Override
+            public void onRewardedVideoAdOpened() {
+                Log.d(TAG_REWARD, "onRewardedVideoAdOpened..");
+
+            }
+
+            @Override
+            public void onRewardedVideoStarted() {
+                Log.d(TAG_REWARD, "onRewardedVideoStarted..");
+
+            }
+
+            @Override
+            public void onRewardedVideoAdClosed() {
+                Log.d(TAG_REWARD, "onRewardedVideoAdClosed..");
+                if(!CommonUserData.sRemoveAllAd){
+                    LogUtils.logEvent(SearchActivity.this, "AllRemoveAd Close", null);
+                    Toast.makeText(SearchActivity.this, getString(R.string.reward_allRemoveAd_close), Toast.LENGTH_SHORT).show();
+                    mRewardedVideoAd.loadAd(CommonApiKey.KEY_ADMOB_REWARD, new AdRequest.Builder().build());
+                }
+            }
+
+            @Override
+            public void onRewarded(RewardItem rewardItem) {
+                Log.d(TAG_REWARD, "onRewarded..");
+                LogUtils.logEvent(SearchActivity.this, "AllRemoveAd onRewarded", null);
+                mSnackBar.dismiss();
+                Toast.makeText(SearchActivity.this, getString(R.string.reward_allRemoveAd_success), Toast.LENGTH_SHORT).show();
+                CommonUserData.sRemoveAllAd = true;
+                mBannerLay.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onRewardedVideoAdLeftApplication() {
+                Log.d(TAG_REWARD, "onRewardedVideoAdLeftApplication..");
+
+            }
+
+            @Override
+            public void onRewardedVideoAdFailedToLoad(int i) {
+                Log.d(TAG_REWARD, "onRewardedVideoAdClosed..");
+                LogUtils.logEvent(SearchActivity.this, "AllRemoveAd Failed", null);
+                mRewardedVideoAd.loadAd(CommonApiKey.KEY_ADMOB_REWARD, new AdRequest.Builder().build());
+
+            }
+
+            @Override
+            public void onRewardedVideoCompleted() {
+                Log.d(TAG_REWARD, "onRewardedVideoCompleted..");
+
+            }
+        });
+        mRewardedVideoAd.loadAd(CommonApiKey.KEY_ADMOB_REWARD, new AdRequest.Builder().build());
     }
 
 //    //인앱

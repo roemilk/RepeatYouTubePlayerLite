@@ -2,12 +2,8 @@
 <!-- START xml_defaults -->
 <defaultsMap>
     <entry>
-        <key>chat_enable</key>
+        <key>reward_removeallad</key>
         <value>false</value>
-    </entry>
-    <entry>
-        <key>chat_message</key>
-        <value>empty</value>
     </entry>
 </defaultsMap>
     <!-- END xml_defaults -->

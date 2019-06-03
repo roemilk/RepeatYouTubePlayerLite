@@ -23,6 +23,7 @@ public class CommonUserData {
     public static final int INVITE_COUNT_COMPLETE = 10; //친구초대 완료 횟수 (사용하지 않음)
 
     public static boolean sPremiumState = false;
+    public static boolean sRemoveAllAd = false; //보상형 광고로 얻은 프리패스 광고
     public static boolean sRewardUnlockedFeatureBatterSaving = false;
 
     //기능 부분 일시적 잠금해제

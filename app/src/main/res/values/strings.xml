@@ -154,7 +154,7 @@ It is your very smart choice.\n\nPRO benefits\n
     <string name="locked_feature_shuffle_title">Shuffle Play Feature</string>
     <string name="locked_feature_lock_title">Screen Lock Feature</string>
     <string name="locked_featrue_battery_title">Music Listening Mode</string>
-    <string name="locked_feature_reward_content">It is a premium feature.\n\nUpgrade to a premium version to enjoy various benefits of removing all ads and using all the premium features!</string>
+    <string name="locked_feature_reward_content">The music listening mode experience is over.\n\nUpgrade to a premium version to enjoy various benefits of removing all ads and using all the premium features!</string>
     <string name="locked_feature_share_content">It is a premium feature.\n\nUpgrade to a premium version to enjoy various benefits of removing all ads and using all the premium features!\n\nIntroduce this app to your Facebook friends just once get rewarded with premium features for free!</string>
     <string name="locked_feature_buyPro">See the benefits of the premium version</string>
     <string name="locked_feature_share">Get features for free</string>
@@ -192,12 +192,17 @@ It is your very smart choice.\n\nPRO benefits\n
     <string name="buy_already_have_premium">You are already a premium version user.\n\nThank you.</string>
 
     <!-- battery -->
-    <string name="battery_top_hint">베터리 절약 모드 동작중...</string>
-    <string name="battery_top_unlock_hint">밀어서 잠금 해제</string>
+    <string name="battery_top_hint">Activating battery saving mode...</string>
+    <string name="battery_top_unlock_hint">slide to unlock</string>
 
     <!-- reward error -->
     <string name="reward_failed">Failed to load an ad.\nAds will be reloaded up to three times.\nIf it continues to fail, a reward will be provided regardless of success.</string>
 
+    <!-- reward allpass ad -->
+    <string name="reward_allRemoveAd_hint">You can remove all ads until the app exits.</string>
+    <string name="reward_allRemoveAd_success">All ads will be removed until you exit the app.</string>
+    <string name="reward_allRemoveAd_loading">Ad loading.\nPlease try again later.</string>
+    <string name="reward_allRemoveAd_close">When you watch your ad video to the end, all ads will be removed.</string>
 
     <string name="facebook_app_id">2346907598897007</string>
 </resources>
