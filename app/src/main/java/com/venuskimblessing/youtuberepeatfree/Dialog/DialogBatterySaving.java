@@ -63,7 +63,7 @@ public class DialogBatterySaving extends Dialog {
             @Override
             public void onSlideComplete(@NotNull SlideToActView slideToActView) {
                 if(slideToActView.isCompleted()){
-                    Toast.makeText(mContext, "베터리 절약 모드가 해제되었습니다.", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(mContext, "베터리 절약 모드가 해제되었습니다.", Toast.LENGTH_SHORT).show();
                     dismiss();
                 }
             }

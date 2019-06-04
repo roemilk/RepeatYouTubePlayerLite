@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.andexert.library.RippleView;
 import com.android.billingclient.api.BillingResult;
 import com.android.billingclient.api.Purchase;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.venuskimblessing.youtuberepeatfree.Billing.BillingManager;
+import com.venuskimblessing.youtuberepeatfree.Common.CommonInApp;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonSharedPreferencesKey;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonUserData;
 import com.venuskimblessing.youtuberepeatfree.FirebaseUtils.LogUtils;
@@ -21,9 +23,11 @@ import java.util.List;
 public class BuyPremiumActivity extends Activity implements View.OnClickListener, BillingManager.OnBuyCompleteListener, BillingManager.OnQueryInventoryItemListener {
     private final String TAG = "BuyPremiumActivity";
 
+    private TextView mPriceTextView;
     private RippleView mBuyRippleView;
     private BillingManager mBillingManager;
     private SoftKeybordManager mSoftKeybordManager;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +41,9 @@ public class BuyPremiumActivity extends Activity implements View.OnClickListener
         mBillingManager.setOnBuyCompleteListener(this);
         mBillingManager.setOnQueryInventoryItemListener(this);
         mBillingManager.initBillingQueryInventoryItem();
+
+        mPriceTextView = (TextView)findViewById(R.id.premium_buy_price_textView);
+        mPriceTextView.setText(CommonInApp.sPremiumPrice);
 
         mBuyRippleView = (RippleView)findViewById(R.id.premium_buyRippleView_buy_button);
         mBuyRippleView.setOnClickListener(this);

@@ -182,13 +182,9 @@ public class LoadingActivity extends AppCompatActivity implements RewardedVideoA
         Bundle bundle = new Bundle();
         bundle.putInt(FirebaseAnalytics.Param.VALUE, i);
         LogUtils.logEvent(this, "reward_onFailed", bundle);
-        Log.d(TAG, "onRewardedVideoAdFailedToLoad...");
-        if(mFailedRewardCount >= MAX_FAILED_COUNT){ //실패 재시도 최대 3회
-            CommonUserData.sRewardUnlockedFeatureBatterSaving = true;
-        }else{
-            loadRewardAd();
-        }
-        mFailedRewardCount++;
+        Log.d(TAG, "onRewardedVideoAdFailedToLoad..." + i);
+        Toast.makeText(this, R.string.reward_allRemoveAd_loading, Toast.LENGTH_SHORT).show();
+        finishActivity();
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.venuskimblessing.youtuberepeatfree.Billing;
 import android.app.Activity;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.Toast;
+
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.BillingFlowParams;
@@ -15,8 +15,7 @@ import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
 import com.android.billingclient.api.SkuDetailsResponseListener;
-import com.venuskimblessing.youtuberepeatfree.Common.CommonUserData;
-import com.venuskimblessing.youtuberepeatfree.Utils.SharedPreferencesUtils;
+import com.venuskimblessing.youtuberepeatfree.Common.CommonInApp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,6 +91,8 @@ public class BillingManager implements PurchasesUpdatedListener {
                 if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK && skuDetailsList != null) {
                     for (SkuDetails details : skuDetailsList) {
                         mSkuDetails = details;
+                        CommonInApp.sPremiumPrice = mSkuDetails.getPrice();
+                        CommonInApp.sPremiumOriginPrice = mSkuDetails.getOriginalPrice();
                     }
                 }
             }

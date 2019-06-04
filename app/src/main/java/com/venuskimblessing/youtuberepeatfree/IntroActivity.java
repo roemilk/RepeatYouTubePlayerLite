@@ -141,8 +141,8 @@ public class IntroActivity extends AppCompatActivity {
     private void initRemoteConfig() {
         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
         FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
-                .setDeveloperModeEnabled(BuildConfig.DEBUG)
-                .setMinimumFetchIntervalInSeconds(10)
+//                .setDeveloperModeEnabled(BuildConfig.DEBUG)
+//                .setMinimumFetchIntervalInSeconds(10)
                 .build();
         mFirebaseRemoteConfig.setConfigSettings(configSettings);
     }

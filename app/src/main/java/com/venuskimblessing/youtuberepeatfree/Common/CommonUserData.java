@@ -17,7 +17,7 @@ public class CommonUserData {
 
     //광고 카운트
     public static int sAdCount = 0;
-    public static final int AD_DEALY_COUNT = 2; //2번에 한번씩 노출
+    public static final int AD_DEALY_COUNT = 2; //3번에 한번씩 노출
 
     //친구초대 카운트
     public static final int INVITE_COUNT_COMPLETE = 10; //친구초대 완료 횟수 (사용하지 않음)
@@ -28,6 +28,7 @@ public class CommonUserData {
     //프리패스 광고
     public static boolean sRemoveAllAd = false; //보상형 광고로 얻은 프리패스 광고
     public static boolean sRewardUnlockedFeatureBatterSaving = false;
+
     //기능 부분 일시적 잠금해제
     public static final int MUSIC_MODE_LIMITED_COUNT = 10;
     public static final int SHUFFLE_MODE_LIMITED_COUNT = 10;
