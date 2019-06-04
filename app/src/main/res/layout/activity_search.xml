@@ -59,12 +59,12 @@
             android:layout_alignWithParentIfMissing="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
-            android:layout_toLeftOf="@+id/search_coffee_button"
+            android:layout_toLeftOf="@+id/search_premium_button"
             android:background="@drawable/ic_sort_white_24dp"
             android:visibility="visible" />
 
         <Button
-            android:id="@+id/search_coffee_button"
+            android:id="@+id/search_premium_button"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
@@ -110,6 +110,7 @@
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/search_snackBar_lay"
         android:layout_above="@+id/player_banner_lay"
+        android:layout_alignWithParentIfMissing="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </android.support.design.widget.CoordinatorLayout>
@@ -127,8 +128,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
             ads:adSize="SMART_BANNER"
-            ads:adUnitId="ca-app-pub-3940256099942544/6300978111"></com.google.android.gms.ads.AdView>
+            ads:adUnitId="ca-app-pub-8974353837020608/4724298867"></com.google.android.gms.ads.AdView>
     </LinearLayout>
 </RelativeLayout>

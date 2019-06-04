@@ -199,10 +199,13 @@ It is your very smart choice.\n\nPRO benefits\n
     <string name="reward_failed">Failed to load an ad.\nAds will be reloaded up to three times.\nIf it continues to fail, a reward will be provided regardless of success.</string>
 
     <!-- reward allpass ad -->
-    <string name="reward_allRemoveAd_hint">You can remove all ads until the app exits.</string>
+    <string name="reward_allRemoveAd_hint">Remove all ads for 2 hours</string>
     <string name="reward_allRemoveAd_success">All ads will be removed until you exit the app.</string>
     <string name="reward_allRemoveAd_loading">Ad loading.\nPlease try again later.</string>
     <string name="reward_allRemoveAd_close">When you watch your ad video to the end, all ads will be removed.</string>
+    <string name="reward_allRemoveAd_alreay">Ad is not visible for 2 hours.</string>
+    <string name="reward_allRemoveAd_upgrade">Upgrade</string>
+    <string name="reward_allRemoveAd_remove">Remove</string>
 
     <string name="facebook_app_id">2346907598897007</string>
 </resources>

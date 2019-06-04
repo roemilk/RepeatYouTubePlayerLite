@@ -198,10 +198,13 @@
     <string name="battery_top_unlock_hint">밀어서 잠금 해제</string>
 
     <!-- reward allpass ad -->
-    <string name="reward_allRemoveAd_hint">앱 종료 전까지 모든 광고를 제거할 수 있습니다.</string>
-    <string name="reward_allRemoveAd_success">앱 종료 전까지 모든 광고가 제거됩니다.</string>
+    <string name="reward_allRemoveAd_hint">2시간 동안 모든 광고 제거하기</string>
+    <string name="reward_allRemoveAd_success">2시간 동안 광고가 제거됩니다.</string>
     <string name="reward_allRemoveAd_loading">새로운 광고를 불러오고 있습니다.\n잠시 뒤에 시도해 주세요.</string>
     <string name="reward_allRemoveAd_close">광고 영상을 끝까지 시청하시면 모든 광고가 제거됩니다.</string>
+    <string name="reward_allRemoveAd_alreay">2시간 동안 광고가 제거되었습니다.</string>
+    <string name="reward_allRemoveAd_upgrade">업그레이드</string>
+    <string name="reward_allRemoveAd_remove">제거하기</string>
 
     <!-- 페이스북 디벨로퍼 AppId -->
     <string name="facebook_app_id">2346907598897007</string>

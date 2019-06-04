@@ -141,7 +141,7 @@ public class IntroActivity extends AppCompatActivity {
     private void initRemoteConfig() {
         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
         FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
-//                .setDeveloperModeEnabled(BuildConfig.DEBUG)
+                .setDeveloperModeEnabled(BuildConfig.DEBUG)
                 .setMinimumFetchIntervalInSeconds(10)
                 .build();
         mFirebaseRemoteConfig.setConfigSettings(configSettings);
@@ -242,6 +242,7 @@ public class IntroActivity extends AppCompatActivity {
         mBillingManager.setOnQueryInventoryItemListener(new BillingManager.OnQueryInventoryItemListener() {
             @Override
             public void onPremiumVersionUser() {
+//                Toast.makeText(IntroActivity.this, "프리미엄 사용자입니다.", Toast.LENGTH_SHORT).show();
                 CommonUserData.sPremiumState = true;
                 SharedPreferencesUtils.setBoolean(IntroActivity.this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION, true);
                 startAnimationTextView();
@@ -249,6 +250,7 @@ public class IntroActivity extends AppCompatActivity {
 
             @Override
             public void onFreeVersionUser() {
+//                Toast.makeText(IntroActivity.this, "프리 사용자입니다.", Toast.LENGTH_SHORT).show();
                 CommonUserData.sPremiumState = false;
                 SharedPreferencesUtils.setBoolean(IntroActivity.this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION, false);
                 startAnimationTextView();

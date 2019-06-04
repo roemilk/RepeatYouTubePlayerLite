@@ -24,7 +24,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.common.Common;
 import com.github.florent37.materialtextfield.MaterialTextField;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -63,6 +62,8 @@ import com.venuskimblessing.youtuberepeatfree.Player.PlayerActivity;
 import com.venuskimblessing.youtuberepeatfree.Retrofit.RetrofitCommons;
 import com.venuskimblessing.youtuberepeatfree.Retrofit.RetrofitManager;
 import com.venuskimblessing.youtuberepeatfree.Retrofit.RetrofitService;
+import com.venuskimblessing.youtuberepeatfree.Timer.CountDownTimer;
+import com.venuskimblessing.youtuberepeatfree.Timer.TimerSington;
 import com.venuskimblessing.youtuberepeatfree.Utils.MediaUtils;
 import com.venuskimblessing.youtuberepeatfree.Utils.SharedPreferencesUtils;
 import com.venuskimblessing.youtuberepeatfree.Utils.SoftKeybordManager;
@@ -79,7 +80,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class SearchActivity extends AppCompatActivity implements SearchRecyclerViewAdapter.OnClickRecyclerViewItemListener, View.OnClickListener {
+public class SearchActivity extends BaseActivity implements SearchRecyclerViewAdapter.OnClickRecyclerViewItemListener, View.OnClickListener {
     public static final String TAG = "SearchActivity";
     public static final String TAG_REWARD = "RewardRemoveAllAd";
 
@@ -112,7 +113,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     public static final String TYPE_VIDEO = "video";
 
     private TextView mEmptyTextView = null;
-    private Button mInviteButton, mSortButton, mRecommentButton, mCoffeeButton, mPlaylistButton;
+    private Button mInviteButton, mSortButton, mRecommentButton, mPremiumButton, mPlaylistButton;
     private MaterialTextField mMaterialTextField = null;
     private EditText mEditTextSearchWord = null;
     private RecyclerView mRecyclerView = null;
@@ -202,8 +203,9 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         mSortButton.setOnClickListener(this);
         mRecommentButton = (Button) findViewById(R.id.search_recomment_button);
         mRecommentButton.setOnClickListener(this);
-        mCoffeeButton = (Button) findViewById(R.id.search_coffee_button);
-        mCoffeeButton.setOnClickListener(this);
+        mPremiumButton = (Button) findViewById(R.id.search_premium_button);
+        mPremiumButton.setOnClickListener(this);
+
         mPlaylistButton = (Button) findViewById(R.id.search_playlist_button);
         mPlaylistButton.setOnClickListener(this);
         mRecyclerView = (RecyclerView) findViewById(R.id.search_recyclerview);
@@ -216,7 +218,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 //                Log.d(TAG, "scroll position : " + mOverallXScroll);
 
                 if(CommonConfig.sConfigRewardRemoveAllAdSate){ //SnackBar는 Remote Config의 설정이 true일때만 노출된다.
-                    if(CommonUserData.sPremiumState == false && CommonUserData.sRemoveAllAd == false){
+                    if(CommonUserData.sPremiumState == false){
                         if(mOverallXScroll <= 0){
                             if(mSnackBar != null){
                                 mSnackBar.dismiss();
@@ -224,17 +226,14 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                         }else{
                             if(mSnackBar != null){
                                 if(!mSnackBar.isShown()){
-                                    mSnackBar.show();
+                                    if(CommonUserData.sRemoveAllAd){
+                                        showCountTimeSnackBar();
+                                    }else{
+                                        showRewardSnackBar();
+                                    }
                                 }
                             }else{
-                                mSnackBar = Snackbar.make(mSnackBarLay, "앱 종료까지 모든 광고를 제거할 수 있습니다.", Snackbar.LENGTH_INDEFINITE);
-                                mSnackBar.setAction("제거하기", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        showReward();
-                                    }
-                                });
-                                mSnackBar.show();
+                                showRewardSnackBar();
                             }
                         }
                     }
@@ -261,7 +260,43 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 }
             }
         });
+    }
 
+    private void showCountTimeSnackBar(){
+        mSnackBar.setText(getString(R.string.reward_allRemoveAd_alreay));
+        mSnackBar.setAction(getString(R.string.reward_allRemoveAd_upgrade), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SearchActivity.this, BuyPremiumActivity.class);
+                startActivity(intent);
+            }
+        });
+        mSnackBar.show();
+    }
+
+    private void showRewardSnackBar(){
+        mSnackBar = Snackbar.make(mSnackBarLay, getString(R.string.reward_allRemoveAd_hint), Snackbar.LENGTH_INDEFINITE);
+        mSnackBar.setAction(getString(R.string.reward_allRemoveAd_remove), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showReward();
+            }
+        });
+        mSnackBar.show();
+    }
+
+    private void initPremiumUi(){
+        if(CommonUserData.sPremiumState){
+            mPremiumButton.setVisibility(View.GONE);
+        }else{
+            mPremiumButton.setVisibility(View.VISIBLE);
+        }
+
+        if(CommonUserData.sPremiumState || CommonUserData.sRemoveAllAd){
+            mBannerLay.setVisibility(View.GONE);
+        }else{
+            mBannerLay.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -276,7 +311,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     @Override
     protected void onResume() {
         super.onResume();
-        checkShowPremiumBanner();
+        initPremiumUi();
         getDynamicLink();
         loadFullAd();
     }
@@ -895,7 +930,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 dialogRecommend.show();
                 break;
 
-            case R.id.search_coffee_button:
+            case R.id.search_premium_button:
                 Intent intent = new Intent(SearchActivity.this, BuyPremiumActivity.class);
                 startActivity(intent);
                 break;
@@ -943,8 +978,8 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     }
 
     private void checkShowFullAd() {
-        boolean premium = SharedPreferencesUtils.getBoolean(this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION);
-        if (premium) {
+        CommonUserData.sPremiumState = SharedPreferencesUtils.getBoolean(this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION);
+        if (CommonUserData.sPremiumState || CommonUserData.sRemoveAllAd) {
             Log.d(TAG, "not show full ad... premium");
             startPlayerActivity(mVideoId);
         } else {
@@ -1019,13 +1054,13 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         @Override
         public void onAdLoaded() {
             super.onAdLoaded();
-            if (mShareYouTubeFlag) {
-                Log.d(TAG, "유튜브 전용 로직");
-                showFullAdDealy();
-                mShareYouTubeFlag = false;
-            } else if (mDynamicLinkFlag) {
-                showFullAdDealy();
-            }
+//            if (mShareYouTubeFlag) {
+//                Log.d(TAG, "유튜브 전용 로직");
+//                showFullAdDealy();
+//                mShareYouTubeFlag = false;
+//            } else if (mDynamicLinkFlag) {
+//                showFullAdDealy();
+//            }
             Log.d(TAG, "onAdLoaded...");
         }
 
@@ -1071,6 +1106,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         }else{
             Log.d(TAG, "showReward ad not loaded..");
             Toast.makeText(this, R.string.reward_allRemoveAd_loading, Toast.LENGTH_SHORT).show();
+            mRewardedVideoAd.loadAd(CommonApiKey.KEY_ADMOB_REWARD, new AdRequest.Builder().build());
         }
     }
 
@@ -1101,7 +1137,9 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 if(!CommonUserData.sRemoveAllAd){
                     LogUtils.logEvent(SearchActivity.this, "AllRemoveAd Close", null);
                     Toast.makeText(SearchActivity.this, getString(R.string.reward_allRemoveAd_close), Toast.LENGTH_SHORT).show();
-                    mRewardedVideoAd.loadAd(CommonApiKey.KEY_ADMOB_REWARD, new AdRequest.Builder().build());
+                    if(!mRewardedVideoAd.isLoaded()){
+                        mRewardedVideoAd.loadAd(CommonApiKey.KEY_ADMOB_REWARD, new AdRequest.Builder().build());
+                    }
                 }
             }
 
@@ -1113,6 +1151,15 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
                 Toast.makeText(SearchActivity.this, getString(R.string.reward_allRemoveAd_success), Toast.LENGTH_SHORT).show();
                 CommonUserData.sRemoveAllAd = true;
                 mBannerLay.setVisibility(View.GONE);
+                TimerSington.getCountDownTimerInstance().startTimer(40, new CountDownTimer.OnCountDownTimerCallbackListener() {
+                    @Override
+                    public void onTimerEnd() {
+                        if(mSnackBar != null){
+                            showRewardSnackBar();
+                        }
+                    }
+                });
+                mRewardedVideoAd.loadAd(CommonApiKey.KEY_ADMOB_REWARD, new AdRequest.Builder().build());
             }
 
             @Override

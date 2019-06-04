@@ -29,7 +29,7 @@ public class DynamicLinkManager {
     private final String TAG = "DynamicLinkManager";
 
     private static final String LANGUAGE_EN = "en";
-    private static final String LANGUAGE_KR = "kr";
+    private static final String LANGUAGE_KR = "ko";
     private static final String DOMAIN_MAIN_KR = "http://blessingvenus.com/link_kr.php?";
     private static final String DOMAIN_MAIN_EN = "http://blessingvenus.com/link_en.php?";
 
@@ -56,6 +56,8 @@ public class DynamicLinkManager {
 
         String domain = DOMAIN_MAIN_EN;
         String language = OSUtils.getLocaleLanguage(mActivity);
+        Log.d(TAG, "createShortDynamicLink language : " + language);
+
         if(language.equals(LANGUAGE_EN)){
             domain = DOMAIN_MAIN_EN;
         }else if(language.equals(LANGUAGE_KR)){

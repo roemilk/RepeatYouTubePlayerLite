@@ -69,6 +69,7 @@ public class OSUtils {
     public static String getLocaleLanguage(Context context) {
         Locale locale = context.getResources().getConfiguration().locale;
         String language = locale.getLanguage();
+        Log.d(TAG, "getLocaleLanguage >> " + language);
 
         return language;
     }
