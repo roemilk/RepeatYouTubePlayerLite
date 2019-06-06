@@ -17,7 +17,7 @@ public class CommonUserData {
 
     //광고 카운트
     public static int sAdCount = 0;
-    public static final int AD_DEALY_COUNT = 2; //3번에 한번씩 노출
+    public static final int AD_DEALY_COUNT = 3; //3번에 한번씩 노출
 
     //친구초대 카운트
     public static final int INVITE_COUNT_COMPLETE = 10; //친구초대 완료 횟수 (사용하지 않음)

@@ -28,6 +28,7 @@ import java.util.List;
 public class DynamicLinkManager {
     private final String TAG = "DynamicLinkManager";
 
+    private static final String DOMAIN_MAIN = "https://www.youtube.com/watch?v=";
     private static final String LANGUAGE_EN = "en";
     private static final String LANGUAGE_KR = "ko";
     private static final String DOMAIN_MAIN_KR = "http://blessingvenus.com/link_kr.php?";
@@ -54,17 +55,17 @@ public class DynamicLinkManager {
         mLoadingIndicator = new LoadingIndicator(mActivity, R.style.custom_dialog_fullScreen);
         mLoadingIndicator.startLoadingView();
 
-        String domain = DOMAIN_MAIN_EN;
-        String language = OSUtils.getLocaleLanguage(mActivity);
-        Log.d(TAG, "createShortDynamicLink language : " + language);
-
-        if(language.equals(LANGUAGE_EN)){
-            domain = DOMAIN_MAIN_EN;
-        }else if(language.equals(LANGUAGE_KR)){
-            domain = DOMAIN_MAIN_KR;
-        }else{
-            domain = DOMAIN_MAIN_EN;
-        }
+        String domain = DOMAIN_MAIN + id + "&";
+//        String language = OSUtils.getLocaleLanguage(mActivity);
+//        Log.d(TAG, "createShortDynamicLink language : " + language);
+//
+//        if(language.equals(LANGUAGE_EN)){
+//            domain = DOMAIN_MAIN_EN;
+//        }else if(language.equals(LANGUAGE_KR)){
+//            domain = DOMAIN_MAIN_KR;
+//        }else{
+//            domain = DOMAIN_MAIN_EN;
+//        }
 
         Log.d(TAG, "domain language result : " + domain);
 
@@ -83,7 +84,7 @@ public class DynamicLinkManager {
                 .setDomainUriPrefix("https://youtuberepeatfree.page.link/")
                 .setAndroidParameters(
                         new DynamicLink.AndroidParameters.Builder()
-                                .setMinimumVersion(4).build()) //설치된 앱의 버전이 4버전 이하일 경우는 설치페이지로 보냄 4 밑의 버전은 다이나믹링크가 구현되어 있지 않아 동작하지 않기 때문임..
+                                .setMinimumVersion(14).build()) //설치된 앱의 버전이 4버전 이하일 경우는 설치페이지로 보냄 4 밑의 버전은 다이나믹링크가 구현되어 있지 않아 동작하지 않기 때문임..
                 // Set parameters
                 // ...
                 .buildShortDynamicLink()

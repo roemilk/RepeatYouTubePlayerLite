@@ -99,6 +99,11 @@ public class IntroActivity extends AppCompatActivity {
         super.onStop();
     }
 
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+    }
+
     /**
      * 앱 최초 실행인지 여부를 판단하여 알맞는 화면으로 이동합니다.
      */
@@ -176,7 +181,10 @@ public class IntroActivity extends AppCompatActivity {
      */
     private void setConfig() {
         CommonConfig.sConfigRewardRemoveAllAdSate = mFirebaseRemoteConfig.getBoolean(CommonConfig.KEY_REWARD_REMOVEALLAD);
-        Log.d(TAG, "setConfig : " + CommonConfig.sConfigRewardRemoveAllAdSate);
+        CommonConfig.sConfigFacebookShareState = mFirebaseRemoteConfig.getBoolean(CommonConfig.KEY_FACEBOOK_SHARE);
+
+        Log.d(TAG, "reward_ad : " + CommonConfig.sConfigRewardRemoveAllAdSate);
+        Log.d(TAG, "facebook share : " + CommonConfig.sConfigFacebookShareState);
     }
 
     private void getFCMToken() {

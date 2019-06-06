@@ -188,8 +188,8 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
         loadPopularContentsList();
     }
 
-    private void initView(){
-        mSnackBarLay = (CoordinatorLayout)findViewById(R.id.search_snackBar_lay);
+    private void initView() {
+        mSnackBarLay = (CoordinatorLayout) findViewById(R.id.search_snackBar_lay);
         mBannerLay = (LinearLayout) findViewById(R.id.player_banner_lay);
         mEmptyTextView = (TextView) findViewById(R.id.search_empty_textView);
         mInviteButton = (Button) findViewById(R.id.search_invite_button);
@@ -217,22 +217,22 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
                 mOverallXScroll = mOverallXScroll + dy;
 //                Log.d(TAG, "scroll position : " + mOverallXScroll);
 
-                if(CommonConfig.sConfigRewardRemoveAllAdSate){ //SnackBar는 Remote Config의 설정이 true일때만 노출된다.
-                    if(CommonUserData.sPremiumState == false){
-                        if(mOverallXScroll <= 0){
-                            if(mSnackBar != null){
+                if (CommonConfig.sConfigRewardRemoveAllAdSate) { //SnackBar는 Remote Config의 설정이 true일때만 노출된다.
+                    if (CommonUserData.sPremiumState == false) {
+                        if (mOverallXScroll <= 0) {
+                            if (mSnackBar != null) {
                                 mSnackBar.dismiss();
                             }
-                        }else{
-                            if(mSnackBar != null){
-                                if(!mSnackBar.isShown()){
-                                    if(CommonUserData.sRemoveAllAd){
+                        } else {
+                            if (mSnackBar != null) {
+                                if (!mSnackBar.isShown()) {
+                                    if (CommonUserData.sRemoveAllAd) {
                                         showCountTimeSnackBar();
-                                    }else{
+                                    } else {
                                         showRewardSnackBar();
                                     }
                                 }
-                            }else{
+                            } else {
                                 showRewardSnackBar();
                             }
                         }
@@ -262,7 +262,7 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
         });
     }
 
-    private void showCountTimeSnackBar(){
+    private void showCountTimeSnackBar() {
         mSnackBar.setText(getString(R.string.reward_allRemoveAd_alreay));
         mSnackBar.setAction(getString(R.string.reward_allRemoveAd_upgrade), new View.OnClickListener() {
             @Override
@@ -274,7 +274,7 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
         mSnackBar.show();
     }
 
-    private void showRewardSnackBar(){
+    private void showRewardSnackBar() {
         mSnackBar = Snackbar.make(mSnackBarLay, getString(R.string.reward_allRemoveAd_hint), Snackbar.LENGTH_INDEFINITE);
         mSnackBar.setAction(getString(R.string.reward_allRemoveAd_remove), new View.OnClickListener() {
             @Override
@@ -285,16 +285,16 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
         mSnackBar.show();
     }
 
-    private void initPremiumUi(){
-        if(CommonUserData.sPremiumState){
+    private void initPremiumUi() {
+        if (CommonUserData.sPremiumState) {
             mPremiumButton.setVisibility(View.GONE);
-        }else{
+        } else {
             mPremiumButton.setVisibility(View.VISIBLE);
         }
 
-        if(CommonUserData.sPremiumState || CommonUserData.sRemoveAllAd){
+        if (CommonUserData.sPremiumState || CommonUserData.sRemoveAllAd) {
             mBannerLay.setVisibility(View.GONE);
-        }else{
+        } else {
             mBannerLay.setVisibility(View.VISIBLE);
         }
     }
@@ -336,8 +336,9 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
                         mDynamicLinkVideoId = deepLink.getQueryParameter("id");
                         mDynamicLinkStartTime = deepLink.getQueryParameter("starttime");
                         mDynamicLinkEndTime = deepLink.getQueryParameter("endtime");
+//                        Log.d(TAG, "id : " + mDynamicLinkVideoId + " starttime : " + mDynamicLinkStartTime + " endtime : " + mDynamicLinkEndTime);
 
-                        mDynamicLinkFlag = true;
+                        startSharePlayerActivity();
                     }
                 })
                 .addOnFailureListener(this, new OnFailureListener() {
@@ -1027,12 +1028,7 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
         public void onAdClosed() {
             super.onAdClosed();
             Log.d(TAG, "onAdClosed");
-            if (mDynamicLinkFlag) {
-                mDynamicLinkFlag = false;
-                startSharePlayerActivity();
-            } else {
-                startPlayerActivity(mVideoId);
-            }
+            startPlayerActivity(mVideoId);
         }
 
         @Override
@@ -1100,17 +1096,17 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
 
 
     //보상형 광고 (광고 제거)
-    private void showReward(){
-        if(mRewardedVideoAd.isLoaded()){
+    private void showReward() {
+        if (mRewardedVideoAd.isLoaded()) {
             mRewardedVideoAd.show();
-        }else{
+        } else {
             Log.d(TAG, "showReward ad not loaded..");
             Toast.makeText(this, R.string.reward_allRemoveAd_loading, Toast.LENGTH_SHORT).show();
             mRewardedVideoAd.loadAd(CommonApiKey.KEY_ADMOB_REWARD, new AdRequest.Builder().build());
         }
     }
 
-    private void initRewardAd(){
+    private void initRewardAd() {
         mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
         mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
             @Override
@@ -1134,10 +1130,10 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
             @Override
             public void onRewardedVideoAdClosed() {
                 Log.d(TAG_REWARD, "onRewardedVideoAdClosed..");
-                if(!CommonUserData.sRemoveAllAd){
+                if (!CommonUserData.sRemoveAllAd) {
                     LogUtils.logEvent(SearchActivity.this, "AllRemoveAd Close", null);
                     Toast.makeText(SearchActivity.this, getString(R.string.reward_allRemoveAd_close), Toast.LENGTH_SHORT).show();
-                    if(!mRewardedVideoAd.isLoaded()){
+                    if (!mRewardedVideoAd.isLoaded()) {
                         mRewardedVideoAd.loadAd(CommonApiKey.KEY_ADMOB_REWARD, new AdRequest.Builder().build());
                     }
                 }
@@ -1154,7 +1150,7 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
                 TimerSington.getCountDownTimerInstance().startTimer(40, new CountDownTimer.OnCountDownTimerCallbackListener() {
                     @Override
                     public void onTimerEnd() {
-                        if(mSnackBar != null){
+                        if (mSnackBar != null) {
                             showRewardSnackBar();
                         }
                     }

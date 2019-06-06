@@ -201,7 +201,7 @@ It is your very smart choice.\n\nPRO benefits\n
 
     <!-- reward allpass ad -->
     <string name="reward_allRemoveAd_hint">Remove all ads for 2 hours</string>
-    <string name="reward_allRemoveAd_success">All ads will be removed until you exit the app.</string>
+    <string name="reward_allRemoveAd_success">Ads will be removed for 2 hours.\nWhen you exit the app, the effect of removing ads disappears.</string>
     <string name="reward_allRemoveAd_loading">Ad loading.\nPlease try again later.</string>
     <string name="reward_allRemoveAd_close">When you watch your ad video to the end, all ads will be removed.</string>
     <string name="reward_allRemoveAd_alreay">Ad is not visible for 2 hours.</string>

@@ -45,6 +45,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
 import com.venuskimblessing.youtuberepeatfree.BuyPremiumActivity;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonApiKey;
+import com.venuskimblessing.youtuberepeatfree.Common.CommonConfig;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonSharedPreferencesKey;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonUserData;
 import com.venuskimblessing.youtuberepeatfree.Common.IntentAction;
@@ -683,12 +684,18 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
             case R.id.player_top_lock_button:
                 LogUtils.logEvent(this, "feature_lock", null);
-                if (checkUnlockShareFeature()) {
+                if(CommonConfig.sConfigFacebookShareState){ //페북 친구 공유 조건이 걸릴 경우
+                    if (checkUnlockShareFeature()) {
+                        mLock = !mLock;
+                        setLockButtonRes();
+                        setLock();
+                    } else {
+                        showShareLockedFeatureDialog(getString(R.string.locked_feature_lock_title));
+                    }
+                }else{
                     mLock = !mLock;
                     setLockButtonRes();
                     setLock();
-                } else {
-                    showShareLockedFeatureDialog(getString(R.string.locked_feature_lock_title));
                 }
                 break;
 
@@ -779,29 +786,17 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
             case R.id.player_feature_shuffle_button:
                 LogUtils.logEvent(this, "feature_shuffle", null);
-                if (checkUnlockShareFeature()) {
-                    mShuffleButton.setSelected(!mShuffleButton.isSelected());
-                    if (mShuffleButton.isSelected()) {
-                        mPlayListArray = mPlayListDataManager.loadPlayList();
-                        if (mPlayListArray != null) {
-                            if (mPlayListArray.size() <= 1) {
-                                Toast.makeText(PlayerActivity.this, getString(R.string.sub_feature_shuffle_empty), Toast.LENGTH_SHORT).show();
-                                mShuffleButton.setSelected(false);
-                                return;
-                            } else {
-                                SharedPreferencesUtils.setBoolean(PlayerActivity.this, CommonSharedPreferencesKey.KEY_AUTOPLAY, true);
-                                mShuffle = true;
-                                startPlayListPlay(mPlayListArray.get(0));
-                                Toast.makeText(PlayerActivity.this, getString(R.string.sub_feature_shuffle_start), Toast.LENGTH_SHORT).show();
-                            }
-                        }
+                if(CommonConfig.sConfigFacebookShareState){ //페북 친구 공유 조건이 걸릴 경우
+                    if (checkUnlockShareFeature()) {
+                        setShuffle();
                     } else {
-                        mShuffle = false;
-                        Toast.makeText(PlayerActivity.this, getString(R.string.sub_feature_shuffle_cancel), Toast.LENGTH_SHORT).show();
+                        showShareLockedFeatureDialog(getString(R.string.locked_feature_shuffle_title));
                     }
-                } else {
-                    showShareLockedFeatureDialog(getString(R.string.locked_feature_shuffle_title));
+                }else{
+                    setShuffle();
                 }
+
+
                 break;
 
             case R.id.player_feature_prev_button:
@@ -1588,6 +1583,31 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
             return true;
         } else {
             return false;
+        }
+    }
+
+    /**
+     * 셔플 세팅
+     */
+    private void setShuffle(){
+        mShuffleButton.setSelected(!mShuffleButton.isSelected());
+        if (mShuffleButton.isSelected()) {
+            mPlayListArray = mPlayListDataManager.loadPlayList();
+            if (mPlayListArray != null) {
+                if (mPlayListArray.size() <= 1) {
+                    Toast.makeText(PlayerActivity.this, getString(R.string.sub_feature_shuffle_empty), Toast.LENGTH_SHORT).show();
+                    mShuffleButton.setSelected(false);
+                    return;
+                } else {
+                    SharedPreferencesUtils.setBoolean(PlayerActivity.this, CommonSharedPreferencesKey.KEY_AUTOPLAY, true);
+                    mShuffle = true;
+                    startPlayListPlay(mPlayListArray.get(0));
+                    Toast.makeText(PlayerActivity.this, getString(R.string.sub_feature_shuffle_start), Toast.LENGTH_SHORT).show();
+                }
+            }
+        } else {
+            mShuffle = false;
+            Toast.makeText(PlayerActivity.this, getString(R.string.sub_feature_shuffle_cancel), Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -10,7 +10,7 @@ import java.util.TimerTask;
 public class CountDownTimer {
     private static final String TAG = "CountDownTimer";
 
-    public static int mMaxCount = 30;
+    public static int mMaxCount = 7200;
     private Timer mTimer = null;
     private TimerTask mTimerTask = null;
 

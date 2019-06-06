@@ -66,6 +66,7 @@ public class GuidePagerFragment extends android.support.v4.app.Fragment {
 
         if(lastPageState){
             lastLay.setVisibility(View.VISIBLE);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             Glide.with(getActivity()).load(res)
 //                    .apply(bitmapTransform(new BlurTransformation(3, 3)))
                     .into(imageView);
