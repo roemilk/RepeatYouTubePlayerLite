@@ -139,11 +139,10 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
 
     //전면광고
     private InterstitialAd mInterstitialAd = null;
-    private boolean mShareYouTubeFlag = false;
-    private boolean mDynamicLinkFlag = false;
 
     //보상형 광고
     private RewardedVideoAd mRewardedVideoAd;
+    private boolean mRewardLoading = false;
 
     //Video
     private String mVideoId = "";
@@ -180,8 +179,10 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
         setContentView(R.layout.activity_search);
         MobileAds.initialize(this, CommonApiKey.KEY_ADMOB_APP_ID);
         initView();
-        loadBanner();
-        initRewardAd();
+        if(CommonUserData.sPremiumState == false || CommonUserData.sRemoveAllAd == false){
+            loadBanner();
+            initRewardAd();
+        }
         initRateThisApp();
         getShareIntentData(getIntent());
         initRetrofit();
@@ -625,7 +626,6 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
                 mVideoId = shareText.substring(17);
                 Log.d(TAG, "videoId : " + mVideoId);
 
-                mShareYouTubeFlag = true;
                 CommonUserData.sAdCount = 2;
             }
         }
@@ -967,8 +967,7 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
      */
     private void loadFullAd() {
         Log.d(TAG, "전면 광고 로드..");
-        boolean premium = SharedPreferencesUtils.getBoolean(this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION);
-        if (premium || CommonUserData.sRemoveAllAd) {
+        if (CommonUserData.sPremiumState || CommonUserData.sRemoveAllAd) {
             return;
         } else {
             mInterstitialAd = new InterstitialAd(this);
@@ -1010,19 +1009,6 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
         }
     }
 
-    /**
-     * 친구 공유 또는 유튜브 공유의 경우 진입하고 1초 뒤에 광고를 표시한다.
-     */
-    private void showFullAdDealy() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-//                mBannerLay.setVisibility(View.GONE);
-                showFullAd();
-            }
-        }, 1000);
-    }
-
     private AdListener adListener = new AdListener() {
         @Override
         public void onAdClosed() {
@@ -1050,13 +1036,6 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
         @Override
         public void onAdLoaded() {
             super.onAdLoaded();
-//            if (mShareYouTubeFlag) {
-//                Log.d(TAG, "유튜브 전용 로직");
-//                showFullAdDealy();
-//                mShareYouTubeFlag = false;
-//            } else if (mDynamicLinkFlag) {
-//                showFullAdDealy();
-//            }
             Log.d(TAG, "onAdLoaded...");
         }
 
@@ -1074,16 +1053,43 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
 
     //배너 광고 로드
     private void loadBanner() {
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-        mAdView.setAdListener(new AdListener() {
-            @Override
-            public void onAdFailedToLoad(int i) {
-                super.onAdFailedToLoad(i);
-                mBannerLay.setVisibility(View.GONE);
-            }
-        });
+        if(mAdView == null){
+            mAdView = findViewById(R.id.adView);
+            AdRequest adRequest = new AdRequest.Builder().build();
+            mAdView.loadAd(adRequest);
+            mAdView.setAdListener(new AdListener() {
+                @Override
+                public void onAdFailedToLoad(int i) {
+                    super.onAdFailedToLoad(i);
+                    mBannerLay.setVisibility(View.GONE);
+                    Log.d(TAG, "Banner onAdFailedToLoad...");
+                }
+
+                @Override
+                public void onAdLoaded() {
+                    super.onAdLoaded();
+                    Log.d(TAG, "Banner onAdLoaded...");
+                }
+
+                @Override
+                public void onAdImpression() {
+                    super.onAdImpression();
+                    Log.d(TAG, "Banner onAdImpression...");
+                }
+
+                @Override
+                public void onAdClicked() {
+                    super.onAdClicked();
+                    Log.d(TAG, "Banner onAdClicked...");
+                }
+
+                @Override
+                public void onAdLeftApplication() {
+                    super.onAdLeftApplication();
+                    Log.d(TAG, "Banner onAdLeftApplication...");
+                }
+            });
+        }
     }
 
     private void checkShowPremiumBanner() {
@@ -1098,108 +1104,94 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
     //보상형 광고 (광고 제거)
     private void showReward() {
         if (mRewardedVideoAd.isLoaded()) {
+            Log.d(TAG, "reward trace show success");
             mRewardedVideoAd.show();
         } else {
-            Log.d(TAG, "showReward ad not loaded..");
-            Toast.makeText(this, R.string.reward_allRemoveAd_loading, Toast.LENGTH_SHORT).show();
-            mRewardedVideoAd.loadAd(CommonApiKey.KEY_ADMOB_REWARD, new AdRequest.Builder().build());
+            if(mRewardLoading){
+                Log.d(TAG, "reward trace mRewardLoading true");
+                Log.d(TAG, "showReward ad not loaded.. plase wait retry..");
+                Toast.makeText(this, R.string.reward_allRemoveAd_loading, Toast.LENGTH_SHORT).show();
+            }else{
+                Log.d(TAG, "reward trace mRewardLoading false show fail");
+                mRewardedVideoAd.loadAd(CommonApiKey.KEY_ADMOB_REWARD, new AdRequest.Builder().build());
+                mRewardLoading = true;
+            }
         }
     }
 
     private void initRewardAd() {
-        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
-        mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
-            @Override
-            public void onRewardedVideoAdLoaded() {
-                Log.d(TAG_REWARD, "onRewardedVideoAdLoaded..");
+        if(mRewardedVideoAd == null){
+            Log.d(TAG, "initReward...");
 
-            }
+            mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
+            mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
+                @Override
+                public void onRewardedVideoAdLoaded() {
+                    Log.d(TAG_REWARD, "onRewardedVideoAdLoaded..");
+                    mRewardLoading = false;
+                }
 
-            @Override
-            public void onRewardedVideoAdOpened() {
-                Log.d(TAG_REWARD, "onRewardedVideoAdOpened..");
+                @Override
+                public void onRewardedVideoAdOpened() {
+                    Log.d(TAG_REWARD, "onRewardedVideoAdOpened..");
 
-            }
+                }
 
-            @Override
-            public void onRewardedVideoStarted() {
-                Log.d(TAG_REWARD, "onRewardedVideoStarted..");
+                @Override
+                public void onRewardedVideoStarted() {
+                    Log.d(TAG_REWARD, "onRewardedVideoStarted..");
 
-            }
+                }
 
-            @Override
-            public void onRewardedVideoAdClosed() {
-                Log.d(TAG_REWARD, "onRewardedVideoAdClosed..");
-                if (!CommonUserData.sRemoveAllAd) {
-                    LogUtils.logEvent(SearchActivity.this, "AllRemoveAd Close", null);
-                    Toast.makeText(SearchActivity.this, getString(R.string.reward_allRemoveAd_close), Toast.LENGTH_SHORT).show();
-                    if (!mRewardedVideoAd.isLoaded()) {
+                @Override
+                public void onRewardedVideoAdClosed() {
+                    Log.d(TAG_REWARD, "onRewardedVideoAdClosed..");
+                    if (!CommonUserData.sRemoveAllAd) {
+                        LogUtils.logEvent(SearchActivity.this, "AllRemoveAd Close", null);
+                        Toast.makeText(SearchActivity.this, getString(R.string.reward_allRemoveAd_close), Toast.LENGTH_SHORT).show();
+
                         mRewardedVideoAd.loadAd(CommonApiKey.KEY_ADMOB_REWARD, new AdRequest.Builder().build());
+                        mRewardLoading = true;
                     }
                 }
-            }
 
-            @Override
-            public void onRewarded(RewardItem rewardItem) {
-                Log.d(TAG_REWARD, "onRewarded..");
-                LogUtils.logEvent(SearchActivity.this, "AllRemoveAd onRewarded", null);
-                mSnackBar.dismiss();
-                Toast.makeText(SearchActivity.this, getString(R.string.reward_allRemoveAd_success), Toast.LENGTH_SHORT).show();
-                CommonUserData.sRemoveAllAd = true;
-                mBannerLay.setVisibility(View.GONE);
-                TimerSington.getCountDownTimerInstance().startTimer(40, new CountDownTimer.OnCountDownTimerCallbackListener() {
-                    @Override
-                    public void onTimerEnd() {
-                        if (mSnackBar != null) {
-                            showRewardSnackBar();
+                @Override
+                public void onRewarded(RewardItem rewardItem) {
+                    Log.d(TAG_REWARD, "onRewarded..");
+                    LogUtils.logEvent(SearchActivity.this, "AllRemoveAd onRewarded", null);
+                    mSnackBar.dismiss();
+                    Toast.makeText(SearchActivity.this, getString(R.string.reward_allRemoveAd_success), Toast.LENGTH_SHORT).show();
+                    CommonUserData.sRemoveAllAd = true;
+                    mBannerLay.setVisibility(View.GONE);
+                    TimerSington.getCountDownTimerInstance().startTimer(CountDownTimer.MAX_COUNT, new CountDownTimer.OnCountDownTimerCallbackListener() {
+                        @Override
+                        public void onTimerEnd() {
+                            if (mSnackBar != null) {
+                                showRewardSnackBar();
+                            }
                         }
-                    }
-                });
-                mRewardedVideoAd.loadAd(CommonApiKey.KEY_ADMOB_REWARD, new AdRequest.Builder().build());
-            }
+                    });
+                }
 
-            @Override
-            public void onRewardedVideoAdLeftApplication() {
-                Log.d(TAG_REWARD, "onRewardedVideoAdLeftApplication..");
+                @Override
+                public void onRewardedVideoAdLeftApplication() {
+                    Log.d(TAG_REWARD, "onRewardedVideoAdLeftApplication..");
 
-            }
+                }
 
-            @Override
-            public void onRewardedVideoAdFailedToLoad(int i) {
-                Log.d(TAG_REWARD, "onRewardedVideoAdClosed..");
-                LogUtils.logEvent(SearchActivity.this, "AllRemoveAd Failed", null);
-                mRewardedVideoAd.loadAd(CommonApiKey.KEY_ADMOB_REWARD, new AdRequest.Builder().build());
+                @Override
+                public void onRewardedVideoAdFailedToLoad(int i) {
+                    Log.d(TAG_REWARD, "onRewardedVideoAdClosed..");
+                    LogUtils.logEvent(SearchActivity.this, "AllRemoveAd Failed", null);
+                }
 
-            }
+                @Override
+                public void onRewardedVideoCompleted() {
+                    Log.d(TAG_REWARD, "onRewardedVideoCompleted..");
 
-            @Override
-            public void onRewardedVideoCompleted() {
-                Log.d(TAG_REWARD, "onRewardedVideoCompleted..");
-
-            }
-        });
-        mRewardedVideoAd.loadAd(CommonApiKey.KEY_ADMOB_REWARD, new AdRequest.Builder().build());
+                }
+            });
+            mRewardedVideoAd.loadAd(CommonApiKey.KEY_ADMOB_REWARD, new AdRequest.Builder().build());
+        }
     }
-
-//    //인앱
-//    private void initQueryBilling() {
-//        mBillingManager = new BillingManager(this);
-//        mBillingManager.setOnQueryInventoryItemListener(new BillingManager.OnQueryInventoryItemListener() {
-//            @Override
-//            public void onPremiumVersionUser() {
-//                CommonUserData.sPremiumState = true;
-//                SharedPreferencesUtils.setBoolean(SearchActivity.this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION, true);
-////                checkShowPremiumBanner();
-//            }
-//
-//            @Override
-//            public void onFreeVersionUser() {
-//                CommonUserData.sPremiumState = false;
-//                SharedPreferencesUtils.setBoolean(SearchActivity.this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION, false);
-////                checkShowPremiumBanner();
-////                loadBanner();
-//            }
-//        });
-//        mBillingManager.initBillingQueryInventoryItem();
-//    }
 }

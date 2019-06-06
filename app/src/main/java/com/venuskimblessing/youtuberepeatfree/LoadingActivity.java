@@ -19,6 +19,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonApiKey;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonUserData;
 import com.venuskimblessing.youtuberepeatfree.FirebaseUtils.LogUtils;
+import com.venuskimblessing.youtuberepeatfree.Utils.SoftKeybordManager;
 import com.wang.avi.AVLoadingIndicatorView;
 
 public class LoadingActivity extends AppCompatActivity implements RewardedVideoAdListener {
@@ -29,15 +30,16 @@ public class LoadingActivity extends AppCompatActivity implements RewardedVideoA
     public static final String TYPE_REWARD_AD = "reward_ad";
 
     //보상형광고
-    private int MAX_FAILED_COUNT = 3;
     private RewardedVideoAd mRewardedVideoAd;
-    private int mFailedRewardCount = 0;
 
     //전면광고
     private InterstitialAd mInterstitialAd = null;
 
     private LinearLayout mLoadingLay;
     private AVLoadingIndicatorView mLoadingIndicator;
+
+    //SoftKeyboard
+    private SoftKeybordManager mSoftKeybordManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,11 +52,25 @@ public class LoadingActivity extends AppCompatActivity implements RewardedVideoA
         mLoadingIndicator = (AVLoadingIndicatorView) findViewById(R.id.loading_pacman_indicator);
         mLoadingIndicator.show();
 
-        if(type.equals(TYPE_FULL_AD)){
+        if (type.equals(TYPE_FULL_AD)) {
             loadFullAd();
-        }else if(type.equals(TYPE_REWARD_AD)){
+        } else if (type.equals(TYPE_REWARD_AD)) {
             initRewardAd();
             loadRewardAd();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            mSoftKeybordManager = new SoftKeybordManager(getWindow());
+            mSoftKeybordManager.hideSystemUI();
         }
     }
 
@@ -63,12 +79,12 @@ public class LoadingActivity extends AppCompatActivity implements RewardedVideoA
         super.onResume();
     }
 
-    private void initRewardAd(){
+    private void initRewardAd() {
         mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
         mRewardedVideoAd.setRewardedVideoAdListener(this);
     }
 
-    private void loadRewardAd(){
+    private void loadRewardAd() {
         mRewardedVideoAd.loadAd(CommonApiKey.KEY_ADMOB_REWARD, new AdRequest.Builder().build());
     }
 
@@ -132,7 +148,7 @@ public class LoadingActivity extends AppCompatActivity implements RewardedVideoA
         }
     };
 
-    private void finishActivity(){
+    private void finishActivity() {
         setResult(RESULT_OK);
         finish();
     }
@@ -141,7 +157,7 @@ public class LoadingActivity extends AppCompatActivity implements RewardedVideoA
     @Override
     public void onRewardedVideoAdLoaded() {
         Log.d(TAG, "onRewardedVideoAdLoaded...");
-        if(mRewardedVideoAd.isLoaded()){
+        if (mRewardedVideoAd.isLoaded()) {
             mRewardedVideoAd.show();
         }
     }

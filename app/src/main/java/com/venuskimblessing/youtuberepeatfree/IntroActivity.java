@@ -71,6 +71,11 @@ public class IntroActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+    }
+
+    @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
@@ -97,11 +102,6 @@ public class IntroActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-    }
-
-    @Override
-    public void onBackPressed() {
-//        super.onBackPressed();
     }
 
     /**
@@ -181,6 +181,7 @@ public class IntroActivity extends AppCompatActivity {
      */
     private void setConfig() {
         CommonConfig.sConfigRewardRemoveAllAdSate = mFirebaseRemoteConfig.getBoolean(CommonConfig.KEY_REWARD_REMOVEALLAD);
+//        CommonConfig.sConfigRewardRemoveAllAdSate = true; //테스트 코드
         CommonConfig.sConfigFacebookShareState = mFirebaseRemoteConfig.getBoolean(CommonConfig.KEY_FACEBOOK_SHARE);
 
         Log.d(TAG, "reward_ad : " + CommonConfig.sConfigRewardRemoveAllAdSate);

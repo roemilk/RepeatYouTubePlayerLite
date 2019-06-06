@@ -9,8 +9,9 @@ import java.util.TimerTask;
 
 public class CountDownTimer {
     private static final String TAG = "CountDownTimer";
+    public static final int MAX_COUNT = 7200; //2시간
 
-    public static int mMaxCount = 7200;
+    public int mCount = 0;
     private Timer mTimer = null;
     private TimerTask mTimerTask = null;
 
@@ -24,7 +25,7 @@ public class CountDownTimer {
 
     public void startTimer(int maxCount, OnCountDownTimerCallbackListener listener){
         this.mListener = listener;
-        mMaxCount = maxCount;
+        mCount = maxCount;
         if(mTimer != null){
             return;
         }
@@ -32,12 +33,12 @@ public class CountDownTimer {
         mTimerTask = new TimerTask() {
             @Override
             public void run() {
-                Log.d(TAG, "count : " + mMaxCount);
-                if(mMaxCount <= 0){
+                Log.d(TAG, "count : " + mCount);
+                if(mCount <= 0){
                     CommonUserData.sRemoveAllAd = false;
                     mTimerTask.cancel();
                     mTimer.cancel();
-                    mMaxCount = 0;
+                    mCount = 0;
                     mTimer = null;
                     mTimerTask = null;
 
@@ -45,7 +46,7 @@ public class CountDownTimer {
                         mListener.onTimerEnd();
                     }
                 }else{
-                    mMaxCount--;
+                    mCount--;
                 }
             }
         };
