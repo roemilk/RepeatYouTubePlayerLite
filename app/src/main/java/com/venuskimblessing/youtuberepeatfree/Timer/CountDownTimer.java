@@ -33,7 +33,7 @@ public class CountDownTimer {
         mTimerTask = new TimerTask() {
             @Override
             public void run() {
-                Log.d(TAG, "count : " + mCount);
+//                Log.d(TAG, "count : " + mCount);
                 if(mCount <= 0){
                     CommonUserData.sRemoveAllAd = false;
                     mTimerTask.cancel();

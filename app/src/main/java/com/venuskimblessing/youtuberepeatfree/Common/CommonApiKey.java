@@ -13,6 +13,6 @@ public class CommonApiKey {
     //릴리즈용 ID
     public static final String KEY_ADMOB_APP_ID = "ca-app-pub-8974353837020608~7336436218"; //앱ID
     public static final String KEY_ADMOB_FULL_UNIT = "ca-app-pub-8974353837020608/6514432847"; //전면광고 단위ID
-    public static final String KEY_ADMOB_REWARD = "ca-app-pub-8974353837020608/3796793211"; //리워드 단위ID
+    public static final String KEY_ADMOB_REWARD = "ca-app-pub-8974353837020608/1558787896"; //리워드 단위ID
     public static final String KEY_ADMOB_BANNER = "ca-app-pub-8974353837020608/4724298867";//배너 단위ID
 }

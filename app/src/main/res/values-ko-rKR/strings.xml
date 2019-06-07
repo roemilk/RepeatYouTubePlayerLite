@@ -207,6 +207,12 @@
     <string name="reward_allRemoveAd_upgrade">업그레이드</string>
     <string name="reward_allRemoveAd_remove">제거하기</string>
 
+
+    <!-- update alert dialog -->
+    <string name="update_alert_yes">업데이트</string>
+    <string name="update_alert_cancel">취소</string>
+    <string name="update_alert_message">최신 버전이 업데이트되었습니다.\n지금 바로 업데이트 할까용?</string>
+
     <!-- 페이스북 디벨로퍼 AppId -->
     <string name="facebook_app_id">2346907598897007</string>
 </resources>

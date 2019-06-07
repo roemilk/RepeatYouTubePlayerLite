@@ -14,6 +14,9 @@ import java.util.Locale;
 public class OSUtils {
     public static final String TAG = "OSUtils";
 
+    public static final String LANGUAGE_EN = "en";
+    public static final String LANGUAGE_KR = "ko";
+
     /**
      * 패키지 정보를 반환합니다.
      *

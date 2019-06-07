@@ -208,5 +208,10 @@ It is your very smart choice.\n\nPRO benefits\n
     <string name="reward_allRemoveAd_upgrade">Upgrade</string>
     <string name="reward_allRemoveAd_remove">Remove</string>
 
+    <!-- update alert dialog -->
+    <string name="update_alert_yes">UPDATE</string>
+    <string name="update_alert_cancel">CANCEL</string>
+    <string name="update_alert_message">The latest version has been updated.\nDo you want to update now?</string>
+
     <string name="facebook_app_id">2346907598897007</string>
 </resources>

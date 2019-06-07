@@ -29,11 +29,8 @@ public class DynamicLinkManager {
     private final String TAG = "DynamicLinkManager";
 
     private static final String DOMAIN_MAIN = "https://www.youtube.com/watch?v=";
-    private static final String LANGUAGE_EN = "en";
-    private static final String LANGUAGE_KR = "ko";
     private static final String DOMAIN_MAIN_KR = "http://blessingvenus.com/link_kr.php?";
     private static final String DOMAIN_MAIN_EN = "http://blessingvenus.com/link_en.php?";
-
 
     private Activity mActivity;
     private LoadingIndicator mLoadingIndicator;

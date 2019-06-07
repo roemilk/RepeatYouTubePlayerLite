@@ -1,23 +1,25 @@
 package com.venuskimblessing.youtuberepeatfree;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.facebook.ads.AudienceNetworkAds;
 import com.facebook.common.Common;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -33,6 +35,7 @@ import com.venuskimblessing.youtuberepeatfree.Common.CommonConfig;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonSharedPreferencesKey;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonUserData;
 import com.venuskimblessing.youtuberepeatfree.FirebaseUtils.LogUtils;
+import com.venuskimblessing.youtuberepeatfree.Utils.OSUtils;
 import com.venuskimblessing.youtuberepeatfree.Utils.SharedPreferencesUtils;
 import com.venuskimblessing.youtuberepeatfree.Utils.SoftKeybordManager;
 
@@ -67,7 +70,6 @@ public class IntroActivity extends AppCompatActivity {
         mLineTextView = (FadeTextView) findViewById(R.id.intro_textView);
         initRemoteConfig();
         fetch();
-        initQueryBilling();
     }
 
     @Override
@@ -160,9 +162,11 @@ public class IntroActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<Boolean>() {
                     @Override
                     public void onComplete(@NonNull Task<Boolean> task) {
+                        Log.d(TAG, "remoteconfig onComplete...");
+
                         if (task.isSuccessful()) {
                             boolean updated = task.getResult();
-                            Log.d(TAG, "Config params updated: " + updated);
+                            Log.d(TAG, "Fetch and activate succeeded: " + updated);
 //                            Toast.makeText(IntroActivity.this, "Fetch and activate succeeded",
 //                                    Toast.LENGTH_SHORT).show();
 
@@ -174,6 +178,12 @@ public class IntroActivity extends AppCompatActivity {
                         setConfig();
                     }
                 });
+//        mFirebaseRemoteConfig.fetchAndActivate().addOnFailureListener(this, new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Log.d(TAG, "remoteconfig onFailure...");
+//            }
+//        });
     }
 
     /**
@@ -183,9 +193,14 @@ public class IntroActivity extends AppCompatActivity {
         CommonConfig.sConfigRewardRemoveAllAdSate = mFirebaseRemoteConfig.getBoolean(CommonConfig.KEY_REWARD_REMOVEALLAD);
 //        CommonConfig.sConfigRewardRemoveAllAdSate = true; //테스트 코드
         CommonConfig.sConfigFacebookShareState = mFirebaseRemoteConfig.getBoolean(CommonConfig.KEY_FACEBOOK_SHARE);
+        String requiredversionCode = mFirebaseRemoteConfig.getString(CommonConfig.KEY_REQUIRED_VERSION);
+        CommonConfig.sConfigRequiredVersionCode = Integer.valueOf(requiredversionCode);
 
-        Log.d(TAG, "reward_ad : " + CommonConfig.sConfigRewardRemoveAllAdSate);
-        Log.d(TAG, "facebook share : " + CommonConfig.sConfigFacebookShareState);
+        Log.d(TAG, "remoteconfig reward_ad : " + CommonConfig.sConfigRewardRemoveAllAdSate);
+        Log.d(TAG, "remoteconfig facebook share : " + CommonConfig.sConfigFacebookShareState);
+        Log.d(TAG, "remoteconfig required version : " + CommonConfig.sConfigRequiredVersionCode);
+
+        checkRequierdVersion();
     }
 
     private void getFCMToken() {
@@ -236,9 +251,9 @@ public class IntroActivity extends AppCompatActivity {
         mLineTextView.setAnimationListener(new AnimationListener() {
             @Override
             public void onAnimationEnd(HTextView hTextView) {
-                if(CommonUserData.sPremiumState){
+                if (CommonUserData.sPremiumState) {
                     startActivity();
-                }else{
+                } else {
                     loadFullAd();
                 }
             }
@@ -333,4 +348,42 @@ public class IntroActivity extends AppCompatActivity {
             super.onAdImpression();
         }
     };
+
+    private void checkRequierdVersion() {
+        int installVersionCode = BuildConfig.VERSION_CODE;
+        Log.d(TAG, "install version code : " + installVersionCode);
+
+        if(CommonConfig.sConfigRequiredVersionCode == 0){
+            initQueryBilling();
+            return;
+        }
+
+        if (installVersionCode < CommonConfig.sConfigRequiredVersionCode) {
+            showUpdateAlertDialog();
+        } else {
+            initQueryBilling();
+        }
+    }
+
+    private void showUpdateAlertDialog() {
+        AlertDialog.Builder updateAlert = new AlertDialog.Builder(this);
+        updateAlert.setPositiveButton(getString(R.string.update_alert_yes), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("market://details?id=" + getPackageName()));
+                startActivity(intent);
+                finish();
+            }
+        });
+        updateAlert.setNegativeButton(getString(R.string.update_alert_cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                initQueryBilling();
+            }
+        });
+        updateAlert.setMessage(getString(R.string.update_alert_message));
+        updateAlert.show();
+    }
 }
