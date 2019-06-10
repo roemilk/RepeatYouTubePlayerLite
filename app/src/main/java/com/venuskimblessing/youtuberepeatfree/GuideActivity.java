@@ -35,10 +35,17 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
     //SoftKeyboard
     private SoftKeybordManager mSoftKeybordManager;
 
+    private String mVideId = null;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
+
+        Intent intent = getIntent();
+        if(intent != null){
+            mVideId = intent.getStringExtra("youtube");
+        }
 
         Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.CONTENT, "PlayerActivity");
@@ -140,6 +147,11 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
             public void run() {
                 Intent intent = new Intent(GuideActivity.this, SearchActivity.class);
                 SharedPreferencesUtils.setBoolean(GuideActivity.this, CommonSharedPreferencesKey.KEY_GUIDE, true);
+                if(mVideId != null){
+                    if(!mVideId.equals("")){
+                        intent.putExtra("youtube", mVideId);
+                    }
+                }
                 startActivity(intent);
                 finish();
             }

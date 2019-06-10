@@ -62,7 +62,7 @@
     <string name="error_network">Sorry. A network error occurred.\nplease try again..</string>
 
     <!-- ad loading -->
-    <string name="loading_pacman_text">Please wait ...</string>
+    <string name="loading_pacman_text">Loading...\nPlease wait...</string>
 
     <!-- buy dialog -->
     <string name="dialog_buy_title">YouTube Repeat Player PRO</string>
@@ -183,7 +183,7 @@ It is your very smart choice.\n\nPRO benefits\n
     <string name="premium_text2">Unlimited use of all the premium features is available.</string>
     <string name="premium_text3">Limitation of numbers is unlocked to add in the playlist</string>
     <string name="premium_text4">Powerful premium features are endlessly added.</string>
-    <string name="premium_text5">Premium upgrade is\nyour smart choice. \n\nThere will be a god blessing to those who purchase..\ni love you</string>
+    <string name="premium_text5">Premium upgrade is\nyour smart choice. \n\nThere will be a god blessing to those who purchase.</string>
     <string name="premium_upgrade">Premium upgrade</string>
 
     <!-- buy result message -->

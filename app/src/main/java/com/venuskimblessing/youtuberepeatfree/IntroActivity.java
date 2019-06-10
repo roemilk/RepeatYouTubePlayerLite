@@ -50,7 +50,6 @@ public class IntroActivity extends AppCompatActivity {
     private final String EVENT_INVITATION_INSTALL = "InvitationUser";
 
     private FadeTextView mLineTextView = null;
-    private String mPlayId = null;
 
     //RemoteConfig
     FirebaseRemoteConfig mFirebaseRemoteConfig;
@@ -63,10 +62,19 @@ public class IntroActivity extends AppCompatActivity {
 
     private InterstitialAd mInterstitialAd = null;
 
+    //TYPE
+    private final String TYPE_MIME = "text/plain";
+    //Video
+    private String mVideoId = null;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
+        Intent intent = getIntent();
+        if(intent != null){
+            getShareIntentData(intent);
+        }
         mLineTextView = (FadeTextView) findViewById(R.id.intro_textView);
         initRemoteConfig();
         fetch();
@@ -94,6 +102,7 @@ public class IntroActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d(TAG, "onResume...");
     }
 
     @Override
@@ -117,9 +126,9 @@ public class IntroActivity extends AppCompatActivity {
         } else {
             intent = new Intent(IntroActivity.this, GuideActivity.class);
         }
-//        if(mPlayId != null){
-//            intent.putExtra("videoId", mPlayId);
-//        }
+        if(mVideoId != null){
+            intent.putExtra("youtube", mVideoId);
+        }
         startActivity(intent);
         finish();
     }
@@ -385,5 +394,25 @@ public class IntroActivity extends AppCompatActivity {
         });
         updateAlert.setMessage(getString(R.string.update_alert_message));
         updateAlert.show();
+    }
+
+    /**
+     * 유튜브로 부터 공유 메타데이터 수신
+     */
+    private void getShareIntentData(Intent intent) {
+        Log.d(TAG, "유튜브 공유로부터 비디오 메타 데이터를 넘겨받습니다.");
+
+        String action = intent.getAction();
+        String type = intent.getType();
+
+        if (Intent.ACTION_SEND.equals(action) && type != null) {
+            if (TYPE_MIME.equals(type)) {
+                String shareText = intent.getStringExtra(Intent.EXTRA_TEXT);
+                Log.d(TAG, "ShareText : " + shareText);
+
+                mVideoId = shareText.substring(17);
+                Log.d(TAG, "videoId : " + mVideoId);
+            }
+        }
     }
 }

@@ -5,12 +5,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -145,7 +143,7 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
     private boolean mRewardLoading = false;
 
     //Video
-    private String mVideoId = "";
+    private String mVideoId = null;
 
     //PlayList
     private DialogPlayList mDialogPlayList = null;
@@ -179,14 +177,14 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
         setContentView(R.layout.activity_search);
         MobileAds.initialize(this, CommonApiKey.KEY_ADMOB_APP_ID);
         initView();
-        if(CommonUserData.sPremiumState == false || CommonUserData.sRemoveAllAd == false){
+        if (CommonUserData.sPremiumState == false || CommonUserData.sRemoveAllAd == false) {
             loadBanner();
             initRewardAd();
         }
         initRateThisApp();
-        getShareIntentData(getIntent());
         initRetrofit();
         loadPopularContentsList();
+        startPlayYouTubeShare(getIntent());
     }
 
     private void initView() {
@@ -606,30 +604,30 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         Log.d(TAG, "onNewIntent");
-        getShareIntentData(intent);
+//        getShareIntentData(intent);
     }
 
-    /**
-     * 유튜브로 부터 공유 메타데이터 수신
-     */
-    private void getShareIntentData(Intent intent) {
-        Log.d(TAG, "유튜브 공유로부터 비디오 메타 데이터를 넘겨받습니다.");
-
-        String action = intent.getAction();
-        String type = intent.getType();
-
-        if (Intent.ACTION_SEND.equals(action) && type != null) {
-            if (TYPE_MIME.equals(type)) {
-                String shareText = intent.getStringExtra(Intent.EXTRA_TEXT);
-                Log.d(TAG, "ShareText : " + shareText);
-
-                mVideoId = shareText.substring(17);
-                Log.d(TAG, "videoId : " + mVideoId);
-
-                CommonUserData.sAdCount = 2;
-            }
-        }
-    }
+//    /**
+//     * 유튜브로 부터 공유 메타데이터 수신
+//     */
+//    private void getShareIntentData(Intent intent) {
+//        Log.d(TAG, "유튜브 공유로부터 비디오 메타 데이터를 넘겨받습니다.");
+//
+//        String action = intent.getAction();
+//        String type = intent.getType();
+//
+//        if (Intent.ACTION_SEND.equals(action) && type != null) {
+//            if (TYPE_MIME.equals(type)) {
+//                String shareText = intent.getStringExtra(Intent.EXTRA_TEXT);
+//                Log.d(TAG, "ShareText : " + shareText);
+//
+//                mVideoId = shareText.substring(17);
+//                Log.d(TAG, "videoId : " + mVideoId);
+//
+//                CommonUserData.sAdCount = 2;
+//            }
+//        }
+//    }
 
     /**
      * 초대를 보냅니다. Deprecated...
@@ -960,39 +958,43 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
         dialogEnding.show();
     }
 
-    //전면 광고
-
-    /**
-     * 전면 광고 노출
-     */
+    //전면 광고 불러오기
     private void loadFullAd() {
         Log.d(TAG, "전면 광고 로드..");
-        if (CommonUserData.sPremiumState || CommonUserData.sRemoveAllAd) {
-            return;
-        } else {
+        if (checkLoadFullAd()) {
             mInterstitialAd = new InterstitialAd(this);
             mInterstitialAd.setAdUnitId(CommonApiKey.KEY_ADMOB_FULL_UNIT);
             mInterstitialAd.setAdListener(adListener);
             mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        } else {
+            return;
         }
     }
 
-    private void checkShowFullAd() {
+    private boolean checkLoadFullAd() {
         CommonUserData.sPremiumState = SharedPreferencesUtils.getBoolean(this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION);
         if (CommonUserData.sPremiumState || CommonUserData.sRemoveAllAd) {
             Log.d(TAG, "not show full ad... premium");
-            startPlayerActivity(mVideoId);
+            return false;
         } else {
             int adCount = CommonUserData.sAdCount;
             int delayCount = CommonUserData.AD_DEALY_COUNT;
             if (adCount >= delayCount) {
-                Log.d(TAG, "show full ad...");
-                showFullAd();
+                return true;
             } else {
-                Log.d(TAG, "not show full ad...");
-                startPlayerActivity(mVideoId);
+                return false;
             }
-            CommonUserData.sAdCount++;
+        }
+    }
+
+    private void checkShowFullAd() {
+        if (checkLoadFullAd()) {
+            showFullAd();
+        } else {
+            startPlayerActivity(mVideoId);
+            if (CommonUserData.sPremiumState != true && CommonUserData.sRemoveAllAd != true) {
+                CommonUserData.sAdCount++;
+            }
         }
     }
 
@@ -1053,7 +1055,7 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
 
     //배너 광고 로드
     private void loadBanner() {
-        if(mAdView == null){
+        if (mAdView == null) {
             mAdView = findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().build();
             mAdView.loadAd(adRequest);
@@ -1107,11 +1109,11 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
             Log.d(TAG, "reward trace show success");
             mRewardedVideoAd.show();
         } else {
-            if(mRewardLoading){
+            if (mRewardLoading) {
                 Log.d(TAG, "reward trace mRewardLoading true");
                 Log.d(TAG, "showReward ad not loaded.. plase wait retry..");
                 Toast.makeText(this, R.string.reward_allRemoveAd_loading, Toast.LENGTH_SHORT).show();
-            }else{
+            } else {
                 Log.d(TAG, "reward trace mRewardLoading false show fail");
                 mRewardedVideoAd.loadAd(CommonApiKey.KEY_ADMOB_REWARD, new AdRequest.Builder().build());
                 mRewardLoading = true;
@@ -1119,8 +1121,22 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
         }
     }
 
+    private void startPlayYouTubeShare(Intent intent) {
+        Log.d(TAG, "startPlayYouTubeShare..");
+        if (intent != null) {
+            mVideoId = intent.getStringExtra("youtube");
+            if(mVideoId != null){
+                if(!mVideoId.equals("")){
+                    startPlayerActivity(mVideoId);
+                }
+            }
+        } else {
+            return;
+        }
+    }
+
     private void initRewardAd() {
-        if(mRewardedVideoAd == null){
+        if (mRewardedVideoAd == null) {
             Log.d(TAG, "initReward...");
 
             mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);

@@ -27,6 +27,12 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEND"></action>
+                <category android:name="android.intent.category.DEFAULT"></category>
+                <data android:mimeType="text/plain"></data>
+            </intent-filter>
         </activity>
 
         <activity
@@ -43,12 +49,6 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden">
-
-            <intent-filter>
-                <action android:name="android.intent.action.SEND"></action>
-                <category android:name="android.intent.category.DEFAULT"></category>
-                <data android:mimeType="text/plain"></data>
-            </intent-filter>
         </activity>
 
         <activity
