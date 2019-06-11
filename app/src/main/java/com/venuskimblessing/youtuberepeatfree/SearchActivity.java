@@ -215,29 +215,25 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
 
                 mOverallXScroll = mOverallXScroll + dy;
 //                Log.d(TAG, "scroll position : " + mOverallXScroll);
-
-                if (CommonConfig.sConfigRewardRemoveAllAdSate) { //SnackBar는 Remote Config의 설정이 true일때만 노출된다.
-                    if (CommonUserData.sPremiumState == false) {
-                        if (mOverallXScroll <= 0) {
-                            if (mSnackBar != null) {
-                                mSnackBar.dismiss();
+                if (CommonUserData.sPremiumState == false) {
+                    if (mOverallXScroll <= 0) {
+                        if (mSnackBar != null) {
+                            mSnackBar.dismiss();
+                        }
+                    } else {
+                        if (mSnackBar != null) {
+                            if (!mSnackBar.isShown()) {
+                                if (CommonUserData.sRemoveAllAd) {
+                                    showCountTimeSnackBar();
+                                } else {
+                                    showSnackBar();
+                                }
                             }
                         } else {
-                            if (mSnackBar != null) {
-                                if (!mSnackBar.isShown()) {
-                                    if (CommonUserData.sRemoveAllAd) {
-                                        showCountTimeSnackBar();
-                                    } else {
-                                        showRewardSnackBar();
-                                    }
-                                }
-                            } else {
-                                showRewardSnackBar();
-                            }
+                            showSnackBar();
                         }
                     }
                 }
-
                 int lastVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
                 int itemTotalCount = recyclerView.getAdapter().getItemCount() - 6;
                 if (lastVisibleItemPosition == itemTotalCount) {
@@ -273,12 +269,32 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
         mSnackBar.show();
     }
 
+    private void showSnackBar() {
+        if (CommonConfig.sConfigRewardRemoveAllAdSate) {
+            showRewardSnackBar();
+        } else {
+            showBuyPremiumSnackBar();
+        }
+    }
+
     private void showRewardSnackBar() {
         mSnackBar = Snackbar.make(mSnackBarLay, getString(R.string.reward_allRemoveAd_hint), Snackbar.LENGTH_INDEFINITE);
         mSnackBar.setAction(getString(R.string.reward_allRemoveAd_remove), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showReward();
+            }
+        });
+        mSnackBar.show();
+    }
+
+    private void showBuyPremiumSnackBar() {
+        mSnackBar = Snackbar.make(mSnackBarLay, getString(R.string.snack_premium_hint), Snackbar.LENGTH_INDEFINITE);
+        mSnackBar.setAction(getString(R.string.snack_premium_details), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SearchActivity.this, BuyPremiumActivity.class);
+                startActivity(intent);
             }
         });
         mSnackBar.show();
@@ -604,7 +620,7 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         Log.d(TAG, "onNewIntent");
-//        getShareIntentData(intent);
+        startPlayYouTubeShare(intent);
     }
 
 //    /**
@@ -1125,8 +1141,8 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
         Log.d(TAG, "startPlayYouTubeShare..");
         if (intent != null) {
             mVideoId = intent.getStringExtra("youtube");
-            if(mVideoId != null){
-                if(!mVideoId.equals("")){
+            if (mVideoId != null) {
+                if (!mVideoId.equals("")) {
                     startPlayerActivity(mVideoId);
                 }
             }

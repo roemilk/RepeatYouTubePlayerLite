@@ -173,14 +173,12 @@ It is your very smart choice.\n\nPRO benefits \n
     <string name="required_playlist_feature">This feature is available to play a video from the playlist.</string>
 
     <!-- premium message -->
-    <string name="premium_title">Premium Benefits</string>
-    <string name="premium_coffe">A cheaper price than a cup of coffee!</string>
-    <string name="premium_text">Pleasant user environment without any ads</string>
-    <string name="premium_text2">Unlimited use of all the premium features is available.</string>
-    <string name="premium_text3">Limitation of numbers is unlocked to add in the playlist</string>
-    <string name="premium_text4">Powerful premium features are endlessly added.</string>
-    <string name="premium_text5">Premium upgrade is\nyour smart choice. \n\nThere will be a god blessing to those who purchase.</string>
-    <string name="premium_upgrade">Premium upgrade</string>
+    <string name="premium_title">Premium benefits</string>
+    <string name="premium_text">Remove all ads</string>
+    <string name="premium_text2">Unlimited use of all features</string>
+    <string name="premium_text3">Unlimited the number of playlist registrations</string>
+    <string name="premium_text4">Continued new premium-only feature updates</string>
+    <string name="premium_upgrade">7day free trial</string>
 
     <!-- buy result message -->
     <string name="buy_success">Congratulations!\n\nNow upgraded to the premium version.</string>
@@ -201,8 +199,12 @@ It is your very smart choice.\n\nPRO benefits \n
     <string name="reward_allRemoveAd_loading">Ad loading.\nPlease try again later.</string>
     <string name="reward_allRemoveAd_close">When you watch your ad video to the end, all ads will be removed.</string>
     <string name="reward_allRemoveAd_alreay">Ad is not visible for 2 hours.</string>
-    <string name="reward_allRemoveAd_upgrade">Upgrade</string>
+    <string name="reward_allRemoveAd_upgrade">Premium</string>
     <string name="reward_allRemoveAd_remove">Remove</string>
+
+    <!-- buy premium -->
+    <string name="snack_premium_hint">Premium 7day free trial</string>
+    <string name="snack_premium_details">Details</string>
 
     <!-- update alert dialog -->
     <string name="update_alert_yes">UPDATE</string>

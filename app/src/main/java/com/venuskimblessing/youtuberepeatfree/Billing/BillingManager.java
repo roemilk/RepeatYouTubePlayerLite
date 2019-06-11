@@ -23,6 +23,7 @@ import java.util.List;
 public class BillingManager implements PurchasesUpdatedListener {
     private final String TAG = "BillingManager";
     public static final String SKU_PREMIUM = "premium_version";
+    public static final String SKU_PREMIUM_SUB = "premium_sub";
 
     private Activity mActivity = null;
     private BillingClient mBillingClient = null;
@@ -82,14 +83,16 @@ public class BillingManager implements PurchasesUpdatedListener {
         Log.d(TAG, "queryInappProductDetails...");
 
         List<String> skuList = new ArrayList<String>();
-        skuList.add("premium_version");
+        skuList.add(SKU_PREMIUM_SUB);
         SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
-        params.setSkusList(skuList).setType(BillingClient.SkuType.INAPP);
+        params.setSkusList(skuList).setType(BillingClient.SkuType.SUBS);
         mBillingClient.querySkuDetailsAsync(params.build(), new SkuDetailsResponseListener() {
             @Override
             public void onSkuDetailsResponse(BillingResult billingResult, List<SkuDetails> skuDetailsList) {
                 if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK && skuDetailsList != null) {
                     for (SkuDetails details : skuDetailsList) {
+                        Log.d(TAG, "skudetail : " + details.getSku());
+
                         mSkuDetails = details;
                         CommonInApp.sPremiumPrice = mSkuDetails.getPrice();
                         CommonInApp.sPremiumOriginPrice = mSkuDetails.getOriginalPrice();
@@ -113,11 +116,12 @@ public class BillingManager implements PurchasesUpdatedListener {
      * 보유한 아이템 조회
      */
     public void queryInventoryPurchases() {
-        Purchase.PurchasesResult purchasesResult = mBillingClient.queryPurchases(BillingClient.SkuType.INAPP);
+        Purchase.PurchasesResult purchasesResult = mBillingClient.queryPurchases(BillingClient.SkuType.SUBS);
         List<Purchase> purchaseList = purchasesResult.getPurchasesList();
         for (Purchase purchase : purchaseList) {
-            if(purchase.getSku().equals(SKU_PREMIUM)){
+            if(purchase.getSku().equals(SKU_PREMIUM_SUB)){
                 mPurchase = purchase;
+                Log.d(TAG, "queryInventoryPurchases purchase : " + purchase.getSku());
                 mOnQueryInventoryItemListener.onPremiumVersionUser();
             }
         }

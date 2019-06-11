@@ -23,7 +23,7 @@ import java.util.List;
 public class BuyPremiumActivity extends Activity implements View.OnClickListener, BillingManager.OnBuyCompleteListener, BillingManager.OnQueryInventoryItemListener {
     private final String TAG = "BuyPremiumActivity";
 
-    private TextView mPriceTextView;
+//    private TextView mPriceTextView;
     private RippleView mBuyRippleView;
     private BillingManager mBillingManager;
     private SoftKeybordManager mSoftKeybordManager;
@@ -42,8 +42,9 @@ public class BuyPremiumActivity extends Activity implements View.OnClickListener
         mBillingManager.setOnQueryInventoryItemListener(this);
         mBillingManager.initBillingQueryInventoryItem();
 
-        mPriceTextView = (TextView)findViewById(R.id.premium_buy_price_textView);
-        mPriceTextView.setText(CommonInApp.sPremiumPrice);
+//        mPriceTextView = (TextView)findViewById(R.id.premium_buy_price_textView);
+//        mPriceTextView.setText(CommonInApp.sPremiumPrice);
+//        mPriceTextView.setText("1개월 무료 체험하기");
 
         mBuyRippleView = (RippleView)findViewById(R.id.premium_buyRippleView_buy_button);
         mBuyRippleView.setOnClickListener(this);
@@ -79,7 +80,7 @@ public class BuyPremiumActivity extends Activity implements View.OnClickListener
         for(Purchase purchase : purchases){
             String sku = purchase.getSku();
             if(sku != null){
-                if(sku.equals(BillingManager.SKU_PREMIUM)){
+                if(sku.equals(BillingManager.SKU_PREMIUM_SUB)){
                     Toast.makeText(this, getString(R.string.buy_success), Toast.LENGTH_SHORT).show();
                     CommonUserData.sPremiumState = true;
                     SharedPreferencesUtils.setBoolean(this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION, true);

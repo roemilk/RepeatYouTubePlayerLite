@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/bg_heart" />
+        android:src="@drawable/bg2" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="left"
+            android:gravity="center"
             android:orientation="vertical">
 
             <TextView
@@ -33,28 +33,20 @@
                 android:textColor="#ffffff"
                 android:textSize="24dp" />
 
-            <TextView
-                android:id="@+id/premium_buy_price_textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                android:textColor="#ffffff"
-                android:textStyle="bold"
-                android:textSize="20dp" />
+            <!--<TextView-->
+                <!--android:id="@+id/premium_buy_price_textView"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginTop="15dp"-->
+                <!--android:textColor="#ffffff"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textSize="20dp" />-->
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/premium_coffe"
-                android:textColor="#ffffff"
-                android:textSize="16dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:text="@string/premium_text"
                 android:textColor="#ffffff"
                 android:textSize="16dp" />
@@ -79,20 +71,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="50dp"
                 android:text="@string/premium_text4"
                 android:textColor="#ffffff"
                 android:textSize="16dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:layout_marginBottom="50dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/premium_text5"
-                android:textColor="#ffffff"
-                android:textSize="14dp" />
 
             <com.andexert.library.RippleView
                 android:id="@+id/premium_buyRippleView_buy_button"
@@ -107,10 +90,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#BFF44336"
-                    android:padding="10dp"
+                    android:padding="15dp"
                     android:text="@string/premium_upgrade"
                     android:textColor="#FFFFFF"
-                    android:textSize="16dp" />
+                    android:textSize="21dp" />
             </com.andexert.library.RippleView>
         </LinearLayout>
     </ScrollView>

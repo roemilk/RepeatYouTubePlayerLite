@@ -177,13 +177,11 @@
 
     <!-- premium message -->
     <string name="premium_title">프리미엄 혜택</string>
-    <string name="premium_coffe">한 잔의 커피보다 저렴한 가격!</string>
-    <string name="premium_text">광고가 전혀 없는 쾌적한 사용 환경</string>
-    <string name="premium_text2">모든 프리미엄 기능 무제한 사용 가능</string>
-    <string name="premium_text3">플레이리스트 등록 개수 제한 해제</string>
-    <string name="premium_text4">끝없이 추가되는 강력한 프리미엄 기능들</string>
-    <string name="premium_text5">프리미엄 업그레이드는\n당신의 현명한 선택입니다.\n\n구매하시는 모든 분들에게 행운이 가득할 것입니다.</string>
-    <string name="premium_upgrade">프리미엄 업그레이드</string>
+    <string name="premium_text">모든 광고 깨끗히 제거</string>
+    <string name="premium_text2">모든 기능 무제한 사용 가능</string>
+    <string name="premium_text3">플레이리스트 등록 개수 무제한</string>
+    <string name="premium_text4">계속 업데이트되는 프리미엄 전용 기능들</string>
+    <string name="premium_upgrade">7일 무료 체험하기</string>
 
     <!-- buy result message -->
     <string name="buy_success">축하 합니다!\n프리미엄 버전으로 업그레이드되었습니다.</string>
@@ -204,9 +202,12 @@
     <string name="reward_allRemoveAd_loading">새로운 광고를 불러오고 있습니다.\n잠시 뒤에 시도해 주세요.</string>
     <string name="reward_allRemoveAd_close">광고 영상을 끝까지 시청하시면 모든 광고가 제거됩니다.</string>
     <string name="reward_allRemoveAd_alreay">2시간 동안 광고가 제거되었습니다.</string>
-    <string name="reward_allRemoveAd_upgrade">업그레이드</string>
+    <string name="reward_allRemoveAd_upgrade">프리미엄</string>
     <string name="reward_allRemoveAd_remove">제거하기</string>
 
+    <!-- buy premium -->
+    <string name="snack_premium_hint">광고 없는 프리미엄 무료 체험하기</string>
+    <string name="snack_premium_details">자세히</string>
 
     <!-- update alert dialog -->
     <string name="update_alert_yes">업데이트</string>
