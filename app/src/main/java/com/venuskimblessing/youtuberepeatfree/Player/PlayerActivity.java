@@ -333,11 +333,11 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
             }
         } else if (requestCode == REQ_CODE_REWARD_FINISH_BATTERYSAVING) {
             if (resultCode == RESULT_OK) {
-                if (CommonUserData.sRewardUnlockedFeatureBatterSaving) {
+//                if (CommonUserData.sRewardUnlockedFeatureBatterSaving) {
                     mDialogBatterySaving = new DialogBatterySaving(this, R.style.custom_dialog_fullScreen);
                     mDialogBatterySaving.show();
                     updateBatterSavingDialog();
-                }
+//                }
             }
         }
         if (mCallbackManager != null) { //Facebook callback manager
@@ -684,19 +684,19 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
             case R.id.player_top_lock_button:
                 LogUtils.logEvent(this, "feature_lock", null);
-                if(CommonConfig.sConfigFacebookShareState){ //페북 친구 공유 조건이 걸릴 경우
-                    if (checkUnlockShareFeature()) {
-                        mLock = !mLock;
-                        setLockButtonRes();
-                        setLock();
-                    } else {
-                        showShareLockedFeatureDialog(getString(R.string.locked_feature_lock_title));
-                    }
-                }else{
+//                if(CommonConfig.sConfigFacebookShareState){ //페북 친구 공유 조건이 걸릴 경우
+//                    if (checkUnlockShareFeature()) {
+//                        mLock = !mLock;
+//                        setLockButtonRes();
+//                        setLock();
+//                    } else {
+//                        showShareLockedFeatureDialog(getString(R.string.locked_feature_lock_title));
+//                    }
+//                }else{
                     mLock = !mLock;
                     setLockButtonRes();
                     setLock();
-                }
+//                }
                 break;
 
             case R.id.player_top_playlist_button:
@@ -786,17 +786,15 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
             case R.id.player_feature_shuffle_button:
                 LogUtils.logEvent(this, "feature_shuffle", null);
-                if(CommonConfig.sConfigFacebookShareState){ //페북 친구 공유 조건이 걸릴 경우
-                    if (checkUnlockShareFeature()) {
+//                if(CommonConfig.sConfigFacebookShareState){ //페북 친구 공유 조건이 걸릴 경우
+//                    if (checkUnlockShareFeature()) {
                         setShuffle();
-                    } else {
-                        showShareLockedFeatureDialog(getString(R.string.locked_feature_shuffle_title));
-                    }
-                }else{
-                    setShuffle();
-                }
-
-
+//                    } else {
+//                        showShareLockedFeatureDialog(getString(R.string.locked_feature_shuffle_title));
+//                    }
+//                }else{
+//                    setShuffle();
+//                }
                 break;
 
             case R.id.player_feature_prev_button:
@@ -837,24 +835,28 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 }
                 break;
             case R.id.player_top_batterySaving_button:
-                LogUtils.logEvent(this, "feature_battery_mode", null);
-                int musicModeLimitCount = SharedPreferencesUtils.getInt(PlayerActivity.this, CommonSharedPreferencesKey.KEY_FEATURE_REWARD_UNLOCK_MUSIC_MODE_COUNT);
-                boolean overLimitCount = true;
-                if(musicModeLimitCount >= CommonUserData.MUSIC_MODE_LIMITED_COUNT){ //체험 제한 횟수 초과 여부 체크
-                    overLimitCount = false;
-                }
+//                LogUtils.logEvent(this, "feature_battery_mode", null);
+//                int musicModeLimitCount = SharedPreferencesUtils.getInt(PlayerActivity.this, CommonSharedPreferencesKey.KEY_FEATURE_REWARD_UNLOCK_MUSIC_MODE_COUNT);
+//                boolean overLimitCount = true;
+//                if(musicModeLimitCount >= CommonUserData.MUSIC_MODE_LIMITED_COUNT){ //체험 제한 횟수 초과 여부 체크
+//                    overLimitCount = false;
+//                }
+//
+//                if (CommonUserData.sPremiumState == true || CommonUserData.sRewardUnlockedFeatureBatterSaving == true || overLimitCount == true) {
+//                    if(overLimitCount){
+//                        musicModeLimitCount++;
+//                        SharedPreferencesUtils.setInt(PlayerActivity.this, CommonSharedPreferencesKey.KEY_FEATURE_REWARD_UNLOCK_MUSIC_MODE_COUNT, musicModeLimitCount);
+//                    }
+//                    mDialogBatterySaving = new DialogBatterySaving(this, R.style.custom_dialog_fullScreen);
+//                    mDialogBatterySaving.show();
+//                    updateBatterSavingDialog();
+//                } else {
+//                    showRewardLockedFeatureDialog();
+//                }
 
-                if (CommonUserData.sPremiumState == true || CommonUserData.sRewardUnlockedFeatureBatterSaving == true || overLimitCount == true) {
-                    if(overLimitCount){
-                        musicModeLimitCount++;
-                        SharedPreferencesUtils.setInt(PlayerActivity.this, CommonSharedPreferencesKey.KEY_FEATURE_REWARD_UNLOCK_MUSIC_MODE_COUNT, musicModeLimitCount);
-                    }
-                    mDialogBatterySaving = new DialogBatterySaving(this, R.style.custom_dialog_fullScreen);
-                    mDialogBatterySaving.show();
-                    updateBatterSavingDialog();
-                } else {
-                    showRewardLockedFeatureDialog();
-                }
+                intent = new Intent(PlayerActivity.this, LoadingActivity.class);
+                intent.putExtra(LoadingActivity.TYPE_KEY, LoadingActivity.TYPE_FULL_AD);
+                startActivityForResult(intent, REQ_CODE_REWARD_FINISH_BATTERYSAVING);
                 break;
         }
     }

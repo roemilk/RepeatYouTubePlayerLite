@@ -156,8 +156,8 @@
     <string name="locked_feature_reward_content">음악 감상 모드 체험이 끝났습니다.\n\n프리미엄 버전으로 업그레이드하면 모든 광고 제거, 모든 프리미엄 기능 사용 등 다양한 혜택이 있습니다!</string>
     <string name="locked_feature_share_content">프리미엄 기능입니다.\n\n프리미엄 버전으로 업그레이드하면 모든 광고 제거, 모든 프리미엄 기능 사용 등 다양한 혜택이 있습니다.\n\n페이스북 친구들에게 딱 한번 앱을 소개하고 보상으로 프리미엄 기능을 무료로 얻으세요!</string>
     <string name="locked_feature_buyPro">프리미엄 버전 혜택 보기</string>
-    <string name="locked_feature_share">무료로 기능 얻기</string>
-    <string name="locked_feature_reward">광고 시청하고 무료 이용</string>
+    <string name="locked_feature_share">페이스북에 앱 소개하고 잠금 풀기</string>
+    <string name="locked_feature_reward">광고 끝까지 보고 무료 이용</string>
     <string name="locked_feature_share_err">페이스북 친구들에게 앱을 소개하고 프리미엄 기능을 얻으세요!</string>
 
     <!-- unlock -->
