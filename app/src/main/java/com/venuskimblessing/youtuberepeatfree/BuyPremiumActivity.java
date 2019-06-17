@@ -1,6 +1,8 @@
 package com.venuskimblessing.youtuberepeatfree;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -71,7 +73,10 @@ public class BuyPremiumActivity extends Activity implements View.OnClickListener
 
             return;
         }else{
-            mBillingManager.buyInapp();
+//            mBillingManager.buyInapp();
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("market://details?id=" + getPackageName()));
+            startActivity(intent);
         }
     }
 
