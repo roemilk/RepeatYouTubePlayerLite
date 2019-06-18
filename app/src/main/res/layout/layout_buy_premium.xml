@@ -93,7 +93,7 @@
                     android:padding="15dp"
                     android:text="@string/premium_upgrade"
                     android:textColor="#FFFFFF"
-                    android:textSize="21dp" />
+                    android:textSize="18dp" />
             </com.andexert.library.RippleView>
         </LinearLayout>
     </ScrollView>

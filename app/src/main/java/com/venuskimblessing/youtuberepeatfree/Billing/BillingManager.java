@@ -83,9 +83,9 @@ public class BillingManager implements PurchasesUpdatedListener {
         Log.d(TAG, "queryInappProductDetails...");
 
         List<String> skuList = new ArrayList<String>();
-        skuList.add(SKU_PREMIUM_SUB);
+        skuList.add(SKU_PREMIUM);
         SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
-        params.setSkusList(skuList).setType(BillingClient.SkuType.SUBS);
+        params.setSkusList(skuList).setType(BillingClient.SkuType.INAPP);
         mBillingClient.querySkuDetailsAsync(params.build(), new SkuDetailsResponseListener() {
             @Override
             public void onSkuDetailsResponse(BillingResult billingResult, List<SkuDetails> skuDetailsList) {
@@ -116,10 +116,10 @@ public class BillingManager implements PurchasesUpdatedListener {
      * 보유한 아이템 조회
      */
     public void queryInventoryPurchases() {
-        Purchase.PurchasesResult purchasesResult = mBillingClient.queryPurchases(BillingClient.SkuType.SUBS);
+        Purchase.PurchasesResult purchasesResult = mBillingClient.queryPurchases(BillingClient.SkuType.INAPP);
         List<Purchase> purchaseList = purchasesResult.getPurchasesList();
         for (Purchase purchase : purchaseList) {
-            if(purchase.getSku().equals(SKU_PREMIUM_SUB)){
+            if(purchase.getSku().equals(SKU_PREMIUM)){
                 mPurchase = purchase;
                 Log.d(TAG, "queryInventoryPurchases purchase : " + purchase.getSku());
                 mOnQueryInventoryItemListener.onPremiumVersionUser();

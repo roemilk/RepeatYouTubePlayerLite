@@ -179,9 +179,9 @@
     <string name="premium_title">프리미엄 혜택</string>
     <string name="premium_text">모든 광고 깨끗히 제거</string>
     <string name="premium_text2">모든 기능 무제한 사용 가능</string>
-    <string name="premium_text3">플레이리스트 등록 개수 무제한</string>
-    <string name="premium_text4">계속 업데이트되는 프리미엄 전용 기능들</string>
-    <string name="premium_upgrade">7일 무료 체험하기</string>
+    <string name="premium_text3">계속 업데이트되는 프리미엄 전용 기능들</string>
+    <string name="premium_text4">한번의 구매로 평생 프리미엄 회원</string>
+    <string name="premium_upgrade">프리미엄 업그레이드</string>
 
     <!-- buy result message -->
     <string name="buy_success">축하 합니다!\n프리미엄 버전으로 업그레이드되었습니다.</string>

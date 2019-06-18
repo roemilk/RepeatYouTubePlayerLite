@@ -75,7 +75,7 @@ public class BuyPremiumActivity extends Activity implements View.OnClickListener
         }else{
 //            mBillingManager.buyInapp();
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse("market://details?id=" + getPackageName()));
+            intent.setData(Uri.parse("market://details?id=com.venuskimblessing.youtuberepeat"));
             startActivity(intent);
         }
     }
@@ -85,7 +85,7 @@ public class BuyPremiumActivity extends Activity implements View.OnClickListener
         for(Purchase purchase : purchases){
             String sku = purchase.getSku();
             if(sku != null){
-                if(sku.equals(BillingManager.SKU_PREMIUM_SUB)){
+                if(sku.equals(BillingManager.SKU_PREMIUM)){
                     Toast.makeText(this, getString(R.string.buy_success), Toast.LENGTH_SHORT).show();
                     CommonUserData.sPremiumState = true;
                     SharedPreferencesUtils.setBoolean(this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION, true);
