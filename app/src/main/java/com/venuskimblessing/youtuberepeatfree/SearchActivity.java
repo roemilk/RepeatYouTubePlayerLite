@@ -258,7 +258,11 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
     }
 
     private void showCountTimeSnackBar() {
-        mSnackBar.setText(getString(R.string.reward_allRemoveAd_alreay));
+        if (CommonConfig.sConfigEventShow) {
+            mSnackBar.setText(getString(R.string.reward_allRemoveAd_alreay_sale));
+        } else {
+            mSnackBar.setText(getString(R.string.reward_allRemoveAd_alreay));
+        }
         mSnackBar.setAction(getString(R.string.reward_allRemoveAd_upgrade), new View.OnClickListener() {
             @Override
             public void onClick(View v) {

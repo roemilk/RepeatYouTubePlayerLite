@@ -157,8 +157,8 @@ public class IntroActivity extends AppCompatActivity {
     private void initRemoteConfig() {
         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
         FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
-//                .setDeveloperModeEnabled(BuildConfig.DEBUG)
-//                .setMinimumFetchIntervalInSeconds(10)
+                .setDeveloperModeEnabled(BuildConfig.DEBUG)
+                .setMinimumFetchIntervalInSeconds(10)
                 .build();
         mFirebaseRemoteConfig.setConfigSettings(configSettings);
     }
@@ -199,6 +199,7 @@ public class IntroActivity extends AppCompatActivity {
      * RemoteConfig Variable setting
      */
     private void setConfig() {
+        CommonConfig.sConfigEventShow = mFirebaseRemoteConfig.getBoolean(CommonConfig.KEY_EVENT_SHOW);
         CommonConfig.sConfigRewardRemoveAllAdSate = mFirebaseRemoteConfig.getBoolean(CommonConfig.KEY_REWARD_REMOVEALLAD);
 //        CommonConfig.sConfigRewardRemoveAllAdSate = true; //테스트 코드
         CommonConfig.sConfigFacebookShareState = mFirebaseRemoteConfig.getBoolean(CommonConfig.KEY_FACEBOOK_SHARE);

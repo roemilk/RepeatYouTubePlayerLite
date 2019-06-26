@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.andexert.library.RippleView;
@@ -13,6 +14,7 @@ import com.android.billingclient.api.BillingResult;
 import com.android.billingclient.api.Purchase;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.venuskimblessing.youtuberepeatfree.Billing.BillingManager;
+import com.venuskimblessing.youtuberepeatfree.Common.CommonConfig;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonInApp;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonSharedPreferencesKey;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonUserData;
@@ -27,6 +29,7 @@ public class BuyPremiumActivity extends Activity implements View.OnClickListener
 
 //    private TextView mPriceTextView;
     private RippleView mBuyRippleView;
+    private Button mBuyButton;
     private BillingManager mBillingManager;
     private SoftKeybordManager mSoftKeybordManager;
 
@@ -50,6 +53,15 @@ public class BuyPremiumActivity extends Activity implements View.OnClickListener
 
         mBuyRippleView = (RippleView)findViewById(R.id.premium_buyRippleView_buy_button);
         mBuyRippleView.setOnClickListener(this);
+
+        mBuyButton = (Button)findViewById(R.id.premium_buy_button);
+        mBuyButton.setOnClickListener(this);
+
+        if(CommonConfig.sConfigEventShow){
+            mBuyButton.setText(getString(R.string.premium_upgrade_sale));
+        }else{
+            mBuyButton.setText(getString(R.string.premium_upgrade));
+        }
     }
 
     @Override

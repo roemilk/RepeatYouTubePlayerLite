@@ -182,6 +182,7 @@
     <string name="premium_text3">계속 업데이트되는 프리미엄 전용 기능들</string>
     <string name="premium_text4">한번의 구매로 평생 프리미엄 회원</string>
     <string name="premium_upgrade">프리미엄 업그레이드</string>
+    <string name="premium_upgrade_sale">50% 할인 업그레이드</string>
 
     <!-- buy result message -->
     <string name="buy_success">축하 합니다!\n프리미엄 버전으로 업그레이드되었습니다.</string>
@@ -201,8 +202,9 @@
     <string name="reward_allRemoveAd_success">2시간 동안 광고가 제거됩니다.\n앱 종료시에는 광고 제거하기 효과가 사라집니다.</string>
     <string name="reward_allRemoveAd_loading">새로운 광고를 불러오고 있습니다.\n잠시 뒤에 시도해 주세요.</string>
     <string name="reward_allRemoveAd_close">광고 영상을 끝까지 시청하시면 모든 광고가 제거됩니다.</string>
-    <string name="reward_allRemoveAd_alreay">2시간 동안 광고가 제거되었습니다.</string>
-    <string name="reward_allRemoveAd_upgrade">프리미엄</string>
+    <string name="reward_allRemoveAd_alreay">강력한 기능의 프리미엄 버전</string>
+    <string name="reward_allRemoveAd_alreay_sale">프리미엄 버전 50% 세일 이벤트!</string>
+    <string name="reward_allRemoveAd_upgrade">업그레이드</string>
     <string name="reward_allRemoveAd_remove">제거하기</string>
 
     <!-- buy premium -->
