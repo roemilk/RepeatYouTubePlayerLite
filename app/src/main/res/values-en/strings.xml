@@ -200,13 +200,13 @@ It is your very smart choice.\n\nPRO benefits \n
     <string name="reward_allRemoveAd_success">Ads will be removed for 2 hours.\nWhen you exit the app, the effect of removing ads disappears.</string>
     <string name="reward_allRemoveAd_loading">Ad loading.\nPlease try again later.</string>
     <string name="reward_allRemoveAd_close">When you watch your ad video to the end, all ads will be removed.</string>
-    <string name="reward_allRemoveAd_alreay">Ad is not visible for 2 hours.</string>
-    <string name="reward_allRemoveAd_alreay_sale">Premium Edition 50% Sale Event!</string>
+    <string name="reward_allRemoveAd_alreay">Premium Version</string>
+    <string name="reward_allRemoveAd_alreay_sale">Premium 50% Sale!</string>
     <string name="reward_allRemoveAd_upgrade">Upgrade</string>
     <string name="reward_allRemoveAd_remove">Remove</string>
 
     <!-- buy premium -->
-    <string name="snack_premium_hint">Premium 7day free trial</string>
+    <string name="snack_premium_hint">Upgrade premium version</string>
     <string name="snack_premium_details">Details</string>
 
     <!-- update alert dialog -->

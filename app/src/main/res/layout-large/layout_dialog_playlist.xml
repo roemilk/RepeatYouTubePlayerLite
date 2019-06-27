@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#00000000">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#03A9F4">
+
+            <TextView
+                android:id="@+id/playlist_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="PLAYLIST"
+                android:textColor="#FFFFFF"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/playlist_deleteAll_button"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:layout_toLeftOf="@+id/playlist_autoplay_textView"
+                android:background="@drawable/ic_delete_all_white_24dp" />
+
+            <com.github.zagum.switchicon.SwitchIconView
+                android:id="@+id/playlist_repeat_switchIconView"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/playlist_autoplay_textView"
+                app:si_animation_duration="500"
+                android:layout_marginRight="15dp"
+                app:si_disabled_alpha=".3"
+                app:si_disabled_color="#FFFFFF"
+                app:si_tint_color="#FFE05C"
+                android:visibility="gone"
+                app:si_enabled="false"
+                app:si_no_dash="false"
+                app:srcCompat="@drawable/ic_repeat_white_24dp"
+                tools:ignore="VectorDrawableCompat" />
+
+            <TextView
+                android:id="@+id/playlist_autoplay_textView"
+                android:layout_toLeftOf="@+id/playlist_switch_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Autoplay"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:textColor="#FFFFFF"
+                android:textSize="16dp" />
+
+            <com.suke.widget.SwitchButton
+                android:id="@+id/playlist_switch_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:layout_toLeftOf="@+id/playlist_close_button" />
+
+            <Button
+                android:id="@+id/playlist_close_button"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/ic_close_white_24dp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/playlist_empty_textView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:visibility="gone"
+            android:gravity="center"
+            android:text="@string/playlist_empty"
+            android:textSize="24dp"
+            android:textColor="#757575" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/playlist_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"></android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/playlist_controller_cardview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="32dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="17dp"
+        card_view:cardBackgroundColor="#FFFFFF"
+        card_view:cardCornerRadius="2dp"
+        card_view:cardUseCompatPadding="true"
+        card_view:contentPadding="8dp">
+
+        <RelativeLayout
+            android:id="@+id/playlist_controller_lay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF">
+
+            <ImageView
+                android:id="@+id/playlist_controller_imageView"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="2dp"
+                android:src="@mipmap/ic_launcher_round" />
+
+            <TextView
+                android:id="@+id/playlist_controller_title_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="4dp"
+                android:layout_toLeftOf="@+id/playlist_controller_play_button"
+                android:layout_toRightOf="@+id/playlist_controller_imageView"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="testestsfsdfj;asfj;lasdjf;lasjkdf;lsakdjfalsdkjfskldjfsdlkjfsdlksd"
+                android:textColor="#000000"
+                android:textSize="14dp" />
+
+            <Button
+                android:id="@+id/playlist_controller_play_button"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="4dp"
+                android:layout_toLeftOf="@+id/playlist_controller_close_button"
+                android:background="@drawable/ic_play_arrow_gray_24dp" />
+
+            <Button
+                android:id="@+id/playlist_controller_close_button"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ic_close_gray_24dp" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

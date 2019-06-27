@@ -85,10 +85,10 @@ public class BuyPremiumActivity extends Activity implements View.OnClickListener
 
             return;
         }else{
-//            mBillingManager.buyInapp();
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse("market://details?id=com.venuskimblessing.youtuberepeat"));
-            startActivity(intent);
+            mBillingManager.buyInapp();
+//            Intent intent = new Intent(Intent.ACTION_VIEW);
+//            intent.setData(Uri.parse("market://details?id=com.venuskimblessing.youtuberepeat"));
+//            startActivity(intent);
         }
     }
 

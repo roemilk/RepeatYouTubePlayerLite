@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <RelativeLayout
+        android:id="@+id/view_playlist_parent_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/view_playlist_move_button"
+            android:layout_marginLeft="5dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:background="@drawable/ic_drag_handle_white_24dp" />
+
+        <RelativeLayout
+            android:id="@+id/view_playlist_thumb_lay"
+            android:clickable="false"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/view_playlist_move_button">
+
+            <ImageView
+                android:id="@+id/view_playlist_thumb_imageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:id="@+id/view_playlist_duration_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:background="#000000"
+                android:text="00:00:00"
+                android:textColor="#FFFFFF" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/view_playlist_content_lay"
+            android:clickable="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/view_playlist_thumb_lay"
+            android:layout_toLeftOf="@+id/view_playlist_share_lay"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/view_playlist_title_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:text="제목"
+                android:textColor="#000000"
+                android:textSize="14dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/view_playlist_startTime_textView"
+                    android:textSize="14dp"
+                    android:text="00:00:00"
+                    android:textColor="#757575"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:textSize="14dp"
+                    android:text=" - "
+                    android:textColor="#757575"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/view_playlist_endTime_textView"
+                    android:textSize="14dp"
+                    android:text="99:99:99"
+                    android:textColor="#757575"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </LinearLayout>
+        
+        <RelativeLayout
+            android:id="@+id/view_playlist_share_lay"
+            android:visibility="gone"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="17dp"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp">
+            <Button
+                android:id="@+id/view_playlist_share_button"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:clickable="false"
+                android:layout_centerInParent="true"
+                android:background="@drawable/ic_share_black_24dp" />
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

@@ -854,9 +854,15 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 //                    showRewardLockedFeatureDialog();
 //                }
 
-                intent = new Intent(PlayerActivity.this, LoadingActivity.class);
-                intent.putExtra(LoadingActivity.TYPE_KEY, LoadingActivity.TYPE_FULL_AD);
-                startActivityForResult(intent, REQ_CODE_REWARD_FINISH_BATTERYSAVING);
+                if(CommonUserData.sPremiumState){
+                    mDialogBatterySaving = new DialogBatterySaving(this, R.style.custom_dialog_fullScreen);
+                    mDialogBatterySaving.show();
+                    updateBatterSavingDialog();
+                }else{
+                    intent = new Intent(PlayerActivity.this, LoadingActivity.class);
+                    intent.putExtra(LoadingActivity.TYPE_KEY, LoadingActivity.TYPE_FULL_AD);
+                    startActivityForResult(intent, REQ_CODE_REWARD_FINISH_BATTERYSAVING);
+                }
                 break;
         }
     }

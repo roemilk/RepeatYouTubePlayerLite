@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <RelativeLayout
+        android:id="@+id/search_top_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#FFFFFF">
+
+        <com.github.florent37.materialtextfield.MaterialTextField
+            android:id="@+id/search_top_materialTextField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#2196F3"
+            app:mtf_image="@drawable/ic_search_gray_24dp"
+            app:mtf_labelColor="#FFFFFF">
+
+            <EditText
+                android:id="@+id/search_top_searchWord_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/search_word_edittext_hint"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="#212121"
+                android:textSize="15sp" />
+        </com.github.florent37.materialtextfield.MaterialTextField>
+
+        <Button
+            android:id="@+id/search_playlist_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@+id/search_recomment_button"
+            android:background="@drawable/ic_playlist_play_white_24dp"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/search_recomment_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@+id/search_sort_button"
+            android:background="@drawable/ic_star_24dp"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/search_sort_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@+id/search_premium_button"
+            android:background="@drawable/ic_sort_white_24dp"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/search_premium_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/ic_favorite_white_24dp"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/search_invite_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@+id/search_recomment_button"
+            android:background="@drawable/ic_share_white_24dp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/search_top_lay"
+        android:layout_above="@+id/player_banner_lay"
+        android:background="#FFFFFF">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/search_recyclerview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"></android.support.v7.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/search_empty_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="검색 결과가 없습니다."
+            android:textSize="20dp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/search_snackBar_lay"
+        android:layout_above="@+id/player_banner_lay"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.design.widget.CoordinatorLayout>
+
+    <LinearLayout
+        android:id="@+id/player_banner_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="1dp"
+        android:background="#FFFFFF"
+        android:visibility="visible"
+        android:layout_alignParentBottom="true">
+
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="ca-app-pub-8974353837020608/4724298867"></com.google.android.gms.ads.AdView>
+    </LinearLayout>
+</RelativeLayout>
