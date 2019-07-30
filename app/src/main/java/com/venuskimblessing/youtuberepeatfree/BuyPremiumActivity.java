@@ -71,7 +71,6 @@ public class BuyPremiumActivity extends Activity implements View.OnClickListener
             mSoftKeybordManager = new SoftKeybordManager(getWindow());
             mSoftKeybordManager.hideSystemUI();
         }
-
     }
 
     @Override

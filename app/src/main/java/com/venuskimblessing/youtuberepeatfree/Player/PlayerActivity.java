@@ -804,6 +804,11 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 nextSkipPlay();
                 break;
             case R.id.player_feature_play_button:
+                if(mYouTubePlayer == null){
+                    Toast.makeText(this,R.string.error_network, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 if (mYouTubePlayer.isPlaying()) {
                     mYouTubePlayer.pause();
                     mPlayButton.setBackgroundResource(R.drawable.ic_play_arrow_24dp);
@@ -1398,7 +1403,14 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         } catch (NullPointerException e) {
             img_url = "";
         }
-        String title = mSnippet.title;
+
+        String title;
+        try{
+            title = mSnippet.title;
+        }catch(Exception e){
+            title = "no title";
+        }
+
         long duration = mYouTubePlayer.getDurationMillis();
 
         PlayListData firstPlayListData = new PlayListData();
