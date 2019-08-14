@@ -1,7 +1,9 @@
 package com.venuskimblessing.youtuberepeatfree.FloatingView;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
@@ -16,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.PlayerConstants;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer;
@@ -25,6 +28,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubeP
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.PlayerUIController;
 import com.venuskimblessing.youtuberepeatfree.Common.CommonSharedPreferencesKey;
+import com.venuskimblessing.youtuberepeatfree.Dialog.DialogPlayList;
 import com.venuskimblessing.youtuberepeatfree.PlayList.PlayListData;
 import com.venuskimblessing.youtuberepeatfree.R;
 import com.venuskimblessing.youtuberepeatfree.SearchActivity;
@@ -64,7 +68,7 @@ public class FloatingView extends RelativeLayout {
     private ListIterator<PlayListData> mPlayListIterator = null;
 
     //Controller
-    private ImageView mExitImageView, mZoomImageView;
+    private ImageView mExitImageView, mZoomImageView, mPlayListImageView;
     private TextView mTimeTextView, mCountTextView;
     private OnTouchListener mListener;
 
@@ -280,6 +284,20 @@ public class FloatingView extends RelativeLayout {
             }
         });
         mPlayerUIController.addView(mZoomImageView);
+
+        mPlayListImageView = new ImageView(mContext);
+        mPlayListImageView.setImageResource(R.drawable.ic_playlist_play_white_24dp);
+        LinearLayout.LayoutParams playListParmas = new LinearLayout.LayoutParams(width, height);
+        mPlayListImageView.setLayoutParams(playListParmas);
+        mPlayListImageView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "PlayList 띄우기");
+                Toast.makeText(mContext, "플레이리스트 창 출력", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        mPlayerUIController.addView(mPlayListImageView);
 
         mTimeTextView = new TextView(mContext);
         int marginRight = (int) UIConvertUtils.convertDpToPixel(10, mContext);
