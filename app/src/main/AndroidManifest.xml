@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.venuskimblessing.youtuberepeatfree">
+    package="com.venuskimblessing.tuberepeatfree">
 
     <uses-feature
         android:name="android.hardware.telephony"
@@ -16,7 +16,7 @@
     <!--<uses-permission android:name="com.android.vending.BILLING" /> billing 라이브러리에 애초에 포함되어 있어서 따로 선언할 필요가 없음. -->
 
     <application
-        android:name=".Application.MyApplication"
+        android:name="com.venuskimblessing.tuberepeatfree.Application.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
@@ -26,7 +26,7 @@
         tools:replace="android:icon">
 
         <activity
-            android:name="com.venuskimblessing.youtuberepeatfree.IntroActivity"
+            android:name="com.venuskimblessing.tuberepeatfree.IntroActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,36 +42,36 @@
         </activity>
 
         <activity
-            android:name="com.venuskimblessing.youtuberepeatfree.GuideActivity"
+            android:name="com.venuskimblessing.tuberepeatfree.GuideActivity"
             android:screenOrientation="portrait"></activity>
 
         <activity
-            android:name="com.venuskimblessing.youtuberepeatfree.Player.PlayerActivity"
+            android:name="com.venuskimblessing.tuberepeatfree.Player.PlayerActivity"
             android:configChanges="screenSize|orientation"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name="com.venuskimblessing.youtuberepeatfree.SearchActivity"
+            android:name="com.venuskimblessing.tuberepeatfree.SearchActivity"
             android:configChanges="screenSize|orientation"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden"></activity>
 
         <activity
-            android:name="com.venuskimblessing.youtuberepeatfree.LoadingActivity"
+            android:name="com.venuskimblessing.tuberepeatfree.LoadingActivity"
             android:screenOrientation="portrait"></activity>
 
         <activity
-            android:name=".BuyPremiumActivity"
+            android:name="com.venuskimblessing.tuberepeatfree.BuyPremiumActivity"
             android:screenOrientation="portrait"></activity>
 
         <service
-            android:name="com.venuskimblessing.youtuberepeatfree.FloatingView.FloatingService"
+            android:name="com.venuskimblessing.tuberepeatfree.FloatingView.FloatingService"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.SYSTEM_ALERT_WINDOW"></service>
 
         <receiver
-            android:name=".BroadcastReceiver.ShareAppReciver"
+            android:name="com.venuskimblessing.tuberepeatfree.BroadcastReceiver.ShareAppReciver"
             android:exported="false" />
 
         <meta-data

@@ -1,64 +1,47 @@
 {
   "project_info": {
-    "project_number": "518294995451",
-    "firebase_url": "https://repeatplayerfree.firebaseio.com",
-    "project_id": "repeatplayerfree",
-    "storage_bucket": "repeatplayerfree.appspot.com"
+    "project_number": "978488217245",
+    "firebase_url": "https://tuberepeatfree.firebaseio.com",
+    "project_id": "tuberepeatfree",
+    "storage_bucket": "tuberepeatfree.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:518294995451:android:196fed438414fac6",
+        "mobilesdk_app_id": "1:978488217245:android:ece61eab0dc4b0c6",
         "android_client_info": {
-          "package_name": "com.venuskimblessing.youtuberepeatfree"
+          "package_name": "com.venuskimblessing.tuberepeatfree"
         }
       },
       "oauth_client": [
         {
-          "client_id": "518294995451-dlhduj70jtcvu5ig7lts3mqmdjlt6kdn.apps.googleusercontent.com",
+          "client_id": "978488217245-cakmgoipntvfe1rehhm6i8p7p66t1tm3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.venuskimblessing.youtuberepeatfree",
-            "certificate_hash": "0e885623cdd63bca954805b45df71c12d05b2c81"
+            "package_name": "com.venuskimblessing.tuberepeatfree",
+            "certificate_hash": "11c1d7047be56a47e4725b685708c7b969079bfe"
           }
         },
         {
-          "client_id": "518294995451-ja8o3rid0c4g6lbm1cu6h8g135ceo55j.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.venuskimblessing.youtuberepeatfree",
-            "certificate_hash": "f803d2f68a27ad04e95bb2e8b420786df3545b78"
-          }
-        },
-        {
-          "client_id": "518294995451-pfteame6brt91t3574f38cktdodehdee.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.venuskimblessing.youtuberepeatfree",
-            "certificate_hash": "7eb7cc4da9c5b3404845d2de0a94c8ba676d6d1a"
-          }
-        },
-        {
-          "client_id": "518294995451-e9dv6nbjkgjb0alr5ag4htn65opgct5j.apps.googleusercontent.com",
+          "client_id": "978488217245-qoqvuptpgnqa15i2rnohfdgecn0d50qv.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBmqwJ95H4G1ia1EnPFkwAUIOlvSXJCy_g"
+          "current_key": "AIzaSyDl_kqdX6jw0ghC7lc_4ODtqWqAPv2qYvc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "518294995451-e9dv6nbjkgjb0alr5ag4htn65opgct5j.apps.googleusercontent.com",
+              "client_id": "978488217245-qoqvuptpgnqa15i2rnohfdgecn0d50qv.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
         }
-      },
-      "admob_app_id": "ca-app-pub-8974353837020608~7336436218"
+      }
     }
   ],
   "configuration_version": "1"
