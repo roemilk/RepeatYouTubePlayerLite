@@ -27,7 +27,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.hanks.htextview.base.AnimationListener;
 import com.hanks.htextview.base.HTextView;
 import com.hanks.htextview.fade.FadeTextView;
-import com.venuskimblessing.tuberepeatfree.Billing.BillingManager;
+//import com.venuskimblessing.tuberepeatfree.Billing.BillingManager;
 import com.venuskimblessing.tuberepeatfree.Common.CommonApiKey;
 import com.venuskimblessing.tuberepeatfree.Common.CommonConfig;
 import com.venuskimblessing.tuberepeatfree.Common.CommonSharedPreferencesKey;
@@ -55,7 +55,7 @@ public class IntroActivity extends AppCompatActivity {
     private SoftKeybordManager mSoftKeybordManager;
 
     //Inapp
-    private BillingManager mBillingManager;
+//    private BillingManager mBillingManager;
 
     private InterstitialAd mInterstitialAd = null;
 
@@ -268,27 +268,27 @@ public class IntroActivity extends AppCompatActivity {
     }
 
     //인앱
-    private void initQueryBilling() {
-        mBillingManager = new BillingManager(this);
-        mBillingManager.setOnQueryInventoryItemListener(new BillingManager.OnQueryInventoryItemListener() {
-            @Override
-            public void onPremiumVersionUser() {
-//                Toast.makeText(IntroActivity.this, "프리미엄 사용자입니다.", Toast.LENGTH_SHORT).show();
-                CommonUserData.sPremiumState = true;
-                SharedPreferencesUtils.setBoolean(IntroActivity.this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION, true);
-                startAnimationTextView();
-            }
-
-            @Override
-            public void onFreeVersionUser() {
-//                Toast.makeText(IntroActivity.this, "프리 사용자입니다.", Toast.LENGTH_SHORT).show();
-                CommonUserData.sPremiumState = false;
-                SharedPreferencesUtils.setBoolean(IntroActivity.this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION, false);
-                startAnimationTextView();
-            }
-        });
-        mBillingManager.initBillingQueryInventoryItem();
-    }
+//    private void initQueryBilling() {
+//        mBillingManager = new BillingManager(this);
+//        mBillingManager.setOnQueryInventoryItemListener(new BillingManager.OnQueryInventoryItemListener() {
+//            @Override
+//            public void onPremiumVersionUser() {
+////                Toast.makeText(IntroActivity.this, "프리미엄 사용자입니다.", Toast.LENGTH_SHORT).show();
+//                CommonUserData.sPremiumState = true;
+//                SharedPreferencesUtils.setBoolean(IntroActivity.this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION, true);
+//                startAnimationTextView();
+//            }
+//
+//            @Override
+//            public void onFreeVersionUser() {
+////                Toast.makeText(IntroActivity.this, "프리 사용자입니다.", Toast.LENGTH_SHORT).show();
+//                CommonUserData.sPremiumState = false;
+//                SharedPreferencesUtils.setBoolean(IntroActivity.this, CommonSharedPreferencesKey.KEY_PREMIUM_VERSION, false);
+//                startAnimationTextView();
+//            }
+//        });
+//        mBillingManager.initBillingQueryInventoryItem();
+//    }
 
     /**
      * 전면 광고 노출
@@ -361,14 +361,14 @@ public class IntroActivity extends AppCompatActivity {
         Log.d(TAG, "install version code : " + installVersionCode);
 
         if(CommonConfig.sConfigRequiredVersionCode == 0){
-            initQueryBilling();
+            startAnimationTextView();
             return;
         }
 
         if (installVersionCode < CommonConfig.sConfigRequiredVersionCode) {
             showUpdateAlertDialog();
         } else {
-            initQueryBilling();
+            startAnimationTextView();
         }
     }
 
@@ -387,7 +387,7 @@ public class IntroActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                initQueryBilling();
+                startAnimationTextView();
             }
         });
         updateAlert.setMessage(getString(R.string.update_alert_message));
