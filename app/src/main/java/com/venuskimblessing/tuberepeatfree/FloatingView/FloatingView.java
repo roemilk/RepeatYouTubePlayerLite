@@ -281,19 +281,19 @@ public class FloatingView extends RelativeLayout {
         });
         mPlayerUIController.addView(mZoomImageView);
 
-        mPlayListImageView = new ImageView(mContext);
-        mPlayListImageView.setImageResource(R.drawable.ic_playlist_play_white_24dp);
-        LinearLayout.LayoutParams playListParmas = new LinearLayout.LayoutParams(width, height);
-        mPlayListImageView.setLayoutParams(playListParmas);
-        mPlayListImageView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "PlayList 띄우기");
-                Toast.makeText(mContext, "플레이리스트 창 출력", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-        mPlayerUIController.addView(mPlayListImageView);
+//        mPlayListImageView = new ImageView(mContext);
+//        mPlayListImageView.setImageResource(R.drawable.ic_playlist_play_white_24dp);
+//        LinearLayout.LayoutParams playListParmas = new LinearLayout.LayoutParams(width, height);
+//        mPlayListImageView.setLayoutParams(playListParmas);
+//        mPlayListImageView.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Log.d(TAG, "PlayList 띄우기");
+//                Toast.makeText(mContext, "플레이리스트 창 출력", Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
+//        mPlayerUIController.addView(mPlayListImageView);
 
         mTimeTextView = new TextView(mContext);
         int marginRight = (int) UIConvertUtils.convertDpToPixel(10, mContext);
