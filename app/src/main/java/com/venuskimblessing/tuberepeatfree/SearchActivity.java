@@ -187,6 +187,8 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
         startPlayYouTubeShare(getIntent());
         Log.d(TAG, "테스트1212133332");
         Toast.makeText(this, "테스트 마스터 브런치111", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "마스터 브런치 개발");
+
     }
 
     private void initView() {
