@@ -189,6 +189,7 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
         Toast.makeText(this, "테스트 마스터 브런치111", Toast.LENGTH_SHORT).show();
 
         Log.d(TAG, "Develop 브런치");
+        Log.d(TAG, "develop 브런치 개발 완료");
     }
 
     private void initView() {
