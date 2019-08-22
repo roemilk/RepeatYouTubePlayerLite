@@ -185,8 +185,9 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
         initRetrofit();
         loadPopularContentsList();
         startPlayYouTubeShare(getIntent());
-    }
 
+        Log.d(TAG, "테스트 커밋 로그1");
+    }
     private void initView() {
         mSnackBarLay = (CoordinatorLayout) findViewById(R.id.search_snackBar_lay);
         mBannerLay = (LinearLayout) findViewById(R.id.player_banner_lay);
