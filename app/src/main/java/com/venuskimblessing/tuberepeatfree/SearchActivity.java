@@ -190,6 +190,9 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
         Log.d(TAG, "마스터 브런치 개발");
         Log.d(TAG, "마스터 브런치 개발중");
 
+
+        Log.d(TAG, "Develop 브런치");
+        Log.d(TAG, "develop 브런치 개발 완료");
     }
 
     private void initView() {
