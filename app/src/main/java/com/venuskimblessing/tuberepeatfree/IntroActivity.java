@@ -201,11 +201,15 @@ public class IntroActivity extends AppCompatActivity {
 //        CommonConfig.sConfigRewardRemoveAllAdSate = true; //테스트 코드
         CommonConfig.sConfigFacebookShareState = mFirebaseRemoteConfig.getBoolean(CommonConfig.KEY_FACEBOOK_SHARE);
         String requiredversionCode = mFirebaseRemoteConfig.getString(CommonConfig.KEY_REQUIRED_VERSION);
-        CommonConfig.sConfigRequiredVersionCode = Integer.valueOf(requiredversionCode);
+        try{
+            CommonConfig.sConfigRequiredVersionCode = Integer.valueOf(requiredversionCode);
+        }catch(NumberFormatException e){
+            CommonConfig.sConfigRequiredVersionCode = 0;
+        }
 
-        Log.d(TAG, "remoteconfig reward_ad : " + CommonConfig.sConfigRewardRemoveAllAdSate);
-        Log.d(TAG, "remoteconfig facebook share : " + CommonConfig.sConfigFacebookShareState);
-        Log.d(TAG, "remoteconfig required version : " + CommonConfig.sConfigRequiredVersionCode);
+//        Log.d(TAG, "remoteconfig reward_ad : " + CommonConfig.sConfigRewardRemoveAllAdSate);
+//        Log.d(TAG, "remoteconfig facebook share : " + CommonConfig.sConfigFacebookShareState);
+//        Log.d(TAG, "remoteconfig required version : " + CommonConfig.sConfigRequiredVersionCode);
 
         checkRequierdVersion();
     }
