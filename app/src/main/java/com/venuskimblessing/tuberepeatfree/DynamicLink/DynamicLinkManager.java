@@ -75,7 +75,7 @@ public class DynamicLinkManager {
                 .setDomainUriPrefix("https://tuberepeatfree.page.link/")
                 .setAndroidParameters(
                         new DynamicLink.AndroidParameters.Builder()
-                                .setMinimumVersion(14).build()) //설치된 앱의 버전이 4버전 이하일 경우는 설치페이지로 보냄 4 밑의 버전은 다이나믹링크가 구현되어 있지 않아 동작하지 않기 때문임..
+                                .setMinimumVersion(1).build()) //설치된 앱의 버전이 4버전 이하일 경우는 설치페이지로 보냄 4 밑의 버전은 다이나믹링크가 구현되어 있지 않아 동작하지 않기 때문임..
                 // Set parameters
                 // ...
                 .buildShortDynamicLink()
