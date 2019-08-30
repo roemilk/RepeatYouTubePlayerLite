@@ -75,6 +75,8 @@ public class IntroActivity extends AppCompatActivity {
         mLineTextView = (FadeTextView) findViewById(R.id.intro_textView);
         initRemoteConfig();
         fetch();
+
+        //마스터 브랜치
     }
 
     @Override
