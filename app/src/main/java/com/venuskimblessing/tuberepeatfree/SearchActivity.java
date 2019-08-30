@@ -305,12 +305,6 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
     }
 
     private void initPremiumUi() {
-        if (CommonUserData.sPremiumState) {
-            mPremiumButton.setVisibility(View.GONE);
-        } else {
-            mPremiumButton.setVisibility(View.VISIBLE);
-        }
-
         if (CommonUserData.sPremiumState || CommonUserData.sRemoveAllAd) {
             mBannerLay.setVisibility(View.GONE);
         } else {
@@ -672,6 +666,19 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
                 getString(R.string.share_title)));
     }
 
+    /**
+     * 친구에게 앱을 공유한다.
+     */
+    private void shareApp(){
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=com.venuskimblessing.tuberepeatfree");
+//        sendIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.invitation_title));
+        sendIntent.setType("text/plain");
+        startActivity(Intent.createChooser(sendIntent,
+                getString(R.string.share_title)));
+    }
+
 
     /**
      * 구글 애널리틱스에 로그를 남깁니다.
@@ -834,7 +841,8 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
 //                DialogCommon dialogInvitation = new DialogCommon(this, R.style.custom_dialog_fullScreen);
 //                dialogInvitation.setOnClickListener(this);
 //                dialogInvitation.show();
-                inviteFriends();
+//                inviteFriends();
+                shareApp();
                 break;
             case R.id.dialog_common_one_button:
 //                onInviteClicked();

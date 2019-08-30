@@ -59,7 +59,7 @@
             android:layout_alignWithParentIfMissing="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
-            android:layout_toLeftOf="@+id/search_premium_button"
+            android:layout_toLeftOf="@+id/search_invite_button"
             android:background="@drawable/ic_sort_white_24dp"
             android:visibility="visible" />
 
@@ -71,17 +71,17 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
             android:background="@drawable/ic_favorite_white_24dp"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/search_invite_button"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
-            android:layout_toLeftOf="@+id/search_recomment_button"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
             android:background="@drawable/ic_share_white_24dp"
-            android:visibility="gone" />
+            android:visibility="visible" />
     </RelativeLayout>
 
     <RelativeLayout

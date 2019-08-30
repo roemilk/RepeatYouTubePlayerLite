@@ -207,12 +207,8 @@ public class IntroActivity extends AppCompatActivity {
             CommonConfig.sConfigRequiredVersionCode = Integer.valueOf(requiredversionCode);
         }catch(NumberFormatException e){
             CommonConfig.sConfigRequiredVersionCode = 0;
+            checkRequierdVersion();
         }
-
-//        Log.d(TAG, "remoteconfig reward_ad : " + CommonConfig.sConfigRewardRemoveAllAdSate);
-//        Log.d(TAG, "remoteconfig facebook share : " + CommonConfig.sConfigFacebookShareState);
-//        Log.d(TAG, "remoteconfig required version : " + CommonConfig.sConfigRequiredVersionCode);
-
         checkRequierdVersion();
     }
 
