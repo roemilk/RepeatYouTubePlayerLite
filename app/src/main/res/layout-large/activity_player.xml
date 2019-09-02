@@ -36,6 +36,15 @@
             android:visibility="gone" />
 
         <Button
+            android:id="@+id/player_top_alarm_button"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/player_top_batterySaving_button"
+            android:background="@drawable/ic_alarm_white_24dp" />
+
+        <Button
             android:id="@+id/player_top_batterySaving_button"
             android:layout_width="28dp"
             android:layout_height="28dp"

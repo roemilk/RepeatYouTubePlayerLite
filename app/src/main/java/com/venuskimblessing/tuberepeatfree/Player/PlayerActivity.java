@@ -56,6 +56,7 @@ import com.venuskimblessing.tuberepeatfree.Dialog.DialogPickerCount;
 import com.venuskimblessing.tuberepeatfree.Dialog.DialogPickerTime;
 import com.venuskimblessing.tuberepeatfree.Dialog.DialogPlayList;
 import com.venuskimblessing.tuberepeatfree.Dialog.DialogPro;
+import com.venuskimblessing.tuberepeatfree.Dialog.DialogTimer;
 import com.venuskimblessing.tuberepeatfree.DynamicLink.DynamicLinkManager;
 import com.venuskimblessing.tuberepeatfree.FirebaseUtils.LogUtils;
 import com.venuskimblessing.tuberepeatfree.FloatingView.FloatingManager;
@@ -121,7 +122,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     //Top Menu
     private Button mHelpButton, mSearchButton, mBackButton, mFullscreenButton, mLockButton,
             mPlayListButton, mPopupButton, mShareButton, mPrevPlayButton, mNextPlayButton,
-            mPlayButton, mReplayButton, mForwadButton, mBatterSavingButton;
+            mPlayButton, mReplayButton, mForwadButton, mBatterSavingButton, mAlarmButton;
     private TextView mTopCountTextView;
 
     //Bottom Menu
@@ -273,6 +274,9 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
         mBatterSavingButton = (Button) findViewById(R.id.player_top_batterySaving_button);
         mBatterSavingButton.setOnClickListener(this);
+
+        mAlarmButton = (Button) findViewById(R.id.player_top_alarm_button);
+        mAlarmButton.setOnClickListener(this);
 
         initRangeSeekBar();
         initPickerTime();
@@ -867,6 +871,10 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                     intent.putExtra(LoadingActivity.TYPE_KEY, LoadingActivity.TYPE_FULL_AD);
                     startActivityForResult(intent, REQ_CODE_REWARD_FINISH_BATTERYSAVING);
                 }
+                break;
+            case R.id.player_top_alarm_button:
+                DialogTimer dialogTimer = new DialogTimer(this, R.style.custom_dialog_fullScreen);
+                dialogTimer.show();
                 break;
         }
     }
