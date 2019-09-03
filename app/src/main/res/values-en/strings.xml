@@ -215,4 +215,8 @@ It is your very smart choice.\n\nPRO benefits \n
     <string name="update_alert_message">The latest version has been updated.\nDo you want to update now?</string>
 
     <string name="facebook_app_id">2346907598897007</string>
+
+    <!-- alarm -->
+    <string name="timer_hint">Sleep Timer Mode...</string>
+    <string name="timer_unlock_hint">Slide To Timer End</string>
 </resources>

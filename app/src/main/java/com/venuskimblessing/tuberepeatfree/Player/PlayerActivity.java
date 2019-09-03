@@ -277,6 +277,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
         mAlarmButton = (Button) findViewById(R.id.player_top_alarm_button);
         mAlarmButton.setOnClickListener(this);
+//        mAlarmButton.setVisibility(View.GONE);
 
         initRangeSeekBar();
         initPickerTime();

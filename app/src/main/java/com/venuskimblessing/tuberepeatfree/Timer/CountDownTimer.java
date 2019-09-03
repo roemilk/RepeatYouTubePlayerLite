@@ -1,5 +1,7 @@
 package com.venuskimblessing.tuberepeatfree.Timer;
 
+import android.util.Log;
+
 import com.venuskimblessing.tuberepeatfree.Common.CommonUserData;
 
 import java.util.Timer;
@@ -17,6 +19,7 @@ public class CountDownTimer {
 
     public interface OnCountDownTimerCallbackListener{
         void onTimerEnd();
+        void onTimerCount(int count);
     }
 
     public CountDownTimer() { }
@@ -31,9 +34,9 @@ public class CountDownTimer {
         mTimerTask = new TimerTask() {
             @Override
             public void run() {
-//                Log.d(TAG, "count : " + mCount);
+                Log.d(TAG, "timer count : " + mCount);
                 if(mCount <= 0){
-                    CommonUserData.sRemoveAllAd = false;
+//                    CommonUserData.sRemoveAllAd = false;
                     mTimerTask.cancel();
                     mTimer.cancel();
                     mCount = 0;
@@ -45,10 +48,17 @@ public class CountDownTimer {
                     }
                 }else{
                     mCount--;
+                    mListener.onTimerCount(mCount);
                 }
             }
         };
         mTimer = new Timer();
         mTimer.schedule(mTimerTask, 0, 1000);
+    }
+
+    public void stopTimer(){
+        if(mTimerTask != null){
+            mTimerTask.cancel();
+        }
     }
 }

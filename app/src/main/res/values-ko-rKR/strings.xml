@@ -217,4 +217,8 @@
 
     <!-- 페이스북 디벨로퍼 AppId -->
     <string name="facebook_app_id">2346907598897007</string>
+
+    <!-- alarm -->
+    <string name="timer_hint">슬립 타이머 모드 동작중...</string>
+    <string name="timer_unlock_hint">밀어서 타이머 종료</string>
 </resources>

@@ -1207,14 +1207,14 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
                     Toast.makeText(SearchActivity.this, getString(R.string.reward_allRemoveAd_success), Toast.LENGTH_SHORT).show();
                     CommonUserData.sRemoveAllAd = true;
                     mBannerLay.setVisibility(View.GONE);
-                    TimerSington.getCountDownTimerInstance().startTimer(CountDownTimer.MAX_COUNT, new CountDownTimer.OnCountDownTimerCallbackListener() {
-                        @Override
-                        public void onTimerEnd() {
-                            if (mSnackBar != null) {
-//                                showRewardSnackBar();
-                            }
-                        }
-                    });
+//                    TimerSington.getCountDownTimerInstance().startTimer(CountDownTimer.MAX_COUNT, new CountDownTimer.OnCountDownTimerCallbackListener() {
+//                        @Override
+//                        public void onTimerEnd() {
+//                            if (mSnackBar != null) {
+////                                showRewardSnackBar();
+//                            }
+//                        }
+//                    });
                 }
 
                 @Override
