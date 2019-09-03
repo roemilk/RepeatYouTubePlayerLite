@@ -181,7 +181,7 @@
     <string name="premium_text3">계속 업데이트되는 프리미엄 전용 기능들</string>
     <string name="premium_text4">한번의 구매로 평생 프리미엄 회원</string>
     <string name="premium_upgrade">프리미엄 업그레이드</string>
-    <string name="premium_upgrade_sale">50% 할인 업그레이드</string>
+    <string name="premium_upgrade_sale">업그레이드</string>
 
     <!-- buy result message -->
     <string name="buy_success">축하 합니다!\n프리미엄 버전으로 업그레이드되었습니다.</string>
@@ -207,7 +207,7 @@
     <string name="reward_allRemoveAd_remove">제거하기</string>
 
     <!-- buy premium -->
-    <string name="snack_premium_hint">광고 없는 프리미엄 무료 체험하기</string>
+    <string name="snack_premium_hint">광고 없는 프리미엄 업그레이드</string>
     <string name="snack_premium_details">자세히</string>
 
     <!-- update alert dialog -->

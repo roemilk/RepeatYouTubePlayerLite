@@ -183,7 +183,7 @@ It is your very smart choice.\n\nPRO benefits\n
     <string name="premium_text3">Continued new premium-only feature updates</string>
     <string name="premium_text4">A lifetime premium member with one purchase</string>
     <string name="premium_upgrade">Premium Upgrade</string>
-    <string name="premium_upgrade_sale">50% Sale Upgrade</string>
+    <string name="premium_upgrade_sale">Upgrade</string>
 
     <!-- buy result message -->
     <string name="buy_success">Congratulations!\n\nNow upgraded to the premium version.</string>

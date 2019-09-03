@@ -93,7 +93,7 @@ public class LoadingActivity extends AppCompatActivity implements RewardedVideoA
      */
     private void loadFullAd() {
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(CommonApiKey.KEY_ADMOB_FULL_UNIT);
+        mInterstitialAd.setAdUnitId(CommonApiKey.KEY_ADMOB_INTRO_FULL_UNIT);
         mInterstitialAd.setAdListener(adListener);
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
     }

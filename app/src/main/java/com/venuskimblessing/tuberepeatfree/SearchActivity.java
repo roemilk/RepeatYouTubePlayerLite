@@ -179,14 +179,12 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
         initView();
         if (CommonUserData.sPremiumState == false || CommonUserData.sRemoveAllAd == false) {
             loadBanner();
-            initRewardAd();
+//            initRewardAd();
         }
         initRateThisApp();
         initRetrofit();
         loadPopularContentsList();
         startPlayYouTubeShare(getIntent());
-
-        //디벨로프 브랜치
     }
 
     private void initView() {
@@ -225,11 +223,11 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
                     } else {
                         if (mSnackBar != null) {
                             if (!mSnackBar.isShown()) {
-                                if (CommonUserData.sRemoveAllAd) {
-                                    showCountTimeSnackBar();
-                                } else {
+//                                if (CommonUserData.sRemoveAllAd) {
+//                                    showCountTimeSnackBar();
+//                                } else {
                                     showSnackBar();
-                                }
+//                                }
                             }
                         } else {
                             showSnackBar();
@@ -276,23 +274,23 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
     }
 
     private void showSnackBar() {
-        if (CommonConfig.sConfigRewardRemoveAllAdSate) {
-            showRewardSnackBar();
-        } else {
+//        if (CommonConfig.sConfigRewardRemoveAllAdSate) {
+//            showRewardSnackBar();
+//        } else {
             showBuyPremiumSnackBar();
-        }
+//        }
     }
 
-    private void showRewardSnackBar() {
-        mSnackBar = Snackbar.make(mSnackBarLay, getString(R.string.reward_allRemoveAd_hint), Snackbar.LENGTH_INDEFINITE);
-        mSnackBar.setAction(getString(R.string.reward_allRemoveAd_remove), new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showReward();
-            }
-        });
-        mSnackBar.show();
-    }
+//    private void showRewardSnackBar() {
+//        mSnackBar = Snackbar.make(mSnackBarLay, getString(R.string.reward_allRemoveAd_hint), Snackbar.LENGTH_INDEFINITE);
+//        mSnackBar.setAction(getString(R.string.reward_allRemoveAd_remove), new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                showReward();
+//            }
+//        });
+//        mSnackBar.show();
+//    }
 
     private void showBuyPremiumSnackBar() {
         mSnackBar = Snackbar.make(mSnackBarLay, getString(R.string.snack_premium_hint), Snackbar.LENGTH_INDEFINITE);
@@ -993,7 +991,7 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
         Log.d(TAG, "전면 광고 로드..");
         if (checkLoadFullAd()) {
             mInterstitialAd = new InterstitialAd(this);
-            mInterstitialAd.setAdUnitId(CommonApiKey.KEY_ADMOB_FULL_UNIT);
+            mInterstitialAd.setAdUnitId(CommonApiKey.KEY_ADMOB_INTRO_FULL_UNIT);
             mInterstitialAd.setAdListener(adListener);
             mInterstitialAd.loadAd(new AdRequest.Builder().build());
         } else {
@@ -1213,7 +1211,7 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
                         @Override
                         public void onTimerEnd() {
                             if (mSnackBar != null) {
-                                showRewardSnackBar();
+//                                showRewardSnackBar();
                             }
                         }
                     });

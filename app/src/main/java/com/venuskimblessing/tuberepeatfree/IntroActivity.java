@@ -298,7 +298,7 @@ public class IntroActivity extends AppCompatActivity {
     private void loadFullAd() {
         Log.d(TAG, "전면 광고 로드..");
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(CommonApiKey.KEY_ADMOB_FULL_UNIT);
+        mInterstitialAd.setAdUnitId(CommonApiKey.KEY_ADMOB_INTRO_FULL_UNIT);
         mInterstitialAd.setAdListener(adListener);
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
     }
