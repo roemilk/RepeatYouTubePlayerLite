@@ -875,7 +875,19 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 break;
             case R.id.player_top_alarm_button:
                 DialogTimer dialogTimer = new DialogTimer(this, R.style.custom_dialog_fullScreen);
+                dialogTimer.setOnPlayStateListener(new DialogTimer.OnPlayStateListener() {
+                    @Override
+                    public void playVideo() {
+                        mYouTubePlayer.play();
+                    }
+
+                    @Override
+                    public void pauseVideo() {
+                        mYouTubePlayer.pause();
+                    }
+                });
                 dialogTimer.show();
+                mYouTubePlayer.pause();
                 break;
         }
     }

@@ -1,7 +1,9 @@
 package com.venuskimblessing.tuberepeatfree.Dialog;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -44,7 +46,12 @@ public class DialogTimer extends Dialog implements View.OnClickListener {
     private StringBuffer mTimeStringBuffer = new StringBuffer();
     private int mTimerSecResult = 0;
 
+    private OnPlayStateListener mOnPlayStateListener = null;
 
+    public interface OnPlayStateListener{
+        void playVideo();
+        void pauseVideo();
+    }
 
     public DialogTimer(@NonNull Context context) {
         super(context);
@@ -62,6 +69,10 @@ public class DialogTimer extends Dialog implements View.OnClickListener {
         super(context, cancelable, cancelListener);
         this.mContext = context;
         init();
+    }
+
+    public void setOnPlayStateListener(OnPlayStateListener listener){
+        this.mOnPlayStateListener = listener;
     }
 
     private void init() {
@@ -89,7 +100,7 @@ public class DialogTimer extends Dialog implements View.OnClickListener {
                     //타이머 종료
                     stopTimer();
                     unSavingMode();
-                    showInputTimerLay();
+                    dismiss();
                 }
             }
         });
@@ -103,7 +114,6 @@ public class DialogTimer extends Dialog implements View.OnClickListener {
                 public void onClick(View view){
                     // your click code here
                     String number = (String)container.getTag();
-                    Log.d(TAG, "number : " + number);
 
                     if(number.equals("-1")){ //취소
                         dismiss();
@@ -112,7 +122,7 @@ public class DialogTimer extends Dialog implements View.OnClickListener {
                         resultTime();
                         showResultTimerLay();
                         startTimer();
-                        Log.d(TAG, "타이머 시간을 초로 환산한 결과 : " + mTimerSecResult);
+                        mOnPlayStateListener.playVideo();
                     }else { //시간연산
                         calTime(number);
                     }
@@ -221,19 +231,31 @@ public class DialogTimer extends Dialog implements View.OnClickListener {
             @Override
             public void onTimerEnd() {
                 //앱 종료
-                Toast.makeText(mContext, "앱을 종료합니다.", Toast.LENGTH_SHORT).show();
+                goHome();
             }
 
             @Override
             public void onTimerCount(int count) {
-                String hms = MediaUtils.getSecToHMS(count);
-                mCountTextView.setText(hms);
+                final String hms = MediaUtils.getSecToHMS(count);
+                ((Activity)mContext).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mCountTextView.setText(hms);
+                    }
+                });
             }
         });
     }
 
     private void stopTimer(){
         TimerSington.getCountDownTimerInstance().stopTimer();
+    }
+
+    private void goHome(){
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mContext.startActivity(startMain);
     }
 
     private void blink() {

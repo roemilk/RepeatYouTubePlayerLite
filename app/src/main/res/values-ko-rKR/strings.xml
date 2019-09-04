@@ -219,6 +219,10 @@
     <string name="facebook_app_id">2346907598897007</string>
 
     <!-- alarm -->
-    <string name="timer_hint">슬립 타이머 모드 동작중...</string>
+    <string name="timer_title">잠자기 타이머</string>
+    <string name="timer_desc">지정한 시간뒤에 앱이 자동종료됩니다.</string>
+    <string name="timer_hint">잠자기 모드 동작중...</string>
     <string name="timer_unlock_hint">밀어서 타이머 종료</string>
+    <string name="timer_start">시작</string>
+    <string name="timer_cancel">취소</string>
 </resources>

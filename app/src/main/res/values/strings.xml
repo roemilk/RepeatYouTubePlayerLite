@@ -220,6 +220,10 @@ It is your very smart choice.\n\nPRO benefits\n
     <string name="facebook_app_id">2346907598897007</string>
 
     <!-- alarm -->
+    <string name="timer_title">Sleep Timer</string>
+    <string name="timer_desc">The app will automatically shut down after the specified time.</string>
     <string name="timer_hint">Sleep Timer Mode...</string>
     <string name="timer_unlock_hint">Slide To Timer End</string>
+    <string name="timer_start">Start</string>
+    <string name="timer_cancel">Cancel</string>
 </resources>
