@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.applovin.sdk.AppLovinSdk;
 import com.github.florent37.materialtextfield.MaterialTextField;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -176,6 +177,7 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         MobileAds.initialize(this, CommonApiKey.KEY_ADMOB_APP_ID);
+        AppLovinSdk.initializeSdk(this);
         initView();
         if (CommonUserData.sPremiumState == false || CommonUserData.sRemoveAllAd == false) {
             loadBanner();
