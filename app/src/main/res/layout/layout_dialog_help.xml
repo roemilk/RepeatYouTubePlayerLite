@@ -96,10 +96,11 @@
             android:background="#BDBDBD"></View>
 
         <Button
-            android:id="@+id/help_instagram_button"
+            android:id="@+id/help_send_email_button"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="#FFFFFF"
+            android:visibility="gone"
             android:gravity="center"
             android:text="@string/dialog_help_instagram"
             android:textColor="#757575" />
@@ -107,6 +108,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:visibility="gone"
             android:background="#BDBDBD"></View>
 
         <Button

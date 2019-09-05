@@ -7,16 +7,22 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 
+import com.applovin.sdk.AppLovinPrivacySettings;
+import com.applovin.sdk.AppLovinSdk;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.AdapterStatus;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -38,6 +44,8 @@ import com.venuskimblessing.tuberepeatfree.Utils.SoftKeybordManager;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Iterator;
+import java.util.Map;
 
 public class IntroActivity extends AppCompatActivity {
     public static final String TAG = "IntroActivity";
@@ -73,10 +81,25 @@ public class IntroActivity extends AppCompatActivity {
             getShareIntentData(intent);
         }
         mLineTextView = (FadeTextView) findViewById(R.id.intro_textView);
-        initRemoteConfig();
-        fetch();
+        AppLovinPrivacySettings.setHasUserConsent(true, this);
+        AppLovinPrivacySettings.setIsAgeRestrictedUser(true, this);
 
-        //마스터 브랜치
+        AppLovinSdk.initializeSdk(this);
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+                Log.d(TAG, "onInitializationComplete..");
+                Map map = initializationStatus.getAdapterStatusMap();
+                Iterator<String> keys = map.keySet().iterator();
+                while(keys.hasNext()){
+                    String key = keys.next();
+                    AdapterStatus adapterStatus = (AdapterStatus) map.get(key);
+                    Log.d(TAG, "Adapter key : " + key + "Adapter Status >> Description : " + adapterStatus.getDescription() + "getInitializationState : " + adapterStatus.getInitializationState());
+                }
+                initRemoteConfig();
+                fetch();
+            }
+        });
     }
 
     @Override

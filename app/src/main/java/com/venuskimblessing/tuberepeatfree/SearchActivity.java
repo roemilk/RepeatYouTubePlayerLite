@@ -5,12 +5,20 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.share.Sharer;
+import com.facebook.share.model.ShareHashtag;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -22,7 +30,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.applovin.sdk.AppLovinSdk;
 import com.github.florent37.materialtextfield.MaterialTextField;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -49,6 +56,7 @@ import com.venuskimblessing.tuberepeatfree.Common.CommonUserData;
 import com.venuskimblessing.tuberepeatfree.Common.IntentAction;
 import com.venuskimblessing.tuberepeatfree.Common.IntentKey;
 import com.venuskimblessing.tuberepeatfree.Dialog.DialogEnding;
+import com.venuskimblessing.tuberepeatfree.Dialog.DialogHelp;
 import com.venuskimblessing.tuberepeatfree.Dialog.DialogInfo;
 import com.venuskimblessing.tuberepeatfree.Dialog.DialogPlayList;
 import com.venuskimblessing.tuberepeatfree.Dialog.DialogRecommend;
@@ -61,8 +69,6 @@ import com.venuskimblessing.tuberepeatfree.Player.PlayerActivity;
 import com.venuskimblessing.tuberepeatfree.Retrofit.RetrofitCommons;
 import com.venuskimblessing.tuberepeatfree.Retrofit.RetrofitManager;
 import com.venuskimblessing.tuberepeatfree.Retrofit.RetrofitService;
-import com.venuskimblessing.tuberepeatfree.Timer.CountDownTimer;
-import com.venuskimblessing.tuberepeatfree.Timer.TimerSington;
 import com.venuskimblessing.tuberepeatfree.Utils.MediaUtils;
 import com.venuskimblessing.tuberepeatfree.Utils.SharedPreferencesUtils;
 import com.venuskimblessing.tuberepeatfree.Utils.SoftKeybordManager;
@@ -177,12 +183,8 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         MobileAds.initialize(this, CommonApiKey.KEY_ADMOB_APP_ID);
-        AppLovinSdk.initializeSdk(this);
         initView();
-        if (CommonUserData.sPremiumState == false || CommonUserData.sRemoveAllAd == false) {
-            loadBanner();
-//            initRewardAd();
-        }
+        loadBanner();
         initRateThisApp();
         initRetrofit();
         loadPopularContentsList();
@@ -257,6 +259,11 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
                 }
             }
         });
+    }
+
+    private void showHelp(){
+        DialogHelp dialogHelp = new DialogHelp(this, R.style.custom_dialog_fullScreen);
+        dialogHelp.show();
     }
 
     private void showCountTimeSnackBar() {
@@ -844,7 +851,8 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
 //                dialogInvitation.setOnClickListener(this);
 //                dialogInvitation.show();
 //                inviteFriends();
-                shareApp();
+//                shareApp();
+                showHelp();
                 break;
             case R.id.dialog_common_one_button:
 //                onInviteClicked();

@@ -1,7 +1,7 @@
 package com.venuskimblessing.tuberepeatfree.Interface;
 
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.ItemTouchHelper;
 
 public class PlayListItemTouchHelperCallback extends ItemTouchHelper.Callback{
     private final String TAG = "PlayListItemTouchHelperCallback";

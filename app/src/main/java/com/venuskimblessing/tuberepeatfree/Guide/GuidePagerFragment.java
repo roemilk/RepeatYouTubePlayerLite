@@ -2,7 +2,7 @@ package com.venuskimblessing.tuberepeatfree.Guide;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +10,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+
 import com.bumptech.glide.Glide;
 import com.dd.morphingbutton.MorphingButton;
 import com.venuskimblessing.tuberepeatfree.GuideActivity;
 import com.venuskimblessing.tuberepeatfree.R;
 
-public class GuidePagerFragment extends android.support.v4.app.Fragment {
+public class GuidePagerFragment extends Fragment {
     public static final String TAG = "GuidePagerFragment";
 
     private boolean lastPageState = false;

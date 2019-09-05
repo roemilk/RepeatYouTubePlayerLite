@@ -6,8 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +17,6 @@ import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.annotations.NotNull;
 import com.ncorti.slidetoact.SlideToActView;
@@ -158,6 +157,12 @@ public class DialogTimer extends Dialog implements View.OnClickListener {
 
         if(timeStringLength > 3){
             return;
+        }
+
+        if(timeStringLength == 3){
+            if(s.equals("0")){
+                return;
+            }
         }
 
         if(timeStringLength <= 2){

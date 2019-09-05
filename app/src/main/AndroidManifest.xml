@@ -25,8 +25,12 @@
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
 
-        <meta-data android:name="applovin.sdk.key"
-            android:value="HaCwh58bTCrXCPCVDzAT_TU9F6yKL0XrULEzQ7VqSSmUlBvhsBBOqifORDN_isXuNyE6JSTgpvf_GbEhTNceTr" />
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-8974353837020608~8787453295"/>
+
+        <!--<meta-data android:name="applovin.sdk.key"-->
+            <!--android:value="HaCwh58bTCrXCPCVDzAT_TU9F6yKL0XrULEzQ7VqSSmUlBvhsBBOqifORDN_isXuNyE6JSTgpvf_GbEhTNceTr" />-->
 
         <activity
             android:name="com.venuskimblessing.tuberepeatfree.IntroActivity"

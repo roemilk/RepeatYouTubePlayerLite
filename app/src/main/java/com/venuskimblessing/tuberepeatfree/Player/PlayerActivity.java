@@ -51,7 +51,6 @@ import com.venuskimblessing.tuberepeatfree.Common.IntentAction;
 import com.venuskimblessing.tuberepeatfree.Common.IntentKey;
 import com.venuskimblessing.tuberepeatfree.Dialog.DialogBatterySaving;
 import com.venuskimblessing.tuberepeatfree.Dialog.DialogCommon;
-import com.venuskimblessing.tuberepeatfree.Dialog.DialogHelp;
 import com.venuskimblessing.tuberepeatfree.Dialog.DialogPickerCount;
 import com.venuskimblessing.tuberepeatfree.Dialog.DialogPickerTime;
 import com.venuskimblessing.tuberepeatfree.Dialog.DialogPlayList;
@@ -103,7 +102,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     //Request Code
     public final int REQ_CODE_OVERLAY_PERMISSION = 123;
     public final int REQ_CODE_AD_FINISH_FLOATINGWINDOW = 1004;
-    public final int REQ_CODE_REWARD_FINISH_BATTERYSAVING = 1005;
+    public final int REQ_CODE_AD_FINISH_BATTERYSAVING = 1005;
 
     //TYPE
     private final String TYPE_MIME = "text/plain";
@@ -120,7 +119,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     private TimerTask mTimerTask = null;
 
     //Top Menu
-    private Button mHelpButton, mSearchButton, mBackButton, mFullscreenButton, mLockButton,
+    private Button mSearchButton, mBackButton, mFullscreenButton, mLockButton,
             mPlayListButton, mPopupButton, mShareButton, mPrevPlayButton, mNextPlayButton,
             mPlayButton, mReplayButton, mForwadButton, mBatterSavingButton, mAlarmButton;
     private TextView mTopCountTextView;
@@ -201,12 +200,6 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.CONTENT, "PlayerActivity");
         LogUtils.logEvent(this, FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
-
-        mHelpButton = (Button) findViewById(R.id.player_help_button);
-        mHelpButton.setOnClickListener(this);
-
-        mSearchButton = (Button) findViewById(R.id.player_search_button);
-        mSearchButton.setOnClickListener(this);
 
         mBackButton = (Button) findViewById(R.id.player_back_button);
         mBackButton.setOnClickListener(this);
@@ -335,7 +328,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 showPopupFlaotingWindow();
                 return;
             }
-        } else if (requestCode == REQ_CODE_REWARD_FINISH_BATTERYSAVING) {
+        } else if (requestCode == REQ_CODE_AD_FINISH_BATTERYSAVING) {
             if (resultCode == RESULT_OK) {
 //                if (CommonUserData.sRewardUnlockedFeatureBatterSaving) {
                     mDialogBatterySaving = new DialogBatterySaving(this, R.style.custom_dialog_fullScreen);
@@ -542,7 +535,6 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
             mBatterSavingButton.setVisibility(View.GONE);
             mSubFeatureLay.setVisibility(View.GONE);
             mBottomSettingLay.setVisibility(View.GONE);
-            mHelpButton.setVisibility(View.GONE);
             mSearchButton.setVisibility(View.GONE);
             mBackButton.setVisibility(View.GONE);
             mPlayListButton.setVisibility(View.GONE);
@@ -553,7 +545,6 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
             mBatterSavingButton.setVisibility(View.VISIBLE);
             mSubFeatureLay.setVisibility(View.VISIBLE);
             mBottomSettingLay.setVisibility(View.VISIBLE);
-            mHelpButton.setVisibility(View.VISIBLE);
             mSearchButton.setVisibility(View.VISIBLE);
             mBackButton.setVisibility(View.VISIBLE);
             mPlayListButton.setVisibility(View.VISIBLE);
@@ -646,18 +637,6 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 mDialogPickerTime.setType(DialogPickerTime.TYPE_END_TIME);
                 mDialogPickerTime.setData(mYouTubePlayer.getDurationMillis(), mEndTime);
                 mDialogPickerTime.show();
-                break;
-            case R.id.player_help_button:
-                LogUtils.logEvent(this, "feature_help", null);
-                mYouTubePlayer.pause();
-                DialogHelp dialogHelp = new DialogHelp(this, R.style.custom_dialog_fullScreen);
-                dialogHelp.show();
-                break;
-            case R.id.player_search_button:
-                LogUtils.logEvent(this, "feature_search", null);
-                finish();
-                Intent intent = new Intent(this, SearchActivity.class);
-                startActivity(intent);
                 break;
             case R.id.player_back_button:
                 finish();
@@ -772,7 +751,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                     if (CommonUserData.sPremiumState || CommonUserData.sRemoveAllAd) {
                         showPopupFlaotingWindow();
                     } else {
-                        intent = new Intent(this, LoadingActivity.class);
+                        Intent intent = new Intent(this, LoadingActivity.class);
                         intent.putExtra(LoadingActivity.TYPE_KEY, LoadingActivity.TYPE_FULL_AD);
                         startActivityForResult(intent, REQ_CODE_AD_FINISH_FLOATINGWINDOW);
                     }
@@ -844,33 +823,14 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                 }
                 break;
             case R.id.player_top_batterySaving_button:
-//                LogUtils.logEvent(this, "feature_battery_mode", null);
-//                int musicModeLimitCount = SharedPreferencesUtils.getInt(PlayerActivity.this, CommonSharedPreferencesKey.KEY_FEATURE_REWARD_UNLOCK_MUSIC_MODE_COUNT);
-//                boolean overLimitCount = true;
-//                if(musicModeLimitCount >= CommonUserData.MUSIC_MODE_LIMITED_COUNT){ //체험 제한 횟수 초과 여부 체크
-//                    overLimitCount = false;
-//                }
-//
-//                if (CommonUserData.sPremiumState == true || CommonUserData.sRewardUnlockedFeatureBatterSaving == true || overLimitCount == true) {
-//                    if(overLimitCount){
-//                        musicModeLimitCount++;
-//                        SharedPreferencesUtils.setInt(PlayerActivity.this, CommonSharedPreferencesKey.KEY_FEATURE_REWARD_UNLOCK_MUSIC_MODE_COUNT, musicModeLimitCount);
-//                    }
-//                    mDialogBatterySaving = new DialogBatterySaving(this, R.style.custom_dialog_fullScreen);
-//                    mDialogBatterySaving.show();
-//                    updateBatterSavingDialog();
-//                } else {
-//                    showRewardLockedFeatureDialog();
-//                }
-
                 if(CommonUserData.sPremiumState){
                     mDialogBatterySaving = new DialogBatterySaving(this, R.style.custom_dialog_fullScreen);
                     mDialogBatterySaving.show();
                     updateBatterSavingDialog();
                 }else{
-                    intent = new Intent(PlayerActivity.this, LoadingActivity.class);
+                    Intent intent = new Intent(PlayerActivity.this, LoadingActivity.class);
                     intent.putExtra(LoadingActivity.TYPE_KEY, LoadingActivity.TYPE_FULL_AD);
-                    startActivityForResult(intent, REQ_CODE_REWARD_FINISH_BATTERYSAVING);
+                    startActivityForResult(intent, REQ_CODE_AD_FINISH_BATTERYSAVING);
                 }
                 break;
             case R.id.player_top_alarm_button:
@@ -1573,7 +1533,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
                         LogUtils.logEvent(PlayerActivity.this, "feature_reward_button", null);
                         intent = new Intent(PlayerActivity.this, LoadingActivity.class);
                         intent.putExtra(LoadingActivity.TYPE_KEY, LoadingActivity.TYPE_REWARD_AD);
-                        startActivityForResult(intent, REQ_CODE_REWARD_FINISH_BATTERYSAVING);
+                        startActivityForResult(intent, REQ_CODE_AD_FINISH_BATTERYSAVING);
                         break;
                 }
                 dialogCommonLockedFeature.dismiss();

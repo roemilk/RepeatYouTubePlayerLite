@@ -4,10 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+
 import com.andexert.library.RippleView;
 //import com.android.billingclient.api.BillingResult;
 //import com.android.billingclient.api.Purchase;
@@ -19,8 +19,6 @@ import com.venuskimblessing.tuberepeatfree.Common.CommonConfig;
 import com.venuskimblessing.tuberepeatfree.FirebaseUtils.LogUtils;
 //import com.venuskimblessing.tuberepeatfree.Utils.SharedPreferencesUtils;
 import com.venuskimblessing.tuberepeatfree.Utils.SoftKeybordManager;
-
-import java.util.List;
 
 public class BuyPremiumActivity extends Activity implements View.OnClickListener {
     private final String TAG = "BuyPremiumActivity";

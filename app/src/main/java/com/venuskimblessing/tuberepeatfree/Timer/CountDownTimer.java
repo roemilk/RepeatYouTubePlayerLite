@@ -59,6 +59,8 @@ public class CountDownTimer {
     public void stopTimer(){
         if(mTimerTask != null){
             mTimerTask.cancel();
+            mTimerTask = null;
+            mTimer = null;
         }
     }
 }

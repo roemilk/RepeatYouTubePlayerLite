@@ -96,7 +96,7 @@
             android:background="#BDBDBD"></View>
 
         <Button
-            android:id="@+id/help_instagram_button"
+            android:id="@+id/help_send_email_button"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="#FFFFFF"
