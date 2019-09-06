@@ -14,8 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 
-import com.applovin.sdk.AppLovinPrivacySettings;
-import com.applovin.sdk.AppLovinSdk;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
@@ -81,21 +79,10 @@ public class IntroActivity extends AppCompatActivity {
             getShareIntentData(intent);
         }
         mLineTextView = (FadeTextView) findViewById(R.id.intro_textView);
-        AppLovinPrivacySettings.setHasUserConsent(true, this);
-        AppLovinPrivacySettings.setIsAgeRestrictedUser(true, this);
-
-        AppLovinSdk.initializeSdk(this);
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
                 Log.d(TAG, "onInitializationComplete..");
-                Map map = initializationStatus.getAdapterStatusMap();
-                Iterator<String> keys = map.keySet().iterator();
-                while(keys.hasNext()){
-                    String key = keys.next();
-                    AdapterStatus adapterStatus = (AdapterStatus) map.get(key);
-                    Log.d(TAG, "Adapter key : " + key + "Adapter Status >> Description : " + adapterStatus.getDescription() + "getInitializationState : " + adapterStatus.getInitializationState());
-                }
                 initRemoteConfig();
                 fetch();
             }
