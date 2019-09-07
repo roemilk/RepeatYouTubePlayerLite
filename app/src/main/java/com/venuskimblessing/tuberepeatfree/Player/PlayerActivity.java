@@ -119,7 +119,7 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
     private TimerTask mTimerTask = null;
 
     //Top Menu
-    private Button mSearchButton, mBackButton, mFullscreenButton, mLockButton,
+    private Button mBackButton, mFullscreenButton, mLockButton,
             mPlayListButton, mPopupButton, mShareButton, mPrevPlayButton, mNextPlayButton,
             mPlayButton, mReplayButton, mForwadButton, mBatterSavingButton, mAlarmButton;
     private TextView mTopCountTextView;
@@ -535,21 +535,23 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
             mBatterSavingButton.setVisibility(View.GONE);
             mSubFeatureLay.setVisibility(View.GONE);
             mBottomSettingLay.setVisibility(View.GONE);
-            mSearchButton.setVisibility(View.GONE);
+//            mSearchButton.setVisibility(View.GONE);
             mBackButton.setVisibility(View.GONE);
             mPlayListButton.setVisibility(View.GONE);
             mPopupButton.setVisibility(View.GONE);
+            mAlarmButton.setVisibility(View.GONE);
             mFullscreenButton.setVisibility(View.INVISIBLE);
         } else {
             mYouTubePlayer.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
             mBatterSavingButton.setVisibility(View.VISIBLE);
             mSubFeatureLay.setVisibility(View.VISIBLE);
             mBottomSettingLay.setVisibility(View.VISIBLE);
-            mSearchButton.setVisibility(View.VISIBLE);
+//            mSearchButton.setVisibility(View.VISIBLE);
             mBackButton.setVisibility(View.VISIBLE);
             mPlayListButton.setVisibility(View.VISIBLE);
             mPopupButton.setVisibility(View.VISIBLE);
             mFullscreenButton.setVisibility(View.VISIBLE);
+            mAlarmButton.setVisibility(View.VISIBLE);
         }
     }
 
