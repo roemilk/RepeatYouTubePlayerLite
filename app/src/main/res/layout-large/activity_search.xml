@@ -91,6 +91,33 @@
         android:layout_above="@+id/player_banner_lay"
         android:background="#FFFFFF">
 
+        <LinearLayout
+            android:id="@+id/search_trafic_err_lay"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:gravity="center"
+                android:text="@string/api_err" />
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:gravity="center"
+                android:text="@string/api_err_hint" />
+        </LinearLayout>
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/search_recyclerview"
             android:layout_width="wrap_content"

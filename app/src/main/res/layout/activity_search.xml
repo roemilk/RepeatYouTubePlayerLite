@@ -77,8 +77,8 @@
             android:id="@+id/search_invite_button"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
             android:background="@drawable/ic_help_outline_white_24dp"
             android:visibility="visible" />
@@ -87,9 +87,35 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/search_top_lay"
         android:layout_above="@+id/player_banner_lay"
+        android:layout_below="@+id/search_top_lay"
         android:background="#FFFFFF">
+
+        <LinearLayout
+            android:id="@+id/search_trafic_err_lay"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:gravity="center"
+                android:text="@string/api_err" />
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:gravity="center"
+                android:text="@string/api_err_hint" />
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/search_recyclerview"
@@ -109,20 +135,19 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/search_snackBar_lay"
-        android:layout_above="@+id/player_banner_lay"
-        android:layout_alignWithParentIfMissing="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        android:layout_height="wrap_content"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_above="@+id/player_banner_lay"></androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <LinearLayout
         android:id="@+id/player_banner_lay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="0dp"
+        android:layout_alignParentBottom="true"
         android:background="#FFFFFF"
-        android:visibility="visible"
-        android:layout_alignParentBottom="true">
+        android:paddingTop="0dp"
+        android:visibility="visible">
 
         <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
             android:id="@+id/adView"

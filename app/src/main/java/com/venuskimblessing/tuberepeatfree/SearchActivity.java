@@ -117,6 +117,7 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
     //Search Type
     public static final String TYPE_VIDEO = "video";
 
+    private LinearLayout mTraficErrorLay;
     private TextView mEmptyTextView = null;
     private Button mInviteButton, mSortButton, mRecommentButton, mPremiumButton, mPlaylistButton;
     private MaterialTextField mMaterialTextField = null;
@@ -192,6 +193,8 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
     }
 
     private void initView() {
+        mTraficErrorLay = (LinearLayout) findViewById(R.id.search_trafic_err_lay);
+        mTraficErrorLay.setVisibility(View.GONE);
         mSnackBarLay = (CoordinatorLayout) findViewById(R.id.search_snackBar_lay);
         mBannerLay = (LinearLayout) findViewById(R.id.player_banner_lay);
         mEmptyTextView = (TextView) findViewById(R.id.search_empty_textView);
@@ -763,6 +766,7 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
                     }
                     loadSearchContentsList();
                     hideKeyboard();
+//                    Toast.makeText(SearchActivity.this, getString(R.string.api_err), Toast.LENGTH_LONG).show();
                     break;
                 default:
                     // 기본 엔터키 동작
