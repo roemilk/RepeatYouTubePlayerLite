@@ -117,7 +117,7 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
     //Search Type
     public static final String TYPE_VIDEO = "video";
 
-    private LinearLayout mTraficErrorLay;
+    private LinearLayout mTraficErrorLay, mTipLay;
     private TextView mEmptyTextView = null;
     private Button mInviteButton, mSortButton, mRecommentButton, mPremiumButton, mPlaylistButton;
     private MaterialTextField mMaterialTextField = null;
@@ -188,11 +188,12 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
         loadBanner();
         initRateThisApp();
         initRetrofit();
-        loadPopularContentsList();
+//        loadPopularContentsList();
         startPlayYouTubeShare(getIntent());
     }
 
     private void initView() {
+        mTipLay = (LinearLayout) findViewById(R.id.search_tip_lay);
         mTraficErrorLay = (LinearLayout) findViewById(R.id.search_trafic_err_lay);
         mTraficErrorLay.setVisibility(View.GONE);
         mSnackBarLay = (CoordinatorLayout) findViewById(R.id.search_snackBar_lay);
@@ -209,6 +210,7 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
         mSortButton.setOnClickListener(this);
         mRecommentButton = (Button) findViewById(R.id.search_recomment_button);
         mRecommentButton.setOnClickListener(this);
+        mRecommentButton.setVisibility(View.GONE);
         mPremiumButton = (Button) findViewById(R.id.search_premium_button);
         mPremiumButton.setOnClickListener(this);
 
@@ -603,9 +605,10 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
 //                mItems.add(itemsItem);
                 mDurationItems.add(itemsItem);
             }
-        } catch (JSONException e) {
-            Log.d(TAG, "e : " + e.toString());
-            e.printStackTrace();
+        } catch (Exception e) {
+            mTraficErrorLay.setVisibility(View.VISIBLE);
+            Toast.makeText(SearchActivity.this, getString(R.string.api_err), Toast.LENGTH_LONG).show();
+//            e.printStackTrace();
         }
 
         //Duration 정보 가져오기
@@ -780,6 +783,7 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
     private Callback<String> callback = new Callback<String>() {
         @Override
         public void onResponse(Call<String> call, Response<String> response) {
+            mTipLay.setVisibility(View.GONE);
             String result = null;
             try {
                 result = response.body().toString();
@@ -835,6 +839,7 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
                         mLoading = false;
                     }
                 } else { // 네트워크 오류
+                    mTraficErrorLay.setVisibility(View.VISIBLE);
                     Toast.makeText(SearchActivity.this, getString(R.string.error_videos_emptyInfo), Toast.LENGTH_SHORT).show();
                 }
             }

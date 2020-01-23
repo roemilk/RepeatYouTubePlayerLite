@@ -227,7 +227,7 @@ It is your very smart choice.\n\nPRO benefits\n
     <string name="timer_start">Start</string>
     <string name="timer_cancel">Cancel</string>
 
-    <string name="api_err">일일 요청 트래픽 한도가 초과하였습니다.\n검색이 일시적으로 비활성화됩니다.\n자정 12시가 지나면 모든 기능이 복구됩니다.\n불편을 드려 죄송합니다.</string>
-    <string name="api_err_hint">검색 기능이 복구될때까지 유튜브 앱의 원하는 영상에서 공유 기능으로 영상을 유튜브 반복해줘로 가져와서 사용해주시기 바랍니다.</string>
-
+    <string name="api_err">Your daily request traffic limit has been exceeded.\nSearch is temporarily disabled.\nPlease try again later.\nWe apologize for any inconvenience.</string>
+    <string name="api_err_hint">Until the search function is restored, please load the video by sharing in the desired video of the YouTube official app.</string>
+    <string name="search_tip">Useful Tips!\n\nYou can load the video by sharing in the desired video in the official YouTube app.</string>
 </resources>

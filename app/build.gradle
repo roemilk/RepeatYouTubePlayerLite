@@ -7,10 +7,11 @@ android {
         applicationId "com.venuskimblessing.tuberepeatfree"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 12
-        versionName "1.1.1"
+        versionCode 13
+        versionName "1.1.2"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        resConfigs "en", "ko"
     }
 
     //Signing configurations for build variants "release"

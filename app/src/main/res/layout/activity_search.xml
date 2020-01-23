@@ -117,6 +117,23 @@
                 android:text="@string/api_err_hint" />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/search_tip_lay"
+            android:orientation="vertical"
+            android:visibility="visible"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:gravity="center"
+                android:text="@string/search_tip" />
+        </LinearLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/search_recyclerview"
             android:layout_width="wrap_content"
