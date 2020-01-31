@@ -45,6 +45,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
 import com.venuskimblessing.tuberepeatfree.BuyPremiumActivity;
 import com.venuskimblessing.tuberepeatfree.Common.CommonApiKey;
+import com.venuskimblessing.tuberepeatfree.Common.CommonConfig;
 import com.venuskimblessing.tuberepeatfree.Common.CommonSharedPreferencesKey;
 import com.venuskimblessing.tuberepeatfree.Common.CommonUserData;
 import com.venuskimblessing.tuberepeatfree.Common.IntentAction;
@@ -242,6 +243,12 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
 
         mPopupButton = (Button) findViewById(R.id.player_top_popup_button);
         mPopupButton.setOnClickListener(this);
+
+        if(CommonConfig.sPip){
+            mPopupButton.setVisibility(View.VISIBLE);
+        }else{
+            mPopupButton.setVisibility(View.GONE);
+        }
 
         mShareButton = (Button) findViewById(R.id.player_setting_share_button);
         mShareButton.setOnClickListener(this);

@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -70,6 +71,8 @@ public class IntroActivity extends AppCompatActivity {
     //Video
     private String mVideoId = null;
 
+    private static boolean mAdsCompleteStatus = false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,14 +82,19 @@ public class IntroActivity extends AppCompatActivity {
             getShareIntentData(intent);
         }
         mLineTextView = (FadeTextView) findViewById(R.id.intro_textView);
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-                Log.d(TAG, "onInitializationComplete..");
-                initRemoteConfig();
-                fetch();
-            }
-        });
+        if(mAdsCompleteStatus){
+            startAnimationTextView();
+        }else{
+            MobileAds.initialize(this, new OnInitializationCompleteListener() {
+                @Override
+                public void onInitializationComplete(InitializationStatus initializationStatus) {
+                    Log.d(TAG, "onInitializationComplete..");
+                    initRemoteConfig();
+                    fetch();
+                    mAdsCompleteStatus = true;
+                }
+            });
+        }
     }
 
     @Override
@@ -208,6 +216,7 @@ public class IntroActivity extends AppCompatActivity {
      * RemoteConfig Variable setting
      */
     private void setConfig() {
+        CommonConfig.sPip = mFirebaseRemoteConfig.getBoolean(CommonConfig.KEY_PIP);
         CommonConfig.sConfigEventShow = mFirebaseRemoteConfig.getBoolean(CommonConfig.KEY_EVENT_SHOW);
         CommonConfig.sConfigRewardRemoveAllAdSate = mFirebaseRemoteConfig.getBoolean(CommonConfig.KEY_REWARD_REMOVEALLAD);
 //        CommonConfig.sConfigRewardRemoveAllAdSate = true; //테스트 코드

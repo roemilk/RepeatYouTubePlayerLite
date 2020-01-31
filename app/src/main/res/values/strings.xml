@@ -227,7 +227,7 @@ It is your very smart choice.\n\nPRO benefits\n
     <string name="timer_start">Start</string>
     <string name="timer_cancel">Cancel</string>
 
-    <string name="api_err">Your daily request traffic limit has been exceeded.\nSearch is temporarily disabled.\nPlease try again later.\nWe apologize for any inconvenience.</string>
+    <string name="api_err">Search is temporarily blocked from YouTube. I am communicating with YouTube to solve a problem. It will be restored in a few days. We apologize for any inconvenience.</string>
     <string name="api_err_hint">Until the search function is restored, please load the video by sharing in the desired video of the YouTube official app.</string>
     <string name="search_tip">Useful Tips!\n\nYou can load the video by sharing in the desired video in the official YouTube app.</string>
 </resources>

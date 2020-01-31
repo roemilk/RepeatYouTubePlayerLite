@@ -190,6 +190,13 @@ public class SearchActivity extends BaseActivity implements SearchRecyclerViewAd
         initRetrofit();
 //        loadPopularContentsList();
         startPlayYouTubeShare(getIntent());
+
+        //PIP 확인 코드
+        if(CommonConfig.sPip){
+            Log.d(TAG, "pup true..");
+        }else{
+            Log.d(TAG, "pup false..");
+        }
     }
 
     private void initView() {
