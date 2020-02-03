@@ -230,4 +230,9 @@
     <string name="api_err">유튜브로부터 검색 기능이 일시적 차단되었습니다.\n문제를 해결하기 위해 유튜브와\n커뮤니케이션 중입니다.\n몇일내로 복구될 예정입니다.\n불편을 드려 죄송합니다.</string>
     <string name="api_err_hint">검색 기능이 복구될때까지 유튜브 공식 앱의\n원하는 영상에서 공유 하기를 통하여\n영상을 불러와주세요.</string>
     <string name="search_tip">유용한 팁!\n\n유튜브 공식 앱에서 원하는 영상에서\n공유 하기를 하여 영상을\n불러올 수 있습니다.</string>
+
+    <!-- update -->
+    <string name="update_title">2020-02-03 1.1.5 Update</string>
+    <string name="update_message">·플레이어의 음악 감상 모드 버그 수정</string>
+
 </resources>

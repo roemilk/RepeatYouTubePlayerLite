@@ -230,4 +230,8 @@ It is your very smart choice.\n\nPRO benefits\n
     <string name="api_err">Search is temporarily blocked from YouTube. I am communicating with YouTube to solve a problem. It will be restored in a few days. We apologize for any inconvenience.</string>
     <string name="api_err_hint">Until the search function is restored, please load the video by sharing in the desired video of the YouTube official app.</string>
     <string name="search_tip">Useful Tips!\n\nYou can load the video by sharing in the desired video in the official YouTube app.</string>
+
+    <!-- update -->
+    <string name="update_title">2020-02-03 1.1.5 Update</string>
+    <string name="update_message">·Fixed bug with music player in video player</string>
 </resources>

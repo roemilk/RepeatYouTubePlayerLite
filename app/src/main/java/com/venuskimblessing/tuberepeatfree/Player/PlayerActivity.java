@@ -1566,11 +1566,17 @@ public class PlayerActivity extends YouTubeFailureRecoveryActivity implements Vi
         if (mDialogBatterySaving != null) {
             if (mDialogBatterySaving.isShowing()) {
                 String currentTitle = "";
-                if (mPlayType == TYPE_NORMAL) {
-                    currentTitle = mSnippet.title;
-                } else if (mPlayType == TYPE_PLAYLIST) {
-                    currentTitle = mCurrentPlayListData.getTitle();
+
+                if(mSnippet != null){
+                    if (mPlayType == TYPE_NORMAL) {
+                        currentTitle = mSnippet.title;
+                    } else if (mPlayType == TYPE_PLAYLIST) {
+                        currentTitle = mCurrentPlayListData.getTitle();
+                    }
+                }else{
+                    currentTitle = "";
                 }
+
                 String convertStartTime = MediaUtils.getMillSecToHMS(mStartTime);
                 String convertEndTime = MediaUtils.getMillSecToHMS(mEndTime);
                 String time = convertStartTime + " - " + convertEndTime;
